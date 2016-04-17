@@ -7,23 +7,27 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   
   <dependencies>
 
-      <dependency>
+    <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.12</version>
-      </dependency>
+    </dependency>
 	  
-	  <dependency>
+	<dependency>
 
-    <groupId>org.uqbar-project</groupId>
-
-    <artifactId>geodds-xtend</artifactId>
-
-    <version>1.0.0</version>
-
+		<groupId>org.uqbar-project</groupId>
+		<artifactId>geodds-xtend</artifactId>
+		<version>1.0.0</version>
+		
+	</dependency>
+	
+	<dependency>
+		<groupId>joda-time</groupId>
+		<artifactId>joda-time</artifactId>
+		<version>2.9.3</version>
 	</dependency>
 
-   </dependencies>
+  </dependencies>
   
   <build>
     <plugins>
