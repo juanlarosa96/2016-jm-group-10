@@ -23,7 +23,7 @@ public class ParadaColectivo extends POI {
 	public Double condicionDeCercania() {
 		return 0.1;
 	}
-	
+
 	public Boolean contiene(String descripcion) {
 		return super.contiene(descripcion) || (descripcion.contains(linea.toString()));
 	}

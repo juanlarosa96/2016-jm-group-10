@@ -2,16 +2,20 @@ package POI;
 
 import java.util.*;
 import org.joda.time.DateTime;
+import org.uqbar.geodds.Point;
 
 public class Comercio extends POI {
 
 	private List<FranjaHoraria> horarios;
 	private Rubro rubro;
 
-	public Comercio(Rubro unRubro, List<FranjaHoraria> losHorarios) {
+	public Comercio(Rubro unRubro, List<FranjaHoraria> losHorarios, Point posicion, String nombre, Direccion direccion, List<String> etiquetas) {
 		this.rubro = unRubro;
 		this.horarios = losHorarios;
-
+		this.posicion = posicion;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.etiquetas = etiquetas;
 	}
 
 	public Double condicionDeCercania() {
