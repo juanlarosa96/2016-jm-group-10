@@ -5,13 +5,20 @@ import org.joda.time.LocalTime;
 
 public class FranjaHoraria {
 
-	private Integer dia;
+	private Integer diaDeLaSemana;
 	private LocalTime horaApertura;
 	private LocalTime horaCierre;
+	
+	public FranjaHoraria(Integer dia, LocalTime horaApertura, LocalTime horaCierre){
+		
+		this.diaDeLaSemana=dia;
+		this.horaApertura=horaApertura;
+		this.horaCierre=horaCierre;
+	}
 
 	public Boolean estaEnFranjaHoraria(DateTime fecha) {
 
-		if (fecha.getDayOfWeek() == dia) {
+		if (fecha.getDayOfWeek() == diaDeLaSemana) {
 
 			if (isBetween(horaApertura.getMillisOfDay(), horaCierre.getMillisOfDay(), fecha.getMillisOfDay())) {
 				return true;
