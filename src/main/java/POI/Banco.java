@@ -19,6 +19,7 @@ public class Banco extends POI {
 			return false;
 	}
 	
+	@Override
 	public Boolean estasCerca(Point unaPosicion){
 		return comuna.incluyeA(unaPosicion);
 	}

@@ -4,15 +4,9 @@ import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 public abstract class POI {
-	private Point posicion;
-	private String nombre;
-	private Direccion direccion;
-	
-	public POI (Point posicion, String nombre, Direccion direccion){
-		this.posicion=posicion;
-		this.nombre=nombre;
-		this.direccion=direccion;
-	}
+	protected Point posicion;
+	protected String nombre;
+	protected Direccion direccion;
 
 	public boolean distanciaAPoiMenorA(Double distancia, POI poi) {
 
@@ -38,9 +32,9 @@ public abstract class POI {
 	}
 
 	public Boolean estasCerca(Point unaPosicion) {
-		if (posicion.distance(unaPosicion) <= this.condicionDeCercania()) 
+		if (posicion.distance(unaPosicion) <= this.condicionDeCercania())
 			return true;
-		 else
+		else
 			return false;
 	}
 
