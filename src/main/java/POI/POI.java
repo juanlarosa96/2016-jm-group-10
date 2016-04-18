@@ -45,8 +45,8 @@ public abstract class POI {
 		// devuelve la cantidad de kilometros maxima que considera cerca
 		return 0.5;
 	}
-	
-	public Boolean contiene(String descripcion){
-		return true;
+
+	public Boolean contiene(String descripcion) {
+		return (descripcion.contains(nombre) || etiquetas.stream().anyMatch(palabra -> descripcion.contains(palabra)));
 	}
 }
