@@ -26,11 +26,18 @@ public abstract class POI {
 		else
 			return false;
 	}
-	
-	public Boolean estaDisponible(DateTime momento){
+
+	public Boolean estaDisponible(DateTime momento) {
 		return true;
 	}
-	
+
+	public Boolean estasCerca(Point unaPosicion) {
+		if (posicion.distance(unaPosicion) <= this.condicionDeCercania()) 
+			return true;
+		 else
+			return false;
+	}
+
 	public Double condicionDeCercania() {
 		// devuelve la cantidad de kilometros maxima que considera cerca
 

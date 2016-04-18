@@ -23,11 +23,10 @@ public class Dispositivo {
 	public boolean poiDisponible(POI poi, DateTime momento) {
 		return poi.estaDisponible(momento);
 	}
-	/*
-	 * boolean estoyCercaDe(POI poi) {
-	 * 
-	 * 
-	 * }
-	 */
+
+	public Boolean estoyCercaDe(POI poi){
+		return poi.estasCerca(posicion);
+		
+	}
 
 }
