@@ -8,6 +8,12 @@ public class Servicio {
 
 	String nombre;
 	List<FranjaHoraria> horarios;
+	
+	public Servicio(String nombre,List<FranjaHoraria> horarios){
+		this.nombre=nombre;
+		this.horarios=horarios;
+	}
+	
 
 	public Boolean nombreSimilarA(String unNombre) {
 		return nombre.contains(unNombre);
