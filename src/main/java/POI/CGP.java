@@ -8,8 +8,9 @@ import org.uqbar.geodds.Point;
 public class CGP extends POI {
 	List<Servicio> servicios;
 	Comuna comuna;
-	
-	public CGP(List<Servicio> servicios, Comuna comuna, Point posicion, String nombre, Direccion direccion, List<String> etiquetas){
+
+	public CGP(List<Servicio> servicios, Comuna comuna, Point posicion, String nombre, Direccion direccion,
+			List<String> etiquetas) {
 		this.servicios = servicios;
 		this.comuna = comuna;
 		this.posicion = posicion;
@@ -18,7 +19,7 @@ public class CGP extends POI {
 		this.etiquetas = etiquetas;
 	}
 
-	public boolean estaDisponibleServicio(String nombreServicio,DateTime fecha) {
+	public boolean estaDisponibleServicio(String nombreServicio, DateTime fecha) {
 		Servicio servicio = buscarServicio(nombreServicio);
 
 		if (servicio != null)
@@ -45,5 +46,8 @@ public class CGP extends POI {
 	public Boolean estasCerca(Point unaPosicion) {
 		return comuna.incluyeA(unaPosicion);
 	}
-
+	
+	public Boolean contiene(String descripcion) {
+		return super.contiene(descripcion) || servicios.stream().anyMatch(servicio -> servicio.nombreSimilarA(descripcion));
+	}
 }
