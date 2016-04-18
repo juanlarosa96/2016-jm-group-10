@@ -40,7 +40,6 @@ public abstract class POI {
 
 	public Double condicionDeCercania() {
 		// devuelve la cantidad de kilometros maxima que considera cerca
-
 		return 0.5;
 	}
 }
