@@ -1,6 +1,7 @@
 package POI;
 
 import org.joda.time.DateTime;
+import org.uqbar.geodds.Point;
 
 public class Banco extends POI {
 	
@@ -14,5 +15,9 @@ public class Banco extends POI {
 		} else
 			return false;
 	}
-
+	
+	/*public Boolean estasCerca(Point unaPosicion){
+		return .isInside(unaPosicion);
+	}
+	*/
 }
