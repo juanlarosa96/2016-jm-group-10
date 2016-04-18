@@ -2,6 +2,7 @@ package POI;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 public class CGP extends POI {
@@ -17,11 +18,11 @@ public class CGP extends POI {
 		this.etiquetas = etiquetas;
 	}
 
-	public boolean estaDisponibleServicio(String nombreServicio) {
+	public boolean estaDisponibleServicio(String nombreServicio,DateTime fecha) {
 		Servicio servicio = buscarServicio(nombreServicio);
 
 		if (servicio != null)
-			return servicio.estaDisponible();
+			return servicio.estaDisponible(fecha);
 		else {
 			System.out.println("No existe el servicio en el CGP");
 			return false;
@@ -35,9 +36,9 @@ public class CGP extends POI {
 
 	}
 
-	public boolean estaDisponibleServicio() {
+	public boolean estaDisponibleServicio(DateTime fecha) {
 
-		return servicios.stream().anyMatch(servicio -> servicio.estaDisponible());
+		return servicios.stream().anyMatch(servicio -> servicio.estaDisponible(fecha));
 	}
 
 	@Override
