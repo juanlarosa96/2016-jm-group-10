@@ -26,8 +26,8 @@ public class Dispositivo {
 	}
 
 /*
-	 public POI buscarPunto(String descripcion){
-		 
+	 public List<POI> buscarPunto(String descripcion){
+		 return 
 	 }
 */
 	public boolean poiDisponible(POI poi, DateTime momento) {

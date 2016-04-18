@@ -21,8 +21,7 @@ public class Banco extends POI {
 	private static final int LUNES = 1;
 
 	public boolean estaDiponibleEn(DateTime momento) {
-		if (momento.getDayOfWeek() >= LUNES && momento.getDayOfWeek() <= VIERNES && momento.getHourOfDay() >= 10
-				&& momento.getHourOfDay() <= 15) {
+		if (isBetween(LUNES, VIERNES, momento.getDayOfWeek()) && isBetween(10, 15, momento.getHourOfDay())) {
 			return true;
 		} else
 			return false;
@@ -31,6 +30,10 @@ public class Banco extends POI {
 	@Override
 	public Boolean estasCerca(Point unaPosicion) {
 		return comuna.incluyeA(unaPosicion);
+	}
+	
+	private static boolean isBetween(int a, int b, int c) {
+		return b >= a ? c >= a && c <= b : c >= b && c <= a;
 	}
 
 }
