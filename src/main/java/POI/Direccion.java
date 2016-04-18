@@ -34,20 +34,14 @@ public class Direccion {
 
 		direccion = this.calle + " " + this.altura;
 
-		if (this.piso != null)
-		{
+		if (this.piso != null) {
 			direccion += "\n" + "piso " + this.piso.toString();
 
 			if (this.departamento != null)
 				direccion += " departamento " + this.departamento.toString();
 		}
-		
-		direccion+= "\n" + "entre " + entreCalle1 + "y " + entreCalle2;
-		
-		
-		
-		
-		
+
+		direccion += "\n" + "entre " + entreCalle1 + "y " + entreCalle2;
 
 		System.out.println(direccion);
 	}
