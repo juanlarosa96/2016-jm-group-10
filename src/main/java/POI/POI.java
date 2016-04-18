@@ -1,5 +1,6 @@
 package POI;
 
+import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 public abstract class POI {
@@ -17,7 +18,7 @@ public abstract class POI {
 		return posicion.distance(poi.posicion);
 	}
 
-	public boolean esValido() {
+	public Boolean esValido() {
 		// chequear si es correcto comparar con null
 		if (posicion != null && nombre != null && direccion != null)
 			return true;
@@ -25,7 +26,11 @@ public abstract class POI {
 		else
 			return false;
 	}
-
+	
+	public Boolean estaDisponible(DateTime momento){
+		return true;
+	}
+	
 	public Double condicionDeCercania() {
 		// devuelve la cantidad de kilometros maxima que considera cerca
 

@@ -1,6 +1,7 @@
 package POI;
 
 import java.util.List;
+import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 public class Dispositivo {
@@ -18,12 +19,11 @@ public class Dispositivo {
 	 * 
 	 * 
 	 * }
-	 * 
-	 * boolean poiDisponible(POI poi){
-	 * 
-	 * 
-	 * }
-	 * 
+	 */
+	public boolean poiDisponible(POI poi, DateTime momento) {
+		return poi.estaDisponible(momento);
+	}
+	/*
 	 * boolean estoyCercaDe(POI poi) {
 	 * 
 	 * 
