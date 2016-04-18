@@ -7,6 +7,15 @@ import org.uqbar.geodds.Point;
 public class CGP extends POI {
 	List<Servicio> servicios;
 	Comuna comuna;
+	
+	public CGP(List<Servicio> servicios, Comuna comuna, Point posicion, String nombre, Direccion direccion, List<String> etiquetas){
+		this.servicios = servicios;
+		this.comuna = comuna;
+		this.posicion = posicion;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.etiquetas = etiquetas;
+	}
 
 	public boolean estaDisponibleServicio(String nombreServicio) {
 		Servicio servicio = buscarServicio(nombreServicio);
