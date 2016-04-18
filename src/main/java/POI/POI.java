@@ -7,6 +7,12 @@ public abstract class POI {
 	private Point posicion;
 	private String nombre;
 	private Direccion direccion;
+	
+	public POI (Point posicion, String nombre, Direccion direccion){
+		this.posicion=posicion;
+		this.nombre=nombre;
+		this.direccion=direccion;
+	}
 
 	public boolean distanciaAPoiMenorA(Double distancia, POI poi) {
 
