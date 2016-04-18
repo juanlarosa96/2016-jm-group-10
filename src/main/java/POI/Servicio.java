@@ -1,8 +1,20 @@
 package POI;
 
-public interface Servicio {
+import java.util.List;
 
-	public Boolean estaDisponible();
+import org.joda.time.DateTime;
 
-	public Boolean nombreSimilarA(String nombreServicio);
+public class Servicio {
+
+	String nombre;
+	List<FranjaHoraria> horarios;
+
+	public Boolean nombreSimilarA(String unNombre) {
+		return nombre.contains(unNombre);
+	}
+
+	public Boolean estaDisponible(DateTime fecha) {
+		return horarios.stream().anyMatch(unHorario -> unHorario.estaEnFranjaHoraria(fecha));
+	}
+
 }
