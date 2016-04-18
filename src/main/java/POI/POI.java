@@ -1,5 +1,7 @@
 package POI;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
@@ -7,6 +9,7 @@ public abstract class POI {
 	protected Point posicion;
 	protected String nombre;
 	protected Direccion direccion;
+	protected List<String> etiquetas;
 
 	public boolean distanciaAPoiMenorA(Double distancia, POI poi) {
 

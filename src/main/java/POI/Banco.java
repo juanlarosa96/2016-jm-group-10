@@ -1,19 +1,22 @@
 package POI;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 public class Banco extends POI {
-	
+
 	private Comuna comuna;
-	
-	public Banco(Comuna comuna, Point posicion, String nombre, Direccion direccion){
-		this.comuna=comuna;
-		this.posicion=posicion;
-		this.nombre=nombre;
-		this.direccion=direccion;
+
+	public Banco(Comuna comuna, Point posicion, String nombre, Direccion direccion, List<String> etiquetas) {
+		this.comuna = comuna;
+		this.posicion = posicion;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.etiquetas = etiquetas;
 	}
-	
+
 	private static final int VIERNES = 5;
 	private static final int LUNES = 1;
 
@@ -24,10 +27,10 @@ public class Banco extends POI {
 		} else
 			return false;
 	}
-	
+
 	@Override
-	public Boolean estasCerca(Point unaPosicion){
+	public Boolean estasCerca(Point unaPosicion) {
 		return comuna.incluyeA(unaPosicion);
 	}
-	
+
 }
