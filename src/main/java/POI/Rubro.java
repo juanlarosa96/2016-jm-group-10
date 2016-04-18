@@ -4,9 +4,9 @@ public class Rubro {
 	public String nombreRubro;
 	private Double condicionDeCercania;
 
-	public Rubro(String nombre, Double radio) {
+	public Rubro(String nombre, Double radioDeCercania) {
 		this.nombreRubro = nombre;
-		this.condicionDeCercania = radio;
+		this.condicionDeCercania = radioDeCercania;
 	}
 
 	public Double getCondicionDeCercania() {
