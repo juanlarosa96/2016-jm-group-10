@@ -11,5 +11,8 @@ public class Rubro {
 	public Double getCondicionDeCercania() {
 		return condicionDeCercania;
 	}
+	public String getNombreRubro() {
+		return nombreRubro;
+	}
 
 }

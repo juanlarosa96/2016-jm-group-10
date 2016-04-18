@@ -21,4 +21,8 @@ public class Comercio extends POI {
 	public Boolean estaDisponible(DateTime fecha) {
 		return horarios.stream().anyMatch(unHorario -> unHorario.estaEnFranjaHoraria(fecha));
 	}
+
+	public Boolean contiene(String descripcion) {
+		return super.contiene(descripcion) || (descripcion.contains(rubro.getNombreRubro()));
+	}
 }

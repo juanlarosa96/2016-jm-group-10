@@ -24,7 +24,7 @@ public class ParadaColectivo extends POI {
 		return 0.1;
 	}
 	
-	public Boolean contiene(String descripcion){
+	public Boolean contiene(String descripcion) {
 		return super.contiene(descripcion) || (descripcion.contains(linea.toString()));
 	}
 }
