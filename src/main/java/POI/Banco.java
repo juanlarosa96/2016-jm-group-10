@@ -2,8 +2,11 @@ package POI;
 
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
+import org.uqbar.geodds.Polygon;
 
 public class Banco extends POI {
+	
+	private Comuna comuna;
 	
 	private static final int VIERNES = 5;
 	private static final int LUNES = 1;
@@ -16,8 +19,8 @@ public class Banco extends POI {
 			return false;
 	}
 	
-	/*public Boolean estasCerca(Point unaPosicion){
-		return .isInside(unaPosicion);
+	public Boolean estasCerca(Point unaPosicion){
+		return comuna.incluyeA(unaPosicion);
 	}
-	*/
+	
 }
