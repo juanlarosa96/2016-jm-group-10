@@ -2,6 +2,8 @@ package POI;
 
 import java.util.List;
 
+import org.uqbar.geodds.Point;
+
 public class CGP extends POI {
 	List<Servicio> servicios;
 	Comuna comuna;
@@ -19,8 +21,8 @@ public class CGP extends POI {
 	}
 
 	private Servicio buscarServicio(String nombreServicio) {
-		
-		return servicios.stream().filter(servicio-> servicio.nombreSimilarA(nombreServicio)).findAny().get();
+
+		return servicios.stream().filter(servicio -> servicio.nombreSimilarA(nombreServicio)).findAny().get();
 
 	}
 
@@ -28,5 +30,10 @@ public class CGP extends POI {
 
 		return servicios.stream().anyMatch(servicio -> servicio.estaDisponible());
 	}
-	
+
+	@Override
+	public Boolean estasCerca(Point unaPosicion) {
+		return comuna.incluyeA(unaPosicion);
+	}
+
 }
