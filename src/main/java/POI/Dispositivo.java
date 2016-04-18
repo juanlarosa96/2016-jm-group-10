@@ -6,27 +6,30 @@ import org.uqbar.geodds.Point;
 
 public class Dispositivo {
 	private Point posicion;
-	private List<POI> listaPois;
+	private static List<POI> listaPois;
 	
-	public Dispositivo(Point unaPosicion, List<POI> unosPois){
+	public Dispositivo(Point unaPosicion){
 		this.posicion = unaPosicion;
-		this.listaPois = unosPois;
-		
-		
 	}
 
+	public static void setListaPois(List<POI> listaPois){
+		Dispositivo.listaPois = listaPois;
+	}
+
+	public static void agregarPoi(POI poi){
+		listaPois.add(poi);
+	}
 	public Double distanciaEntrePois(POI unPoi, POI otroPoi) {
 
 		return unPoi.distanciaAPoi(otroPoi);
 
 	}
 
-	/*
-	 * POI buscarPunto(String descripcion){
-	 * 
-	 * 
-	 * }
-	 */
+/*
+	 public POI buscarPunto(String descripcion){
+		 
+	 }
+*/
 	public boolean poiDisponible(POI poi, DateTime momento) {
 		return poi.estaDisponible(momento);
 	}
