@@ -5,9 +5,10 @@ import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
 import org.uqbar.geodds.Point;
 
 public class DispositivoTest {
@@ -45,11 +46,21 @@ public class DispositivoTest {
 	private Point posicionParada114;
 	private List<String> etiquetasParada114;
 	
+
 	private List<POI> listaPoisDispositivo;
+	private DateTime lunes4abril10am;
+	private DateTime martes5abril2am;
+	private List<FranjaHoraria> horariosRentas;
+	private List<FranjaHoraria> horariosAsesoramientoJuridico;
+	private List<FranjaHoraria> horariosEcobici;
 	
 	@Before
 	public void init() {
 		
+
+		lunes4abril10am = new DateTime(2016,4,4,10,0);
+		martes5abril2am = new DateTime(2016,4,5,2,30);
+
 		posicionDispositivo = new Point(-34.631402, -58.488060);
 		dispositivo = new Dispositivo(posicionDispositivo);
 		
@@ -84,6 +95,63 @@ public class DispositivoTest {
 		posicionCgpComuna10 = new Point(-34.6369004, -58.4959096);
 		direccionCgpComuna10 = new Direccion("Bacacay", 3968, "Campana", "Concordia", null, null, 1407, "CABA",
 				"Floresta", "CABA", "Argentina");
+		
+		horariosRentas= new ArrayList<FranjaHoraria>() {
+			{
+				add(new FranjaHoraria(1, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(1, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(2, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(2, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(3, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(3, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(4, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(4, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(5, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(5, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(6, new LocalTime(10,0), new LocalTime(14,0)));
+				
+			}
+		};
+		
+		horariosAsesoramientoJuridico= new ArrayList<FranjaHoraria>() {
+			{
+				add(new FranjaHoraria(1, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(1, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(2, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(2, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(3, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(3, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(4, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(4, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(5, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(5, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(6, new LocalTime(10,0), new LocalTime(14,0)));
+				
+			}
+		};
+		
+		horariosEcobici= new ArrayList<FranjaHoraria>() {
+			{
+				add(new FranjaHoraria(1, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(1, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(2, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(2, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(3, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(3, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(4, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(4, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(5, new LocalTime(9,30), new LocalTime(13,0)));
+				add(new FranjaHoraria(5, new LocalTime(14,30), new LocalTime(19,0)));
+				add(new FranjaHoraria(6, new LocalTime(10,0), new LocalTime(14,0)));
+				
+			}
+		};
+		
+		rentas=new Servicio("Rentas",horariosRentas);
+		asesoramientoJuridico= new Servicio("Asesoramiento Juridico", horariosAsesoramientoJuridico);
+		ecobici= new Servicio ("Ecobici",horariosEcobici);
+		
+
 		serviciosCGP = new ArrayList<Servicio>() {
 			{
 				add(rentas);
@@ -175,12 +243,34 @@ public class DispositivoTest {
 				add(cgpComuna10);
 			}
 		};
-	}
-
-	@Test
-	public void busquedaParadaColectivo114(){
+		
 		Dispositivo.setListaPois(listaPoisDispositivo);
+	}
+	
+	@Test
+	public void BancoProvinciaEstaDisponible(){
+		Assert.assertTrue(bancoProvincia.estaDisponible(lunes4abril10am));
+	}
+	
+	@Test
+	public void BancoProvinciaNoEstaDisponible(){
+		Assert.assertFalse(bancoProvincia.estaDisponible(martes5abril2am));
+	}
+	
+	@Test
+	public void ColectivoEstaDisponible(){
+		Assert.assertTrue(parada114.estaDisponible(martes5abril2am));
+	}
+	
+	
+	@Test
+	public void ParadaColectivo114estaEnListaPois(){		
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114));
+	}
+	
+	@Test
+	public void MacowinsNoEstaEnListaPois(){
+		Assert.assertTrue(dispositivo.buscarPOIs("macowins").isEmpty());
 	}
 	
 }

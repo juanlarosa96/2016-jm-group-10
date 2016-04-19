@@ -15,11 +15,11 @@ public class ParadaColectivo extends POI {
 		this.posicion = posicion;
 	}
 
-	
+	@Override
 	public Double condicionDeCercania() {
 		return 0.1;
 	}
-
+	@Override
 	public Boolean contiene(String descripcion) {
 		return super.contiene(descripcion) || (descripcion.contains(linea.toString()));
 	}
