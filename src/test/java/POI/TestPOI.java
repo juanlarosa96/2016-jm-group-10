@@ -13,13 +13,17 @@ public class TestPOI {
 	private List<String> etiquetas132;
 	private Point posicion132;
 	private Direccion direccion132;
-	
+
 	private Banco bancoCredicoop;
 	private Point posicionCredicoop;
 	private Direccion direccionCredicoop;
 	private List<String> etiquetasCredicoop;
-		
-	
+
+	private Comercio macowins;
+	private Rubro localDeRopa;
+	private Point posicionMacowins;
+	private Direccion direccionMacowins;
+	private List<String> etiquetasMacowins;
 
 	@Before
 	public void init() {
@@ -49,24 +53,43 @@ public class TestPOI {
 				"Caballito", "Buenos Aires", "Argentina");
 		bancoCredicoop = new Banco(posicionCredicoop, "Banco Credicoop", direccionCredicoop, etiquetasCredicoop);
 
+		localDeRopa = new Rubro("Local de Ropa", 0.9);
+		posicionMacowins = new Point(-34.6184994, -58.4368164);
+		direccionMacowins = new Direccion("Av. Acoyte", 56, "Av. Rivadavia", "Yerbal", null, null, 1424, "CABA",
+				"Caballito", "Buenos Aires", "Argentina");
+		etiquetasMacowins= new ArrayList<String>(){{add("local");add("ropa");add("macowins");}};
+		macowins = new Comercio(localDeRopa, null, posicionMacowins, "Macowins", direccionMacowins, etiquetasMacowins);
 	}
-	
-	@Test
-	public void Parada132NoEstaCercaDeCredicoop(){
-		Assert.assertFalse(parada132.estasCerca(bancoCredicoop.getPosicion()));	
-	}
-	
-	@Test
-	public void BancoCredicoopEstaCercaDeParada132(){
-		Assert.assertTrue(bancoCredicoop.estasCerca(parada132.getPosicion()));	
-	}
-	
-	@Test
-	public void Parada132EstaAMasDe3CuadrasDeCredicoop(){
-		Assert.assertTrue(parada132.distanciaAPoi(bancoCredicoop)>0.3);	
-	}
-	
-	
 
+	@Test
+	public void Parada132NoEstaCercaDeCredicoop() {
+		Assert.assertFalse(parada132.estasCerca(bancoCredicoop.getPosicion()));
+	}
+
+	@Test
+	public void BancoCredicoopEstaCercaDeParada132() {
+		Assert.assertTrue(bancoCredicoop.estasCerca(parada132.getPosicion()));
+	}
+
+	@Test
+	public void Parada132EstaAMasDe3CuadrasDeCredicoop() {
+		Assert.assertTrue(parada132.distanciaAPoi(bancoCredicoop) > 0.3);
+	}
+	
+	@Test
+	public void MacowinsConsideraComoCerca9Cuadras(){
+		
+		Assert.assertEquals(0.9,macowins.condicionDeCercania(),0.0);
+	}
+	
+	@Test
+	public void MacowinsEstaCercaDeCredicoop(){
+		Assert.assertTrue(macowins.estasCerca(bancoCredicoop.getPosicion()));
+	}
+	
+	@Test
+	public void CredicoopNoEstaCercaDeMacowins(){
+		Assert.assertFalse(bancoCredicoop.estasCerca(macowins.getPosicion()));
+	}
 
 }
