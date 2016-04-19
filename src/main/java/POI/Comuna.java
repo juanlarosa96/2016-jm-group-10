@@ -11,7 +11,7 @@ public class Comuna {
 
 	public Comuna(int unNumero, List<Point> puntosFrontera) {
 		numero = unNumero;
-		puntosFrontera.stream().map(punto -> territorio.add(punto));
+		territorio=new Polygon(puntosFrontera);
 	}
 
 	public Boolean incluyeA(Point unaPosicion) {
