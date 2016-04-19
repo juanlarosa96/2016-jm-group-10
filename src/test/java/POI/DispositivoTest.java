@@ -5,7 +5,10 @@ import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.uqbar.geodds.Point;
 
 public class DispositivoTest {
@@ -42,9 +45,16 @@ public class DispositivoTest {
 	private Direccion direccionParada114;	
 	private Point posicionParada114;
 	private List<String> etiquetasParada114;
-
+	
+	private DateTime lunes4abril10am;
+	private DateTime martes5abril2am;
+	
 	@Before
 	public void init() {
+		
+		lunes4abril10am = new DateTime(2016,4,4,10,0);
+		martes5abril2am = new DateTime(2016,4,5,2,30);
+		
 		posicionDispositivo = new Point(-34.631402, -58.488060);
 		dispositivo = new Dispositivo(posicionDispositivo);
 		
@@ -162,5 +172,13 @@ public class DispositivoTest {
 	
 		
 	}
+	
+	@Test
+	public void BancoProvinciaNoEstaDisponible(){
+		Assert.assertFalse(bancoProvincia.estaDisponible(martes5abril2am));
+	}
+	
+	
+	
 
 }
