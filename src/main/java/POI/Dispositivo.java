@@ -32,7 +32,7 @@ public class Dispositivo {
 
 	}
 
-	public boolean poiDisponible(POI poi, DateTime momento) {
+	public Boolean poiDisponible(POI poi, DateTime momento) {
 		return poi.estaDisponible(momento);
 	}
 

@@ -19,7 +19,7 @@ public class CGP extends POI {
 		this.etiquetas = etiquetas;
 	}
 
-	public boolean estaDisponibleServicio(String nombreServicio, DateTime fecha) {
+	public Boolean estaDisponibleServicio(String nombreServicio, DateTime fecha) {
 		Servicio servicio = buscarServicio(nombreServicio);
 
 		if (servicio != null)
@@ -37,7 +37,7 @@ public class CGP extends POI {
 
 	}
 
-	public boolean estaDisponibleServicio(DateTime fecha) {
+	public Boolean estaDisponibleServicio(DateTime fecha) {
 
 		return servicios.stream().anyMatch(servicio -> servicio.estaDisponible(fecha));
 	}

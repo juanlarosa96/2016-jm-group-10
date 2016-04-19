@@ -11,7 +11,7 @@ public abstract class POI {
 	protected Direccion direccion;
 	protected List<String> etiquetas;
 
-	public boolean distanciaAPoiMenorA(Double distancia, POI poi) {
+	public Boolean distanciaAPoiMenorA(Double distancia, POI poi) {
 
 		return distanciaAPoi(poi) < distancia;
 	}

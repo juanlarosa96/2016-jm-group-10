@@ -16,7 +16,7 @@ public class ParadaColectivo extends POI {
 		this.etiquetas = etiquetas;
 	}
 
-	public boolean estaDisponibleEn(DateTime momento) {
+	public Boolean estaDisponibleEn(DateTime momento) {
 		return true;
 	}
 
