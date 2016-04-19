@@ -6,12 +6,15 @@ import org.joda.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.Assert;
 import org.uqbar.geodds.Point;
 
 public class DispositivoTest {
 
 	private Dispositivo dispositivo;
 	private Point posicionDispositivo;
+	private List<POI> listaPoisDispositivo;
 
 	private CGP cgpComuna10;
 	private Direccion direccionCgpComuna10;
@@ -42,12 +45,20 @@ public class DispositivoTest {
 	private Direccion direccionParada114;	
 	private Point posicionParada114;
 	private List<String> etiquetasParada114;
-
+	
 	@Before
 	public void init() {
 		posicionDispositivo = new Point(-34.631402, -58.488060);
 		dispositivo = new Dispositivo(posicionDispositivo);
-		
+		listaPoisDispositivo = new ArrayList<POI>(){
+			{
+				add(parada114);
+				add(elHalcon);
+				add(bancoProvincia);
+				add(cgpComuna10);
+			}
+		};
+
 		posicionParada114 = new Point(-34.631997, -58.484737);
 		direccionParada114 = new Direccion("Av. Segurola", 230, "Bacacay", "Bogota", null, null, 1407, "CABA",
 				"Floresta", "CABA", "Argentina");
@@ -159,8 +170,12 @@ public class DispositivoTest {
 			}
 		};
 		elHalcon = new Comercio(restaurant, horariosElHalcon, posicionElHalcon, "El Halcon", direccionElHalcon, etiquetasElHalcon);
-	
-		
 	}
 
+	@Test
+	public void busquedaParadaColectivo114(){
+		Dispositivo.setListaPois(listaPoisDispositivo);
+		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114));
+	}
+	
 }
