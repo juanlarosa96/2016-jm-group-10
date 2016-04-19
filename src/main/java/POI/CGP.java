@@ -18,7 +18,8 @@ public class CGP extends POI {
 		this.direccion = direccion;
 		this.etiquetas = etiquetas;
 	}
-
+	
+	@Override
 	public Boolean estaDisponibleServicio(String nombreServicio, DateTime fecha) {
 		Servicio servicio = buscarServicio(nombreServicio);
 
@@ -36,7 +37,8 @@ public class CGP extends POI {
 		return servicios.stream().filter(servicio -> servicio.nombreSimilarA(nombreServicio)).findAny().get();
 
 	}
-
+	
+	@Override
 	public Boolean estaDisponible(DateTime fecha) {
 
 		return servicios.stream().anyMatch(servicio -> servicio.estaDisponible(fecha));
