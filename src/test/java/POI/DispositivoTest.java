@@ -14,7 +14,6 @@ public class DispositivoTest {
 
 	private Dispositivo dispositivo;
 	private Point posicionDispositivo;
-	private List<POI> listaPoisDispositivo;
 
 	private CGP cgpComuna10;
 	private Direccion direccionCgpComuna10;
@@ -46,19 +45,14 @@ public class DispositivoTest {
 	private Point posicionParada114;
 	private List<String> etiquetasParada114;
 	
+	private List<POI> listaPoisDispositivo;
+	
 	@Before
 	public void init() {
+		
 		posicionDispositivo = new Point(-34.631402, -58.488060);
 		dispositivo = new Dispositivo(posicionDispositivo);
-		listaPoisDispositivo = new ArrayList<POI>(){
-			{
-				add(parada114);
-				add(elHalcon);
-				add(bancoProvincia);
-				add(cgpComuna10);
-			}
-		};
-
+		
 		posicionParada114 = new Point(-34.631997, -58.484737);
 		direccionParada114 = new Direccion("Av. Segurola", 230, "Bacacay", "Bogota", null, null, 1407, "CABA",
 				"Floresta", "CABA", "Argentina");
@@ -169,7 +163,18 @@ public class DispositivoTest {
 				add("debito");
 			}
 		};
+		
+		restaurant= new Rubro("Restaurant",0.3);
 		elHalcon = new Comercio(restaurant, horariosElHalcon, posicionElHalcon, "El Halcon", direccionElHalcon, etiquetasElHalcon);
+	
+		listaPoisDispositivo = new ArrayList<POI>(){
+			{
+				add(parada114);
+				add(elHalcon);
+				add(bancoProvincia);
+				add(cgpComuna10);
+			}
+		};
 	}
 
 	@Test

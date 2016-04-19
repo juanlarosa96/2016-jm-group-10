@@ -18,7 +18,7 @@ public class Servicio {
 	public Boolean nombreSimilarA(String unNombre) {
 		return nombre.contains(unNombre);
 	}
-
+	
 	public Boolean estaDisponible(DateTime fecha) {
 		return horarios.stream().anyMatch(unHorario -> unHorario.estaEnFranjaHoraria(fecha));
 	}
