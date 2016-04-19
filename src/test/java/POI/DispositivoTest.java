@@ -67,7 +67,7 @@ public class DispositivoTest {
 		etiquetasBancoProvincia = new ArrayList<String>() {
 			{
 				add("banco");
-				add("credicoop");
+				add("provincia");
 				add("depositos");
 				add("extracciones");
 				add("cajero");

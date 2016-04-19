@@ -35,6 +35,10 @@ public class TestPOI {
 	private List<Servicio> serviciosCGP;
 	private List<String> etiquetasCGP;
 	private List<Point> limitesComuna10;
+	private Point posicionBancoProvincia;
+	private Direccion direccionBancoProvincia;
+	private ArrayList<String> etiquetasBancoProvincia;
+	private Banco bancoProvincia;
 
 	@Before
 	public void init() {
@@ -122,6 +126,22 @@ public class TestPOI {
 		posicionCgpComuna10 = new Point(-34.6369004, -58.4959096);
 		
 		cgpComuna10 = new CGP(serviciosCGP, comuna10, posicionCgpComuna10, "CGP Comuna 10", direccionCgpComuna10, etiquetasCGP);
+	
+	
+		posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
+		direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
+				"CABA", "Floresta", "CABA", "Argentina");
+		etiquetasBancoProvincia = new ArrayList<String>() {
+			{
+				add("banco");
+				add("provincia");
+				add("depositos");
+				add("extracciones");
+				add("cajero");
+			}
+		};
+		bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia,
+				etiquetasBancoProvincia);
 	}
 
 	@Test
@@ -155,11 +175,23 @@ public class TestPOI {
 		Assert.assertFalse(bancoCredicoop.estasCerca(macowins.getPosicion()));}
 		
 	@Test
-	public void CgpComuna10NoEstaCercaDeMacowins(){
-		Assert.assertFalse(cgpComuna10.estasCerca(macowins.getPosicion()));
-		
-		
+	public void Comuna10IncluyeABancoProvincia(){
+		Assert.assertTrue(comuna10.incluyeA(bancoProvincia.getPosicion()));		
 	}
 	
-
+	@Test
+	public void Comuna10NoIncluyeAMacowins(){
+		Assert.assertFalse(comuna10.incluyeA(macowins.getPosicion()));		
+	}
+	
+	@Test
+	public void CgpComuna10NoEstaCercaDeMacowins(){
+		Assert.assertFalse(cgpComuna10.estasCerca(macowins.getPosicion()));		
+	}
+	
+	@Test
+	public void CgpComuna10EstaCercaDeBancoProvincia(){
+		Assert.assertTrue(cgpComuna10.estasCerca(bancoProvincia.getPosicion()));		
+	}
+	
 }
