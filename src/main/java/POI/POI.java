@@ -22,7 +22,7 @@ public abstract class POI {
 	}
 
 	public Boolean esValido() {
-		// chequear si es correcto comparar con null
+		
 		if (posicion != null && nombre != null && direccion != null)
 			return true;
 
