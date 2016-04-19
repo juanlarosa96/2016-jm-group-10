@@ -18,7 +18,7 @@ public abstract class POI {
 
 	public Double distanciaAPoi(POI poi) {
 
-		return posicion.distance(poi.posicion);
+		return posicion.distance(poi.getPosicion());
 	}
 
 	public Boolean esValido() {
@@ -53,4 +53,12 @@ public abstract class POI {
 	public Boolean estaDisponibleServicio(String servicio,DateTime momento) {
 		return false;
 	}
+
+	public Point getPosicion() {
+		return posicion;
+	}
+
+	
+	
+	
 }

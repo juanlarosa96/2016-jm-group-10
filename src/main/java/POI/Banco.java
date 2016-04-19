@@ -8,7 +8,7 @@ import org.uqbar.geodds.Point;
 public class Banco extends POI {
 
 	public Banco(Point posicion, String nombre, Direccion direccion, List<String> etiquetas) {
-		this.posicion = posicion;
+		this.posicion=posicion;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.etiquetas = etiquetas;

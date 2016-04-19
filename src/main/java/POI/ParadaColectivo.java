@@ -9,10 +9,10 @@ public class ParadaColectivo extends POI {
 	public ParadaColectivo(Integer unaLinea, Point posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
 		this.linea = unaLinea;
-		this.posicion = posicion;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.etiquetas = etiquetas;
+		this.posicion = posicion;
 	}
 
 	
