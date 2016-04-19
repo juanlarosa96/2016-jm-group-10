@@ -7,7 +7,7 @@ import org.uqbar.geodds.Point;
 
 public class Dispositivo {
 	private Point posicion;
-	private static List<POI> listaPois;
+	public static List<POI> listaPois;
 
 	public Dispositivo(Point unaPosicion) {
 		this.posicion = unaPosicion;
