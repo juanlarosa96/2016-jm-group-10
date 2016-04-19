@@ -98,52 +98,27 @@ public class DispositivoTest {
 		
 		horariosRentas= new ArrayList<FranjaHoraria>() {
 			{
-				add(new FranjaHoraria(1, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(1, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(2, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(2, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(3, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(3, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(4, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(4, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(5, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(5, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(6, new LocalTime(10,0), new LocalTime(14,0)));
-				
+				add(new FranjaHoraria(1, new LocalTime(9,30), new LocalTime(14,0)));
+				add(new FranjaHoraria(2, new LocalTime(9,30), new LocalTime(14,0)));
+				add(new FranjaHoraria(3, new LocalTime(9,30), new LocalTime(14,0)));
+				add(new FranjaHoraria(4, new LocalTime(9,30), new LocalTime(14,0)));
+				add(new FranjaHoraria(5, new LocalTime(9,30), new LocalTime(14,0)));
 			}
 		};
 		
 		horariosAsesoramientoJuridico= new ArrayList<FranjaHoraria>() {
 			{
-				add(new FranjaHoraria(1, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(1, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(2, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(2, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(3, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(3, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(4, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(4, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(5, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(5, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(6, new LocalTime(10,0), new LocalTime(14,0)));
-				
+				add(new FranjaHoraria(2, new LocalTime(9,0), new LocalTime(16,0)));				
 			}
 		};
 		
 		horariosEcobici= new ArrayList<FranjaHoraria>() {
 			{
-				add(new FranjaHoraria(1, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(1, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(2, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(2, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(3, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(3, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(4, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(4, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(5, new LocalTime(9,30), new LocalTime(13,0)));
-				add(new FranjaHoraria(5, new LocalTime(14,30), new LocalTime(19,0)));
-				add(new FranjaHoraria(6, new LocalTime(10,0), new LocalTime(14,0)));
-				
+				add(new FranjaHoraria(1, new LocalTime(10,0), new LocalTime(15,0)));
+				add(new FranjaHoraria(2, new LocalTime(10,0), new LocalTime(15,0)));
+				add(new FranjaHoraria(3, new LocalTime(10,0), new LocalTime(15,0)));
+				add(new FranjaHoraria(4, new LocalTime(10,0), new LocalTime(15,0)));
+				add(new FranjaHoraria(5, new LocalTime(10,0), new LocalTime(15,0)));				
 			}
 		};
 		
