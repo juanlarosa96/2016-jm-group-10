@@ -178,6 +178,11 @@ public class DispositivoTest {
 		Assert.assertFalse(bancoProvincia.estaDisponible(martes5abril2am));
 	}
 	
+	@Test
+	public void ColectivoEstaDisponible(){
+		Assert.assertTrue(parada114.estaDisponible(martes5abril2am));
+	}
+	
 	
 	
 
