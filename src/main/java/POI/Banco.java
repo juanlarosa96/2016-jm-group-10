@@ -7,10 +7,9 @@ import org.uqbar.geodds.Point;
 
 public class Banco extends POI {
 
-	private Comuna comuna;
+	//private Comuna comuna;
 
-	public Banco(Comuna comuna, Point posicion, String nombre, Direccion direccion, List<String> etiquetas) {
-		this.comuna = comuna;
+	public Banco(Point posicion, String nombre, Direccion direccion, List<String> etiquetas) {
 		this.posicion = posicion;
 		this.nombre = nombre;
 		this.direccion = direccion;
@@ -25,11 +24,6 @@ public class Banco extends POI {
 			return true;
 		} else
 			return false;
-	}
-
-	@Override
-	public Boolean estasCerca(Point unaPosicion) {
-		return comuna.incluyeA(unaPosicion);
 	}
 
 	private static boolean isBetween(int a, int b, int c) {
