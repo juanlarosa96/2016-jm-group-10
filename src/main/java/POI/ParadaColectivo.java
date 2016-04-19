@@ -1,7 +1,6 @@
 package POI;
 
 import java.util.List;
-import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 public class ParadaColectivo extends POI {
@@ -16,10 +15,7 @@ public class ParadaColectivo extends POI {
 		this.etiquetas = etiquetas;
 	}
 
-	public Boolean estaDisponibleEn(DateTime momento) {
-		return true;
-	}
-
+	
 	public Double condicionDeCercania() {
 		return 0.1;
 	}

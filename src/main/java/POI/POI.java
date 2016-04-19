@@ -49,4 +49,8 @@ public abstract class POI {
 	public Boolean contiene(String descripcion) {
 		return (descripcion.contains(nombre) || etiquetas.stream().anyMatch(palabra -> descripcion.contains(palabra)));
 	}
+
+	public Boolean estaDisponibleServicio(String servicio,DateTime momento) {
+		return false;
+	}
 }

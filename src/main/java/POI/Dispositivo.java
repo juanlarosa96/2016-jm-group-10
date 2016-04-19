@@ -41,13 +41,13 @@ public class Dispositivo {
 		return buscarPOIs(descripcion).stream().filter(poi -> poi.estaDisponible(momento)).collect(Collectors.toList());
 	}
 	
-	/*
-	 public List<CGP> buscarServicioDisponible (String servicio, DateTime momento){
-	 
-		return buscarCGPs().stream().filter(cgp -> cgp.estaDisponibleServicio(servicio,momento)).collect(Collectors.toList());
+	
+	 public List<POI> buscarServicioDisponible (String servicio, DateTime momento){
+	 //todos los pois que no sean cgps responden false a estaDisponibleServicio
+		return buscarPOIs(servicio).stream().filter(poi -> poi.estaDisponibleServicio(servicio,momento)).collect(Collectors.toList());
 		
-	}
-	*/
+	}	
+		
 		
 	public Boolean estoyCercaDe(POI poi) {
 		return poi.estasCerca(posicion);
