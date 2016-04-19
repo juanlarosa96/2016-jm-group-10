@@ -97,9 +97,7 @@ public class DispositivoTest {
 				add("ecobici");
 			}
 		};
-		cgpComuna10 = new CGP(serviciosCGP, comuna10, posicionCgpComuna10, "CGP Comuna 10", direccionCgpComuna10,
-				etiquetasCGP);
-		
+				
 		limitesComuna10 = new ArrayList<Point>() {
 			{
 				add(new Point(-34.611015, -58.529025));
@@ -121,7 +119,11 @@ public class DispositivoTest {
 				add(new Point(-34.620399, -58.516870));
 			}
 		};
+		
 		comuna10 = new Comuna(10, limitesComuna10);
+		
+		cgpComuna10 = new CGP(serviciosCGP, comuna10, posicionCgpComuna10, "CGP Comuna 10", direccionCgpComuna10,
+				etiquetasCGP);
 		
 		posicionElHalcon = new Point(-34.6327106, -58.4877209);
 		direccionElHalcon = new Direccion("Av. Rivadavia", 8451, "Mercedes", "Av. Segurola", null, null, 1407, "CABA",
