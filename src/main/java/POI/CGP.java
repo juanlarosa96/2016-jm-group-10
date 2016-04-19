@@ -37,7 +37,7 @@ public class CGP extends POI {
 
 	}
 
-	public Boolean estaDisponibleServicio(DateTime fecha) {
+	public Boolean estaDisponible(DateTime fecha) {
 
 		return servicios.stream().anyMatch(servicio -> servicio.estaDisponible(fecha));
 	}

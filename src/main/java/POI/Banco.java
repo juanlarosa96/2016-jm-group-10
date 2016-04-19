@@ -17,7 +17,7 @@ public class Banco extends POI {
 	private static final Integer LUNES = 1;
 	private static final Integer VIERNES = 5;
 
-	public Boolean estaDiponibleEn(DateTime momento) {
+	public Boolean estaDiponible(DateTime momento) {
 		if (isBetween(LUNES, VIERNES, momento.getDayOfWeek()) && isBetween(10, 15, momento.getHourOfDay())) {
 			return true;
 		} else
