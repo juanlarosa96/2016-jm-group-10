@@ -7,8 +7,6 @@ import org.uqbar.geodds.Point;
 
 public class Banco extends POI {
 
-	//private Comuna comuna;
-
 	public Banco(Point posicion, String nombre, Direccion direccion, List<String> etiquetas) {
 		this.posicion = posicion;
 		this.nombre = nombre;
