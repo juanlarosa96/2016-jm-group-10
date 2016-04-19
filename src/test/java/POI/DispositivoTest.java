@@ -174,6 +174,11 @@ public class DispositivoTest {
 	}
 	
 	@Test
+	public void BancoProvinciaEstaDisponible(){
+		Assert.assertTrue(bancoProvincia.estaDisponible(lunes4abril10am));
+	}
+	
+	@Test
 	public void BancoProvinciaNoEstaDisponible(){
 		Assert.assertFalse(bancoProvincia.estaDisponible(martes5abril2am));
 	}
