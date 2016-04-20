@@ -1,6 +1,7 @@
 package POI;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
@@ -21,7 +22,7 @@ public class CGP extends POI {
 	
 	@Override
 	public Boolean estaDisponibleServicio(String nombreServicio, DateTime fecha) {
-		Servicio servicio = buscarServicio(nombreServicio);
+			Servicio servicio = buscarServicio(nombreServicio);
 
 		if (servicio != null)
 			return servicio.estaDisponible(fecha);
@@ -34,7 +35,13 @@ public class CGP extends POI {
 
 	private Servicio buscarServicio(String nombreServicio) {
 
-		return servicios.stream().filter(servicio -> servicio.nombreSimilarA(nombreServicio)).findAny().get();
+		List<Servicio>  listaServicios = servicios.stream().filter(servicio -> servicio.nombreSimilarA(nombreServicio)).collect(Collectors.toList());
+		if (listaServicios.isEmpty()){
+			return null;			
+		} else{
+			return listaServicios.get(0);
+			
+		}
 
 	}
 	
