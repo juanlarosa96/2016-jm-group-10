@@ -361,4 +361,22 @@ public class DispositivoTest {
 	public void encuentraTodosLosCGPsEtiquetadosConPalabraClave() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
 	}
+	
+	@Test
+	public void encuentraRentasSiEstaDisponibleYEnCualesCGPS(){
+		List<POI> CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas",lunes4abril10am);
+		Assert.assertEquals(2, CGPsConRentas.size(), 0);
+		Assert.assertTrue(CGPsConRentas.contains(cgpComuna10));
+		Assert.assertTrue(CGPsConRentas.contains(cgpComuna5));
+	}
+	
+	@Test
+	public void servicioRentasNoEstaDisponible(){
+		List<POI> CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas",martes5abril2am);
+		Assert.assertEquals(0, CGPsConRentas.size(), 0);
+	
+	}
+
+
+	
 }
