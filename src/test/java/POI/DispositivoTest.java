@@ -47,7 +47,7 @@ public class DispositivoTest {
 	private ParadaColectivo parada114Mercedes;
 	private Direccion direccionParada114Mercedes;
 	private Point posicionParada114Mercedes;
-	private List<String> etiquetasParada114;
+	private List<String> etiquetasParada114Segurola;
 
 	private List<POI> listaPoisDispositivo;
 	private DateTime lunes4abril10am;
@@ -68,6 +68,7 @@ public class DispositivoTest {
 	private ArrayList<String> etiquetasCGP5;
 	private Comuna comuna5;
 	private CGP cgpComuna5;
+	private ArrayList<String> etiquetasParada114Mercedes;
 
 	@Before
 	public void init() {
@@ -81,23 +82,37 @@ public class DispositivoTest {
 		posicionParada114Segurola = new Point(-34.631997, -58.484737);
 		direccionParada114Segurola = new Direccion("Av. Segurola", 230, "Bacacay", "Bogota", null, null, 1407, "CABA",
 				"Floresta", "CABA", "Argentina");
-		etiquetasParada114 = new ArrayList<String>() {
+		etiquetasParada114Segurola = new ArrayList<String>() {
 			{
 				add("Parada");
 				add("parada");
 				add("114");
 				add("colectivo");
+				add("Segurola");
+				add("segurola");
 			}
 		};
+		
+		etiquetasParada114Mercedes = new ArrayList<String>() {
+			{
+				add("Parada");
+				add("parada");
+				add("114");
+				add("colectivo");
+				add("Mercedes");
+				add("mercedes");
+			}
+		};
+		
 		parada114Segurola = new ParadaColectivo(114, posicionParada114Segurola, "114", direccionParada114Segurola,
-				etiquetasParada114);
+				etiquetasParada114Segurola);
 
 		posicionParada114Mercedes = new Point(-34.6334512, -58.4839027);
 		direccionParada114Mercedes = new Direccion("Mercedes", 17, "Av. Rivadavia", "Yerbal", null, null, 1407, "CABA",
 				"Floresta", "CABA", "Argentina");
 
 		parada114Mercedes = new ParadaColectivo(114, posicionParada114Mercedes, "114", direccionParada114Mercedes,
-				etiquetasParada114);
+				etiquetasParada114Mercedes);
 
 		posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
 		direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
@@ -328,13 +343,10 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void paradaColectivo114estaEnListaPois() {
-		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Segurola));
-	}
-
-	@Test
 	public void estanLasDosParadasDel114() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("114").size()), 0);
+		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Segurola));
+		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Mercedes));
 	}
 
 	@Test
@@ -345,21 +357,28 @@ public class DispositivoTest {
 	@Test
 	public void encuentraTodosLosRestaurants() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("Restaurant").size()), 0);
+		Assert.assertTrue((dispositivo.buscarPOIs("Restaurant")).contains(mcDonalds));
+		Assert.assertTrue((dispositivo.buscarPOIs("Restaurant")).contains(elHalcon));
 	}
 	
 	@Test
 	public void encuentraTodosLosPOIsEtiquetadosConPalabraClave() {
 		Assert.assertEquals(3, (dispositivo.buscarPOIs("tarjeta de credito").size()), 0);
+		Assert.assertTrue((dispositivo.buscarPOIs("tarjeta de credito")).contains(mcDonalds));
+		Assert.assertTrue((dispositivo.buscarPOIs("tarjeta de credito")).contains(elHalcon));
+		Assert.assertTrue((dispositivo.buscarPOIs("tarjeta de credito")).contains(bancoProvincia));
 	}
 	
 	@Test
 	public void noEncuentraPOIsCuandoNingunPOITieneLaEtiqueta() {
-		Assert.assertEquals(0, (dispositivo.buscarPOIs("negra").size()), 0);
+		Assert.assertTrue(dispositivo.buscarPOIs("negra").isEmpty());
 	}
 	
 	@Test
 	public void encuentraTodosLosCGPsEtiquetadosConPalabraClave() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
+		Assert.assertTrue((dispositivo.buscarPOIs("asesoramiento")).contains(cgpComuna10));
+		Assert.assertTrue((dispositivo.buscarPOIs("asesoramiento")).contains(cgpComuna5));
 	}
 	
 	@Test

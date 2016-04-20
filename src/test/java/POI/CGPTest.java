@@ -137,4 +137,10 @@ public class CGPTest {
 	public void preguntoACGPSiEstaDisponibleYdiceQueNo() {
 		Assert.assertFalse(cgpComuna10.estaDisponible(martes5abril2am));
 	}
+	
+	@Test
+	public void buscarServicioInexistente(){
+		Assert.assertFalse(cgpComuna10.estaDisponibleServicio("Servicio Inexistente", martes5abril2am));
+		
+	}
 }
