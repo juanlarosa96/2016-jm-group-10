@@ -1,7 +1,7 @@
 package POI;
 
 public class Rubro {
-	public String nombreRubro;
+	private String nombreRubro;
 	private Double condicionDeCercania;
 
 	public Rubro(String nombre, Double radioDeCercania) {
