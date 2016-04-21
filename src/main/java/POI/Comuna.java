@@ -6,16 +6,20 @@ import org.uqbar.geodds.Point;
 import org.uqbar.geodds.Polygon;
 
 public class Comuna {
-	int numero;
-	Polygon territorio;
+	private Integer numero;
+	private Polygon territorio;
 
-	public Comuna(int unNumero, List<Point> puntosFrontera) {
-		numero = unNumero;
+	public Comuna(Integer unNumero, List<Point> puntosFrontera) {
+		numero=unNumero;
 		territorio=new Polygon(puntosFrontera);
 	}
 
 	public Boolean incluyeA(Point unaPosicion) {
 		return territorio.isInside(unaPosicion);
+	}
+
+	public Integer getNumero() {
+		return numero;
 	}
 
 }
