@@ -7,8 +7,8 @@ import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 public class CGP extends POI {
-	List<Servicio> servicios;
-	Comuna comuna;
+	private List<Servicio> servicios;
+	private Comuna comuna;
 
 	public CGP(List<Servicio> servicios, Comuna comuna, Point posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
