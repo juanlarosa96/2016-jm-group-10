@@ -7,7 +7,7 @@ import org.uqbar.geodds.Point;
 
 public class Dispositivo {
 	private Point posicion;
-	
+
 	public static List<POI> listaPois;
 
 	public Dispositivo(Point unaPosicion) {
@@ -36,20 +36,20 @@ public class Dispositivo {
 	public Boolean poiDisponible(POI poi, DateTime momento) {
 		return poi.estaDisponible(momento);
 	}
-	
-	public List<POI> buscarPoisDisponibles (String descripcion, DateTime momento){
-		//no sirve para buscar si esta disponible un servicio en un cgp
+
+	public List<POI> buscarPoisDisponibles(String descripcion, DateTime momento) {
+		// no sirve para buscar si esta disponible un servicio en un cgp
 		return buscarPOIs(descripcion).stream().filter(poi -> poi.estaDisponible(momento)).collect(Collectors.toList());
 	}
-	
-	
-	 public List<POI> buscarServicioDisponible (String servicio, DateTime momento){
-	 //todos los pois que no sean cgps responden false a estaDisponibleServicio
-		return buscarPOIs(servicio).stream().filter(poi -> poi.estaDisponibleServicio(servicio,momento)).collect(Collectors.toList());
-		
-	}	
-		
-		
+
+	public List<POI> buscarServicioDisponible(String servicio, DateTime momento) {
+		// todos los pois que no sean cgps responden false a
+		// estaDisponibleServicio
+		return buscarPOIs(servicio).stream().filter(poi -> poi.estaDisponibleServicio(servicio, momento))
+				.collect(Collectors.toList());
+
+	}
+
 	public Boolean estoyCercaDe(POI poi) {
 		return poi.estasCerca(posicion);
 

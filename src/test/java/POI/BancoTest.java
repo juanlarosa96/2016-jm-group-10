@@ -19,7 +19,7 @@ public class BancoTest {
 	private Direccion direccionBancoProvincia;
 	private Point posicionBancoProvincia;
 	private List<String> etiquetasBancoProvincia;
-	
+
 	private Banco bancoCredicoop;
 	private Point posicionCredicoop;
 	private Direccion direccionCredicoop;
@@ -28,14 +28,12 @@ public class BancoTest {
 	private Point posicion1;
 	private Point posicion2;
 
-
 	@Before
 	public void init() {
 
 		lunes4abril10am = new DateTime(2016, 4, 4, 10, 0);
 		martes5abril2am = new DateTime(2016, 4, 5, 2, 30);
 		jueves20mayo3pm = new DateTime(2016, 5, 20, 15, 00, 0);
-
 
 		posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
 		direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
@@ -52,11 +50,9 @@ public class BancoTest {
 				add("debito");
 			}
 		};
-		
 
 		bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia,
-				etiquetasBancoProvincia);	
-		
+				etiquetasBancoProvincia);
 
 		etiquetasCredicoop = new ArrayList<String>() {
 			{
@@ -72,11 +68,8 @@ public class BancoTest {
 				"Caballito", "Buenos Aires", "Argentina");
 		bancoCredicoop = new Banco(posicionCredicoop, "Banco Credicoop", direccionCredicoop, etiquetasCredicoop);
 
-		
 		posicion1 = new Point(-34.6184994, -58.4368164);
-		posicion2 = new Point(-34.6184929, -58.4297692);		
-
-		
+		posicion2 = new Point(-34.6184929, -58.4297692);
 
 	}
 

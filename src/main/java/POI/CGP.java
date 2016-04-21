@@ -14,15 +14,15 @@ public class CGP extends POI {
 			List<String> etiquetas) {
 		this.servicios = servicios;
 		this.comuna = comuna;
-		this.posicion=posicion;
+		this.posicion = posicion;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.etiquetas = etiquetas;
 	}
-	
+
 	@Override
 	public Boolean estaDisponibleServicio(String nombreServicio, DateTime fecha) {
-			Servicio servicio = buscarServicio(nombreServicio);
+		Servicio servicio = buscarServicio(nombreServicio);
 
 		if (servicio != null)
 			return servicio.estaDisponible(fecha);
@@ -35,16 +35,17 @@ public class CGP extends POI {
 
 	private Servicio buscarServicio(String nombreServicio) {
 
-		List<Servicio>  listaServicios = servicios.stream().filter(servicio -> servicio.nombreSimilarA(nombreServicio)).collect(Collectors.toList());
-		if (listaServicios.isEmpty()){
-			return null;			
-		} else{
+		List<Servicio> listaServicios = servicios.stream().filter(servicio -> servicio.nombreSimilarA(nombreServicio))
+				.collect(Collectors.toList());
+		if (listaServicios.isEmpty()) {
+			return null;
+		} else {
 			return listaServicios.get(0);
-			
+
 		}
 
 	}
-	
+
 	@Override
 	public Boolean estaDisponible(DateTime fecha) {
 
@@ -55,7 +56,7 @@ public class CGP extends POI {
 	public Boolean estasCerca(Point unaPosicion) {
 		return comuna.incluyeA(unaPosicion);
 	}
-	
+
 	@Override
 	public Boolean contiene(String descripcion) {
 		return super.contiene(descripcion)

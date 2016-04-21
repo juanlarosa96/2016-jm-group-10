@@ -22,7 +22,7 @@ public abstract class POI {
 	}
 
 	public Boolean esValido() {
-		
+
 		if (posicion != null && nombre != null && direccion != null)
 			return true;
 
@@ -50,7 +50,7 @@ public abstract class POI {
 		return (descripcion.contains(nombre) || etiquetas.stream().anyMatch(palabra -> descripcion.contains(palabra)));
 	}
 
-	public Boolean estaDisponibleServicio(String servicio,DateTime momento) {
+	public Boolean estaDisponibleServicio(String servicio, DateTime momento) {
 		return false;
 	}
 
@@ -58,7 +58,4 @@ public abstract class POI {
 		return posicion;
 	}
 
-	
-	
-	
 }

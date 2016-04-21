@@ -68,7 +68,7 @@ public class DispositivoTest {
 	private ArrayList<String> etiquetasCGP5;
 	private Comuna comuna5;
 	private CGP cgpComuna5;
-	
+
 	private List<POI> CGPsConRentas;
 
 	@Before
@@ -148,7 +148,7 @@ public class DispositivoTest {
 				add(new FranjaHoraria(5, new LocalTime(10, 0), new LocalTime(15, 0)));
 			}
 		};
-		
+
 		horariosAsesoramientoLegal = new ArrayList<FranjaHoraria>() {
 			{
 				add(new FranjaHoraria(1, new LocalTime(10, 0), new LocalTime(17, 0)));
@@ -206,11 +206,11 @@ public class DispositivoTest {
 
 		cgpComuna10 = new CGP(serviciosCGP10, comuna10, posicionCgpComuna10, "CGP Comuna 10", direccionCgpComuna10,
 				etiquetasCGP10);
-		
+
 		posicionCgpComuna5 = new Point(-34.6229418, -58.4146764);
-		direccionCgpComuna5 = new Direccion("Carlos Calvo", 3307, "Virrey Liniers", "Sanchez de Loria", null, null, 1230, "CABA",
-				"Boedo", "CABA", "Argentina");
-		
+		direccionCgpComuna5 = new Direccion("Carlos Calvo", 3307, "Virrey Liniers", "Sanchez de Loria", null, null,
+				1230, "CABA", "Boedo", "CABA", "Argentina");
+
 		limitesComuna5 = new ArrayList<Point>() {
 			{
 				add(new Point(-34.598322, -58.412213));
@@ -219,7 +219,7 @@ public class DispositivoTest {
 				add(new Point(-34.637734, -58.411375));
 			}
 		};
-		
+
 		serviciosCGP5 = new ArrayList<Servicio>() {
 			{
 				add(rentas);
@@ -227,7 +227,7 @@ public class DispositivoTest {
 				add(ecobici);
 			}
 		};
-		
+
 		etiquetasCGP5 = new ArrayList<String>() {
 			{
 				add("CGP");
@@ -239,7 +239,7 @@ public class DispositivoTest {
 				add("ecobici");
 			}
 		};
-		
+
 		comuna5 = new Comuna(5, limitesComuna5);
 
 		cgpComuna5 = new CGP(serviciosCGP5, comuna5, posicionCgpComuna5, "CGP Comuna 5", direccionCgpComuna5,
@@ -312,11 +312,9 @@ public class DispositivoTest {
 		};
 
 		Dispositivo.setListaPois(listaPoisDispositivo);
-		
-		CGPsConRentas=new ArrayList<POI>();
-	}
 
-	
+		CGPsConRentas = new ArrayList<POI>();
+	}
 
 	@Test
 	public void paradaColectivo114estaEnListaPois() {
@@ -337,37 +335,35 @@ public class DispositivoTest {
 	public void encuentraTodosLosRestaurants() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("Restaurant").size()), 0);
 	}
-	
+
 	@Test
 	public void encuentraTodosLosPOIsEtiquetadosConPalabraClave() {
 		Assert.assertEquals(3, (dispositivo.buscarPOIs("tarjeta de credito").size()), 0);
 	}
-	
+
 	@Test
 	public void noEncuentraPOIsCuandoNingunPOITieneLaEtiqueta() {
 		Assert.assertEquals(0, (dispositivo.buscarPOIs("negra").size()), 0);
 	}
-	
+
 	@Test
 	public void encuentraTodosLosCGPsEtiquetadosConPalabraClave() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
 	}
-	
+
 	@Test
-	public void encuentraRentasSiEstaDisponibleYEnCualesCGPS(){
-		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas",lunes4abril10am);
+	public void encuentraRentasSiEstaDisponibleYEnCualesCGPS() {
+		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", lunes4abril10am);
 		Assert.assertEquals(2, CGPsConRentas.size(), 0);
 		Assert.assertTrue(CGPsConRentas.contains(cgpComuna10));
 		Assert.assertTrue(CGPsConRentas.contains(cgpComuna5));
 	}
-	
+
 	@Test
-	public void servicioRentasNoEstaDisponible(){
-		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas",martes5abril2am);
+	public void servicioRentasNoEstaDisponible() {
+		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", martes5abril2am);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
-	
+
 	}
 
-
-	
 }

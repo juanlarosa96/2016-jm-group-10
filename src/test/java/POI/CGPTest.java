@@ -11,9 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uqbar.geodds.Point;
 
-
 public class CGPTest {
-
 
 	private CGP cgpComuna10;
 	private Direccion direccionCgpComuna10;
@@ -33,21 +31,15 @@ public class CGPTest {
 	private List<FranjaHoraria> horariosRentas;
 	private List<FranjaHoraria> horariosAsesoramientoJuridico;
 	private List<FranjaHoraria> horariosEcobici;
-	
+
 	private Point posicion1;
 	private Point posicion3;
-	
 
-	
-	
-	
 	@Before
 	public void init() {
 
 		lunes4abril10am = new DateTime(2016, 4, 4, 10, 0);
 		martes5abril2am = new DateTime(2016, 4, 5, 2, 30);
-
-
 
 		posicionCgpComuna10 = new Point(-34.6369004, -58.4959096);
 		direccionCgpComuna10 = new Direccion("Bacacay", 3968, "Campana", "Concordia", null, null, 1407, "CABA",
@@ -78,12 +70,10 @@ public class CGPTest {
 				add(new FranjaHoraria(5, new LocalTime(10, 0), new LocalTime(15, 0)));
 			}
 		};
-	
 
 		rentas = new Servicio("Rentas", horariosRentas);
 		asesoramientoJuridico = new Servicio("asesoramiento juridico", horariosAsesoramientoJuridico);
 		ecobici = new Servicio("Ecobici", horariosEcobici);
-		
 
 		serviciosCGP10 = new ArrayList<Servicio>() {
 			{
@@ -130,48 +120,47 @@ public class CGPTest {
 
 		cgpComuna10 = new CGP(serviciosCGP10, comuna10, posicionCgpComuna10, "CGP Comuna 10", direccionCgpComuna10,
 				etiquetasCGP10);
-		
-		
+
 		posicion1 = new Point(-34.6184994, -58.4368164);
-		
-		posicion3 = new Point(-34.6327475, -58.4851585);	
-	
+
+		posicion3 = new Point(-34.6327475, -58.4851585);
+
 	}
-	
+
 	@Test
 	public void preguntoACGPSiEstaDisponibleYdiceQueSi() {
 		Assert.assertTrue(cgpComuna10.estaDisponible(lunes4abril10am));
 	}
-	
+
 	@Test
 	public void preguntoACGPSiEstaDisponibleYdiceQueNo() {
 		Assert.assertFalse(cgpComuna10.estaDisponible(martes5abril2am));
 	}
-	
+
 	@Test
-	public void buscarServicioInexistente(){
+	public void buscarServicioInexistente() {
 		Assert.assertFalse(cgpComuna10.estaDisponibleServicio("Servicio Inexistente", martes5abril2am));
-		
+
 	}
-	
+
 	@Test
-	public void CgpComuna10NoEstaCercaDeMacowins(){
-		Assert.assertFalse(cgpComuna10.estasCerca(posicion1));		
+	public void CgpComuna10NoEstaCercaDeMacowins() {
+		Assert.assertFalse(cgpComuna10.estasCerca(posicion1));
 	}
-	
+
 	@Test
-	public void CgpComuna10EstaCercaDeBancoProvincia(){
-		Assert.assertTrue(cgpComuna10.estasCerca(posicion3));		
+	public void CgpComuna10EstaCercaDeBancoProvincia() {
+		Assert.assertTrue(cgpComuna10.estasCerca(posicion3));
 	}
-	
+
 	@Test
-	public void servicioRentasNoEstaDisponibleMartesALas2am(){
-		Assert.assertFalse(cgpComuna10.estaDisponibleServicio("Rentas", martes5abril2am));	
+	public void servicioRentasNoEstaDisponibleMartesALas2am() {
+		Assert.assertFalse(cgpComuna10.estaDisponibleServicio("Rentas", martes5abril2am));
 	}
-	
+
 	@Test
-	public void servicioEcobiciEstaDisponibleLunesALas10am(){
+	public void servicioEcobiciEstaDisponibleLunesALas10am() {
 		Assert.assertTrue(cgpComuna10.estaDisponibleServicio("Ecobici", lunes4abril10am));
-	
+
 	}
 }

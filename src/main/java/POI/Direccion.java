@@ -50,17 +50,19 @@ public class Direccion {
 		System.out.println(direccion);
 	}
 
-	public static void main(String args[]){
-		
-		//direccion sin piso ni depto
-		Direccion dir1= new Direccion("Guayaquil",25,"Av La Plata","Senillosa",null,null,1424,"CABA","Caballito","Buenos Aires","Argentina");
-		
-		//direccion con piso y depto
-		Direccion dir2= new Direccion("Guayaquil",25,"Av La Plata","Senillosa",1,'A',1424,"CABA","Caballito","Buenos Aires","Argentina");
-		
+	public static void main(String args[]) {
+
+		// direccion sin piso ni depto
+		Direccion dir1 = new Direccion("Guayaquil", 25, "Av La Plata", "Senillosa", null, null, 1424, "CABA",
+				"Caballito", "Buenos Aires", "Argentina");
+
+		// direccion con piso y depto
+		Direccion dir2 = new Direccion("Guayaquil", 25, "Av La Plata", "Senillosa", 1, 'A', 1424, "CABA", "Caballito",
+				"Buenos Aires", "Argentina");
+
 		dir1.mostrarDireccion();
-		
+
 		dir2.mostrarDireccion();
-		
+
 	}
 }

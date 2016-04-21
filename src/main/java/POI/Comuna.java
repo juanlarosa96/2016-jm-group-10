@@ -10,8 +10,8 @@ public class Comuna {
 	private Polygon territorio;
 
 	public Comuna(Integer unNumero, List<Point> puntosFrontera) {
-		numero=unNumero;
-		territorio=new Polygon(puntosFrontera);
+		numero = unNumero;
+		territorio = new Polygon(puntosFrontera);
 	}
 
 	public Boolean incluyeA(Point unaPosicion) {

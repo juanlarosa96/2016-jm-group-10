@@ -10,13 +10,13 @@ import org.junit.Test;
 import org.uqbar.geodds.Point;
 
 public class ParadaColectivoTest {
-		
+
 	private ParadaColectivo parada114Segurola;
 	private Direccion direccionParada114Segurola;
-	private Point posicionParada114Segurola;	
+	private Point posicionParada114Segurola;
 	private List<String> etiquetasParada114;
 	private DateTime martes5abril2am;
-	
+
 	private ParadaColectivo parada132;
 	private List<String> etiquetas132;
 	private Point posicion132;
@@ -26,9 +26,9 @@ public class ParadaColectivoTest {
 	private Point posicionCredicoop;
 	private Direccion direccionCredicoop;
 	private List<String> etiquetasCredicoop;
-	
+
 	@Before
-	public void init(){
+	public void init() {
 		posicionParada114Segurola = new Point(-34.631997, -58.484737);
 		direccionParada114Segurola = new Direccion("Av. Segurola", 230, "Bacacay", "Bogota", null, null, 1407, "CABA",
 				"Floresta", "CABA", "Argentina");
@@ -42,9 +42,9 @@ public class ParadaColectivoTest {
 		};
 		parada114Segurola = new ParadaColectivo(114, posicionParada114Segurola, "114", direccionParada114Segurola,
 				etiquetasParada114);
-		
+
 		martes5abril2am = new DateTime(2016, 4, 5, 2, 30);
-		
+
 		etiquetas132 = new ArrayList<String>() {
 			{
 				add("parada");
@@ -72,8 +72,7 @@ public class ParadaColectivoTest {
 		bancoCredicoop = new Banco(posicionCredicoop, "Banco Credicoop", direccionCredicoop, etiquetasCredicoop);
 
 	}
-	
-	
+
 	@Test
 	public void colectivoEstaDisponible() {
 		Assert.assertTrue(parada114Segurola.estaDisponible(martes5abril2am));
@@ -83,7 +82,7 @@ public class ParadaColectivoTest {
 	public void Parada132NoEstaCercaDeCredicoop() {
 		Assert.assertFalse(parada132.estasCerca(bancoCredicoop.getPosicion()));
 	}
-	
+
 	@Test
 	public void Parada132EstaAMasDe3CuadrasDeCredicoop() {
 		Assert.assertTrue(parada132.distanciaAPoi(bancoCredicoop) > 0.3);

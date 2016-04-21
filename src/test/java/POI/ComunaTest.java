@@ -9,23 +9,19 @@ import org.junit.Test;
 import org.uqbar.geodds.Point;
 
 public class ComunaTest {
-	
-	
+
 	private Point posicion1;
 	private Point posicion4;
-	
-	private Comuna comuna10;	
+
+	private Comuna comuna10;
 	private List<Point> limitesComuna10;
-	
-	
-	
+
 	@Before
-	public void init(){
-	
+	public void init() {
+
 		posicion1 = new Point(-34.6184994, -58.4368164);
 		posicion4 = new Point(-34.6327475, -58.4851585);
-		
-		
+
 		limitesComuna10 = new ArrayList<Point>() {
 			{
 				add(new Point(-34.611015, -58.529025));
@@ -47,20 +43,19 @@ public class ComunaTest {
 				add(new Point(-34.620399, -58.516870));
 			}
 		};
-		
-		comuna10 = new Comuna(10, limitesComuna10);			
-		
+
+		comuna10 = new Comuna(10, limitesComuna10);
+
 	}
 
-	
 	@Test
-	public void Comuna10IncluyeABancoProvincia(){
-		Assert.assertTrue(comuna10.incluyeA(posicion4));		
+	public void Comuna10IncluyeABancoProvincia() {
+		Assert.assertTrue(comuna10.incluyeA(posicion4));
 	}
-	
+
 	@Test
-	public void Comuna10NoIncluyeAMacowins(){
-		Assert.assertFalse(comuna10.incluyeA(posicion1));		
+	public void Comuna10NoIncluyeAMacowins() {
+		Assert.assertFalse(comuna10.incluyeA(posicion1));
 	}
-	
+
 }
