@@ -6,8 +6,8 @@ import org.joda.time.DateTime;
 
 public class Servicio {
 
-	String nombre;
-	List<FranjaHoraria> horarios;
+	private String nombre;
+	private List<FranjaHoraria> horarios;
 	
 	public Servicio(String nombre,List<FranjaHoraria> horarios){
 		this.nombre=nombre;
