@@ -21,6 +21,8 @@ public class BancoTest {
 	@Before
 	public void init(){
 	
+	lunes4abril10am = new DateTime(2016, 4, 4, 10, 0);
+	martes5abril2am = new DateTime(2016, 4, 5, 2, 30);
 	
 	posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
 	direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
