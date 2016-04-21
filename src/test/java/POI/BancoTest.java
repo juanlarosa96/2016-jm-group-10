@@ -12,7 +12,7 @@ import org.uqbar.geodds.Point;
 public class BancoTest {
 		
 	private DateTime lunes4abril10am;
-	private DateTime martes5abri12am;
+	private DateTime martes5abril2am;
 	private Banco bancoProvincia;
 	private Direccion direccionBancoProvincia;
 	private Point posicionBancoProvincia;
@@ -39,8 +39,7 @@ public class BancoTest {
 			add("debito");
 		}
 	};
-	lunes4abril10am= new DateTime (2016,4,4,10,0,0);
-	martes5abri12am=new DateTime(2016,5,4,00,0,0);
+
 	bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia,
 			etiquetasBancoProvincia);
 	
@@ -54,8 +53,9 @@ public class BancoTest {
 	}
 
 	@Test
-	public void bancoProvinciaNoEstaDisponibleAlas12deLaNoche() {
-		Assert.assertFalse(bancoProvincia.estaDisponible(martes5abri12am));
+	public void bancoProvinciaNoEstaDisponibleAlas2am() {
+		Assert.assertFalse(bancoProvincia.estaDisponible(martes5abril2am));
 	}
+	
 
 }
