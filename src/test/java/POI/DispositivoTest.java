@@ -68,6 +68,8 @@ public class DispositivoTest {
 	private ArrayList<String> etiquetasCGP5;
 	private Comuna comuna5;
 	private CGP cgpComuna5;
+	
+	private List<POI> CGPsConRentas;
 
 	@Before
 	public void init() {
@@ -310,6 +312,8 @@ public class DispositivoTest {
 		};
 
 		Dispositivo.setListaPois(listaPoisDispositivo);
+		
+		CGPsConRentas=new ArrayList<POI>();
 	}
 
 	
@@ -351,7 +355,7 @@ public class DispositivoTest {
 	
 	@Test
 	public void encuentraRentasSiEstaDisponibleYEnCualesCGPS(){
-		List<POI> CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas",lunes4abril10am);
+		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas",lunes4abril10am);
 		Assert.assertEquals(2, CGPsConRentas.size(), 0);
 		Assert.assertTrue(CGPsConRentas.contains(cgpComuna10));
 		Assert.assertTrue(CGPsConRentas.contains(cgpComuna5));
@@ -359,7 +363,7 @@ public class DispositivoTest {
 	
 	@Test
 	public void servicioRentasNoEstaDisponible(){
-		List<POI> CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas",martes5abril2am);
+		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas",martes5abril2am);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 	
 	}
