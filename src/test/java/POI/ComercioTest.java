@@ -24,16 +24,14 @@ public class ComercioTest {
 	private DateTime martes19abril10am;
 	private DateTime martes19abril1am;
 	
-	private Banco bancoCredicoop;
-	private Point posicionCredicoop;
-	private Direccion direccionCredicoop;
-	private List<String> etiquetasCredicoop;
-
-	private Comercio macowins;
+	private Point posicion3;
+	
 	private Rubro localDeRopa;
+	private Comercio macowins;	
 	private Point posicionMacowins;
 	private Direccion direccionMacowins;
 	private List<String> etiquetasMacowins;
+	
 	@Before
 	public void init(){
 		
@@ -74,20 +72,8 @@ public class ComercioTest {
 		};
 		elHalcon = new Comercio(restaurant, horariosElHalcon, posicionElHalcon, "El Halcon", direccionElHalcon,
 				etiquetasElHalcon);
-				
-		etiquetasCredicoop = new ArrayList<String>() {
-			{
-				add("banco");
-				add("credicoop");
-				add("depositos");
-				add("extracciones");
-				add("cajero");
-			}
-		};
-		posicionCredicoop = new Point(-34.6156067, -58.4299701);
-		direccionCredicoop = new Direccion("Av Rivadavia", 4600, "Senillosa", "Av La Plata", null, null, 1424, "CABA",
-				"Caballito", "Buenos Aires", "Argentina");
-		bancoCredicoop = new Banco(posicionCredicoop, "Banco Credicoop", direccionCredicoop, etiquetasCredicoop);
+	
+		posicion3 = new Point(-34.6156067, -58.4299701);
 
 		localDeRopa = new Rubro("Local de Ropa", 0.9);
 		posicionMacowins = new Point(-34.6184994, -58.4368164);
@@ -115,7 +101,7 @@ public class ComercioTest {
 	
 	@Test
 	public void MacowinsEstaCercaDeCredicoop(){
-		Assert.assertTrue(macowins.estasCerca(bancoCredicoop.getPosicion()));
+		Assert.assertTrue(macowins.estasCerca(posicion3));
 	}
 	
 }

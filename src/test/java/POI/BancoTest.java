@@ -19,28 +19,23 @@ public class BancoTest {
 	private Direccion direccionBancoProvincia;
 	private Point posicionBancoProvincia;
 	private List<String> etiquetasBancoProvincia;
-
-	private ParadaColectivo parada132;
-	private List<String> etiquetas132;
-	private Point posicion132;
-	private Direccion direccion132;
-
+	
 	private Banco bancoCredicoop;
 	private Point posicionCredicoop;
 	private Direccion direccionCredicoop;
 	private List<String> etiquetasCredicoop;
 
-	private Comercio macowins;
-	private Rubro localDeRopa;
-	private Point posicionMacowins;
-	private Direccion direccionMacowins;
-	private List<String> etiquetasMacowins;
+	private Point posicion1;
+	private Point posicion2;
+
 
 	@Before
 	public void init() {
 
 		lunes4abril10am = new DateTime(2016, 4, 4, 10, 0);
 		martes5abril2am = new DateTime(2016, 4, 5, 2, 30);
+		jueves20mayo3pm = new DateTime(2016, 5, 20, 15, 00, 0);
+
 
 		posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
 		direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
@@ -57,18 +52,11 @@ public class BancoTest {
 				add("debito");
 			}
 		};
+		
 
-		etiquetas132 = new ArrayList<String>() {
-			{
-				add("parada");
-				add("colectivo");
-				add("132");
-			}
-		};
-		posicion132 = new Point(-34.6184929, -58.4297692);
-		direccion132 = new Direccion("Rosario", 50, "Av La Plata", "Senillosa", null, null, 1424, "CABA", "Caballito",
-				"Buenos Aires", "Argentina");
-		parada132 = new ParadaColectivo(132, posicion132, "Parada 132", direccion132, etiquetas132);
+		bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia,
+				etiquetasBancoProvincia);	
+		
 
 		etiquetasCredicoop = new ArrayList<String>() {
 			{
@@ -84,24 +72,11 @@ public class BancoTest {
 				"Caballito", "Buenos Aires", "Argentina");
 		bancoCredicoop = new Banco(posicionCredicoop, "Banco Credicoop", direccionCredicoop, etiquetasCredicoop);
 
-		localDeRopa = new Rubro("Local de Ropa", 0.9);
-		posicionMacowins = new Point(-34.6184994, -58.4368164);
-		direccionMacowins = new Direccion("Av. Acoyte", 56, "Av. Rivadavia", "Yerbal", null, null, 1424, "CABA",
-				"Caballito", "Buenos Aires", "Argentina");
-		etiquetasMacowins = new ArrayList<String>() {
-			{
-				add("local");
-				add("ropa");
-				add("macowins");
-			}
-		};
-		macowins = new Comercio(localDeRopa, null, posicionMacowins, "Macowins", direccionMacowins, etiquetasMacowins);
+		
+		posicion1 = new Point(-34.6184994, -58.4368164);
+		posicion2 = new Point(-34.6184929, -58.4297692);		
 
-		lunes4abril10am = new DateTime(2016, 4, 4, 10, 0, 0);
-		jueves20mayo3pm = new DateTime(2016, 5, 20, 15, 00, 0);
-
-		bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia,
-				etiquetasBancoProvincia);
+		
 
 	}
 
@@ -121,13 +96,13 @@ public class BancoTest {
 	}
 
 	@Test
-	public void bancoCredicoopEstaCercaDeParada132() {
-		Assert.assertTrue(bancoCredicoop.estasCerca(parada132.getPosicion()));
+	public void bancoCredicoopEstaCercaDePosicion2() {
+		Assert.assertTrue(bancoCredicoop.estasCerca(posicion2));
 	}
 
 	@Test
-	public void bancoCredicoopNoEstaCercaDeMacowins() {
-		Assert.assertFalse(bancoCredicoop.estasCerca(macowins.getPosicion()));
+	public void bancoCredicoopNoEstaCercaDePosicion1() {
+		Assert.assertFalse(bancoCredicoop.estasCerca(posicion1));
 	}
 
 }

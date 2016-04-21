@@ -34,16 +34,11 @@ public class CGPTest {
 	private List<FranjaHoraria> horariosAsesoramientoJuridico;
 	private List<FranjaHoraria> horariosEcobici;
 	
-	private Point posicionBancoProvincia;
-	private Direccion direccionBancoProvincia;
-	private ArrayList<String> etiquetasBancoProvincia;
-	private Banco bancoProvincia;
+	private Point posicion1;
+	private Point posicion3;
 	
-	private Comercio macowins;
-	private Rubro localDeRopa;
-	private Point posicionMacowins;
-	private Direccion direccionMacowins;
-	private List<String> etiquetasMacowins;
+
+	
 	
 	
 	@Before
@@ -136,29 +131,10 @@ public class CGPTest {
 		cgpComuna10 = new CGP(serviciosCGP10, comuna10, posicionCgpComuna10, "CGP Comuna 10", direccionCgpComuna10,
 				etiquetasCGP10);
 		
-		localDeRopa = new Rubro("Local de Ropa", 0.9);
-		posicionMacowins = new Point(-34.6184994, -58.4368164);
-		direccionMacowins = new Direccion("Av. Acoyte", 56, "Av. Rivadavia", "Yerbal", null, null, 1424, "CABA",
-				"Caballito", "Buenos Aires", "Argentina");
-		etiquetasMacowins= new ArrayList<String>(){{add("local");add("ropa");add("macowins");}};
-		macowins = new Comercio(localDeRopa, null, posicionMacowins, "Macowins", direccionMacowins, etiquetasMacowins);
 		
-		posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
-		direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
-				"CABA", "Floresta", "CABA", "Argentina");
-		etiquetasBancoProvincia = new ArrayList<String>() {
-			{
-				add("banco");
-				add("provincia");
-				add("depositos");
-				add("extracciones");
-				add("cajero");
-			}
-		};
-		bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia,
-				etiquetasBancoProvincia);
+		posicion1 = new Point(-34.6184994, -58.4368164);
 		
-	
+		posicion3 = new Point(-34.6327475, -58.4851585);	
 	
 	}
 	
@@ -180,11 +156,22 @@ public class CGPTest {
 	
 	@Test
 	public void CgpComuna10NoEstaCercaDeMacowins(){
-		Assert.assertFalse(cgpComuna10.estasCerca(macowins.getPosicion()));		
+		Assert.assertFalse(cgpComuna10.estasCerca(posicion1));		
 	}
 	
 	@Test
 	public void CgpComuna10EstaCercaDeBancoProvincia(){
-		Assert.assertTrue(cgpComuna10.estasCerca(bancoProvincia.getPosicion()));		
+		Assert.assertTrue(cgpComuna10.estasCerca(posicion3));		
+	}
+	
+	@Test
+	public void servicioRentasNoEstaDisponibleMartesALas2am(){
+		Assert.assertFalse(cgpComuna10.estaDisponibleServicio("Rentas", martes5abril2am));	
+	}
+	
+	@Test
+	public void servicioEcobiciEstaDisponibleLunesALas10am(){
+		Assert.assertTrue(cgpComuna10.estaDisponibleServicio("Ecobici", lunes4abril10am));
+	
 	}
 }

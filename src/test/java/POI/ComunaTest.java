@@ -10,28 +10,21 @@ import org.uqbar.geodds.Point;
 
 public class ComunaTest {
 	
-	private Comercio macowins;
-	private Rubro localDeRopa;
-	private Point posicionMacowins;
-	private Direccion direccionMacowins;
-	private List<String> etiquetasMacowins;
+	
+	private Point posicion1;
+	private Point posicion4;
 	
 	private Comuna comuna10;	
 	private List<Point> limitesComuna10;
 	
-	private Point posicionBancoProvincia;
-	private Direccion direccionBancoProvincia;
-	private ArrayList<String> etiquetasBancoProvincia;
-	private Banco bancoProvincia;
+	
 	
 	@Before
 	public void init(){
-		localDeRopa = new Rubro("Local de Ropa", 0.9);
-		posicionMacowins = new Point(-34.6184994, -58.4368164);
-		direccionMacowins = new Direccion("Av. Acoyte", 56, "Av. Rivadavia", "Yerbal", null, null, 1424, "CABA",
-				"Caballito", "Buenos Aires", "Argentina");
-		etiquetasMacowins= new ArrayList<String>(){{add("local");add("ropa");add("macowins");}};
-		macowins = new Comercio(localDeRopa, null, posicionMacowins, "Macowins", direccionMacowins, etiquetasMacowins);
+	
+		posicion1 = new Point(-34.6184994, -58.4368164);
+		posicion4 = new Point(-34.6327475, -58.4851585);
+		
 		
 		limitesComuna10 = new ArrayList<Point>() {
 			{
@@ -55,34 +48,19 @@ public class ComunaTest {
 			}
 		};
 		
-		comuna10 = new Comuna(10, limitesComuna10);
-		
-		posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
-		direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
-				"CABA", "Floresta", "CABA", "Argentina");
-		etiquetasBancoProvincia = new ArrayList<String>() {
-			{
-				add("banco");
-				add("provincia");
-				add("depositos");
-				add("extracciones");
-				add("cajero");
-			}
-		};
-		bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia,
-				etiquetasBancoProvincia);		
+		comuna10 = new Comuna(10, limitesComuna10);			
 		
 	}
 
 	
 	@Test
 	public void Comuna10IncluyeABancoProvincia(){
-		Assert.assertTrue(comuna10.incluyeA(bancoProvincia.getPosicion()));		
+		Assert.assertTrue(comuna10.incluyeA(posicion4));		
 	}
 	
 	@Test
 	public void Comuna10NoIncluyeAMacowins(){
-		Assert.assertFalse(comuna10.incluyeA(macowins.getPosicion()));		
+		Assert.assertFalse(comuna10.incluyeA(posicion1));		
 	}
 	
 }
