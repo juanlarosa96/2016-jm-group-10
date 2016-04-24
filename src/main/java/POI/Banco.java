@@ -19,6 +19,7 @@ public class Banco extends POI {
 
 	@Override
 	public Boolean estaDisponible(DateTime momento) {
+		//return isBetween(LUNES, VIERNES, momento.getDayOfWeek()) && isBetween(10, 14, momento.getHourOfDay())
 		if (isBetween(LUNES, VIERNES, momento.getDayOfWeek()) && isBetween(10, 14, momento.getHourOfDay())) {
 			return true;
 		} else

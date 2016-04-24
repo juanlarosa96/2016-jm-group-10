@@ -21,12 +21,14 @@ public class Dispositivo {
 	public static void agregarPoi(POI poi) {
 		listaPois.add(poi);
 	}
-
+	
+	/*
 	public Double distanciaEntrePois(POI unPoi, POI otroPoi) {
 
 		return unPoi.distanciaAPoi(otroPoi);
 
 	}
+	*/
 
 	public List<POI> buscarPOIs(String descripcion) {
 		return listaPois.stream().filter(poi -> poi.contiene(descripcion)).collect(Collectors.toList());
