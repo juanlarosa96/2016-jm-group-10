@@ -11,6 +11,9 @@ public abstract class POI {
 	protected Direccion direccion;
 	protected List<String> etiquetas;
 
+	
+	//ojo con la visibilidad de todos los metodos, que sean visibles solo los de la interfaz
+	
 	public Boolean distanciaAPoiMenorA(Double distancia, POI poi) {
 
 		return distanciaAPoi(poi) < distancia;
