@@ -48,6 +48,7 @@ public class ComunaTest {
 
 	}
 
+
 	@Test
 	public void Comuna10IncluyeABancoProvincia() {
 		Assert.assertTrue(comuna10.incluyeA(posicion4));

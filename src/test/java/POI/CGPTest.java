@@ -13,6 +13,9 @@ import org.uqbar.geodds.Point;
 
 public class CGPTest {
 
+	//cambiar nombres de variables en el fixture para que sean mas expresivos y representativos del dominio
+	//por ejemplo: no me interesa saber si es el cgpComuna10
+	
 	private CGP cgpComuna10;
 	private Direccion direccionCgpComuna10;
 	private Point posicionCgpComuna10;
@@ -26,13 +29,13 @@ public class CGPTest {
 	private Comuna comuna10;
 	private List<Point> limitesComuna10;
 
-	private DateTime lunes4abril10am;
-	private DateTime martes5abril2am;
+	private DateTime lunes4abril10am; //este puede ser horarioValido
+	private DateTime martes5abril2am; //horarioNoDisponible?
 	private List<FranjaHoraria> horariosRentas;
 	private List<FranjaHoraria> horariosAsesoramientoJuridico;
 	private List<FranjaHoraria> horariosEcobici;
 
-	private Point posicion1;
+	private Point posicion1; //posicionFueraDeComuna y viceversa
 	private Point posicion3;
 
 	@Before
@@ -126,12 +129,21 @@ public class CGPTest {
 		posicion3 = new Point(-34.6327475, -58.4851585);
 
 	}
-
+	
+	
+	//estos nombres de test estan bastante bien, los 2 de disponibilidad
 	@Test
 	public void preguntoACGPSiEstaDisponibleYdiceQueSi() {
 		Assert.assertTrue(cgpComuna10.estaDisponible(lunes4abril10am));
 	}
+		
+	//nombre: si esta disponible y le paso un horario que deberia estar disponible
+	
+	//identificar las clases de equivalencia asociadas al feature
+	//casos borde
+	//testear solo UNA vez cada clase de equivalencia: feature bien cubierto por tests
 
+	
 	@Test
 	public void preguntoACGPSiEstaDisponibleYdiceQueNo() {
 		Assert.assertFalse(cgpComuna10.estaDisponible(martes5abril2am));
