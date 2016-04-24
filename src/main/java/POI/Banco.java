@@ -13,12 +13,15 @@ public class Banco extends POI {
 		this.direccion = direccion;
 		this.etiquetas = etiquetas;
 	}
+	
+	//si hacemos el constructor privado, no le podemos mandar el mensaje new
 
 	private static final Integer LUNES = 1;
 	private static final Integer VIERNES = 5;
-
+	
+	
 	@Override
-	public Boolean estaDisponible(DateTime momento) {
+	public Boolean estaDisponible(DateTime momento) { //llevarlo a POI
 		if (isBetween(LUNES, VIERNES, momento.getDayOfWeek()) && isBetween(10, 14, momento.getHourOfDay())) {
 			return true;
 		} else
