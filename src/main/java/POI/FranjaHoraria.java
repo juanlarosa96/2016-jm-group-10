@@ -33,7 +33,9 @@ public class FranjaHoraria {
 			return false;
 
 	}
-
+	
+	
+	//cambiar nombre de isBetween que esté relacionado con el dominio
 	private static Boolean isBetween(int a, int b, int c) {
 		return b >= a ? c >= a && c <= b : c >= b && c <= a;
 	}
