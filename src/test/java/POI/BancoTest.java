@@ -12,7 +12,7 @@ import org.uqbar.geodds.Point;
 public class BancoTest {
 
 	private DateTime lunes4abril10am;
-	private DateTime jueves20mayo3pm;
+	private DateTime jueves20mayo3pm; //cambiar nombres de estas variables, ej: 3pm por horarioBordeCierre blabla
 	private DateTime martes5abril2am;
 
 	private Banco bancoProvincia;
@@ -77,12 +77,23 @@ public class BancoTest {
 	public void bancoProvinciaEstaDisponibleAlas10am() {
 		Assert.assertTrue(bancoProvincia.estaDisponible(lunes4abril10am));
 	}
+	
+	//lunes4abril10am: horarioBancario
+	//martes5abril2am: horarioNoBancario -- asi no tengo que conocer el horario bancario
+	//bancoProvincia: bancoValido
 
 	@Test
 	public void bancoProvinciaNoEstaDisponibleAlas2am() {
 		Assert.assertFalse(bancoProvincia.estaDisponible(martes5abril2am));
 	}
-
+	
+	//Que el nombre del test exprese todo esto...
+	//test
+	//hipotesis
+	//conjunto de reglas
+	//tesis: comprobacion de hipotesis
+		
+	
 	@Test
 	public void bancoProvinciaNoEstaDisponibleAlas3() {
 		Assert.assertFalse(bancoProvincia.estaDisponible(jueves20mayo3pm));
