@@ -1,8 +1,5 @@
 package POI;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +14,8 @@ public class ComunaTest {
 	@Before
 	public void init() {
 		comunaValida = FixtureComuna.dameComunaValida();
-		posicionIncluida=FixtureComuna.damePosicionIncluida();
-		posicionNoIncluida=FixtureComuna.damePosicionNoIncluida();
+		posicionIncluida=FixtureComuna.damePosicionIncluidaComunaValida();
+		posicionNoIncluida=FixtureComuna.damePosicionNoIncluidaComunaValida();
 
 	}
 
