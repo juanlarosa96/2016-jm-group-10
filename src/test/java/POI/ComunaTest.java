@@ -14,8 +14,8 @@ public class ComunaTest {
 	@Before
 	public void init() {
 		comunaValida = FixtureComuna.dameComunaValida();
-		posicionIncluida=FixtureComuna.damePosicionIncluida();
-		posicionNoIncluida=FixtureComuna.damePosicionNoIncluida();
+		posicionIncluida=FixtureComuna.damePosicionIncluidaComunaValida();
+		posicionNoIncluida=FixtureComuna.damePosicionNoIncluidaComunaValida();
 
 	}
 
