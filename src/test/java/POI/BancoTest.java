@@ -43,11 +43,6 @@ public class BancoTest {
 
 	}
 
-	@Test
-	public void bancoValidoEstaDisponibleEnHorarioBancario() {
-		Assert.assertTrue(bancoValido.estaDisponible(lunes4abril10am));
-	}
-	
 	//lunes4abril10am: horarioBancario
 	//martes5abril2am: horarioNoBancario -- asi no tengo que conocer el horario bancario
 	//bancoProvincia: bancoValido
@@ -56,6 +51,12 @@ public class BancoTest {
 	public void unBancoValidoNoEstaDisponibleEnUnHorarioNoBancario() {
 		Assert.assertFalse(bancoValido.estaDisponible(martes5abril2am));
 	}
+	
+	@Test
+	public void unBancoValidoEstaDisponibleEnHorarioBancario() {
+		Assert.assertTrue(bancoValido.estaDisponible(lunes4abril10am));
+	}
+	
 	
 	//Que el nombre del test exprese todo esto...
 	//test
