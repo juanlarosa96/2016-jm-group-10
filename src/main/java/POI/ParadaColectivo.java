@@ -11,7 +11,7 @@ public class ParadaColectivo extends POI {
 	public ParadaColectivo(Integer unaLinea, Point posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
 		this.linea = unaLinea;
-		this.nombre = nombre;
+		this.setNombre(nombre);
 		this.setHorarios(new ArrayList<FranjaHoraria>() {
 			{
 				add(new FranjaHoraria(1, new LocalTime(0, 0), new LocalTime(23, 59)));
@@ -23,9 +23,9 @@ public class ParadaColectivo extends POI {
 				add(new FranjaHoraria(7, new LocalTime(0, 0), new LocalTime(23, 59)));
 			}
 		});
-		this.direccion = direccion;
-		this.etiquetas = etiquetas;
-		this.posicion = posicion;
+		this.setDireccion(direccion);
+		this.setEtiquetas(etiquetas);
+		this.setPosicion(posicion);
 	}
 
 	@Override

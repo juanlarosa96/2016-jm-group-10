@@ -10,11 +10,11 @@ public class Comercio extends POI {
 	public Comercio(Rubro unRubro, List<FranjaHoraria> losHorarios, Point posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
 		this.rubro = unRubro;
-		this.posicion = posicion;
+		this.setPosicion(posicion);
 		this.setHorarios(losHorarios);
-		this.nombre = nombre;
-		this.direccion = direccion;
-		this.etiquetas = etiquetas;
+		this.setNombre(nombre);
+		this.setDireccion(direccion);
+		this.setEtiquetas(etiquetas);
 	}
 
 	@Override

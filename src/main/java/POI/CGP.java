@@ -14,10 +14,10 @@ public class CGP extends POI {
 			List<String> etiquetas) {
 		this.servicios = servicios;
 		this.comuna = comuna;
-		this.posicion = posicion;
-		this.nombre = nombre;
-		this.direccion = direccion;
-		this.etiquetas = etiquetas;
+		this.setPosicion(posicion);
+		this.setNombre(nombre);
+		this.setDireccion(direccion);
+		this.setEtiquetas(etiquetas);
 	}
 
 	@Override

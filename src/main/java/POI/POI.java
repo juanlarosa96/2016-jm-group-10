@@ -6,15 +6,43 @@ import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 public abstract class POI {
-	//deben ser private y las subclases accederlos por getters
-	protected Point posicion;
-	protected String nombre;
-	protected Direccion direccion;
-	protected List<String> etiquetas;
+	
+	private Point posicion;
+	private String nombre;
+	private Direccion direccion;
+	private List<String> etiquetas;
 	private List<FranjaHoraria> horarios;
 	
 	//ojo con la visibilidad de todos los metodos, que sean visibles solo los de la interfaz
 	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Direccion getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
+
+	public List<String> getEtiquetas() {
+		return etiquetas;
+	}
+
+	public void setEtiquetas(List<String> etiquetas) {
+		this.etiquetas = etiquetas;
+	}
+
+	public void setPosicion(Point posicion) {
+		this.posicion = posicion;
+	}
+
 	public Boolean distanciaAPoiMenorA(Double distancia, POI poi) {
 
 		return distanciaAPoi(poi) < distancia;
