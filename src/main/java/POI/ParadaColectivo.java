@@ -29,7 +29,7 @@ public class ParadaColectivo extends POI {
 	}
 
 	@Override
-	public Double condicionDeCercania() {
+	protected Double condicionDeCercania() {
 		return 0.1;
 	}
 

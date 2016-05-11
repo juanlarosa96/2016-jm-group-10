@@ -18,7 +18,7 @@ public class Comercio extends POI {
 	}
 
 	@Override
-	public Double condicionDeCercania() {
+	protected Double condicionDeCercania() {
 		return rubro.getCondicionDeCercania();
 	}
 
