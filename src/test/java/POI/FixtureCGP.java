@@ -21,10 +21,16 @@ import org.uqbar.geodds.Point;
 	private static Comuna comuna10;
 	private static List<Point> limitesComuna10;
 
-	
+	private static CGP otroCgp;
+	private static Direccion direccionCgpComuna5;
 	private static List<FranjaHoraria> horariosRentas;
 	private static List<FranjaHoraria> horariosAsesoramientoJuridico;
 	private static List<FranjaHoraria> horariosEcobici;
+	private static Servicio asesoramientoLegal;
+	private static Point posicionCgpComuna5;
+	private static ArrayList<Servicio> serviciosCGP5;
+	private static ArrayList<String> etiquetasCGP5;
+	private static Comuna comuna5;	
 
 	
 	public static CGP dameCGPValido(){
@@ -83,7 +89,41 @@ import org.uqbar.geodds.Point;
 
 		cgp = new CGP(serviciosCGP10, comuna10, posicionCgpComuna10, "CGP Comuna 10", direccionCgpComuna10,
 				etiquetasCGP10);
+		
 		return cgp;		
+		
+	}
+	
+	public static CGP dameOtroCgpValido(){
+		posicionCgpComuna5 = FixtureComuna.damePosicionIncluidaOtraComuna();//new Point(-34.6229418, -58.4146764);
+		
+
+		serviciosCGP5 = new ArrayList<Servicio>() {
+			{
+				add(rentas);
+				add(asesoramientoLegal);
+				add(ecobici);
+			}
+		};
+
+		etiquetasCGP5 = new ArrayList<String>() {
+			{
+				add("CGP");
+				add("Cgp");
+				add("cgp");
+				add("rentas");
+				add("asesoramiento");
+				add("legal");
+				add("ecobici");
+			}
+		};
+
+		comuna5 = FixtureComuna.dameOtraComunaValida();
+
+		otroCgp = new CGP(serviciosCGP5, comuna5, posicionCgpComuna5, "CGP Comuna 5", direccionCgpComuna5,
+				etiquetasCGP5);
+		
+		return otroCgp;
 		
 	}
 	
