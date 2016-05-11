@@ -20,7 +20,7 @@ public class FranjaHoraria {
 
 		if (fecha.getDayOfWeek() == diaDeLaSemana){
 
-			return isBetween(horaApertura.getMillisOfDay(), horaCierre.getMillisOfDay(), fecha.getMillisOfDay());
+			return estaElHorarioContenidoEnElIntervalo(horaApertura.getMillisOfDay(), horaCierre.getMillisOfDay(), fecha.getMillisOfDay());
 		}
 		else
 			return false;
@@ -28,9 +28,9 @@ public class FranjaHoraria {
 	}
 	
 	
-	//cambiar nombre de isBetween que esté relacionado con el dominio
-	private static Boolean isBetween(int a, int b, int c) {
-		return b >= a ? c >= a && c <= b : c >= b && c <= a;
+	private Boolean estaElHorarioContenidoEnElIntervalo(int apertura, int cierre, int horario) {
+		return horario >= apertura && horario <= (cierre + 59999);
 	}
+
 
 }

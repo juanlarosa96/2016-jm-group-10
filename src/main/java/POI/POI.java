@@ -11,9 +11,63 @@ public abstract class POI {
 	private String nombre;
 	private Direccion direccion;
 	private List<String> etiquetas;
-	private List<FranjaHoraria> horarios;
+	private List<FranjaHoraria> horarios;	
 	
-	//ojo con la visibilidad de todos los metodos, que sean visibles solo los de la interfaz
+
+	public Boolean distanciaAPoiMenorA(Double distancia, POI poi) {
+
+		return distanciaAPoi(poi) < distancia;
+	}
+
+	public Double distanciaAPoi(POI poi) {
+		return this.distanciaAPosicion(poi.getPosicion());
+	}
+	
+	public Boolean esValido() {
+
+		return (posicion != null && nombre != null && direccion != null);
+		
+	}
+
+	public Boolean estaDisponible(DateTime fecha) {
+		return horarios.stream().anyMatch(unHorario -> unHorario.estaEnFranjaHoraria(fecha));
+	}
+
+	public Boolean estasCerca(Point unaPosicion) {
+		
+		return this.distanciaAPosicion(unaPosicion) <= this.condicionDeCercania();
+		
+	}
+
+	private Double distanciaAPosicion(Point unaPosicion) {
+		
+		return posicion.distance(unaPosicion);
+	}
+
+	protected Double condicionDeCercania() {
+		// devuelve la cantidad de kilometros maxima que considera cerca
+		return 0.5;
+	}
+
+	public Boolean contiene(String descripcion) {
+		return (descripcion.contains(nombre) || etiquetas.stream().anyMatch(palabra -> descripcion.contains(palabra)));
+	}
+
+	public Boolean estaDisponibleServicio(String servicio, DateTime momento) {
+		return false;
+	}
+
+	public Point getPosicion() {
+		return posicion;
+	}
+
+	public List<FranjaHoraria> getHorarios() {
+		return horarios;
+	}
+
+	public void setHorarios(List<FranjaHoraria> horarios) {
+		this.horarios = horarios;
+	}
 	
 	public String getNombre() {
 		return nombre;
@@ -41,62 +95,6 @@ public abstract class POI {
 
 	public void setPosicion(Point posicion) {
 		this.posicion = posicion;
-	}
-
-	public Boolean distanciaAPoiMenorA(Double distancia, POI poi) {
-
-		return distanciaAPoi(poi) < distancia;
-	}
-
-	//no tiene sentido que sea public, debe ser private
-	public Double distanciaAPoi(POI poi) {
-		return posicion.distance(poi.getPosicion());
-	}
-	//
-	public Boolean esValido() {
-
-		return (posicion != null && nombre != null && direccion != null);
-		
-	}
-
-	public Boolean estaDisponible(DateTime fecha) {
-		return horarios.stream().anyMatch(unHorario -> unHorario.estaEnFranjaHoraria(fecha));
-	}
-
-	public Boolean estasCerca(Point unaPosicion) {
-		
-		return (this.distanciaAPosicion(unaPosicion) <= this.condicionDeCercania());
-		
-	}
-
-	private Double distanciaAPosicion(Point unaPosicion) {
-		
-		return posicion.distance(unaPosicion);
-	}
-
-	public Double condicionDeCercania() {
-		// devuelve la cantidad de kilometros maxima que considera cerca
-		return 0.5;
-	}
-
-	public Boolean contiene(String descripcion) {
-		return (descripcion.contains(nombre) || etiquetas.stream().anyMatch(palabra -> descripcion.contains(palabra)));
-	}
-
-	public Boolean estaDisponibleServicio(String servicio, DateTime momento) {
-		return false;
-	}
-
-	public Point getPosicion() {
-		return posicion;
-	}
-
-	public List<FranjaHoraria> getHorarios() {
-		return horarios;
-	}
-
-	public void setHorarios(List<FranjaHoraria> horarios) {
-		this.horarios = horarios;
 	}
 	
 	

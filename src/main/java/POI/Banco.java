@@ -3,6 +3,7 @@ package POI;
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.LocalTime;
+import org.joda.time.DateTimeConstants;
 import org.uqbar.geodds.Point;
 
 public class Banco extends POI {
@@ -12,11 +13,11 @@ public class Banco extends POI {
 		this.setNombre(nombre);
 		this.setHorarios(new ArrayList<FranjaHoraria>() {
 			{
-				add(new FranjaHoraria(1, new LocalTime(9, 00), new LocalTime(14, 59)));
-				add(new FranjaHoraria(2, new LocalTime(9, 00), new LocalTime(14, 59)));
-				add(new FranjaHoraria(3, new LocalTime(9, 00), new LocalTime(14, 59)));
-				add(new FranjaHoraria(4, new LocalTime(9, 00), new LocalTime(14, 59)));
-				add(new FranjaHoraria(5, new LocalTime(9, 00), new LocalTime(14, 59)));
+				add(new FranjaHoraria(DateTimeConstants.MONDAY, new LocalTime(9, 00), new LocalTime(14, 59)));
+				add(new FranjaHoraria(DateTimeConstants.TUESDAY, new LocalTime(9, 00), new LocalTime(14, 59)));
+				add(new FranjaHoraria(DateTimeConstants.WEDNESDAY, new LocalTime(9, 00), new LocalTime(14, 59)));
+				add(new FranjaHoraria(DateTimeConstants.THURSDAY, new LocalTime(9, 00), new LocalTime(14, 59)));
+				add(new FranjaHoraria(DateTimeConstants.FRIDAY, new LocalTime(9, 00), new LocalTime(14, 59)));
 				
 			}
 		});
