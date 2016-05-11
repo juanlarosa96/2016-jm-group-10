@@ -8,8 +8,8 @@ import org.uqbar.geodds.Point;
 public class Banco extends POI {
 
 	public Banco(Point posicion, String nombre, Direccion direccion, List<String> etiquetas) {
-		this.posicion = posicion;
-		this.nombre = nombre;
+		this.setPosicion(posicion);
+		this.setNombre(nombre);
 		this.setHorarios(new ArrayList<FranjaHoraria>() {
 			{
 				add(new FranjaHoraria(1, new LocalTime(9, 00), new LocalTime(14, 59)));
@@ -20,11 +20,8 @@ public class Banco extends POI {
 				
 			}
 		});
-		this.direccion = direccion;
-		this.etiquetas = etiquetas;
+		this.setDireccion(direccion);
+		this.setEtiquetas(etiquetas);
 	}
-	
-	//si hacemos el constructor privado, no le podemos mandar el mensaje new
-	
-	
+		
 }

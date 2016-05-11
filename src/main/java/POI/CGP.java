@@ -2,7 +2,6 @@ package POI;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
@@ -14,10 +13,10 @@ public class CGP extends POI {
 			List<String> etiquetas) {
 		this.servicios = servicios;
 		this.comuna = comuna;
-		this.posicion = posicion;
-		this.nombre = nombre;
-		this.direccion = direccion;
-		this.etiquetas = etiquetas;
+		this.setPosicion(posicion);
+		this.setNombre(nombre);
+		this.setDireccion(direccion);
+		this.setEtiquetas(etiquetas);
 	}
 
 	@Override
