@@ -12,19 +12,13 @@ import org.uqbar.geodds.Point;
 public class BancoTest {
 
 	private DateTime horarioBancario;
-	private DateTime horarioCierreBanco; //cambiar nombres de estas variables, ej: 3pm por horarioBordeCierre blabla
+	private DateTime horarioCierreBanco;
 	private DateTime horarioNoBancario;
 
 	private Banco bancoValido;
 
-
-	private Banco bancoCredicoop;
-	private Point posicionCredicoop;
-	private Direccion direccionCredicoop;
-	private List<String> etiquetasCredicoop;
-
-	private Point posicion1;
-	private Point posicion2;
+	private Point posicionCercana;
+	private Point posicionLejana;
 
 	@Before
 	public void init() {
@@ -37,14 +31,9 @@ public class BancoTest {
 
 		bancoValido = fixtureBanco.dameUnBancoValido();
 
-		posicion1 = new Point(-34.6184994, -58.4368164);
-		posicion2 = new Point(-34.6184929, -58.4297692);
-
+		posicionCercana = fixtureBanco.getPosicionCercana();
+		posicionLejana = fixtureBanco.getPosicionLejana();
 	}
-
-	//lunes4abril10am: horarioBancario
-	//martes5abril2am: horarioNoBancario -- asi no tengo que conocer el horario bancario
-	//bancoProvincia: bancoValido
 
 	@Test
 	public void unBancoValidoNoEstaDisponibleEnUnHorarioNoBancario() {
@@ -54,15 +43,7 @@ public class BancoTest {
 	@Test
 	public void unBancoValidoEstaDisponibleEnHorarioBancario() {
 		Assert.assertTrue(bancoValido.estaDisponible(horarioBancario));
-	}
-	
-	
-	//Que el nombre del test exprese todo esto...
-	//test
-	//hipotesis
-	//conjunto de reglas
-	//tesis: comprobacion de hipotesis
-		
+	}		
 	
 	@Test
 	public void unBancoValidoNoEstaDisponibleEnHorarioDeCierre() {
@@ -70,13 +51,13 @@ public class BancoTest {
 	}
 
 	@Test
-	public void bancoCredicoopEstaCercaDePosicion2() {
-		Assert.assertTrue(bancoCredicoop.estasCerca(posicion2));
+	public void unBancoValidoEstaCercaDeUnaPosicionCercana() {
+		Assert.assertTrue(bancoValido.estasCerca(posicionCercana));
 	}
 
 	@Test
-	public void bancoCredicoopNoEstaCercaDePosicion1() {
-		Assert.assertFalse(bancoCredicoop.estasCerca(posicion1));
+	public void unBancoValidoNoEstaCercaDeUnaPosicionLejana() {
+		Assert.assertFalse(bancoValido.estasCerca(posicionLejana));
 	}
 
 }

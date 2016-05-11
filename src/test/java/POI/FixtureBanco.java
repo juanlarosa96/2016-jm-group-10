@@ -22,7 +22,18 @@ public class FixtureBanco {
 		}
 	};
 	
+	private Point posicionCercana = new Point(-34.6184994, -58.4368164);
+	private Point posicionLejana = new Point(-34.6184929, -58.4297692);
+	
 	public Banco dameUnBancoValido() {
 		return new Banco(posicionBancoValido, null, direccionBancoValido, etiquetasBancoValido);
+	}
+	
+	public Point getPosicionCercana() {
+		return posicionCercana;
+	}
+
+	public Point getPosicionLejana() {
+		return posicionLejana;
 	}
 }
