@@ -10,14 +10,14 @@ public class FixtureComuna {
 	public FixtureComuna(){
 	}
 	
-	Point damePosicionIncluida(){
+	static Point damePosicionIncluida(){
 		return new Point(-34.6327475, -58.4851585);
 	}
-	Point damePosicionNoIncluida(){
+	static Point damePosicionNoIncluida(){
 		return new Point(-34.6184994, -58.4368164);
 	}
 	
-	private List<Point> limitesComuna= new ArrayList<Point>() {
+	private static List<Point> limitesComuna= new ArrayList<Point>() {
 		{
 			add(new Point(-34.611015, -58.529025));
 			add(new Point(-34.615256, -58.531221));
@@ -38,7 +38,7 @@ public class FixtureComuna {
 			add(new Point(-34.620399, -58.516870));
 		}
 	};
-	public  Comuna dameComunaValida(){
+	public static Comuna dameComunaValida(){
 		return new Comuna(10, limitesComuna);
 	}
 }
