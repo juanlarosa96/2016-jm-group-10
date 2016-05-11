@@ -23,11 +23,10 @@ public class BancoTest {
 	@Before
 	public void init() {
 		FixtureBanco fixtureBanco = new FixtureBanco();
-		FixtureHorarios fixtureHorarios = new FixtureHorarios();
 		
-		horarioBancario = fixtureHorarios.dameUnHorarioBancario();
-		horarioNoBancario = fixtureHorarios.dameUnHorarioALaHoraDeCierre();
-		horarioCierreBanco = fixtureHorarios.dameUnHorarioNoBancario();
+		horarioBancario = fixtureBanco.getHorarioBancario();
+		horarioNoBancario = fixtureBanco.getHorarioNoBancario();
+		horarioCierreBanco = fixtureBanco.getHorarioCierreBanco();
 
 		bancoValido = fixtureBanco.dameUnBancoValido();
 

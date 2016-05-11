@@ -2,6 +2,8 @@ package POI;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 public class FixtureBanco {
@@ -25,6 +27,10 @@ public class FixtureBanco {
 	private Point posicionCercana = new Point(-34.6184994, -58.4368164);
 	private Point posicionLejana = new Point(-34.6184929, -58.4297692);
 	
+	private DateTime horarioBancario = new DateTime(2016, 4, 4, 10, 0);
+	private DateTime horarioNoBancario = new DateTime(2016, 4, 5, 2, 30);
+	private DateTime horarioCierreBanco = new DateTime(2016, 5, 20, 15, 00, 0);
+	
 	public Banco dameUnBancoValido() {
 		return new Banco(posicionBancoValido, null, direccionBancoValido, etiquetasBancoValido);
 	}
@@ -36,4 +42,18 @@ public class FixtureBanco {
 	public Point getPosicionLejana() {
 		return posicionLejana;
 	}
+
+	public DateTime getHorarioBancario() {
+		return horarioBancario;
+	}
+
+	public DateTime getHorarioNoBancario() {
+		return horarioNoBancario;
+	}
+
+	public DateTime getHorarioCierreBanco() {
+		return horarioCierreBanco;
+	}
+	
+	
 }
