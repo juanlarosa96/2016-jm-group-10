@@ -317,42 +317,27 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void paradaColectivo114estaEnListaPois() {
+	public void consultoSiUnaParadaValidaSeEncuentraEnLaListaDePoisYDiceQueSi() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Segurola));
 	}
 
 	@Test
-	public void estanLasDosParadasDel114() {
-		Assert.assertEquals(2, (dispositivo.buscarPOIs("114").size()), 0);
-	}
-
-	@Test
-	public void macowinsNoEstaEnListaPois() {
-		Assert.assertTrue(dispositivo.buscarPOIs("macowins").isEmpty());
-	}
-
-	@Test
-	public void encuentraTodosLosRestaurants() {
-		Assert.assertEquals(2, (dispositivo.buscarPOIs("Restaurant").size()), 0);
-	}
-
-	@Test
-	public void encuentraTodosLosPOIsEtiquetadosConPalabraClave() {
+	public void consultoSiAlgunPOITieneEtiquetaConUnaPalabraClaveYDevuelve3() {
 		Assert.assertEquals(3, (dispositivo.buscarPOIs("tarjeta de credito").size()), 0);
 	}
 
 	@Test
-	public void noEncuentraPOIsCuandoNingunPOITieneLaEtiqueta() {
+	public void consultoSiAlgunPoiTieneEtiquetaConUnaPalabraClaveQueNingunoTieneYNoHayNinguno() {
 		Assert.assertEquals(0, (dispositivo.buscarPOIs("negra").size()), 0);
 	}
 
 	@Test
-	public void encuentraTodosLosCGPsEtiquetadosConPalabraClave() {
+	public void consultoSiAlgunaCGTTieneEtiquetaConUnaPalabraClaveYDevuelve2() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
 	}
 
 	@Test
-	public void encuentraRentasSiEstaDisponibleYEnCualesCGPS() {
+	public void consultoSiUnServicioValidoSeEncuentraDisponibleEnHorarioAbiertoEnAlgunCGPYDiceQueSeEncuentraEn2CGP() {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", lunes4abril10am);
 		Assert.assertEquals(2, CGPsConRentas.size(), 0);
 		Assert.assertTrue(CGPsConRentas.contains(cgpComuna10));
@@ -360,7 +345,7 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void servicioRentasNoEstaDisponible() {
+	public void consultoSiUnServicioValidoEstaDisponibleEnHorarioDondeEstaCerradoYDiceQueNo() {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", martes5abril2am);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 
