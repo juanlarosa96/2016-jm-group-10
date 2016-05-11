@@ -12,7 +12,7 @@ public class FixtureHorarios {
 		return new DateTime(2016, 4, 5, 2, 30);
 	}
 	
-	public DateTime dameUnHorarioBancarioALaHoraDeCierre(){
+	public DateTime dameUnHorarioALaHoraDeCierre(){
 		return new DateTime(2016, 5, 20, 15, 00, 0);
 	}
 }

@@ -11,14 +11,12 @@ import org.uqbar.geodds.Point;
 
 public class BancoTest {
 
-	private DateTime lunes4abril10am;
-	private DateTime jueves20mayo3pm; //cambiar nombres de estas variables, ej: 3pm por horarioBordeCierre blabla
-	private DateTime martes5abril2am;
+	private DateTime horarioBancario;
+	private DateTime horarioCierreBanco; //cambiar nombres de estas variables, ej: 3pm por horarioBordeCierre blabla
+	private DateTime horarioNoBancario;
 
 	private Banco bancoValido;
-	private Direccion direccionBancoProvincia;
-	private Point posicionBancoProvincia;
-	private List<String> etiquetasBancoProvincia;
+
 
 	private Banco bancoCredicoop;
 	private Point posicionCredicoop;
@@ -31,12 +29,13 @@ public class BancoTest {
 	@Before
 	public void init() {
 		FixtureBanco fixtureBanco = new FixtureBanco();
+		FixtureHorarios fixtureHorarios = new FixtureHorarios();
 		
-		lunes4abril10am = new DateTime(2016, 4, 4, 10, 0);
-		martes5abril2am = new DateTime(2016, 4, 5, 2, 30);
-		jueves20mayo3pm = new DateTime(2016, 5, 20, 15, 00, 0);
+		horarioBancario = fixtureHorarios.dameUnHorarioBancario();
+		horarioNoBancario = fixtureHorarios.dameUnHorarioALaHoraDeCierre();
+		horarioCierreBanco = fixtureHorarios.dameUnHorarioNoBancario();
 
-		Banco bancoValido = fixtureBanco.dameUnBancoValido();
+		bancoValido = fixtureBanco.dameUnBancoValido();
 
 		posicion1 = new Point(-34.6184994, -58.4368164);
 		posicion2 = new Point(-34.6184929, -58.4297692);
@@ -49,12 +48,12 @@ public class BancoTest {
 
 	@Test
 	public void unBancoValidoNoEstaDisponibleEnUnHorarioNoBancario() {
-		Assert.assertFalse(bancoValido.estaDisponible(martes5abril2am));
+		Assert.assertFalse(bancoValido.estaDisponible(horarioNoBancario));
 	}
 	
 	@Test
 	public void unBancoValidoEstaDisponibleEnHorarioBancario() {
-		Assert.assertTrue(bancoValido.estaDisponible(lunes4abril10am));
+		Assert.assertTrue(bancoValido.estaDisponible(horarioBancario));
 	}
 	
 	
@@ -66,8 +65,8 @@ public class BancoTest {
 		
 	
 	@Test
-	public void bancoProvinciaNoEstaDisponibleAlas3() {
-		Assert.assertFalse(bancoValido.estaDisponible(jueves20mayo3pm));
+	public void unBancoValidoNoEstaDisponibleEnHorarioDeCierre() {
+		Assert.assertFalse(bancoValido.estaDisponible(horarioCierreBanco));
 	}
 
 	@Test
