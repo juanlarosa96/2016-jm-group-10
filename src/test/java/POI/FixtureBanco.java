@@ -8,10 +8,10 @@ import org.uqbar.geodds.Point;
 
 public class FixtureBanco {
 	
-	private Direccion direccionBancoValido = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
+	private static Direccion direccionBancoValido = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
 			"CABA", "Floresta", "CABA", "Argentina");
-	private Point posicionBancoValido = new Point(-34.6327475, -58.4851585);
-	private List<String> etiquetasBancoValido = new ArrayList<String>() {
+	private static Point posicionBancoValido = new Point(-34.6327475, -58.4851585);
+	private static List<String> etiquetasBancoValido = new ArrayList<String>() {
 		{
 			add("banco");
 			add("provincia");
@@ -24,34 +24,34 @@ public class FixtureBanco {
 		}
 	};
 	
-	private Point posicionLejana = new Point(-34.6184994, -58.4368164);
-	private Point posicionCercana = new Point(-34.6327474, -58.4851584);
+	private static Point posicionLejana = new Point(-34.6184994, -58.4368164);
+	private static Point posicionCercana = new Point(-34.6327474, -58.4851584);
 	
-	private DateTime horarioBancario = new DateTime(2016, 4, 4, 10, 0);
-	private DateTime horarioNoBancario = new DateTime(2016, 4, 5, 2, 30);
-	private DateTime horarioCierreBanco = new DateTime(2016, 5, 20, 15, 00, 0);
+	private static DateTime horarioBancario = new DateTime(2016, 4, 4, 10, 0);
+	private static DateTime horarioNoBancario = new DateTime(2016, 4, 5, 2, 30);
+	private static DateTime horarioCierreBanco = new DateTime(2016, 5, 20, 15, 00, 0);
 	
-	public Banco dameUnBancoValido() {
+	public static Banco dameUnBancoValido() {
 		return new Banco(posicionBancoValido, null, direccionBancoValido, etiquetasBancoValido);
 	}
 	
-	public Point getPosicionCercana() {
+	public static Point getPosicionCercana() {
 		return posicionCercana;
 	}
 
-	public Point getPosicionLejana() {
+	public static Point getPosicionLejana() {
 		return posicionLejana;
 	}
 
-	public DateTime getHorarioBancario() {
+	public static DateTime getHorarioBancario() {
 		return horarioBancario;
 	}
 
-	public DateTime getHorarioNoBancario() {
+	public static DateTime getHorarioNoBancario() {
 		return horarioNoBancario;
 	}
 
-	public DateTime getHorarioCierreBanco() {
+	public static DateTime getHorarioCierreBanco() {
 		return horarioCierreBanco;
 	}
 	
