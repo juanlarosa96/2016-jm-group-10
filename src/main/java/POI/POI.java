@@ -50,17 +50,13 @@ public abstract class POI {
 
 	//no tiene sentido que sea public, debe ser private
 	public Double distanciaAPoi(POI poi) {
-
 		return posicion.distance(poi.getPosicion());
 	}
 	//
 	public Boolean esValido() {
 
-		if (posicion != null && nombre != null && direccion != null)
-			return true;
-
-		else
-			return false;
+		return (posicion != null && nombre != null && direccion != null);
+		
 	}
 
 	public Boolean estaDisponible(DateTime fecha) {
@@ -69,11 +65,13 @@ public abstract class POI {
 
 	public Boolean estasCerca(Point unaPosicion) {
 		
-		//return (posicion.distance(unaPosicion) <= this.condicionDeCercania())
-		if (posicion.distance(unaPosicion) <= this.condicionDeCercania())
-			return true;
-		else
-			return false;
+		return (this.distanciaAPosicion(unaPosicion) <= this.condicionDeCercania());
+		
+	}
+
+	private Double distanciaAPosicion(Point unaPosicion) {
+		
+		return posicion.distance(unaPosicion);
 	}
 
 	public Double condicionDeCercania() {
