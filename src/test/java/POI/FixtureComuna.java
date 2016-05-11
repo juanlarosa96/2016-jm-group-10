@@ -10,14 +10,21 @@ public class FixtureComuna {
 	public FixtureComuna(){
 	}
 	
-	static Point damePosicionIncluida(){
+	static Point damePosicionIncluidaComunaValida(){
 		return new Point(-34.6327475, -58.4851585);
 	}
-	static Point damePosicionNoIncluida(){
+	static Point damePosicionNoIncluidaComunaValida(){
 		return new Point(-34.6184994, -58.4368164);
 	}
 	
-	private static List<Point> limitesComuna= new ArrayList<Point>() {
+	static Point damePosicionIncluidaOtraComuna(){
+		return new Point(-34.6229418, -58.4146764);
+	}
+	static Point damePosicionNoIncluidaOtraComuna(){
+		return new Point(-34.6327475, -58.4851585);
+	}
+	
+	private static List<Point> limitesComuna10= new ArrayList<Point>() {
 		{
 			add(new Point(-34.611015, -58.529025));
 			add(new Point(-34.615256, -58.531221));
@@ -38,8 +45,22 @@ public class FixtureComuna {
 			add(new Point(-34.620399, -58.516870));
 		}
 	};
+	
+	private static List<Point> limitesComuna5 = new ArrayList<Point>() {
+		{
+			add(new Point(-34.598322, -58.412213));
+			add(new Point(-34.602632, -58.432984));
+			add(new Point(-34.639930, -58.423477));
+			add(new Point(-34.637734, -58.411375));
+		}
+	};
+	
 	public static Comuna dameComunaValida(){
-		return new Comuna(10, limitesComuna);
+		return new Comuna(10, limitesComuna10);
+	}
+	
+	public static Comuna dameOtraComunaValida(){
+		return new Comuna(5, limitesComuna5);
 	}
 }
 

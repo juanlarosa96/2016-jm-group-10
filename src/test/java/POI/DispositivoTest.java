@@ -203,27 +203,42 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void consultoSiUnaParadaValidaSeEncuentraEnLaListaDePoisYDiceQueSi() {
+	public void paradaColectivo114estaEnListaPois() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Segurola));
 	}
 
 	@Test
-	public void consultoSiAlgunPOITieneEtiquetaConUnaPalabraClaveYDevuelve3() {
+	public void estanLasDosParadasDel114() {
+		Assert.assertEquals(2, (dispositivo.buscarPOIs("114").size()), 0);
+	}
+
+	@Test
+	public void macowinsNoEstaEnListaPois() {
+		Assert.assertTrue(dispositivo.buscarPOIs("macowins").isEmpty());
+	}
+
+	@Test
+	public void encuentraTodosLosRestaurants() {
+		Assert.assertEquals(2, (dispositivo.buscarPOIs("Restaurant").size()), 0);
+	}
+
+	@Test
+	public void encuentraTodosLosPOIsEtiquetadosConPalabraClave() {
 		Assert.assertEquals(3, (dispositivo.buscarPOIs("tarjeta de credito").size()), 0);
 	}
 
 	@Test
-	public void consultoSiAlgunPoiTieneEtiquetaConUnaPalabraClaveQueNingunoTieneYNoHayNinguno() {
+	public void noEncuentraPOIsCuandoNingunPOITieneLaEtiqueta() {
 		Assert.assertEquals(0, (dispositivo.buscarPOIs("negra").size()), 0);
 	}
 
 	@Test
-	public void consultoSiAlgunaCGTTieneEtiquetaConUnaPalabraClaveYDevuelve2() {
+	public void encuentraTodosLosCGPsEtiquetadosConPalabraClave() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
 	}
 
 	@Test
-	public void consultoSiUnServicioValidoSeEncuentraDisponibleEnHorarioAbiertoEnAlgunCGPYDiceQueSeEncuentraEn2CGP() {
+	public void encuentraRentasSiEstaDisponibleYEnCualesCGPS() {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", lunes4abril10am);
 		Assert.assertEquals(2, CGPsConRentas.size(), 0);
 		Assert.assertTrue(CGPsConRentas.contains(cgpValido));
@@ -231,7 +246,7 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void consultoSiUnServicioValidoEstaDisponibleEnHorarioDondeEstaCerradoYDiceQueNo() {
+	public void servicioRentasNoEstaDisponible() {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", martes5abril2am);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 

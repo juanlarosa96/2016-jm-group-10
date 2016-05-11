@@ -89,23 +89,23 @@ public class ComercioTest {
 	}
 
 	@Test
-	public void estaDisponibleElHalcon() {
+	public void consultoSiComercioEstaDisponibleEnHorarioAbiertoYDiceQueSi () {
 		Assert.assertTrue(elHalcon.estaDisponible(martes19abril10am));
 	}
 
 	@Test
-	public void noEstaDisponibleElHalcon() {
+	public void consultoSiComercioEstaDisponibleEnHorarioCeradoYDiceQueNo() {
 		Assert.assertFalse(elHalcon.estaDisponible(martes19abril1am));
 	}
 
 	@Test
-	public void MacowinsConsideraComoCerca9Cuadras() {
+	public void consultoSiCondicionDeCercaniaDeUnComercioEs9CuadrasYDiceQueSi() {
 
 		Assert.assertEquals(0.9, macowins.condicionDeCercania(), 0.0);
 	}
 
 	@Test
-	public void MacowinsEstaCercaDeCredicoop() {
+	public void consultoSiComercioEstaCercaDeUnaPosicionYDiceQueSi() {
 		Assert.assertTrue(macowins.estasCerca(posicion3));
 	}
 
