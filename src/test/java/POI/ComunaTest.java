@@ -11,17 +11,14 @@ import org.uqbar.geodds.Point;
 public class ComunaTest {	
 
 	private Comuna comunaValida;
-	private FixtureComuna fixtureComuna;
 	private Point posicionIncluida;
 	private Point posicionNoIncluida;
 
 	@Before
 	public void init() {
-		
-		fixtureComuna= new FixtureComuna();
-		comunaValida = fixtureComuna.dameComunaValida();
-		posicionIncluida=fixtureComuna.damePosicionIncluida();
-		posicionNoIncluida=fixtureComuna.damePosicionNoIncluida();
+		comunaValida = FixtureComuna.dameComunaValida();
+		posicionIncluida=FixtureComuna.damePosicionIncluida();
+		posicionNoIncluida=FixtureComuna.damePosicionNoIncluida();
 
 	}
 
