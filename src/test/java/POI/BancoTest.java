@@ -44,7 +44,7 @@ public class BancoTest {
 	}
 
 	@Test
-	public void bancoProvinciaEstaDisponibleAlas10am() {
+	public void bancoValidoEstaDisponibleEnHorarioBancario() {
 		Assert.assertTrue(bancoValido.estaDisponible(lunes4abril10am));
 	}
 	
