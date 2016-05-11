@@ -14,7 +14,7 @@ public class FixtureBanco {
 	private static List<String> etiquetasBancoValido = new ArrayList<String>() {
 		{
 			add("banco");
-			add("provincia");
+			add("valido");
 			add("depositos");
 			add("extracciones");
 			add("cajero");
@@ -32,7 +32,7 @@ public class FixtureBanco {
 	private static DateTime horarioCierreBanco = new DateTime(2016, 5, 20, 15, 0, 0);
 	
 	public static Banco dameUnBancoValido() {
-		return new Banco(posicionBancoValido, "Banco Provincia", direccionBancoValido, etiquetasBancoValido);
+		return new Banco(posicionBancoValido, "Banco Valido", direccionBancoValido, etiquetasBancoValido);
 	}
 	
 	public static Point getPosicionCercana() {
