@@ -7,7 +7,6 @@ import org.uqbar.geodds.Point;
 
 public class Dispositivo {
 	private Point posicion;
-
 	public static List<POI> listaPois;
 
 	public Dispositivo(Point unaPosicion) {
@@ -53,7 +52,7 @@ public class Dispositivo {
 	}
 
 	public Boolean estoyCercaDe(POI poi) {
-		return poi.estasCerca(posicion);
+		return poi.estasCerca(this.posicion);
 
 	}
 
