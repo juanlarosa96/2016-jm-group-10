@@ -1,38 +1,30 @@
 package POI;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
 import org.uqbar.geodds.Point;
 
 public class Banco extends POI {
 
 	public Banco(Point posicion, String nombre, Direccion direccion, List<String> etiquetas) {
-		this.posicion = posicion;
-		this.nombre = nombre;
-		this.direccion = direccion;
-		this.etiquetas = etiquetas;
+		this.setPosicion(posicion);
+		this.setNombre(nombre);
+		this.setHorarios(new ArrayList<FranjaHoraria>() {
+			{
+				add(new FranjaHoraria(1, new LocalTime(9, 00), new LocalTime(14, 59)));
+				add(new FranjaHoraria(2, new LocalTime(9, 00), new LocalTime(14, 59)));
+				add(new FranjaHoraria(3, new LocalTime(9, 00), new LocalTime(14, 59)));
+				add(new FranjaHoraria(4, new LocalTime(9, 00), new LocalTime(14, 59)));
+				add(new FranjaHoraria(5, new LocalTime(9, 00), new LocalTime(14, 59)));
+				
+			}
+		});
+		this.setDireccion(direccion);
+		this.setEtiquetas(etiquetas);
 	}
 	
 	//si hacemos el constructor privado, no le podemos mandar el mensaje new
-
-	private static final Integer LUNES = 1;
-	private static final Integer VIERNES = 5;
 	
 	
-	@Override
-
-	public Boolean estaDisponible(DateTime momento) {
-		//return isBetween(LUNES, VIERNES, momento.getDayOfWeek()) && isBetween(10, 14, momento.getHourOfDay())
-		if (isBetween(LUNES, VIERNES, momento.getDayOfWeek()) && isBetween(10, 14, momento.getHourOfDay())) {
-			return true;
-		} else
-			return false;
-	}
-	// Asumimos que el Banco cierra a las 14:59
-
-	private static Boolean isBetween(int a, int b, int c) {
-		return b >= a ? c >= a && c <= b : c >= b && c <= a;
-	}
-
 }

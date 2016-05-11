@@ -1,6 +1,8 @@
 package POI;
 
+import java.util.ArrayList;
 import java.util.List;
+import org.joda.time.LocalTime;
 import org.uqbar.geodds.Point;
 
 public class ParadaColectivo extends POI {
@@ -9,10 +11,21 @@ public class ParadaColectivo extends POI {
 	public ParadaColectivo(Integer unaLinea, Point posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
 		this.linea = unaLinea;
-		this.nombre = nombre;
-		this.direccion = direccion;
-		this.etiquetas = etiquetas;
-		this.posicion = posicion;
+		this.setNombre(nombre);
+		this.setHorarios(new ArrayList<FranjaHoraria>() {
+			{
+				add(new FranjaHoraria(1, new LocalTime(0, 0), new LocalTime(23, 59)));
+				add(new FranjaHoraria(2, new LocalTime(0, 0), new LocalTime(23, 59)));
+				add(new FranjaHoraria(3, new LocalTime(0, 0), new LocalTime(23, 59)));
+				add(new FranjaHoraria(4, new LocalTime(0, 0), new LocalTime(23, 59)));
+				add(new FranjaHoraria(5, new LocalTime(0, 0), new LocalTime(23, 59)));
+				add(new FranjaHoraria(6, new LocalTime(0, 0), new LocalTime(23, 59)));
+				add(new FranjaHoraria(7, new LocalTime(0, 0), new LocalTime(23, 59)));
+			}
+		});
+		this.setDireccion(direccion);
+		this.setEtiquetas(etiquetas);
+		this.setPosicion(posicion);
 	}
 
 	@Override

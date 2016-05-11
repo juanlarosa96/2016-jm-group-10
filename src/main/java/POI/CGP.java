@@ -14,10 +14,10 @@ public class CGP extends POI {
 			List<String> etiquetas) {
 		this.servicios = servicios;
 		this.comuna = comuna;
-		this.posicion = posicion;
-		this.nombre = nombre;
-		this.direccion = direccion;
-		this.etiquetas = etiquetas;
+		this.setPosicion(posicion);
+		this.setNombre(nombre);
+		this.setDireccion(direccion);
+		this.setEtiquetas(etiquetas);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class CGP extends POI {
 	}
 
 	@Override
-	public Boolean estaDisponible(DateTime fecha) { //levarlo a POI
+	public Boolean estaDisponible(DateTime fecha) { 
 
 		return servicios.stream().anyMatch(servicio -> servicio.estaDisponible(fecha));
 	}
