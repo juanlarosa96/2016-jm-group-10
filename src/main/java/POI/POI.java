@@ -11,6 +11,7 @@ public abstract class POI {
 	protected String nombre;
 	protected Direccion direccion;
 	protected List<String> etiquetas;
+	private List<FranjaHoraria> horarios;
 	
 	//ojo con la visibilidad de todos los metodos, que sean visibles solo los de la interfaz
 	
@@ -34,8 +35,8 @@ public abstract class POI {
 			return false;
 	}
 
-	public Boolean estaDisponible(DateTime momento) {
-		return true;
+	public Boolean estaDisponible(DateTime fecha) {
+		return horarios.stream().anyMatch(unHorario -> unHorario.estaEnFranjaHoraria(fecha));
 	}
 
 	public Boolean estasCerca(Point unaPosicion) {
@@ -63,5 +64,15 @@ public abstract class POI {
 	public Point getPosicion() {
 		return posicion;
 	}
+
+	public List<FranjaHoraria> getHorarios() {
+		return horarios;
+	}
+
+	public void setHorarios(List<FranjaHoraria> horarios) {
+		this.horarios = horarios;
+	}
+	
+	
 
 }
