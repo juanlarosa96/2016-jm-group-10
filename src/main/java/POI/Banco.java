@@ -23,8 +23,5 @@ public class Banco extends POI {
 		this.setDireccion(direccion);
 		this.setEtiquetas(etiquetas);
 	}
-	
-	//si hacemos el constructor privado, no le podemos mandar el mensaje new
-	
-	
+		
 }
