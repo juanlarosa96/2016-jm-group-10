@@ -24,8 +24,8 @@ public class FixtureBanco {
 		}
 	};
 	
-	private Point posicionCercana = new Point(-34.6184994, -58.4368164);
-	private Point posicionLejana = new Point(-34.6184929, -58.4297692);
+	private Point posicionLejana = new Point(-34.6184994, -58.4368164);
+	private Point posicionCercana = new Point(-34.6327474, -58.4851584);
 	
 	private DateTime horarioBancario = new DateTime(2016, 4, 4, 10, 0);
 	private DateTime horarioNoBancario = new DateTime(2016, 4, 5, 2, 30);
