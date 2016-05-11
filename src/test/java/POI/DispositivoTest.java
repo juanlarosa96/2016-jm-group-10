@@ -29,11 +29,8 @@ public class DispositivoTest {
 	private Comuna comuna10;
 	private List<Point> limitesComuna10;
 
-	private Banco bancoProvincia;
-	private Direccion direccionBancoProvincia;
-	private Point posicionBancoProvincia;
-	private List<String> etiquetasBancoProvincia;
-
+	private Banco bancoValido;
+	
 	private Comercio elHalcon;
 	private Direccion direccionElHalcon;
 	private Point posicionElHalcon;
@@ -101,23 +98,7 @@ public class DispositivoTest {
 		parada114Mercedes = new ParadaColectivo(114, posicionParada114Mercedes, "114", direccionParada114Mercedes,
 				etiquetasParada114);
 
-		posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
-		direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
-				"CABA", "Floresta", "CABA", "Argentina");
-		etiquetasBancoProvincia = new ArrayList<String>() {
-			{
-				add("banco");
-				add("provincia");
-				add("depositos");
-				add("extracciones");
-				add("cajero");
-				add("tarjeta");
-				add("credito");
-				add("debito");
-			}
-		};
-		bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia,
-				etiquetasBancoProvincia);
+		bancoValido = FixtureBanco.dameUnBancoValido();
 
 		posicionCgpComuna10 = new Point(-34.6369004, -58.4959096);
 		direccionCgpComuna10 = new Direccion("Bacacay", 3968, "Campana", "Concordia", null, null, 1407, "CABA",
@@ -305,7 +286,7 @@ public class DispositivoTest {
 				add(parada114Mercedes);
 				add(elHalcon);
 				add(mcDonalds);
-				add(bancoProvincia);
+				add(bancoValido);
 				add(cgpComuna10);
 				add(cgpComuna5);
 			}
