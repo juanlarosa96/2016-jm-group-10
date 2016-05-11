@@ -74,17 +74,17 @@ public class ParadaColectivoTest {
 	}
 
 	@Test
-	public void colectivoEstaDisponible() {
+	public void consultoSiUnaParadaDeColectivoEstaDisponibleYDiceQueSi() {
 		Assert.assertTrue(parada114Segurola.estaDisponible(martes5abril2am));
 	}
 
 	@Test
-	public void Parada132NoEstaCercaDeCredicoop() {
+	public void ConsultoSiParadaValidaEstaCercaDePoiValidoYDiceQueNo() {
 		Assert.assertFalse(parada132.estasCerca(bancoCredicoop.getPosicion()));
 	}
 
 	@Test
-	public void Parada132EstaAMasDe3CuadrasDeCredicoop() {
+	public void ConsultoSiParadaValidaEstaAMasDe3CuadrasDePoiValidoYDiceQueNo() {
 		Assert.assertTrue(parada132.distanciaAPoi(bancoCredicoop) > 0.3);
 	}
 
