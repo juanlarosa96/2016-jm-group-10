@@ -29,7 +29,8 @@ public class FranjaHoraria {
 	
 	
 	private Boolean estaElHorarioContenidoEnElIntervalo(int apertura, int cierre, int horario) {
-		return horario >= apertura && horario <= (cierre + 60000);
+		return horario >= apertura && horario <= (cierre + 59999);
 	}
+
 
 }
