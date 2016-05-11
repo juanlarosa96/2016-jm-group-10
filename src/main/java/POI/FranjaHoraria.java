@@ -18,17 +18,10 @@ public class FranjaHoraria {
 
 	public Boolean estaEnFranjaHoraria(DateTime fecha) {
 
-		if (fecha.getDayOfWeek() == diaDeLaSemana) {
+		if (fecha.getDayOfWeek() == diaDeLaSemana){
 
-			if (isBetween(horaApertura.getMillisOfDay(), horaCierre.getMillisOfDay(), fecha.getMillisOfDay())) {
-				return true;
-			}
-
-			else
-				return false;
-
+			return isBetween(horaApertura.getMillisOfDay(), horaCierre.getMillisOfDay(), fecha.getMillisOfDay());
 		}
-
 		else
 			return false;
 
