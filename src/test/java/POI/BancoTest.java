@@ -15,7 +15,7 @@ public class BancoTest {
 	private DateTime jueves20mayo3pm; //cambiar nombres de estas variables, ej: 3pm por horarioBordeCierre blabla
 	private DateTime martes5abril2am;
 
-	private Banco bancoProvincia;
+	private Banco bancoValido;
 	private Direccion direccionBancoProvincia;
 	private Point posicionBancoProvincia;
 	private List<String> etiquetasBancoProvincia;
@@ -30,43 +30,13 @@ public class BancoTest {
 
 	@Before
 	public void init() {
-
+		FixtureBanco fixtureBanco = new FixtureBanco();
+		
 		lunes4abril10am = new DateTime(2016, 4, 4, 10, 0);
 		martes5abril2am = new DateTime(2016, 4, 5, 2, 30);
 		jueves20mayo3pm = new DateTime(2016, 5, 20, 15, 00, 0);
 
-		posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
-		direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
-				"CABA", "Floresta", "CABA", "Argentina");
-		etiquetasBancoProvincia = new ArrayList<String>() {
-			{
-				add("banco");
-				add("provincia");
-				add("depositos");
-				add("extracciones");
-				add("cajero");
-				add("tarjeta");
-				add("credito");
-				add("debito");
-			}
-		};
-
-		bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia,
-				etiquetasBancoProvincia);
-
-		etiquetasCredicoop = new ArrayList<String>() {
-			{
-				add("banco");
-				add("credicoop");
-				add("depositos");
-				add("extracciones");
-				add("cajero");
-			}
-		};
-		posicionCredicoop = new Point(-34.6156067, -58.4299701);
-		direccionCredicoop = new Direccion("Av Rivadavia", 4600, "Senillosa", "Av La Plata", null, null, 1424, "CABA",
-				"Caballito", "Buenos Aires", "Argentina");
-		bancoCredicoop = new Banco(posicionCredicoop, "Banco Credicoop", direccionCredicoop, etiquetasCredicoop);
+		Banco bancoValido = fixtureBanco.dameUnBancoValido();
 
 		posicion1 = new Point(-34.6184994, -58.4368164);
 		posicion2 = new Point(-34.6184929, -58.4297692);
@@ -75,7 +45,7 @@ public class BancoTest {
 
 	@Test
 	public void bancoProvinciaEstaDisponibleAlas10am() {
-		Assert.assertTrue(bancoProvincia.estaDisponible(lunes4abril10am));
+		Assert.assertTrue(bancoValido.estaDisponible(lunes4abril10am));
 	}
 	
 	//lunes4abril10am: horarioBancario
@@ -84,7 +54,7 @@ public class BancoTest {
 
 	@Test
 	public void bancoProvinciaNoEstaDisponibleAlas2am() {
-		Assert.assertFalse(bancoProvincia.estaDisponible(martes5abril2am));
+		Assert.assertFalse(bancoValido.estaDisponible(martes5abril2am));
 	}
 	
 	//Que el nombre del test exprese todo esto...
@@ -96,7 +66,7 @@ public class BancoTest {
 	
 	@Test
 	public void bancoProvinciaNoEstaDisponibleAlas3() {
-		Assert.assertFalse(bancoProvincia.estaDisponible(jueves20mayo3pm));
+		Assert.assertFalse(bancoValido.estaDisponible(jueves20mayo3pm));
 	}
 
 	@Test
