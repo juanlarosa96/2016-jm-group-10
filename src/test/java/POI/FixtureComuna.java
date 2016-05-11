@@ -11,10 +11,10 @@ public class FixtureComuna {
 	}
 	
 	Point damePosicionIncluida(){
-		return new Point(-34.6184994, -58.4368164);
+		return new Point(-34.6327475, -58.4851585);
 	}
 	Point damePosicionNoIncluida(){
-		return new Point(-34.6327475, -58.4851585);
+		return new Point(-34.6184994, -58.4368164);
 	}
 	
 	private List<Point> limitesComuna= new ArrayList<Point>() {
