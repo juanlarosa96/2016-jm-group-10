@@ -1,8 +1,5 @@
 package POI;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,16 +19,14 @@ public class BancoTest {
 
 	@Before
 	public void init() {
-		FixtureBanco fixtureBanco = new FixtureBanco();
-		
-		horarioBancario = fixtureBanco.getHorarioBancario();
-		horarioNoBancario = fixtureBanco.getHorarioNoBancario();
-		horarioCierreBanco = fixtureBanco.getHorarioCierreBanco();
+		horarioBancario = FixtureBanco.getHorarioBancario();
+		horarioNoBancario = FixtureBanco.getHorarioNoBancario();
+		horarioCierreBanco = FixtureBanco.getHorarioCierreBanco();
 
-		bancoValido = fixtureBanco.dameUnBancoValido();
+		bancoValido = FixtureBanco.dameUnBancoValido();
 
-		posicionCercana = fixtureBanco.getPosicionCercana();
-		posicionLejana = fixtureBanco.getPosicionLejana();
+		posicionCercana = FixtureBanco.getPosicionCercana();
+		posicionLejana = FixtureBanco.getPosicionLejana();
 	}
 
 	@Test
