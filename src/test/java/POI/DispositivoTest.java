@@ -46,6 +46,8 @@ public class DispositivoTest {
 
 		cgpValido = FixtureCGP.dameCGPValido();
 		otroCgpValido = FixtureCGP.dameOtroCgpValido();
+		
+		comercioValido = FixtureComercio.dameComercioValido();
 
 		listaPoisDispositivo = new ArrayList<POI>() {
 			{
