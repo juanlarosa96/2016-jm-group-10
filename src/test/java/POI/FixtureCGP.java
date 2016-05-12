@@ -110,12 +110,12 @@ public class FixtureCGP {
 			etiquetasCGP5);
 
 	// Posiciones
-	private static Point posicionLejana = new Point(-34.6184994, -58.4368164);
-	private static Point posicionCercana = new Point(-34.6327475, -58.4851585);
+	private static Point posicionLejanaCgpValido = new Point(-34.6184994, -58.4368164);
+	private static Point posicionCercanaCgpValido = new Point(-34.6327475, -58.4851585);
 
 	// Horarios
-	private static DateTime horarioValido = new DateTime(2016, 4, 4, 10, 0);
-	private static DateTime horarioNoValido = new DateTime(2016, 4, 5, 2, 30);
+	private static DateTime horarioValidoCgpValido = new DateTime(2016, 4, 4, 10, 0);
+	private static DateTime horarioNoValidoCgpValido = new DateTime(2016, 4, 5, 2, 30);
 
 	public static CGP dameCGPValido() {
 		return cgp10;
@@ -125,19 +125,19 @@ public class FixtureCGP {
 		return cgp5;
 	}
 
-	public static DateTime dameHorarioValido() {
-		return horarioValido;
+	public static DateTime dameHorarioValidoParaCgpValido() {
+		return horarioValidoCgpValido;
 	}
 
-	public static DateTime dameHorarioNoValido() {
-		return horarioNoValido;
+	public static DateTime dameHorarioNoValidoParaCgpValido() {
+		return horarioNoValidoCgpValido;
 	}
 
-	public static Point damePosicionNoCercana() {
-		return posicionLejana;
+	public static Point damePosicionNoCercanaCgpValido() {
+		return posicionLejanaCgpValido;
 	}
 
-	public static Point damePosicionCercana() {
-		return posicionCercana;
+	public static Point damePosicionCercanaCgpValido() {
+		return posicionCercanaCgpValido;
 	}
 }
