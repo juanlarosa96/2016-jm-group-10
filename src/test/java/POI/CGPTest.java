@@ -1,11 +1,6 @@
 package POI;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalTime;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,37 +32,29 @@ public class CGPTest {
 	}
 	
 	
-	//estos nombres de test estan bastante bien, los 2 de disponibilidad
 	@Test
-	public void preguntoACGPSiEstaDisponibleYdiceQueSi() {
+	public void CGPestaDisponibleEnFechaValida() {
 		Assert.assertTrue(cgp.estaDisponible(fechaValida));
 	}
-		
-	//nombre: si esta disponible y le paso un horario que deberia estar disponible
-	
-	//identificar las clases de equivalencia asociadas al feature
-	//casos borde
-	//testear solo UNA vez cada clase de equivalencia: feature bien cubierto por tests
-
 	
 	@Test
-	public void preguntoACGPSiEstaDisponibleYdiceQueNo() {
+	public void CGPnoEstaDisponibleEnFechaNoValida() {
 		Assert.assertFalse(cgp.estaDisponible(fechaNoValida));
 	}
 
 	@Test
-	public void preguntoSiTieneServicioDisponibleYEsteNoExite() {
-		Assert.assertFalse(cgp.estaDisponibleServicio("Servicio Inexistente", fechaNoValida));
+	public void ServicioInexistenteNoEstaDisponible(){
+		Assert.assertFalse(cgp.estaDisponibleServicio("Servicio Inexistente", fechaValida));
 
 	}
 
 	@Test
-	public void preguntoSiEscaCercaDePosicionYDicQueNo() {
+	public void CGPnoEstaCercaDePosicionNoCercana() {
 		Assert.assertFalse(cgp.estasCerca(posicionNoCercana));
 	}
 
 	@Test
-	public void preguntoSiEscaCercaDePosicionYDicQueSi() {
+	public void CGPestaCercaDePosicionCercana() {
 		Assert.assertTrue(cgp.estasCerca(posicionCercana));
 	}	
 

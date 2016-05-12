@@ -1,0 +1,1 @@
+-usar equalsIgnoreCase en vez de equals en contiene

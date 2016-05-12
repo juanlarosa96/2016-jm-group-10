@@ -70,10 +70,9 @@ public class DispositivoTest {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(paradaValida));
 	}
 
-
 	@Test
 	public void consultoSiAlgunPOITieneEtiquetaConUnaPalabraClaveYDevuelve3() {
-		Assert.assertEquals(2, (dispositivo.buscarPOIs("tarjeta de credito").size()), 0);
+		Assert.assertEquals(2, dispositivo.buscarPOIs("tarjeta de credito").size(), 0);
 	}
 
 	@Test
@@ -95,7 +94,7 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void consultoSiUnServicioValidoEstaDisponibleEnHorarioDondeEstaCerradoYDiceQueNo() {
+	public void ServicioValidoNoEstaDisponibleEnHorarioCerrado() {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", martes5abril2am);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 
