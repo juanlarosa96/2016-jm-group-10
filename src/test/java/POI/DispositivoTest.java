@@ -203,7 +203,7 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void consultoSiUnaParadaValidaSeEncuentraEnLaListaDePoisYDiceQueSi() {
+	public void ParadaValidaSeEncuentraEnLaListaDePoisYDiceQueSi() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Segurola));
 	}
 
@@ -232,7 +232,7 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void consultoSiUnServicioValidoEstaDisponibleEnHorarioDondeEstaCerradoYDiceQueNo() {
+	public void ServicioValidoNoEstaDisponibleEnHorarioCerrado() {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", martes5abril2am);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 
