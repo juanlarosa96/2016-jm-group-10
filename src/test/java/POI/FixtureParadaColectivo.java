@@ -44,4 +44,14 @@ public class FixtureParadaColectivo {
 	public static ParadaColectivo dameOtraParadaValida() {
 		return parada114Mercedes;
 	}
-}
+
+	public static Point dameUnaPosicionLejana() {
+		
+		return new Point(-32.631997, -60.484737);
+	}
+	
+	public static Point dameUnaPosicionCercana() {
+		return new Point(-34.631998, -58.484736);
+	}
+	}
+

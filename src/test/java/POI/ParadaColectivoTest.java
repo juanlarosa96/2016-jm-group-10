@@ -13,30 +13,32 @@ public class ParadaColectivoTest {
 	DateTime unHorarioCualquiera;
 	Banco bancoValido;
 	ParadaColectivo paradaValida;
+	Point posicionLejana;
+	Point posicionCercana;
 	
 	@Before
 	public void init() {
 		
 		unHorarioCualquiera=FixtureParadaColectivo.dameUnHorarioCualquiera();
-		bancoValido=FixtureParadaColectivo.dameBancoValido();
 		paradaValida=FixtureParadaColectivo.dameUnaParadaValida();
-
+		posicionLejana = FixtureParadaColectivo.dameUnaPosicionLejana();
+		posicionCercana = FixtureParadaColectivo.dameUnaPosicionCercana();
 	}
 	
 
 	@Test
-	public void consultoSiUnaParadaDeColectivoEstaDisponibleYDiceQueSi() {
+	public void paradaValidaEstaDisponibleEnCualquierHorario() {
 		Assert.assertTrue(paradaValida.estaDisponible(unHorarioCualquiera));
 	}
 
 	@Test
-	public void ConsultoSiParadaValidaEstaCercaDePoiValidoYDiceQueNo() {
-		Assert.assertFalse(paradaValida.estasCerca(bancoValido.getPosicion()));
+	public void paradaValidaNoEstaCercaDeUnaPosicionLejana() {
+		Assert.assertFalse(paradaValida.estasCerca(posicionLejana));
 	}
-
 	@Test
-	public void ConsultoSiParadaValidaEstaAMasDe3CuadrasDePoiValidoYDiceQueNo() {
-		Assert.assertTrue(paradaValida.distanciaAPoi(bancoValido) > 0.3);
+	public void paradaValidaEstasCercaDeUnaPosicionCercana(){
+		Assert.assertTrue(paradaValida.estasCerca(posicionCercana));
 	}
 
+    
 }
