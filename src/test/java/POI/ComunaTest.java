@@ -8,25 +8,25 @@ import org.uqbar.geodds.Point;
 public class ComunaTest {	
 
 	private Comuna comunaValida;
-	private Point posicionIncluida;
-	private Point posicionNoIncluida;
+	private Point posicionIncluidaEnComunaValida;
+	private Point posicionNoIncluidaEnComunaValida;
 
 	@Before
 	public void init() {
 		comunaValida = FixtureComuna.dameComunaValida();
-		posicionIncluida=FixtureComuna.damePosicionIncluidaComunaValida();
-		posicionNoIncluida=FixtureComuna.damePosicionNoIncluidaComunaValida();
+		posicionIncluidaEnComunaValida=FixtureComuna.damePosicionIncluidaComunaValida();
+		posicionNoIncluidaEnComunaValida=FixtureComuna.damePosicionNoIncluidaComunaValida();
 
 	}
 
 	@Test
 	public void comunaIncluyeAUnaPosicionQueEstaIncluida() {
-		Assert.assertTrue(comunaValida.incluyeA(posicionIncluida));
+		Assert.assertTrue(comunaValida.incluyeA(posicionIncluidaEnComunaValida));
 	}
 
 	@Test
 	public void comunaNoIncluyeAUnaPosicionQueNoEstaIncluida() {
-		Assert.assertFalse(comunaValida.incluyeA(posicionNoIncluida));
+		Assert.assertFalse(comunaValida.incluyeA(posicionNoIncluidaEnComunaValida));
 	}
 
 }
