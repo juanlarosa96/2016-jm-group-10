@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.uqbar.geodds.Point;
 
+
 public class FixtureCGP {
 
 	// Servicios

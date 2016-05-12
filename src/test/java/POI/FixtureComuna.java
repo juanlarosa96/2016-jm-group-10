@@ -50,7 +50,7 @@ public class FixtureComuna {
 		return comuna10;
 	}
 
-	public static Comuna dameComuna5() 
+	public static Comuna dameComuna5(){
 		return comuna5;
 	}
 }

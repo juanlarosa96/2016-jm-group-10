@@ -4,51 +4,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.junit.Before;
 import org.uqbar.geodds.Point;
 
 public class FixtureParadaColectivo {
 	
 	private static DateTime unHorarioCualquiera = new DateTime(2016, 4, 5, 2, 30);
 
-	private static List<String>	etiquetasParadaValida = new ArrayList<String>() {
-			{
-				add("parada");
-				add("colectivo");
-				add("132");
-			}
-		};
-	private static Point posicionParadaValida = new Point(-34.6184929, -58.4297692);
-	private static Direccion direccionParadaValida = new Direccion("Rosario", 50, "Av La Plata", "Senillosa", null, null, 1424, "CABA", "Caballito",
-				"Buenos Aires", "Argentina");
-	private static ParadaColectivo	paradaValida = new ParadaColectivo(132, posicionParadaValida, "Parada 132", direccionParadaValida, etiquetasParadaValida);
+	private static List<String> etiquetasParada114 = new ArrayList<String>() {
+		{
+			add("parada");
+			add("114");
+			add("colectivo");
+		}
+	};
+	
+	private static Point posicionParada114Segurola = new Point(-34.631997, -58.484737);
+	private static Direccion direccionParada114Segurola = new Direccion("Av. Segurola", 230, "Bacacay", "Bogota", null, null, 1407, "CABA",
+			"Floresta", "CABA", "Argentina");
+	
+	private static ParadaColectivo parada114Segurola = new ParadaColectivo(114, posicionParada114Segurola, "114", direccionParada114Segurola,
+			etiquetasParada114);
 
-	private static List<String> etiquetasBancoValido = new ArrayList<String>() {
-			{
-				add("banco");
-				add("credicoop");
-				add("depositos");
-				add("extracciones");
-				add("cajero");
-			}
-		};
-		private static Point posicionBancoValido = new Point(-34.6156067, -58.4299701);
-		private static Direccion direccionBancoValido = new Direccion("Av Rivadavia", 4600, "Senillosa", "Av La Plata", null, null, 1424, "CABA",
-				"Caballito", "Buenos Aires", "Argentina");
-		private static Banco bancoValido = new Banco(posicionBancoValido, "Banco Credicoop", direccionBancoValido, etiquetasBancoValido);
+	private static Point posicionParada114Mercedes = new Point(-34.6334512, -58.4839027);
+	private static Direccion direccionParada114Mercedes = new Direccion("Mercedes", 17, "Av. Rivadavia", "Yerbal", null, null, 1407, "CABA",
+			"Floresta", "CABA", "Argentina");
 
-
+	private static ParadaColectivo parada114Mercedes = new ParadaColectivo(114, posicionParada114Mercedes, "114", direccionParada114Mercedes,
+			etiquetasParada114);
+	
 	public static DateTime dameUnHorarioCualquiera() {
 		return unHorarioCualquiera;
 	}
 
-	public static Banco dameBancoValido() {
-		return bancoValido;
-	}
-
 	public static ParadaColectivo dameUnaParadaValida() {
 		
-		return paradaValida;
+		return parada114Segurola;
 	}
 	
-}
+	public static ParadaColectivo dameOtraParadaValida() {
+		return parada114Mercedes;
+	}
+
+	public static Point dameUnaPosicionLejana() {
+		
+		return new Point(-32.631997, -60.484737);
+	}
+	
+	public static Point dameUnaPosicionCercana() {
+		return new Point(-34.631998, -58.484736);
+	}
+	}
+
