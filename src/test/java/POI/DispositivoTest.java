@@ -18,7 +18,6 @@ public class DispositivoTest {
 	
 	private CGP cgpValido;
 
-
 	private Servicio rentas;
 	private Servicio ecobici;
 
@@ -61,12 +60,11 @@ public class DispositivoTest {
 
 	@Before
 	public void init() {
+		posicionDispositivo = new Point(-34.631402, -58.488060);
+		dispositivo = new Dispositivo(posicionDispositivo);
 
 		lunes4abril10am = new DateTime(2016, 4, 4, 10, 0);
 		martes5abril2am = new DateTime(2016, 4, 5, 2, 30);
-
-		posicionDispositivo = new Point(-34.631402, -58.488060);
-		dispositivo = new Dispositivo(posicionDispositivo);
 
 		posicionParada114Segurola = new Point(-34.631997, -58.484737);
 		direccionParada114Segurola = new Direccion("Av. Segurola", 230, "Bacacay", "Bogota", null, null, 1407, "CABA",
@@ -219,7 +217,7 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void consultoSiAlgunaCGTTieneEtiquetaConUnaPalabraClaveYDevuelve2() {
+	public void consultoSiAlgunCGPTieneEtiquetaConUnaPalabraClaveYDevuelve2() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
 	}
 

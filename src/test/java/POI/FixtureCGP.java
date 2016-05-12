@@ -19,7 +19,6 @@ import org.uqbar.geodds.Point;
 	private static Servicio ecobici;
 
 	private static Comuna comuna10;
-	private static List<Point> limitesComuna10;
 
 	private static CGP otroCgp;
 	private static Direccion direccionCgpComuna5;
