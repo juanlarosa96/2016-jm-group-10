@@ -71,7 +71,7 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void consultoSiAlgunPOITieneEtiquetaConUnaPalabraClaveYDevuelve3() {
+	public void consultoSiAlgunPOITieneEtiquetaConUnaPalabraClaveYDevuelve2() {
 		Assert.assertEquals(2, dispositivo.buscarPOIs("tarjeta de credito").size(), 0);
 	}
 
