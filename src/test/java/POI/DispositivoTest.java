@@ -46,6 +46,8 @@ public class DispositivoTest {
 
 		cgpValido = FixtureCGP.dameCGPValido();
 		otroCgpValido = FixtureCGP.dameOtroCgpValido();
+		
+		comercioValido = FixtureComercio.dameComercioValido();
 
 		listaPoisDispositivo = new ArrayList<POI>() {
 			{
@@ -69,7 +71,7 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void consultoSiAlgunPOITieneEtiquetaConUnaPalabraClaveYDevuelve3() {
+	public void consultoSiAlgunPOITieneEtiquetaConUnaPalabraClaveYDevuelve2() {
 		Assert.assertEquals(2, dispositivo.buscarPOIs("tarjeta de credito").size(), 0);
 	}
 
