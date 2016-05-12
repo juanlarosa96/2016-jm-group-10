@@ -1,8 +1,5 @@
 package POI;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,16 +10,16 @@ public class ParadaColectivoTest {
 	DateTime unHorarioCualquiera;
 	Banco bancoValido;
 	ParadaColectivo paradaValida;
-	Point posicionLejana;
-	Point posicionCercana;
+	Point posicionLejanaParadaValida;
+	Point posicionCercanaParadaValida;
 	
 	@Before
 	public void init() {
 		
 		unHorarioCualquiera=FixtureParadaColectivo.dameUnHorarioCualquiera();
 		paradaValida=FixtureParadaColectivo.dameUnaParadaValida();
-		posicionLejana = FixtureParadaColectivo.dameUnaPosicionLejana();
-		posicionCercana = FixtureParadaColectivo.dameUnaPosicionCercana();
+		posicionLejanaParadaValida = FixtureParadaColectivo.dameUnaPosicionLejanaParadaValida();
+		posicionCercanaParadaValida = FixtureParadaColectivo.dameUnaPosicionCercanaParadaValida();
 	}
 	
 
@@ -33,11 +30,11 @@ public class ParadaColectivoTest {
 
 	@Test
 	public void paradaValidaNoEstaCercaDeUnaPosicionLejana() {
-		Assert.assertFalse(paradaValida.estasCerca(posicionLejana));
+		Assert.assertFalse(paradaValida.estasCerca(posicionLejanaParadaValida));
 	}
 	@Test
 	public void paradaValidaEstasCercaDeUnaPosicionCercana(){
-		Assert.assertTrue(paradaValida.estasCerca(posicionCercana));
+		Assert.assertTrue(paradaValida.estasCerca(posicionCercanaParadaValida));
 	}
 
     
