@@ -26,8 +26,8 @@ public class DispositivoTest {
 	private ParadaColectivo otraParadaValida;
 	
 	private List<POI> listaPoisDispositivo;
-	private DateTime lunes4abril10am;
-	private DateTime martes5abril2am;
+	private DateTime horarioValido;
+	private DateTime horarioNoValidoParaNingunServicio;
 	private List<POI> CGPsConRentas;
 
 
@@ -36,8 +36,8 @@ public class DispositivoTest {
 		posicionDispositivo = new Point(-34.631402, -58.488060);
 		dispositivo = new Dispositivo(posicionDispositivo);
 
-		lunes4abril10am = new DateTime(2016, 4, 4, 10, 0);
-		martes5abril2am = new DateTime(2016, 4, 5, 2, 30);
+		horarioValido = new DateTime(2016, 4, 4, 10, 0);
+		horarioNoValidoParaNingunServicio = new DateTime(2016, 4, 5, 2, 30);
 
 		paradaValida = FixtureParadaColectivo.dameUnaParadaValida();
 		otraParadaValida = FixtureParadaColectivo.dameOtraParadaValida();
@@ -87,7 +87,7 @@ public class DispositivoTest {
 
 	@Test
 	public void consultoSiUnServicioValidoSeEncuentraDisponibleEnHorarioAbiertoEnAlgunCGPYDiceQueSeEncuentraEn2CGP() {
-		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", lunes4abril10am);
+		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioValido);
 		Assert.assertEquals(2, CGPsConRentas.size(), 0);
 		Assert.assertTrue(CGPsConRentas.contains(cgpValido));
 		Assert.assertTrue(CGPsConRentas.contains(otroCgpValido));
@@ -95,7 +95,7 @@ public class DispositivoTest {
 
 	@Test
 	public void ServicioValidoNoEstaDisponibleEnHorarioCerrado() {
-		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", martes5abril2am);
+		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 
 	}
