@@ -14,45 +14,44 @@ public class DispositivoTest {
 
 	private Dispositivo dispositivo;
 	private Point posicionDispositivo;
-	
+
 	private CGP cgpValido;
 	private CGP otroCgpValido;
 
 	private Banco bancoValido;
-	
+
 	private Comercio comercioValido;
 
-	private ParadaColectivo paradaValida;
-	private ParadaColectivo otraParadaValida;
-	
+	private ParadaColectivo parada114Valida;
+	private ParadaColectivo otraParada114Valida;
+
 	private List<POI> listaPoisDispositivo;
-	private DateTime horarioValido;
+	private DateTime horarioValidoParaRentas;
 	private DateTime horarioNoValidoParaNingunServicio;
 	private List<POI> CGPsConRentas;
-
 
 	@Before
 	public void init() {
 		posicionDispositivo = new Point(-34.631402, -58.488060);
 		dispositivo = new Dispositivo(posicionDispositivo);
 
-		horarioValido = new DateTime(2016, 4, 4, 10, 0);
+		horarioValidoParaRentas = new DateTime(2016, 4, 4, 10, 0);
 		horarioNoValidoParaNingunServicio = new DateTime(2016, 4, 5, 2, 30);
 
-		paradaValida = FixtureParadaColectivo.dameUnaParadaValida();
-		otraParadaValida = FixtureParadaColectivo.dameOtraParadaValida();
+		parada114Valida = FixtureParadaColectivo.dameUnaParada114Valida();
+		otraParada114Valida = FixtureParadaColectivo.dameOtraParada114Valida();
 
 		bancoValido = FixtureBanco.dameUnBancoValido();
 
 		cgpValido = FixtureCGP.dameCGPValido();
 		otroCgpValido = FixtureCGP.dameOtroCgpValido();
-		
+
 		comercioValido = FixtureComercio.dameComercioValido();
 
 		listaPoisDispositivo = new ArrayList<POI>() {
 			{
-				add(paradaValida);
-				add(otraParadaValida);
+				add(parada114Valida);
+				add(otraParada114Valida);
 				add(bancoValido);
 				add(cgpValido);
 				add(otroCgpValido);
@@ -61,13 +60,19 @@ public class DispositivoTest {
 		};
 
 		Dispositivo.setListaPois(listaPoisDispositivo);
-		
+
 		CGPsConRentas = new ArrayList<POI>();
 	}
 
 	@Test
-	public void consultoSiUnaParadaValidaSeEncuentraEnLaListaDePoisYDiceQueSi() {
-		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(paradaValida));
+	public void BuscoParadaQueEstaEnLaListaDePoisPorEtiquetayLaEncuentra() {
+		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
+	}
+	
+	@Test
+	public void BuscoParadasPorEtiquetayEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
+		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
+		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(otraParada114Valida));
 	}
 
 	@Test
@@ -87,7 +92,7 @@ public class DispositivoTest {
 
 	@Test
 	public void consultoSiUnServicioValidoSeEncuentraDisponibleEnHorarioAbiertoEnAlgunCGPYDiceQueSeEncuentraEn2CGP() {
-		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioValido);
+		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioValidoParaRentas);
 		Assert.assertEquals(2, CGPsConRentas.size(), 0);
 		Assert.assertTrue(CGPsConRentas.contains(cgpValido));
 		Assert.assertTrue(CGPsConRentas.contains(otroCgpValido));

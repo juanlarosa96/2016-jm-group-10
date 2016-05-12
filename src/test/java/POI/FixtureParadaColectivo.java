@@ -59,5 +59,13 @@ public class FixtureParadaColectivo {
 		return posicionCercanaParada114Segurola ;
 	}
 	
+	public static ParadaColectivo dameUnaParada114Valida() {		
+		return parada114Segurola;
+	}
+	
+	public static ParadaColectivo dameOtraParada114Valida() {		
+		return parada114Mercedes;
+	}
+	
 }
 
