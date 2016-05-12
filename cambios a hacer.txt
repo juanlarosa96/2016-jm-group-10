@@ -1,1 +1,2 @@
--usar equalsIgnoreCase en vez de equals en contiene
+-cambiar nombres de los tests al formato "ParadaEstaCercaDeUnaPosicionCercanaAElla"
+-intentar implementar equalsIgnoreCase (para ignorar mayusculas y minusculas) en contiene para buscar etiquetas
