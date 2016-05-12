@@ -7,11 +7,11 @@ import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 public class FixtureBanco {
-	
-	private static Direccion direccionBancoValido = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
+	//Banco Provincia
+	private static Direccion direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
 			"CABA", "Floresta", "CABA", "Argentina");
-	private static Point posicionBancoValido = new Point(-34.6327475, -58.4851585);
-	private static List<String> etiquetasBancoValido = new ArrayList<String>() {
+	private static Point posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
+	private static List<String> etiquetasBancoProvincia = new ArrayList<String>() {
 		{
 			add("banco");
 			add("valido");
@@ -24,23 +24,27 @@ public class FixtureBanco {
 		}
 	};
 	
-	private static Point posicionLejana = new Point(-34.6184994, -58.4368164);
-	private static Point posicionCercana = new Point(-34.6327474, -58.4851584);
+	private static Banco bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia, etiquetasBancoProvincia);
 	
+	//Posiciones
+	private static Point posicionLejanaBancoProvincia = new Point(-34.6184994, -58.4368164);
+	private static Point posicionCercanaBancoProvincia = new Point(-34.6327474, -58.4851584);
+	
+	//Horarios
 	private static DateTime horarioBancario = new DateTime(2016, 4, 4, 10, 0);
 	private static DateTime horarioNoBancario = new DateTime(2016, 4, 5, 2, 30);
 	private static DateTime horarioCierreBanco = new DateTime(2016, 5, 20, 15, 0, 0);
 	
 	public static Banco dameUnBancoValido() {
-		return new Banco(posicionBancoValido, "Banco Valido", direccionBancoValido, etiquetasBancoValido);
+		return bancoProvincia;
 	}
 	
-	public static Point getPosicionCercana() {
-		return posicionCercana;
+	public static Point getPosicionCercanaABancoValido() {
+		return posicionCercanaBancoProvincia;
 	}
 
-	public static Point getPosicionLejana() {
-		return posicionLejana;
+	public static Point getPosicionLejanaABancoValido() {
+		return posicionLejanaBancoProvincia;
 	}
 
 	public static DateTime getHorarioBancario() {

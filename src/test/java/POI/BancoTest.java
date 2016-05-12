@@ -14,8 +14,8 @@ public class BancoTest {
 
 	private Banco bancoValido;
 
-	private Point posicionCercana;
-	private Point posicionLejana;
+	private Point posicionCercanaBancoValido;
+	private Point posicionLejanaBancoValido;
 
 	@Before
 	public void init() {
@@ -25,20 +25,20 @@ public class BancoTest {
 
 		bancoValido = FixtureBanco.dameUnBancoValido();
 
-		posicionCercana = FixtureBanco.getPosicionCercana();
-		posicionLejana = FixtureBanco.getPosicionLejana();
+		posicionCercanaBancoValido = FixtureBanco.getPosicionCercanaABancoValido();
+		posicionLejanaBancoValido = FixtureBanco.getPosicionLejanaABancoValido();
 	}
 
 	@Test
 	public void unBancoValidoNoEstaDisponibleEnUnHorarioNoBancario() {
 		Assert.assertFalse(bancoValido.estaDisponible(horarioNoBancario));
 	}
-	
+
 	@Test
 	public void unBancoValidoEstaDisponibleEnHorarioBancario() {
 		Assert.assertTrue(bancoValido.estaDisponible(horarioBancario));
-	}		
-	
+	}
+
 	@Test
 	public void unBancoValidoNoEstaDisponibleEnHorarioDeCierre() {
 		Assert.assertFalse(bancoValido.estaDisponible(horarioCierreBanco));
@@ -46,12 +46,12 @@ public class BancoTest {
 
 	@Test
 	public void unBancoValidoEstaCercaDeUnaPosicionCercana() {
-		Assert.assertTrue(bancoValido.estasCerca(posicionCercana));
+		Assert.assertTrue(bancoValido.estasCerca(posicionCercanaBancoValido));
 	}
 
 	@Test
 	public void unBancoValidoNoEstaCercaDeUnaPosicionLejana() {
-		Assert.assertFalse(bancoValido.estasCerca(posicionLejana));
+		Assert.assertFalse(bancoValido.estasCerca(posicionLejanaBancoValido));
 	}
 
 }
