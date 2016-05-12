@@ -20,12 +20,12 @@ public class ComunaTest {
 	}
 
 	@Test
-	public void consultoSiUnaComunaIncluyeAUnaPosicionQueEstaInlcuidaYDiceQueSi() {
+	public void comunaIncluyeAUnaPosicionQueEstaIncluida() {
 		Assert.assertTrue(comunaValida.incluyeA(posicionIncluida));
 	}
 
 	@Test
-	public void consultoSiUnaComunaIncluyeAUnaPosicionQueNoEstaInlcuidaYDiceQueNo() {
+	public void comunaNoIncluyeAUnaPosicionQueNoEstaIncluida() {
 		Assert.assertFalse(comunaValida.incluyeA(posicionNoIncluida));
 	}
 
