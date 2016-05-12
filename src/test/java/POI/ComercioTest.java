@@ -9,38 +9,38 @@ import org.uqbar.geodds.Point;
 public class ComercioTest {
 	
 	private Comercio comercioValido;
-	private DateTime horarioAbierto;
-	private DateTime horarioCerrado;
-	private Point posicionCercana;
-	private Point posicionNoCercana;
+	private DateTime horarioAbiertoDeComercioValido;
+	private DateTime horarioCerradoDeComercioValido;
+	private Point posicionCercanaComercioValido;
+	private Point posicionNoCercanaComercioValido;
 
 	@Before
 	public void init() {
 		comercioValido= FixtureComercio.dameComercioValido();
-		horarioAbierto= FixtureComercio.dameHorarioAbierto();
-		horarioCerrado= FixtureComercio.dameHorarioCerrado();
-		posicionCercana= FixtureComercio.damePosicionCercana();
-		posicionNoCercana= FixtureComercio.damePosicionNoCercana();				
+		horarioAbiertoDeComercioValido= FixtureComercio.dameHorarioAbiertoComercioValido();
+		horarioCerradoDeComercioValido= FixtureComercio.dameHorarioCerradoComercioValido();
+		posicionCercanaComercioValido= FixtureComercio.damePosicionCercanaComercioValido();
+		posicionNoCercanaComercioValido= FixtureComercio.damePosicionNoCercanaComercioValido();				
 	}
 
 	@Test
 	public void ComercioValidoEstaDisponibleEnHorarioAbierto() {
-		Assert.assertTrue(comercioValido.estaDisponible(horarioAbierto));
+		Assert.assertTrue(comercioValido.estaDisponible(horarioAbiertoDeComercioValido));
 	}
 
 	@Test
 	public void ComercioValidoNoEstaDisponibleEnHorarioCerrado() {
-		Assert.assertFalse(comercioValido.estaDisponible(horarioCerrado));
+		Assert.assertFalse(comercioValido.estaDisponible(horarioCerradoDeComercioValido));
 	}
 
 	@Test
 	public void ComercioValidoEstaCercaDeUnaPosicionCercana() {
-		Assert.assertTrue(comercioValido.estasCerca(posicionCercana));
+		Assert.assertTrue(comercioValido.estasCerca(posicionCercanaComercioValido));
 	}
 	
 	@Test
 	public void ComercioValidoNoEstaCercaDeUnaPosicionNoCercana() {
-		Assert.assertFalse(comercioValido.estasCerca(posicionNoCercana));
+		Assert.assertFalse(comercioValido.estasCerca(posicionNoCercanaComercioValido));
 	}
 
 }

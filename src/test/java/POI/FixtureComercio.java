@@ -55,19 +55,19 @@ public class FixtureComercio {
 		return elHalcon;		
 	}
 
-	public static DateTime dameHorarioAbierto() {		
+	public static DateTime dameHorarioAbiertoComercioValido() {		
 		return horarioAbiertoElHalcon;	
 	}
 	
-	public static DateTime dameHorarioCerrado() {		
+	public static DateTime dameHorarioCerradoComercioValido() {		
 		return horarioCerradoElHalcon;
 	}
 	
-	public static Point damePosicionCercana() {		
+	public static Point damePosicionCercanaComercioValido() {		
 		return posicionCercanaElHalcon;
 	}
 	
-	public static Point damePosicionNoCercana() {		
+	public static Point damePosicionNoCercanaComercioValido() {		
 		return posicionNoCercanaElHalcon;
 	}
 	
