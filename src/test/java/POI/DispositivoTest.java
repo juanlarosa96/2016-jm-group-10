@@ -65,33 +65,34 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void BuscoParadaQueEstaEnLaListaDePoisPorEtiquetayLaEncuentra() {
+	public void buscoParadaQueEstaEnLaListaDePoisPorEtiquetayLaEncuentra() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
 	}
-	
+	//Estos 3 son muy parecidos, solo varia en la clase de POI que encuentran.
 	@Test
-	public void BuscoParadasPorEtiquetayEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
+	public void buscoParadasPorEtiquetayEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(otraParada114Valida));
 	}
 
 	@Test
-	public void consultoSiAlgunPOITieneEtiquetaConUnaPalabraClaveYDevuelve2() {
+	public void buscoPOIsPorPalabraClaveYDevuelveTodosLosQueLaTienen() {
 		Assert.assertEquals(2, dispositivo.buscarPOIs("tarjeta de credito").size(), 0);
-	}
-
-	@Test
-	public void consultoSiAlgunPoiTieneEtiquetaConUnaPalabraClaveQueNingunoTieneYNoHayNinguno() {
-		Assert.assertEquals(0, (dispositivo.buscarPOIs("negra").size()), 0);
 	}
 
 	@Test
 	public void consultoSiAlgunCGPTieneEtiquetaConUnaPalabraClaveYDevuelve2() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
 	}
+	//----------------------------------------------------------------------------
+	
+	@Test
+	public void buscoPOIPorEtiquetaQueNingunoTieneYNoEncuentraNinguno() {
+		Assert.assertTrue(dispositivo.buscarPOIs("negra").isEmpty());
+	}	
 
 	@Test
-	public void consultoSiUnServicioValidoSeEncuentraDisponibleEnHorarioAbiertoEnAlgunCGPYDiceQueSeEncuentraEn2CGP() {
+	public void buscoServicioValidoQueSeEncuentraDisponibleEn2CGPEnHorarioDisponibleParaEseServicioYEncuentraLos2CGP() {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioValidoParaRentas);
 		Assert.assertEquals(2, CGPsConRentas.size(), 0);
 		Assert.assertTrue(CGPsConRentas.contains(cgpValido));
