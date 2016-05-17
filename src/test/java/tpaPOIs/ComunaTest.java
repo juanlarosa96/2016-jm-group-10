@@ -22,12 +22,12 @@ public class ComunaTest {
 	}
 
 	@Test
-	public void comunaIncluyeAUnaPosicionQueEstaIncluida() {
+	public void SiLePreguntoAUnaComunaSiIncluyeAUnaPosicionQueEstaIncluidaEnEllaRespondeTrue() {
 		Assert.assertTrue(comunaValida.incluyeA(posicionIncluidaEnComunaValida));
 	}
 
 	@Test
-	public void comunaNoIncluyeAUnaPosicionQueNoEstaIncluida() {
+	public void SiLePreguntoAUnaComunaSiIncluyeAUnaPosicionQueNoEstaIncluidaEnEllaRespondeFalse() {
 		Assert.assertFalse(comunaValida.incluyeA(posicionNoIncluidaEnComunaValida));
 	}
 
