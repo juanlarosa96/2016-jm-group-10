@@ -157,23 +157,6 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 
 	private static List<Point> limitesComuna7 = new ArrayList<Point>() {
 		{
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			
-		}
-	};
-	private static Comuna comuna7 = new Comuna(7, limitesComuna7);
-
-	private static List<Point> limitesComuna8 = new ArrayList<Point>() {
-		{
 			add(new Point(-34.626924, -58.426917));
 			add(new Point(-34.639989, -58.423742));
 			add(new Point(-34.641754, -58.432325));
@@ -188,6 +171,23 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 			add(new Point(-34.622404, -58.477557));
 			add(new Point(-34.614069, -58.459447));
 			add(new Point(-34.630455, -58.451808));
+			
+		}
+	};
+	private static Comuna comuna7 = new Comuna(7, limitesComuna7);
+
+	private static List<Point> limitesComuna8 = new ArrayList<Point>() {
+		{
+			add(new Point());
+			add(new Point());
+			add(new Point());
+			add(new Point());
+			add(new Point());
+			add(new Point());
+			add(new Point());
+			add(new Point());
+			add(new Point());
+			add(new Point());
 		}
 	};
 	private static Comuna comuna8 = new Comuna(8, limitesComuna8);
