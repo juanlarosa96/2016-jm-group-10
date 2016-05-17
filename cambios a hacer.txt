@@ -1,2 +1,4 @@
--cambiar nombres de los tests al formato "ParadaEstaCercaDeUnaPosicionCercanaAElla"
+-cambiar nombres de los tests al formato "SiLePreguntoAUnaParadaSiEstaCercaDeUnaPosicionCercanaAEllaRespondeTrue"
 -intentar implementar equalsIgnoreCase (para ignorar mayusculas y minusculas) en contiene para buscar etiquetas
+-implementar ManejadorDeFechas
+-implementar template method para la coincidencia de busqueda en cada subclase poi

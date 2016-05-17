@@ -4,14 +4,16 @@ import java.util.List;
 
 public class ServicioDTO {
 	private String nombre;
-	private List<Integer> rangos;
+	private List<RangoServicioDTO> rangosHorarios;
 	
+	public List<RangoServicioDTO> getRangosHorarios() {
+		return rangosHorarios;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
-	public List<Integer> getRangoServicios() {
-		return rangos;
-	}
+	
 	
 	
 }

@@ -14,17 +14,25 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 	}
 
 	private ArrayList<POI> adaptarCentrosDTO(List<CentroDTO> centrosDTO) {
-		return centrosDTO.stream().map(centroDTO -> this.adaptarACGP(centroDTO)).collect(Collectors.toList());
+		return (ArrayList<POI>) centrosDTO.stream().map(centroDTO -> this.adaptarACGP(centroDTO)).collect(Collectors.toList());
 	}
 
-	private CGP adaptarACGP(CentroDTO centroDTO) {
+	private POI adaptarACGP(CentroDTO centroDTO) {
 		Integer numeroComuna = centroDTO.getNumeroComunaCentroDTO();
 		String nombre = "CGP Comuna " + numeroComuna.toString();
 		Comuna comuna = this.adaptarAComuna(numeroComuna);
 		Direccion direccion = this.adaptarADireccion(centroDTO.getDomicilioCentroDTO());
 		List<Servicio> servicios = this.adaptarServiciosCentroDTO(centroDTO.getServiciosDTO());
+		List<String> etiquetas = new ArrayList<String>() {
+			{
+				add("CGP");
+				add(numeroComuna.toString());
+				add("Comuna");
+			}
+		};
+		
+		return new CGP(servicios, comuna, null /*posicion*/, nombre, direccion, etiquetas);
 
-		return new CGP(servicios, comuna, posicion, nombre, direccion, etiquetas);
 	}
 
 	private List<Servicio> adaptarServiciosCentroDTO(List<ServicioDTO> serviciosDTO) {
@@ -35,12 +43,12 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 
 	private Servicio adaptarAServicio(ServicioDTO servicioDTO) {
 		String nombre = servicioDTO.getNombre();
-		List<FranjaHoraria> horarios = this.adaptarAFranjasHorarias(servicioDTO.getRangoServicios());
-		return new Servicio(nombre,horarios);
+		List<FranjaHoraria> horarios = this.adaptarAFranjasHorarias(servicioDTO.getRangosHorarios());
+		return new Servicio(nombre, horarios);
 	}
 
-	private List<FranjaHoraria> adaptarAFranjasHorarias(List<Integer> rangoServicios) {
-		
+	private List<FranjaHoraria> adaptarAFranjasHorarias(List<RangoServicioDTO> rangoServicios) {
+			return null;
 	}
 
 	private Comuna adaptarAComuna(Integer numeroComuna) {
