@@ -74,31 +74,57 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 
 	private static List<Point> limitesComuna3 = new ArrayList<Point>() {
 		{
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
+			add(new Point(-34.627140, -58.391285));
+			add(new Point(-34.599662, -58.393001));
+			add(new Point(-34.599450, -58.402185));
+			add(new Point(-34.598178, -58.404417));
+			add(new Point(-34.598108, -58.411884));
+			add(new Point(-34.608351, -58.414631));
+			add(new Point(-34.614144, -58.412571));
+			add(new Point(-34.630177, -58.411627));
 		}
 	};
 	private static Comuna comuna3 = new Comuna(3, limitesComuna3);
 
 	private static List<Point> limitesComuna4 = new ArrayList<Point>() {
 		{
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
+			add(new Point(-34.625272, -58.367778));
+			add(new Point(-34.624849, -58.361083));
+			add(new Point(-34.628804, -58.354903));
+			add(new Point(-34.633041, -58.352843));
+			add(new Point(-34.639114, -58.357822));
+			add(new Point(-34.639821, -58.361426));
+			add(new Point(-34.641657, -58.358337));
+			add(new Point(-34.644764, -58.357650));
+			add(new Point(-34.647870, -58.362628));
+			add(new Point(-34.651118, -58.369666));
+			add(new Point(-34.653660, -58.370181));
+			add(new Point(-34.656343, -58.374129));
+			add(new Point(-34.657614, -58.385974));
+			add(new Point(-34.661850, -58.391982));
+			add(new Point(-34.661568, -58.397647));
+			add(new Point(-34.659591, -58.395759));
+			add(new Point(-34.658179, -58.399535));
+			add(new Point(-34.660720, -58.399364));
+			add(new Point(-34.659026, -58.403312));
+			add(new Point(-34.659591, -58.408462));
+			add(new Point(-34.658461, -58.413611));
+			add(new Point(-34.661426, -58.423740));
+			add(new Point(-34.652813, -58.434554));
+			add(new Point(-34.655496, -58.437816));
+			add(new Point(-34.650271, -58.444854));
+			add(new Point(-34.645328, -58.432151));
+			add(new Point(-34.641657, -58.431808));
+			add(new Point(-34.638267, -58.411037));
+			add(new Point(-34.630499, -58.411208));
+			add(new Point(-34.627532, -58.391296));
+			add(new Point(-34.634171, -58.390609));
+			add(new Point(-34.632052, -58.382026));
+			add(new Point(-34.627109, -58.374473));
+			add(new Point(-34.626967, -58.371383));
+			add(new Point(-34.629510, -58.371039));
+			add(new Point(-34.627250, -58.367778));
+			add(new Point(-34.625272, -58.367606));
 		}
 	};
 	private static Comuna comuna4 = new Comuna(4, limitesComuna4);
