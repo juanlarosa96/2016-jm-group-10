@@ -1,5 +1,6 @@
 package POI;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.joda.time.DateTime;
@@ -18,21 +19,28 @@ public class Dispositivo {
 	}
 
 	public static void agregarPoi(POI poi) {
+		//implementar aca el alta o modificacion
 		listaPois.add(poi);
 	}
 	
-	/*
-	public Double distanciaEntrePois(POI unPoi, POI otroPoi) {
-
-		return unPoi.distanciaAPoi(otroPoi);
-
-	}
-	*/
-
+	
 	public List<POI> buscarPOIs(String descripcion) {
+		Dispositivo.agregarPoisExternos(descripcion);
 		return listaPois.stream().filter(poi -> poi.contiene(descripcion)).collect(Collectors.toList());
+		
 
 	}
+
+	private static void agregarPoisExternos(String descripcion) {
+		
+		Dispositivo.agregarPois(ConsultorExterno.damePoisExternos(descripcion));
+		
+	}
+	
+	private static void agregarPois(ArrayList<POI> listaDePois){		
+		listaDePois.stream().forEach(poi -> Dispositivo.agregarPoi(poi));		
+	}
+	
 
 	public Boolean poiDisponible(POI poi, DateTime momento) {
 		return poi.estaDisponible(momento);
