@@ -4,10 +4,14 @@ import java.util.ArrayList;
 
 public class CgpAdapter implements ComponenteExternoAdapter {
 
+	ServicioExternoCGP servicioExternoCgp;
+	
 	@Override
 	public ArrayList<POI> buscarPoisExternos(String descripcion) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.adaptarCGPs(servicioExternoCgp.buscar(descripcion));
 	}
-
+	
+	private ArrayList<POI> adaptarCGPs(CentroDTO cgps) {
+		
+	}
 }
