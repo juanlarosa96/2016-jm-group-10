@@ -61,4 +61,10 @@ public class CGP extends POI {
 		return super.contiene(descripcion)
 				|| servicios.stream().anyMatch(servicio -> servicio.nombreSimilarA(descripcion));
 	}
+	
+	@Override
+	public Boolean esIgualA(POI otroPoi) {
+		return this.getDireccion().esLaMismaDireccionQue(otroPoi.getDireccion());		
+		
+	}
 }

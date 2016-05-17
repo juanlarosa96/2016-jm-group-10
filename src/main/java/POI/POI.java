@@ -97,7 +97,7 @@ public abstract class POI {
 		this.posicion = posicion;
 	}
 
-	public boolean esIgualA(POI poi) {
+	public Boolean esIgualA(POI poi) {
 		
 		return this.getPosicion().equals(poi.getPosicion());
 	}

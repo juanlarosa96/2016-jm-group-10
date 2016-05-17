@@ -45,13 +45,12 @@ public class Dispositivo {
 	}
 
 	public List<POI> buscarPOIs(String descripcion) {
-		Dispositivo.agregarPoisExternos(descripcion);
+		Dispositivo.consultarPoisExternos(descripcion);
 		return listaPois.stream().filter(poi -> poi.contiene(descripcion)).collect(Collectors.toList());
 		
-
 	}
 
-	private static void agregarPoisExternos(String descripcion) {
+	private static void consultarPoisExternos(String descripcion) {
 		
 		Dispositivo.agregarPois(ConsultorExterno.damePoisExternos(descripcion));
 		

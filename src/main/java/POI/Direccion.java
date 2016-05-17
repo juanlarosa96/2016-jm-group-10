@@ -29,6 +29,14 @@ public class Direccion {
 		this.pais = pais;
 	}
 
+	public String getCalle() {
+		return calle;
+	}
+
+	public Integer getAltura() {
+		return altura;
+	}
+
 	public void mostrarDireccion() {
 		String direccion;
 
@@ -64,5 +72,9 @@ public class Direccion {
 
 		dir2.mostrarDireccion();
 
+	}
+
+	public Boolean esLaMismaDireccionQue(Direccion otraDireccion) {		
+		return (otraDireccion.getCalle()==this.calle) && (otraDireccion.getAltura()==this.altura);
 	}
 }
