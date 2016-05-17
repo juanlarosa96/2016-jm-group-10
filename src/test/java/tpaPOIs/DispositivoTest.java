@@ -71,34 +71,34 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void buscoParadaQueEstaEnLaListaDePoisPorEtiquetayLaEncuentra() {
+	public void SiBuscoParadaQueEstaEnLaListaDePoisPorEtiquetaLaEncuentra() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
 	}
 	//Estos 3 son muy parecidos, solo varia en la clase de POI que encuentran.
 	@Test
-	public void buscoParadasPorEtiquetayEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
+	public void SiBuscoParadasPorEtiquetaEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(otraParada114Valida));
 	}
 
 	@Test
-	public void buscoPOIsPorPalabraClaveYDevuelveTodosLosQueLaTienen() {
+	public void SiBuscoPOIsPorPalabraClaveDevuelveTodosLosQueLaTienen() {
 		Assert.assertEquals(2, dispositivo.buscarPOIs("tarjeta de credito").size(), 0);
 	}
 
 	@Test
-	public void consultoSiAlgunCGPTieneEtiquetaConUnaPalabraClaveYDevuelve2() {
+	public void SiBuscoCGPsPorPalabraClaveYPreguntoCuantosSonDevuelveLaCantidadDeCGPsQueLaTienen() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
 	}
 	//----------------------------------------------------------------------------
 	
 	@Test
-	public void buscoPOIPorEtiquetaQueNingunoTieneYNoEncuentraNinguno() {
+	public void SiBuscoPOIsPorEtiquetaQueNingunoTieneNoEncuentraNinguno() {
 		Assert.assertTrue(dispositivo.buscarPOIs("negra").isEmpty());
 	}	
 
 	@Test
-	public void buscoServicioValidoQueSeEncuentraDisponibleEn2CGPEnHorarioDisponibleParaEseServicioYEncuentraLos2CGP() {
+	public void SiBuscoUnServicioQueSeEncuentraDisponibleEn2CGPEnUnHorarioDisponibleParaEseServicioEncuentraLos2CGP() {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioValidoParaRentas);
 		Assert.assertEquals(2, CGPsConRentas.size(), 0);
 		Assert.assertTrue(CGPsConRentas.contains(cgpValido));
@@ -106,7 +106,7 @@ public class DispositivoTest {
 	}
 
 	@Test
-	public void ServicioValidoNoEstaDisponibleEnHorarioCerrado() {
+	public void SiBuscoSiUnServicioEstaDisponibleEnUnHorarioEnQueEstaCerradoNoEncuentraNinguno() {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 
