@@ -19,11 +19,31 @@ public class Dispositivo {
 	}
 
 	public static void agregarPoi(POI poi) {
-		//implementar aca el alta o modificacion
-		listaPois.add(poi);
+		if(Dispositivo.estaEnLaLista(poi))
+			Dispositivo.actualizarPoi(poi);			
+		else
+			listaPois.add(poi);
 	}
 	
 	
+	private static void actualizarPoi(POI poiNuevo) {
+		
+		POI poiViejo = listaPois.stream().filter(unPoi -> unPoi.esIgualA(poiNuevo)).findFirst().get();
+		
+		Dispositivo.eliminarPOI(poiViejo);
+			
+		listaPois.add(poiNuevo);
+	}
+
+	private static void eliminarPOI(POI poi) {		
+		listaPois.remove(poi);		
+	}
+
+	private static boolean estaEnLaLista(POI poiBuscado) {
+		return listaPois.stream().anyMatch(unPoi -> unPoi.esIgualA(poiBuscado));
+		
+	}
+
 	public List<POI> buscarPOIs(String descripcion) {
 		Dispositivo.agregarPoisExternos(descripcion);
 		return listaPois.stream().filter(poi -> poi.contiene(descripcion)).collect(Collectors.toList());

@@ -96,6 +96,11 @@ public abstract class POI {
 	public void setPosicion(Point posicion) {
 		this.posicion = posicion;
 	}
+
+	public boolean esIgualA(POI poi) {
+		
+		return this.getPosicion().equals(poi.getPosicion());
+	}
 	
 	
 
