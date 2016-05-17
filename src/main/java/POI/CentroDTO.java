@@ -3,22 +3,22 @@ package POI;
 import java.util.List;
 
 public class CentroDTO {
-	private Integer numeroComuna;
+	private Integer numeroComunaCentroDTO;
 	private String zonas;
 	private String nombreDirector;
-	private String domicilio;
+	private String domicilioCentroDTO;
 	private String telefono;
-	private List<ServiciosDTO> serviciosDTO;
+	private List<ServicioDTO> serviciosDTO;
 	
-	public Integer getNumeroComuna() {
-		return numeroComuna;
+	public Integer getNumeroComunaCentroDTO() {
+		return numeroComunaCentroDTO;
 	}
 	
-	public String getDomicilio() {
-		return domicilio;
+	public String getDomicilioCentroDTO() {
+		return domicilioCentroDTO;
 	}
 	
-	public List<ServiciosDTO> getServiciosDTO() {
+	public List<ServicioDTO> getServiciosDTO() {
 		return serviciosDTO;
 	}
 	
