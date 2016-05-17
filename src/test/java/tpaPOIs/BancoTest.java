@@ -32,27 +32,27 @@ public class BancoTest {
 	}
 
 	@Test
-	public void unBancoValidoNoEstaDisponibleEnUnHorarioNoBancario() {
+	public void SiLePreguntoAUnBancoSiEstaDisponibleEnUnHorarioNoBancarioRespondeFalse() {
 		Assert.assertFalse(bancoValido.estaDisponible(horarioNoBancario));
 	}
 
 	@Test
-	public void unBancoValidoEstaDisponibleEnHorarioBancario() {
+	public void SiLePreguntoAUnBancoSiEstaDisponibleEnUnHorarioBancarioRespondeTrue() {
 		Assert.assertTrue(bancoValido.estaDisponible(horarioBancario));
 	}
 
 	@Test
-	public void unBancoValidoNoEstaDisponibleEnHorarioDeCierre() {
+	public void SiLePreguntoAUnBancoSiEstaDisponibleEnHorarioDeCierreRespondeFalse() {
 		Assert.assertFalse(bancoValido.estaDisponible(horarioCierreBanco));
 	}
 
 	@Test
-	public void unBancoValidoEstaCercaDeUnaPosicionCercana() {
+	public void SiLePreguntoAUnBancoSiEstaCercaDeUnaPosicionCercanaAElRespondeTrue() {
 		Assert.assertTrue(bancoValido.estasCerca(posicionCercanaBancoValido));
 	}
 
 	@Test
-	public void unBancoValidoNoEstaCercaDeUnaPosicionLejana() {
+	public void SiLePreguntoAUnBancoSiEstaCercaDeUnaPosicionLejanaAElRespondeFalse() {
 		Assert.assertFalse(bancoValido.estasCerca(posicionLejanaBancoValido));
 	}
 
