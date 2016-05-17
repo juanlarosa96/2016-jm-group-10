@@ -27,16 +27,16 @@ public class ParadaColectivoTest {
 	
 
 	@Test
-	public void paradaValidaEstaDisponibleEnCualquierHorario() {
+	public void SiPreguntoSiUnaParadaEstaDisponibleEnUnHorarioCualquieraRespondeTrue() {
 		Assert.assertTrue(paradaValida.estaDisponible(unHorarioCualquiera));
 	}
 
 	@Test
-	public void paradaValidaNoEstaCercaDeUnaPosicionLejana() {
+	public void SiPreguntoSiUnaParadaEstaCercaDeUnaPosicionLejanaAEllaRespondeFalse() {
 		Assert.assertFalse(paradaValida.estasCerca(posicionLejanaParadaValida));
 	}
 	@Test
-	public void paradaValidaEstasCercaDeUnaPosicionCercana(){
+	public void SiPreguntoSiUnaParadaEstaCercaDeUnaPosicionCercanaAEllaRespondeTrue(){
 		Assert.assertTrue(paradaValida.estasCerca(posicionCercanaParadaValida));
 	}
 
