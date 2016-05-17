@@ -194,16 +194,25 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 
 	private static List<Point> limitesComuna9 = new ArrayList<Point>() {
 		{
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
+			add(new Point(-34.656518, -58.460775));
+			add(new Point(-34.664707, -58.469701));
+			add(new Point(-34.657648, -58.479143));
+			add(new Point(-34.663295, -58.488928));
+			add(new Point(-34.674370, -58.502826));
+			add(new Point(-34.653727, -58.528720));
+			add(new Point(-34.634718, -58.529916));
+			add(new Point(-34.632751, -58.516171));
+			add(new Point(-34.634718, -58.511192));
+			add(new Point(-34.639962, -58.510196));
+			add(new Point(-34.646026, -58.502427));
+			add(new Point(-34.643404, -58.497049));
+			add(new Point(-34.644715, -58.495256));
+			add(new Point(-34.637340, -58.478524));
+			add(new Point(-34.639143, -58.476333));
+			add(new Point(-34.636848, -58.471553));
+			add(new Point(-34.641437, -58.469262));
+			add(new Point(-34.646435, -58.462689));
+			add(new Point(-34.651843, -58.466772));
 		}
 	};
 	private static Comuna comuna9 = new Comuna(9, limitesComuna9);
@@ -234,15 +243,21 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 
 	private static List<Point> limitesComuna11 = new ArrayList<Point>() {
 		{
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
+			add(new Point(-34.604520, -58.458606));
+			add(new Point(-34.607346, -58.462897));
+			add(new Point(-34.613704, -58.459979));
+			add(new Point(-34.624440, -58.482295));
+			add(new Point(-34.609324, -58.500148));
+			add(new Point(-34.619920, -58.517142));
+			add(new Point(-34.610878, -58.528987));
+			add(new Point(-34.581208, -58.515417));
+			add(new Point(-34.594683, -58.502908));
+			add(new Point(-34.596890, -58.497369));
+			add(new Point(-34.597816, -58.483023));
+			add(new Point(-34.600247, -58.476412));
+			add(new Point(-34.600826, -58.477538));
+			add(new Point(-34.605225, -58.474021));
+			add(new Point(-34.601752, -58.468818));
 		}
 	};
 	private static Comuna comuna11 = new Comuna(11, limitesComuna11);
