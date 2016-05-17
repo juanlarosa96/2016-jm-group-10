@@ -50,17 +50,24 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 
 	private static List<Point> limitesComuna2 = new ArrayList<Point>() {
 		{
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
-			add(new Point());
+			add(new Point(-34.579634, -58.376988));
+			add(new Point(-34.579846, -58.380250));
+			add(new Point(-34.577726, -58.385399));
+			add(new Point(-34.576383, -58.385314));
+			add(new Point(-34.572143, -58.392953));
+			add(new Point(-34.572253, -58.395231));
+			add(new Point(-34.569973, -58.399207));
+			add(new Point(-34.573201, -58.401736));
+			add(new Point(-34.578249, -58.396354));
+			add(new Point(-34.584502, -58.400385));
+			add(new Point(-34.583429, -58.401988));
+			add(new Point(-34.583594, -58.405895));
+			add(new Point(-34.594233, -58.414309));
+			add(new Point(-34.597778, -58.415812));
+			add(new Point(-34.597943, -58.404392));
+			add(new Point(-34.599263, -58.401888));
+			add(new Point(-34.599180, -58.387062));
+			add(new Point(-34.591676, -58.388064));
 		}
 	};
 	private static Comuna comuna2 = new Comuna(2, limitesComuna2);
