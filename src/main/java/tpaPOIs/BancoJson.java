@@ -1,4 +1,4 @@
-package POI;
+package tpaPOIs;
 
 import java.util.ArrayList;
 
