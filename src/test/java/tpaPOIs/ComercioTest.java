@@ -26,22 +26,22 @@ public class ComercioTest {
 	}
 
 	@Test
-	public void ComercioValidoEstaDisponibleEnHorarioAbierto() {
+	public void SiLePreguntoAUnComercioSiEstaDisponibleEnUnHorarioEnQueEstaAbiertoRespondeTrue() {
 		Assert.assertTrue(comercioValido.estaDisponible(horarioAbiertoDeComercioValido));
 	}
 
 	@Test
-	public void ComercioValidoNoEstaDisponibleEnHorarioCerrado() {
+	public void SiLePreguntoAUnComercioSiEstaDisponibleEnUnHorarioEnQueEstaCerradoRespondeFalse() {
 		Assert.assertFalse(comercioValido.estaDisponible(horarioCerradoDeComercioValido));
 	}
 
 	@Test
-	public void ComercioValidoEstaCercaDeUnaPosicionCercana() {
+	public void SiLePreguntoAUnComercioSiEstaCercaDeUnaPosicionCercanaAElRespondeTrue() {
 		Assert.assertTrue(comercioValido.estasCerca(posicionCercanaComercioValido));
 	}
 	
 	@Test
-	public void ComercioValidoNoEstaCercaDeUnaPosicionNoCercana() {
+	public void SiLePreguntoAUnComercioSiEstaCercaDeUnaPosicionNoCercanaAElRespondeFalse() {
 		Assert.assertFalse(comercioValido.estasCerca(posicionNoCercanaComercioValido));
 	}
 
