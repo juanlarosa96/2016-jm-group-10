@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.joda.time.LocalTime;
+
 public class CgpAdapter implements ComponenteExternoAdapter {
 
 	ServicioExternoCGP servicioExternoCgp;
@@ -14,7 +16,8 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 	}
 
 	private ArrayList<POI> adaptarCentrosDTO(List<CentroDTO> centrosDTO) {
-		return (ArrayList<POI>) centrosDTO.stream().map(centroDTO -> this.adaptarACGP(centroDTO)).collect(Collectors.toList());
+		return (ArrayList<POI>) centrosDTO.stream().map(centroDTO -> this.adaptarACGP(centroDTO))
+				.collect(Collectors.toList());
 	}
 
 	private POI adaptarACGP(CentroDTO centroDTO) {
@@ -30,8 +33,9 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 				add("Comuna");
 			}
 		};
-		
-		return new CGP(servicios, comuna, null /*posicion*/, nombre, direccion, etiquetas);
+
+		//no sabemos la posicion del cgp en coordenadas
+		return new CGP(servicios, comuna, null /* posicion */, nombre, direccion, etiquetas);
 
 	}
 
@@ -48,7 +52,18 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 	}
 
 	private List<FranjaHoraria> adaptarAFranjasHorarias(List<RangoServicioDTO> rangoServicios) {
-			return null;
+		return rangoServicios.stream().map(rangoHorario -> this.adaptarAFranjaHoraria(rangoHorario))
+				.collect(Collectors.toList());
+	}
+
+	private FranjaHoraria adaptarAFranjaHoraria(RangoServicioDTO rangoHorario) {
+		Integer dia = rangoHorario.getDia();
+		Integer horaDesde = rangoHorario.getHoraDesde();
+		Integer minutoDesde = rangoHorario.getMinutoDesde();
+		Integer horaHasta = rangoHorario.getHoraHasta();
+		Integer minutoHasta = rangoHorario.getMinutoHasta();
+
+		return new FranjaHoraria(dia, new LocalTime(horaDesde, minutoDesde), new LocalTime(horaHasta, minutoHasta));
 	}
 
 	private Comuna adaptarAComuna(Integer numeroComuna) {

@@ -6,21 +6,21 @@ import org.joda.time.LocalTime;
 public class FranjaHoraria {
 
 	private Integer diaDeLaSemana;
-	private LocalTime horaApertura;
-	private LocalTime horaCierre;
+	private LocalTime horarioApertura;
+	private LocalTime horarioCierre;
 
-	public FranjaHoraria(Integer dia, LocalTime horaApertura, LocalTime horaCierre) {
+	public FranjaHoraria(Integer dia, LocalTime horarioApertura, LocalTime horarioCierre) {
 
 		this.diaDeLaSemana = dia;
-		this.horaApertura = horaApertura;
-		this.horaCierre = horaCierre;
+		this.horarioApertura = horarioApertura;
+		this.horarioCierre = horarioCierre;
 	}
 
 	public Boolean estaEnFranjaHoraria(DateTime fecha) {
 
 		if (fecha.getDayOfWeek() == diaDeLaSemana){
 
-			return estaElHorarioContenidoEnElIntervalo(horaApertura.getMillisOfDay(), horaCierre.getMillisOfDay(), fecha.getMillisOfDay());
+			return estaElHorarioContenidoEnElIntervalo(horarioApertura.getMillisOfDay(), horarioCierre.getMillisOfDay(), fecha.getMillisOfDay());
 		}
 		else
 			return false;
