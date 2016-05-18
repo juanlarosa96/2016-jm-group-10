@@ -55,11 +55,9 @@ public class CGP extends POI {
 	public Boolean estasCerca(Point unaPosicion) {
 		return comuna.incluyeA(unaPosicion);
 	}
-
 	@Override
-	public Boolean contiene(String descripcion) {
-		return super.contiene(descripcion)
-				|| servicios.stream().anyMatch(servicio -> servicio.nombreSimilarA(descripcion));
+	public Boolean condicionDeBusqueda(String descripcion) {
+		return servicios.stream().anyMatch(servicio -> servicio.nombreSimilarA(descripcion));
 	}
 	
 	@Override

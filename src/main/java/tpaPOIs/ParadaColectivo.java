@@ -32,9 +32,9 @@ public class ParadaColectivo extends POI {
 	protected Double condicionDeCercania() {
 		return 0.1;
 	}
-
+	
 	@Override
-	public Boolean contiene(String descripcion) {
-		return super.contiene(descripcion) || (descripcion.contains(linea.toString()));
+	public Boolean condicionDeBusqueda(String descripcion) {
+		return ManejadorDeStrings.estaIncluido(linea.toString(), descripcion);
 	}
 }

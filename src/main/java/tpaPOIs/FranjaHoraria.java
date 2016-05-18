@@ -1,6 +1,5 @@
 package tpaPOIs;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
 public class FranjaHoraria {
@@ -16,21 +15,17 @@ public class FranjaHoraria {
 		this.horarioCierre = horarioCierre;
 	}
 
-	public Boolean estaEnFranjaHoraria(DateTime fecha) {
-
-		if (fecha.getDayOfWeek() == diaDeLaSemana){
-
-			return estaElHorarioContenidoEnElIntervalo(horarioApertura.getMillisOfDay(), horarioCierre.getMillisOfDay(), fecha.getMillisOfDay());
-		}
-		else
-			return false;
-
-	}
-	
-	
-	private Boolean estaElHorarioContenidoEnElIntervalo(int apertura, int cierre, int horario) {
-		return horario >= apertura && horario <= (cierre + 59999);
+	public Integer getDiaDeLaSemana() {
+		return diaDeLaSemana;
 	}
 
+	public LocalTime getHorarioApertura() {
+		return horarioApertura;
+	}
 
+	public LocalTime getHorarioCierre() {
+		return horarioCierre;
+	}
+
+	
 }

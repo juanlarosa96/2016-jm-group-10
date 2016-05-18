@@ -30,7 +30,7 @@ public abstract class POI {
 	}
 
 	public Boolean estaDisponible(DateTime fecha) {
-		return horarios.stream().anyMatch(unHorario -> unHorario.estaEnFranjaHoraria(fecha));
+		return horarios.stream().anyMatch(franjaHoraria -> ManejadorDeFechas.estaEnFranjaHoraria(fecha,franjaHoraria));
 	}
 
 	public Boolean estasCerca(Point unaPosicion) {
@@ -50,7 +50,13 @@ public abstract class POI {
 	}
 
 	public Boolean contiene(String descripcion) {
-		return (descripcion.contains(nombre) || etiquetas.stream().anyMatch(palabra -> descripcion.contains(palabra)));
+		return ManejadorDeStrings.estaIncluido(nombre,descripcion)|| 
+				etiquetas.stream().anyMatch(etiqueta -> ManejadorDeStrings.estaIncluido(etiqueta,descripcion))||
+				this.condicionDeBusqueda(descripcion);
+	}
+
+	public Boolean condicionDeBusqueda(String descripcion) {		
+		return false;
 	}
 
 	public Boolean estaDisponibleServicio(String servicio, DateTime momento) {
