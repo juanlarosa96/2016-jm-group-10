@@ -8,7 +8,7 @@ import org.joda.time.LocalTime;
 
 
 public class CgpAdapter implements ComponenteExternoAdapter {
-	ServicioExternoCGP servicioExternoCgp;
+	private ServicioExternoCGP servicioExternoCgp;
 	
 	public CgpAdapter(ServicioExternoCGP servicioExternoCgp) {
 		this.servicioExternoCgp = servicioExternoCgp;
