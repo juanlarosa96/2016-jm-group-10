@@ -8,6 +8,15 @@ public class RangoServicioDTO {
 	private Integer horaHasta;
 	private Integer minutoHasta;
 	
+	public RangoServicioDTO(Integer dia, Integer horaDesde, Integer minutoDesde, Integer horaHasta,
+			Integer minutoHasta) {
+		this.dia = dia;
+		this.horaDesde = horaDesde;
+		this.minutoDesde = minutoDesde;
+		this.horaHasta = horaHasta;
+		this.minutoHasta = minutoHasta;
+	}
+	
 	public Integer getDia() {
 		return dia;
 	}

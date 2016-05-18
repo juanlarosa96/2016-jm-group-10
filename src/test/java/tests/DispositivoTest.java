@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uqbar.geodds.Point;
 
+import static org.mockito.Mockito.*;
+
 import fixtures.FixtureBanco;
 import fixtures.FixtureCGP;
 import fixtures.FixtureComercio;
@@ -20,6 +22,7 @@ import tpaPOIs.Comercio;
 import tpaPOIs.Dispositivo;
 import tpaPOIs.POI;
 import tpaPOIs.ParadaColectivo;
+import tpaPOIs.ServicioExternoCGP;
 
 public class DispositivoTest {
 
@@ -40,6 +43,8 @@ public class DispositivoTest {
 	private DateTime horarioValidoParaRentas;
 	private DateTime horarioNoValidoParaNingunServicio;
 	private List<POI> CGPsConRentas;
+	
+	private ServicioExternoCGP servicioExternoCgp;
 
 	@Before
 	public void init() {
@@ -73,6 +78,8 @@ public class DispositivoTest {
 		Dispositivo.setListaPois(listaPoisDispositivo);
 
 		CGPsConRentas = new ArrayList<POI>();
+		
+		servicioExternoCgp = mock(ServicioExternoCGP.class);
 	}
 
 	@Test
@@ -114,7 +121,6 @@ public class DispositivoTest {
 	public void SiBuscoSiUnServicioEstaDisponibleEnUnHorarioEnQueEstaCerradoNoEncuentraNinguno() {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
-
 	}
 
 }
