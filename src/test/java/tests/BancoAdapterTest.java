@@ -3,20 +3,15 @@ package tests;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
-
-import com.google.gson.Gson;
 
 import fixtures.FixtureBancoAdapter;
 
 import static org.mockito.Mockito.*;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import tpaPOIs.Banco;
 import tpaPOIs.BancoAdapter;
-import tpaPOIs.BancoJson;
-import tpaPOIs.Direccion;
 import tpaPOIs.POI;
 import tpaPOIs.ServicioExternoBancos;
 
@@ -26,28 +21,22 @@ public class BancoAdapterTest {
 	private BancoAdapter bancoAdapter;
 	private Banco unBanco;
 	private String jsonListaBancos;
+	private String jsonListaVacia;
 
 	@Before
 	public void init() {
 
 		jsonListaBancos = FixtureBancoAdapter.devolverListaBancoJsonNoVacia();
+		jsonListaVacia = FixtureBancoAdapter.devolverListaBancoJsonVacia();
 		unBanco = FixtureBancoAdapter.devolverBancoValido();		
 		
 		componenteBancos = mock(ServicioExternoBancos.class);
+		bancoAdapter = new BancoAdapter(componenteBancos);
+		
 		when(componenteBancos.buscar("Banco de la Plaza", "extracciones")).thenReturn(jsonListaBancos);
-		
-				
-				
-		List<BancoJson> listaVacia = new ArrayList<BancoJson>();
-		
-		String jsonListaVacia = new Gson().toJson(listaVacia);
-		
 		when(componenteBancos.buscar("","")).thenReturn(jsonListaVacia);
 		
 	
-		
-		bancoAdapter = new BancoAdapter(componenteBancos);
-
 	}
 
 	@Test
