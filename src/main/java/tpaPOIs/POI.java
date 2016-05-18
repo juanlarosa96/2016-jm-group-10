@@ -50,8 +50,8 @@ public abstract class POI {
 	}
 
 	public Boolean contiene(String descripcion) {
-		return descripcion.contains(nombre) || 
-				etiquetas.stream().anyMatch(palabra -> descripcion.contains(palabra))||
+		return ManejadorDeStrings.estaIncluido(nombre,descripcion)|| 
+				etiquetas.stream().anyMatch(etiqueta -> ManejadorDeStrings.estaIncluido(etiqueta,descripcion))||
 				this.condicionDeBusqueda(descripcion);
 	}
 

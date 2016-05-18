@@ -24,6 +24,6 @@ public class Comercio extends POI {
 
 	@Override
 	public Boolean condicionDeBusqueda(String descripcion) {
-		return descripcion.contains(rubro.getNombreRubro());
-	}
+		return ManejadorDeStrings.estaIncluido(rubro.getNombreRubro(), descripcion);
+		}
 }

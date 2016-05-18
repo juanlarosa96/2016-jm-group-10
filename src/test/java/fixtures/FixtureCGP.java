@@ -64,8 +64,6 @@ public class FixtureCGP {
 
 	private static List<String> etiquetasCgp10 = new ArrayList<String>() {
 		{
-			add("CGP");
-			add("Cgp");
 			add("cgp");
 			add("rentas");
 			add("asesoramiento");
@@ -97,8 +95,6 @@ public class FixtureCGP {
 
 	public static List<String> etiquetasCGP5 = new ArrayList<String>() {
 		{
-			add("CGP");
-			add("Cgp");
 			add("cgp");
 			add("rentas");
 			add("asesoramiento");

@@ -14,8 +14,8 @@ public class Servicio {
 		this.horarios = horarios;
 	}
 
-	public Boolean nombreSimilarA(String unNombre) {
-		return nombre.contains(unNombre);
+	public Boolean nombreSimilarA(String palabra) {
+		return ManejadorDeStrings.estaIncluido(palabra, nombre);
 	}
 
 	public Boolean estaDisponible(DateTime fecha) {

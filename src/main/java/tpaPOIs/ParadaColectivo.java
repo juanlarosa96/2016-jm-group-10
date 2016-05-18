@@ -35,6 +35,6 @@ public class ParadaColectivo extends POI {
 	
 	@Override
 	public Boolean condicionDeBusqueda(String descripcion) {
-		return descripcion.contains(linea.toString());
+		return ManejadorDeStrings.estaIncluido(linea.toString(), descripcion);
 	}
 }
