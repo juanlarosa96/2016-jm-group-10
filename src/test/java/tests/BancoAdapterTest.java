@@ -3,17 +3,15 @@ package tests;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
 
-import com.google.gson.Gson;
+import fixtures.FixtureBancoAdapter;
+
 import static org.mockito.Mockito.*;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import tpaPOIs.Banco;
 import tpaPOIs.BancoAdapter;
-import tpaPOIs.BancoJson;
-import tpaPOIs.Direccion;
 import tpaPOIs.POI;
 import tpaPOIs.ServicioExternoBancos;
 
@@ -21,53 +19,24 @@ public class BancoAdapterTest {
 
 	private ServicioExternoBancos componenteBancos;
 	private BancoAdapter bancoAdapter;
-	private BancoJson unBancoJson;
 	private Banco unBanco;
+	private String jsonListaBancos;
+	private String jsonListaVacia;
 
 	@Before
 	public void init() {
 
+		jsonListaBancos = FixtureBancoAdapter.devolverListaBancoJsonNoVacia();
+		jsonListaVacia = FixtureBancoAdapter.devolverListaBancoJsonVacia();
+		unBanco = FixtureBancoAdapter.devolverBancoValido();		
+		
 		componenteBancos = mock(ServicioExternoBancos.class);
+		bancoAdapter = new BancoAdapter(componenteBancos);
 		
-		ArrayList<String> listaServicios = new ArrayList<String>() {
-			{
-				add("cobro cheques");
-				add("depositos");
-				add("extracciones");
-				add("transferencias");
-				add("creditos");
-				add("");
-				add("");
-				add("");
-			}
-		};
-
-		unBancoJson = new BancoJson("Banco de la Plaza", -35.9338322, 72.348353, "Avellaneda", "Javier Loeschbor",
-				listaServicios);
-
-		List<BancoJson> listaBancoJson = new ArrayList<BancoJson>();
-
-		listaBancoJson.add(unBancoJson);
-		
-		String jsonListaBancos = new Gson().toJson(listaBancoJson);
 		when(componenteBancos.buscar("Banco de la Plaza", "extracciones")).thenReturn(jsonListaBancos);
-		
-				
-		List<BancoJson> listaVacia = new ArrayList<BancoJson>();
-		
-		String jsonListaVacia = new Gson().toJson(listaVacia);
-		
 		when(componenteBancos.buscar("","")).thenReturn(jsonListaVacia);
 		
-		String nombre = unBancoJson.getBanco();
-		Point point = new Point(unBancoJson.getX(), unBancoJson.getY());
-		Direccion direccion = null;
-		ArrayList<String> etiquetas = unBancoJson.getServicios();
-
-		unBanco = new Banco(point, nombre, direccion, etiquetas);
-		
-		bancoAdapter = new BancoAdapter(componenteBancos);
-
+	
 	}
 
 	@Test
