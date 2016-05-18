@@ -41,6 +41,8 @@ public class FixtureParadaColectivo {
 	private static ParadaColectivo parada114Mercedes = new ParadaColectivo(114, posicionParada114Mercedes, "114", direccionParada114Mercedes,
 			etiquetasParada114);
 
+	private static ParadaColectivo parada114MercedesConPosicionDeParada114Segurola = new ParadaColectivo(114, posicionParada114Segurola, "114", direccionParada114Mercedes, etiquetasParada114);
+
 	//----------------------------------------------------------
 	public static DateTime dameUnHorarioCualquiera() {
 		return unHorarioCualquiera;
@@ -68,6 +70,11 @@ public class FixtureParadaColectivo {
 	
 	public static ParadaColectivo dameOtraParada114Valida() {		
 		return parada114Mercedes;
+	}
+
+	public static ParadaColectivo dameOtraParadaConIgualPosicionQueParadaValida() {
+		
+		return parada114MercedesConPosicionDeParada114Segurola ;
 	}
 	
 }

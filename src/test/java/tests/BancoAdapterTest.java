@@ -6,15 +6,9 @@ import org.junit.Test;
 import org.uqbar.geodds.Point;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import static org.mockito.Mockito.*;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import tpaPOIs.Banco;
 import tpaPOIs.BancoAdapter;
