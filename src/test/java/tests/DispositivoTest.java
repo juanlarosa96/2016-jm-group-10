@@ -47,15 +47,14 @@ public class DispositivoTest {
 	private DateTime horarioValidoParaRentas;
 	private DateTime horarioNoValidoParaNingunServicio;
 	private List<POI> CGPsConRentas;
-<<<<<<< HEAD
 	
 	private ServicioExternoCGP servicioExternoCgp;
 	private ArrayList<CentroDTO> centrosDTO;
 	private CentroDTO centroDTO1;
-=======
+
 	private ParadaColectivo paradaQueNoEstaEnLaLista;
 	private ParadaColectivo parada114ValidaConMasEtiquetas;
->>>>>>> f564bcde64b8d5fad44fdcdf652e951187316ada
+
 
 	@Before
 	public void init() {
@@ -90,7 +89,6 @@ public class DispositivoTest {
 
 		CGPsConRentas = new ArrayList<POI>();
 		
-<<<<<<< HEAD
 		//Servicio Externo
 		centroDTO1 = FixtureCentroDTO.dameCentroDTO1();		
 		centrosDTO = new ArrayList<CentroDTO>(){
@@ -100,10 +98,9 @@ public class DispositivoTest {
 		};
 		
 		
-=======
 		paradaQueNoEstaEnLaLista= FixtureParadaColectivo.dameUnaTercerParadaValida();
 		 parada114ValidaConMasEtiquetas= FixtureParadaColectivo.dameUnaParadaValidaConMasEtiquetas();
->>>>>>> f564bcde64b8d5fad44fdcdf652e951187316ada
+
 	}
 
 	@Test
