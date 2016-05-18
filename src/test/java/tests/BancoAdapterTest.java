@@ -38,10 +38,10 @@ public class BancoAdapterTest {
 		ArrayList<String> listaServicios = new ArrayList<String>() {
 			{
 				add("cobro cheques");
-				add("depósitos");
+				add("depositos");
 				add("extracciones");
 				add("transferencias");
-				add("créditos");
+				add("creditos");
 				add("");
 				add("");
 				add("");
