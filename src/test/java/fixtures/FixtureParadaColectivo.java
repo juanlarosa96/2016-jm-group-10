@@ -59,6 +59,15 @@ public class FixtureParadaColectivo {
 
 	private static ParadaColectivo parada132RosarioyLaPlata = new ParadaColectivo(132, posicionParada132RosarioyLaPlata , "Parada 132 Rosario y La Plata", direccionParada132RosarioyLaPlata , etiquetasParada132RosarioyLaPlata );
 
+	private static List<String> etiquetasParada114ConMasEtiquetas = new ArrayList<String>(){{
+		
+	addAll(etiquetasParada114);
+	add("Segurola");
+	add("Sube");
+	}};
+
+	private static ParadaColectivo parada114SegurolaConMasEtiquetas = new ParadaColectivo(114,posicionParada114Segurola,"114",direccionParada114Segurola,etiquetasParada114ConMasEtiquetas);
+
 	//----------------------------------------------------------
 	public static DateTime dameUnHorarioCualquiera() {
 		return unHorarioCualquiera;
@@ -96,6 +105,10 @@ public class FixtureParadaColectivo {
 	public static ParadaColectivo dameUnaTercerParadaValida() {
 		
 		return parada132RosarioyLaPlata ;
+	}
+
+	public static ParadaColectivo dameUnaParadaValidaConMasEtiquetas() {
+		return parada114SegurolaConMasEtiquetas ;
 	}
 	
 }

@@ -41,6 +41,7 @@ public class DispositivoTest {
 	private DateTime horarioNoValidoParaNingunServicio;
 	private List<POI> CGPsConRentas;
 	private ParadaColectivo paradaQueNoEstaEnLaLista;
+	private ParadaColectivo parada114ValidaConMasEtiquetas;
 
 	@Before
 	public void init() {
@@ -76,6 +77,7 @@ public class DispositivoTest {
 		CGPsConRentas = new ArrayList<POI>();
 		
 		paradaQueNoEstaEnLaLista= FixtureParadaColectivo.dameUnaTercerParadaValida();
+		 parada114ValidaConMasEtiquetas= FixtureParadaColectivo.dameUnaParadaValidaConMasEtiquetas();
 	}
 
 	@Test
@@ -131,6 +133,12 @@ public class DispositivoTest {
 		Dispositivo.agregarPoi(paradaQueNoEstaEnLaLista);
 		Assert.assertTrue(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
 		
+	}
+	@Test
+	public void SiAgregoUnaParadaExistenteLaActualiza(){
+		Dispositivo.agregarPoi(parada114ValidaConMasEtiquetas);
+		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
+		Assert.assertTrue(listaPoisDispositivo.contains(parada114ValidaConMasEtiquetas));
 	}
 
 }
