@@ -79,7 +79,7 @@ public class DispositivoTest {
 	public void SiBuscoParadaQueEstaEnLaListaDePoisPorEtiquetaLaEncuentra() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
 	}
-	//Estos 3 son muy parecidos, solo varia en la clase de POI que encuentran.
+	
 	@Test
 	public void SiBuscoParadasPorEtiquetaEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
@@ -95,7 +95,6 @@ public class DispositivoTest {
 	public void SiBuscoCGPsPorPalabraClaveYPreguntoCuantosSonDevuelveLaCantidadDeCGPsQueLaTienen() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
 	}
-	//----------------------------------------------------------------------------
 	
 	@Test
 	public void SiBuscoPOIsPorEtiquetaQueNingunoTieneNoEncuentraNinguno() {
