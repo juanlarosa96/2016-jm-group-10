@@ -40,7 +40,7 @@ public class BancoAdapterTest {
 	}
 
 	@Test
-	public void SiLePidoAlComponenteLosBancosDisponiblesYSiEncuentraAlgunBancoMeDevuelveUnaListaDeBancos() {
+	public void SiBuscoEnElServicioExternoBancosPorNombreYServicioYEncuentraAlgunBancoMeDevuelveUnaListaDeBancos() {
 		ArrayList<POI> listaBancos = bancoAdapter.buscarPoisExternos("Banco de la Plaza,extracciones");
 		Banco bancoRecibido = (Banco) listaBancos.get(0);		
 		
@@ -53,7 +53,7 @@ public class BancoAdapterTest {
 	}
 	
 	@Test
-	public void SiLePidoAlComponenteLosBancosDisponiblesYNoEncuentraNingunoBancoMeDevuelveUnaListaVacia() {
+	public void SiBuscoEnElServicioExternoBancosPorNombreYServicioVaciosNoEncuentraNingunBancoYDevuelveListaVacia() {
 		ArrayList<POI> listaBancos = bancoAdapter.buscarPoisExternos(",");
 		Assert.assertTrue(listaBancos.isEmpty());
 	}

@@ -22,6 +22,7 @@ import tpaPOIs.CGP;
 import tpaPOIs.CentroDTO;
 import tpaPOIs.CgpAdapter;
 import tpaPOIs.Comercio;
+import tpaPOIs.ComponenteExternoAdapter;
 import tpaPOIs.ConsultorExterno;
 import tpaPOIs.Dispositivo;
 import tpaPOIs.POI;
@@ -48,7 +49,7 @@ public class DispositivoTest {
 	private DateTime horarioNoValidoParaNingunServicio;
 	private List<POI> CGPsConRentas;
 	
-	private ServicioExternoCGP servicioExternoCgp;
+	private ServicioExternoCGP servicioExternoCgpMockeado;
 	private ArrayList<CentroDTO> centrosDTO;
 	private CentroDTO centroDTO1;
 
@@ -89,6 +90,23 @@ public class DispositivoTest {
 
 		CGPsConRentas = new ArrayList<POI>();
 		
+		servicioExternoCgpMockeado = mock(ServicioExternoCGP.class);
+		
+		paradaQueNoEstaEnLaLista= FixtureParadaColectivo.dameUnaTercerParadaValida();
+		parada114ValidaConMasEtiquetas= FixtureParadaColectivo.dameUnaParadaValidaConMasEtiquetas();
+		
+		// CGP Adapter
+		CgpAdapter cgpAdapter = new CgpAdapter(servicioExternoCgpMockeado);
+
+		List<ComponenteExternoAdapter> listaAdapters = new ArrayList<ComponenteExternoAdapter>() {
+			{
+				add(cgpAdapter);
+			}
+		};
+
+		ConsultorExterno.setListaAdapters(listaAdapters);
+	
+		
 		//Servicio Externo
 		centroDTO1 = FixtureCentroDTO.dameCentroDTO1();		
 		centrosDTO = new ArrayList<CentroDTO>(){
@@ -97,9 +115,6 @@ public class DispositivoTest {
 			}
 		};
 		
-		
-		paradaQueNoEstaEnLaLista= FixtureParadaColectivo.dameUnaTercerParadaValida();
-		 parada114ValidaConMasEtiquetas= FixtureParadaColectivo.dameUnaParadaValidaConMasEtiquetas();
 
 	}
 
@@ -143,31 +158,26 @@ public class DispositivoTest {
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 	}
 	
+	//Servicios Externos------------------------------------------------------------------
 	@Test
-	public void SeAgreganLosCGPsCorrespondientesEnLaListaDePOIsCuandoBuscoEnElServicioExterno(){
-		servicioExternoCgp = mock(ServicioExternoCGP.class);
-		when(servicioExternoCgp.buscar("balvanera")).thenReturn(centrosDTO);
-		CgpAdapter cgpAdapter = new CgpAdapter(servicioExternoCgp);
-		ConsultorExterno.agregarAdapter(cgpAdapter);
+	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs(){
+		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);
 		dispositivo.buscarPOIs("balvanera");
 		
-		verify(servicioExternoCgp).buscar("balvanera");
+		verify(servicioExternoCgpMockeado).buscar("balvanera");
 		Assert.assertEquals(7, listaPoisDispositivo.size(),0);
 	}
 	
 	@Test
-	public void NoSeAgreganLosCGPsEnLaListaDePOIsCuandoBuscoEnElServicioExternoPorUnaZonaQueNoExiste(){
-		servicioExternoCgp = mock(ServicioExternoCGP.class);
+	public void SiBuscoEnElServicioExternoConUnaZonaInvalidaNoSeAgregaNingunCGPALaListaDePOIs(){		
 		centrosDTO.clear();
-		when(servicioExternoCgp.buscar("manchester")).thenReturn(centrosDTO);
-		CgpAdapter cgpAdapter = new CgpAdapter(servicioExternoCgp);
-		ConsultorExterno.agregarAdapter(cgpAdapter);
+		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(centrosDTO);
 		dispositivo.buscarPOIs("manchester");
 		
-		verify(servicioExternoCgp).buscar("manchester");
+		verify(servicioExternoCgpMockeado).buscar("manchester");
 		Assert.assertEquals(6, listaPoisDispositivo.size(),0);
 	}
-
+	//------------------------------------------------------------------------
 	@Test
 	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
 	Dispositivo.eliminarPOI(parada114Valida);

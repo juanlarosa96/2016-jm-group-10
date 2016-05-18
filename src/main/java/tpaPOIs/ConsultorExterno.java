@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class ConsultorExterno {
 
-	private static List<ComponenteExternoAdapter> adaptersComponentesExternos = new ArrayList<ComponenteExternoAdapter>();
+	private static List<ComponenteExternoAdapter> adaptersComponentesExternos; 
 	
 	public static ArrayList<POI> damePoisExternos(String descripcion) {
 		
@@ -15,7 +15,8 @@ public class ConsultorExterno {
 				.flatMap(listaPois -> listaPois.stream()).collect(Collectors.toList());
 	}
 	
-	public static void agregarAdapter(ComponenteExternoAdapter componente) {
-		adaptersComponentesExternos.add(componente);
+	
+	public static void setListaAdapters(List<ComponenteExternoAdapter> listaAdapters) {
+		adaptersComponentesExternos= listaAdapters;		
 	}
 }
