@@ -115,5 +115,9 @@ public class DispositivoTest {
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 
 	}
-
+	@Test
+	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
+	Dispositivo.eliminarPOI(parada114Valida);
+	Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));	
+	}
 }
