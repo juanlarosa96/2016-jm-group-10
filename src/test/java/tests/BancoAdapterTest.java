@@ -71,7 +71,7 @@ public class BancoAdapterTest {
 	}
 
 	@Test
-	public void SiLePidoAlComponenteLosBancosDisponiblesYencuentraAlgunBancoMeDevuelveUnaListaDeBancos() {
+	public void SiLePidoAlComponenteLosBancosDisponiblesYSiEncuentraAlgunBancoMeDevuelveUnaListaDeBancos() {
 		ArrayList<POI> listaBancos = bancoAdapter.buscarPoisExternos("Banco de la Plaza,extracciones");
 		Banco bancoRecibido = (Banco) listaBancos.get(0);		
 		
