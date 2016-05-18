@@ -56,14 +56,14 @@ public class FixtureCentroDTO {
 	}; 
 	
 	public static CentroDTO dameCentroDTO1() {
-		return new CentroDTO(3, "Balvanera, San Cristobal", "Zlatan Ibrahimovic", "Junin 521", "4375-0644/45", serviciosDTO1);
+		return new CentroDTO(3, "balvanera, san cristobal", "Zlatan Ibrahimovic", "Junin 521", "4375-0644/45", serviciosDTO1);
 	}
 	
 	public static CentroDTO dameCentroDTO2() {
-		return new CentroDTO(5, "Almagro, Boedo", "Nestor Ortigoza", "Carlos Calvo 3307", "0800-999-2727", serviciosDTO2);
+		return new CentroDTO(5, "almagro, boedo", "Nestor Ortigoza", "Carlos Calvo 3307", "0800-999-2727", serviciosDTO2);
 	}
 	
 	public static CentroDTO dameCentroDTO3() {
-		return new CentroDTO(7, "Flores", "Danny Drinkwater", "Av Rivadavia 7202", "0800-999-2727", serviciosDTO3);
+		return new CentroDTO(7, "flores", "Danny Drinkwater", "Av Rivadavia 7202", "0800-999-2727", serviciosDTO3);
 	}
 }
