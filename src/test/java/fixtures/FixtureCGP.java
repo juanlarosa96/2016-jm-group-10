@@ -142,4 +142,9 @@ public class FixtureCGP {
 	public static Point damePosicionCercanaCgpValido() {
 		return posicionCercanaCgpValido;
 	}
+
+	public static CGP dameOtroCgpConIgualDireccion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -12,6 +12,7 @@ import tpaPOIs.CGP;
 public class CGPTest {
 	
 	private CGP cgp;	
+	private CGP otroCgp;
 
 	private DateTime horarioValido; 
 	private DateTime horarioNoValido; 	
@@ -19,10 +20,12 @@ public class CGPTest {
 	private Point posicionNoCercana;
 	private Point posicionCercana;
 
+
 	@Before
 	public void init() {
 		
 		cgp = FixtureCGP.dameCGPValido();
+		otroCgp = FixtureCGP.dameOtroCgpValido();
 		horarioValido = FixtureCGP.dameHorarioValidoParaCgpValido();
 		horarioNoValido = FixtureCGP.dameHorarioNoValidoParaCgpValido();		
 		posicionNoCercana = FixtureCGP.damePosicionNoCercanaCgpValido();
@@ -66,4 +69,19 @@ public class CGPTest {
 		Assert.assertFalse(cgp.estaDisponibleServicio("Servicio Inexistente", horarioValido));
 
 	}
+	
+	@Test
+	public void SiLePreguntoAUnCGPSiEsIgualAUnCgpConLaMismaDireccionRespondeTrue(){
+		otroCgp.setDireccion(cgp.getDireccion());
+		Assert.assertTrue(cgp.esIgualA(otroCgp));
+
+	}
+	
+	@Test
+	public void SiLePreguntoAUnCGPSiEsIgualAOtroCgpConDistintaDireccionRespondeFalse(){
+		Assert.assertFalse(cgp.esIgualA(otroCgp));
+
+	}
+	
+	
 }
