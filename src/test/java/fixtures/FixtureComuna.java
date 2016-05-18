@@ -1,4 +1,4 @@
-package tpaPOIs;
+package fixtures;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,11 @@ public class FixtureComuna {
 	public FixtureComuna() {
 	}
 
-	static Point damePosicionIncluidaComunaValida() {
+	public static Point damePosicionIncluidaComunaValida() {
 		return new Point(-34.6327475, -58.4851585);
 	}
 
-	static Point damePosicionNoIncluidaComunaValida() {
+	public static Point damePosicionNoIncluidaComunaValida() {
 		return new Point(-34.6184994, -58.4368164);
 	}
 

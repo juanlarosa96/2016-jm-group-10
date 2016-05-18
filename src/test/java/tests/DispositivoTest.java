@@ -1,4 +1,4 @@
-package tpaPOIs;
+package tests;
 
 import org.joda.time.DateTime;
 
@@ -10,10 +10,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uqbar.geodds.Point;
 
+import fixtures.FixtureBanco;
+import fixtures.FixtureCGP;
+import fixtures.FixtureComercio;
+import fixtures.FixtureParadaColectivo;
 import tpaPOIs.Banco;
 import tpaPOIs.CGP;
 import tpaPOIs.Comercio;
 import tpaPOIs.Dispositivo;
+import tpaPOIs.POI;
 import tpaPOIs.ParadaColectivo;
 
 public class DispositivoTest {

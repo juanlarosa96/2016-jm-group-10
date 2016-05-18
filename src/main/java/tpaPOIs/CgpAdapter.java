@@ -437,8 +437,7 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 	}
 
 	private Comuna adaptarAComuna(Integer numeroComuna) {
-
-		return new Comuna(numeroComuna, null);
+		return comunas.stream().filter(comuna -> numeroComuna == comuna.getNumero()).findFirst().get();
 	}
 
 	private Direccion adaptarADireccion(String direccionCentroDTO) {
