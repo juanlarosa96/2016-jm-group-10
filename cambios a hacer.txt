@@ -1,2 +1,1 @@
 -intentar implementar equalsIgnoreCase (para ignorar mayusculas y minusculas) en contiene para buscar etiquetas
--implementar ManejadorDeFechas
