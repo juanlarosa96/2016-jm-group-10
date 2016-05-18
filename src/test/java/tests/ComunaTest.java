@@ -1,10 +1,11 @@
-package tpaPOIs;
+package tests;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbar.geodds.Point;
 
+import fixtures.FixtureComuna;
 import tpaPOIs.Comuna;
 
 public class ComunaTest {	

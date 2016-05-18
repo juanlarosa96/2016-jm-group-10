@@ -1,4 +1,4 @@
-package tpaPOIs;
+package tests;
 
 import org.joda.time.DateTime;
 import org.junit.Assert;
@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uqbar.geodds.Point;
 
+import fixtures.FixtureParadaColectivo;
 import tpaPOIs.Banco;
 import tpaPOIs.ParadaColectivo;
 
