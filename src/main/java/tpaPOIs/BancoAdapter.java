@@ -24,11 +24,10 @@ public class BancoAdapter implements ComponenteExternoAdapter {
 		
 		String[] parametros = descripcion.split(",", 2);
 		
-		return this.adaptarBancos(servicioExternoBancos.buscar(parametros[0],parametros[1]));		
+		return this.convertirJsonALista(servicioExternoBancos.buscar(parametros[0],parametros[1]));		
 	}
 
-	private ArrayList<POI> adaptarBancos(String json) {
-		// aca adaptar con el parser
+	private ArrayList<POI> convertirJsonALista(String json) {
 		
 		ArrayList<BancoJson> listaJson = new ArrayList<BancoJson>();
 		ArrayList<POI> listaBancos;
