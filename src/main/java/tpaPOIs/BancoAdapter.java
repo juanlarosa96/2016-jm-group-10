@@ -26,7 +26,7 @@ public class BancoAdapter implements ComponenteExternoAdapter {
 		
 		ArrayList<BancoJson> listaJson = new ArrayList<BancoJson>();
 		ArrayList<POI> listaBancos;
-		Type tipoListaBancosJson = new TypeToken<Collection<POI>>(){}.getType();
+		Type tipoListaBancosJson = new TypeToken<Collection<BancoJson>>(){}.getType();
 		Gson parserGson = new Gson();
 		
 		listaJson = parserGson.fromJson(json,tipoListaBancosJson);
