@@ -10,6 +10,16 @@ public class CentroDTO {
 	private String telefono;
 	private List<ServicioDTO> serviciosDTO;
 	
+	public CentroDTO(Integer numeroComunaCentroDTO, String zonas, String nombreDirector, String domicilioCentroDTO,
+			String telefono, List<ServicioDTO> serviciosDTO) {
+		this.numeroComunaCentroDTO = numeroComunaCentroDTO;
+		this.zonas = zonas;
+		this.nombreDirector = nombreDirector;
+		this.domicilioCentroDTO = domicilioCentroDTO;
+		this.telefono = telefono;
+		this.serviciosDTO = serviciosDTO;
+	}
+
 	public Integer getNumeroComunaCentroDTO() {
 		return numeroComunaCentroDTO;
 	}

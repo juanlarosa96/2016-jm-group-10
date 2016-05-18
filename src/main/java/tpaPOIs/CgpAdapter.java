@@ -9,6 +9,10 @@ import org.joda.time.LocalTime;
 
 public class CgpAdapter implements ComponenteExternoAdapter {
 	ServicioExternoCGP servicioExternoCgp;
+	
+	public CgpAdapter(ServicioExternoCGP servicioExternoCgp) {
+		this.servicioExternoCgp = servicioExternoCgp;
+	}
 
 	private static List<Point> limitesComuna1 = new ArrayList<Point>() {
 		{
