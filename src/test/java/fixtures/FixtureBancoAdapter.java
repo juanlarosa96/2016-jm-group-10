@@ -47,6 +47,13 @@ public class FixtureBancoAdapter {
 		return new Gson().toJson(listaBancoJson);
 
 	}
+	
+	public static String devolverListaBancoJsonVacia() {
+		List<BancoJson> listaVacia = new ArrayList<BancoJson>();
+		
+		return new Gson().toJson(listaVacia);		
+		
+	}
 
 	public static Banco devolverBancoValido() {
 		
@@ -59,5 +66,7 @@ public class FixtureBancoAdapter {
 		return new Banco(point, nombre, direccion, etiquetas);
 
 	}
+
+	
 
 }
