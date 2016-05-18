@@ -30,7 +30,7 @@ public abstract class POI {
 	}
 
 	public Boolean estaDisponible(DateTime fecha) {
-		return horarios.stream().anyMatch(unHorario -> unHorario.estaEnFranjaHoraria(fecha));
+		return horarios.stream().anyMatch(franjaHoraria -> ManejadorDeFechas.estaEnFranjaHoraria(fecha,franjaHoraria));
 	}
 
 	public Boolean estasCerca(Point unaPosicion) {
