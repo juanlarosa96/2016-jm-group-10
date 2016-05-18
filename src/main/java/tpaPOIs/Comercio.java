@@ -22,9 +22,8 @@ public class Comercio extends POI {
 		return rubro.getCondicionDeCercania();
 	}
 
-	
 	@Override
-	public Boolean contiene(String descripcion) {
-		return super.contiene(descripcion) || (descripcion.contains(rubro.getNombreRubro()));
+	public Boolean condicionDeBusqueda(String descripcion) {
+		return descripcion.contains(rubro.getNombreRubro());
 	}
 }
