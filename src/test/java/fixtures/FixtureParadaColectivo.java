@@ -43,6 +43,22 @@ public class FixtureParadaColectivo {
 
 	private static ParadaColectivo parada114MercedesConPosicionDeParada114Segurola = new ParadaColectivo(114, posicionParada114Segurola, "114", direccionParada114Mercedes, etiquetasParada114);
 
+	private static Point posicionParada132RosarioyLaPlata = new Point(-34.618422, -58.429014);
+
+	private static Direccion direccionParada132RosarioyLaPlata = new Direccion("Rosario", 36,"Av La Plata", "Senillosa", null, null, 1424, "CABA", "Caballito", "Buenos Aires","Argentina");
+
+	private static List<String> etiquetasParada132RosarioyLaPlata = new ArrayList<String>() {
+		{
+			add("parada");
+			add("132");
+			add("colectivo");
+			add("rosario");
+			add("la plata");
+		}
+	};;
+
+	private static ParadaColectivo parada132RosarioyLaPlata = new ParadaColectivo(132, posicionParada132RosarioyLaPlata , "Parada 132 Rosario y La Plata", direccionParada132RosarioyLaPlata , etiquetasParada132RosarioyLaPlata );
+
 	//----------------------------------------------------------
 	public static DateTime dameUnHorarioCualquiera() {
 		return unHorarioCualquiera;
@@ -75,6 +91,11 @@ public class FixtureParadaColectivo {
 	public static ParadaColectivo dameOtraParadaConIgualPosicionQueParadaValida() {
 		
 		return parada114MercedesConPosicionDeParada114Segurola ;
+	}
+
+	public static ParadaColectivo dameUnaTercerParadaValida() {
+		
+		return parada132RosarioyLaPlata ;
 	}
 	
 }
