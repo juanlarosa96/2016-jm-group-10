@@ -10,7 +10,13 @@ import com.google.gson.reflect.TypeToken;
 
 public class BancoAdapter implements ComponenteExternoAdapter {
 
-	ServicioExternoBancos servicioExternoBancos;
+	private ServicioExternoBancos servicioExternoBancos;
+	
+	public BancoAdapter(ServicioExternoBancos servicioExterno){
+		
+		this.servicioExternoBancos = servicioExterno;
+	}
+	
 		
 	@Override
 	public ArrayList<POI> buscarPoisExternos(String descripcion) {
@@ -41,11 +47,11 @@ public class BancoAdapter implements ComponenteExternoAdapter {
 		
 		String nombre = bancoJson.getBanco();
 		Point point = new Point(bancoJson.getX(),bancoJson.getY());
-		Direccion direccion = null;		
+		Direccion direccion = null;
 		ArrayList <String> etiquetas = bancoJson.getServicios();
 		
 		 
-		return new Banco(point,nombre,direccion, etiquetas);
+		return new Banco(point,nombre,direccion,etiquetas);
 		
 	}
 

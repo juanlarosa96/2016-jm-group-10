@@ -17,6 +17,16 @@ public class BancoJson {
 	} 
 	
 	
+	public BancoJson(String banco, double x, double y, String sucursal, String gerente,	ArrayList<String> servicios) {
+		this.setBanco(banco);
+		this.setX(x);
+		this.setY(y);
+		this.setSucursal(sucursal);
+		this.setGerente(gerente);
+		this.setServicios(servicios);
+	}
+
+
 	public String getBanco() {
 		return banco;
 	}
