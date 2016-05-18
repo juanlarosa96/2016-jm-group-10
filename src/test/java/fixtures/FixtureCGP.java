@@ -119,6 +119,8 @@ public class FixtureCGP {
 	private static DateTime horarioValidoCgpValido = new DateTime(2016, 4, 4, 10, 0);
 	private static DateTime horarioNoValidoCgpValido = new DateTime(2016, 4, 5, 2, 30);
 
+	private static CGP cgp5ConDireccionDelCgp10 = new CGP(serviciosCGP5,comuna5,posicionCgp5, "CGP Comuna 5", direccionCgp10,etiquetasCGP5);
+	
 	public static CGP dameCGPValido() {
 		return cgp10;
 	}
@@ -142,9 +144,9 @@ public class FixtureCGP {
 	public static Point damePosicionCercanaCgpValido() {
 		return posicionCercanaCgpValido;
 	}
-
-	public static CGP dameOtroCgpConIgualDireccion() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public static CGP dameOtroCgpConIgualDireccionQueElCGPValido() {
+		
+		return cgp5ConDireccionDelCgp10;
 	}
 }

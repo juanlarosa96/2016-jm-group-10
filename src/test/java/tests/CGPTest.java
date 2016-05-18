@@ -10,39 +10,40 @@ import fixtures.FixtureCGP;
 import tpaPOIs.CGP;
 
 public class CGPTest {
-	
-	private CGP cgp;	
-	private CGP otroCgp;
 
-	private DateTime horarioValido; 
-	private DateTime horarioNoValido; 	
+	private CGP cgp;
+	private CGP otroCgp;
+	private CGP otroCgpConIgualDireccionQueElCgpValido;
+
+	private DateTime horarioValido;
+	private DateTime horarioNoValido;
 
 	private Point posicionNoCercana;
 	private Point posicionCercana;
 
-
 	@Before
 	public void init() {
-		
+
 		cgp = FixtureCGP.dameCGPValido();
 		otroCgp = FixtureCGP.dameOtroCgpValido();
+		otroCgpConIgualDireccionQueElCgpValido = FixtureCGP.dameOtroCgpConIgualDireccionQueElCGPValido();
+
 		horarioValido = FixtureCGP.dameHorarioValidoParaCgpValido();
-		horarioNoValido = FixtureCGP.dameHorarioNoValidoParaCgpValido();		
+		horarioNoValido = FixtureCGP.dameHorarioNoValidoParaCgpValido();
 		posicionNoCercana = FixtureCGP.damePosicionNoCercanaCgpValido();
 		posicionCercana = FixtureCGP.damePosicionCercanaCgpValido();
 
 	}
-	
-	
+
 	@Test
 	public void SiLePreguntoAUnCGPSiEstaDisponibleEnUnHorarioValidoRespondeTrue() {
 		Assert.assertTrue(cgp.estaDisponible(horarioValido));
 	}
-	
+
 	@Test
 	public void SiLePreguntoAUnCGPSiEstaDisponibleEnUnHorarioNoValidoRespondeFalse() {
 		Assert.assertFalse(cgp.estaDisponible(horarioNoValido));
-	}	
+	}
 
 	@Test
 	public void SiLePreguntoAUnCGPSiEstaCercaDeUnaPosicionNoCercanaAElRespondeFalse() {
@@ -52,36 +53,34 @@ public class CGPTest {
 	@Test
 	public void SiLePreguntoAUnCGPSiEstaCercaDeUnaPosicionCercanaAElRespondeTrue() {
 		Assert.assertTrue(cgp.estasCerca(posicionCercana));
-	}	
+	}
 
 	@Test
 	public void SiLePreguntoAUnCGPSiEstaDisponibleUnServicioEnUnHorarioValidoRespondeTrue() {
 		Assert.assertTrue(cgp.estaDisponibleServicio("Rentas", horarioValido));
 	}
-	
+
 	@Test
 	public void SiLePreguntoAUnCGPSiEstaDisponibleUnServicioEnUnHorarioNoValidoRespondeFalse() {
 		Assert.assertFalse(cgp.estaDisponibleServicio("Rentas", horarioNoValido));
 	}
-	
+
 	@Test
-	public void SiLePreguntoAUnCGPSiUnServicioInexistenteEstaDisponibleRespondeFalse(){
+	public void SiLePreguntoAUnCGPSiUnServicioInexistenteEstaDisponibleRespondeFalse() {
 		Assert.assertFalse(cgp.estaDisponibleServicio("Servicio Inexistente", horarioValido));
 
 	}
-	
+
 	@Test
-	public void SiLePreguntoAUnCGPSiEsIgualAUnCgpConLaMismaDireccionRespondeTrue(){
-		otroCgp.setDireccion(cgp.getDireccion());
-		Assert.assertTrue(cgp.esIgualA(otroCgp));
+	public void SiLePreguntoAUnCGPSiEsIgualAUnCgpConLaMismaDireccionRespondeTrue() {
+		Assert.assertTrue(cgp.esIgualA(otroCgpConIgualDireccionQueElCgpValido));
 
 	}
-	
+
 	@Test
-	public void SiLePreguntoAUnCGPSiEsIgualAOtroCgpConDistintaDireccionRespondeFalse(){
+	public void SiLePreguntoAUnCGPSiEsIgualAOtroCgpConDistintaDireccionRespondeFalse() {
 		Assert.assertFalse(cgp.esIgualA(otroCgp));
 
 	}
-	
-	
+
 }

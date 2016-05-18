@@ -6,15 +6,9 @@ import org.junit.Test;
 import org.uqbar.geodds.Point;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import static org.mockito.Mockito.*;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import tpaPOIs.Banco;
 import tpaPOIs.BancoAdapter;
@@ -55,20 +49,29 @@ public class BancoAdapterTest {
 
 		listaBancoJson.add(unBancoJson);
 		
-		String json = new Gson().toJson(listaBancoJson);
-		when(componenteBancos.buscar("Banco de la Plaza", "extracciones")).thenReturn(json);		
+		String jsonListaBancos = new Gson().toJson(listaBancoJson);
+		when(componenteBancos.buscar("Banco de la Plaza", "extracciones")).thenReturn(jsonListaBancos);
+		
+				
+		List<BancoJson> listaVacia = new ArrayList<BancoJson>();
+		
+		String jsonListaVacia = new Gson().toJson(listaVacia);
+		
+		when(componenteBancos.buscar("","")).thenReturn(jsonListaVacia);
+		
 		String nombre = unBancoJson.getBanco();
 		Point point = new Point(unBancoJson.getX(), unBancoJson.getY());
 		Direccion direccion = null;
 		ArrayList<String> etiquetas = unBancoJson.getServicios();
 
 		unBanco = new Banco(point, nombre, direccion, etiquetas);
+		
+		bancoAdapter = new BancoAdapter(componenteBancos);
 
 	}
 
 	@Test
-	public void SiLePidoAlComponenteLosBancosDisponiblesMeDevuelveUnBancoValido() {
-		bancoAdapter = new BancoAdapter(componenteBancos);
+	public void SiLePidoAlComponenteLosBancosDisponiblesYSiEncuentraAlgunBancoMeDevuelveUnaListaDeBancos() {
 		ArrayList<POI> listaBancos = bancoAdapter.buscarPoisExternos("Banco de la Plaza,extracciones");
 		Banco bancoRecibido = (Banco) listaBancos.get(0);		
 		
@@ -79,5 +82,12 @@ public class BancoAdapterTest {
 		Assert.assertEquals(unBanco.getPosicion().longitude(),bancoRecibido.getPosicion().longitude(),0);
 
 	}
-
+	
+	@Test
+	public void SiLePidoAlComponenteLosBancosDisponiblesYNoEncuentraNingunoBancoMeDevuelveUnaListaVacia() {
+		ArrayList<POI> listaBancos = bancoAdapter.buscarPoisExternos(",");
+		Assert.assertTrue(listaBancos.isEmpty());
+	}
+	
+	
 }

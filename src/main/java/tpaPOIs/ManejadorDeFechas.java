@@ -21,6 +21,6 @@ public class ManejadorDeFechas {
 	
 	
 	private static Boolean estaElHorarioContenidoEnElIntervalo(Integer apertura, Integer cierre, Integer horario) {
-		return horario >= apertura && horario <= (cierre + 59999);
+		return (horario >= apertura) && (horario < cierre);
 	}
 }

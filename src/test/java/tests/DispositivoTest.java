@@ -47,10 +47,15 @@ public class DispositivoTest {
 	private DateTime horarioValidoParaRentas;
 	private DateTime horarioNoValidoParaNingunServicio;
 	private List<POI> CGPsConRentas;
+<<<<<<< HEAD
 	
 	private ServicioExternoCGP servicioExternoCgp;
 	private ArrayList<CentroDTO> centrosDTO;
 	private CentroDTO centroDTO1;
+=======
+	private ParadaColectivo paradaQueNoEstaEnLaLista;
+	private ParadaColectivo parada114ValidaConMasEtiquetas;
+>>>>>>> f564bcde64b8d5fad44fdcdf652e951187316ada
 
 	@Before
 	public void init() {
@@ -69,7 +74,7 @@ public class DispositivoTest {
 		otroCgpValido = FixtureCGP.dameOtroCgpValido();
 
 		comercioValido = FixtureComercio.dameComercioValido();
-
+		
 		listaPoisDispositivo = new ArrayList<POI>() {
 			{
 				add(parada114Valida);
@@ -85,6 +90,7 @@ public class DispositivoTest {
 
 		CGPsConRentas = new ArrayList<POI>();
 		
+<<<<<<< HEAD
 		//Servicio Externo
 		centroDTO1 = FixtureCentroDTO.dameCentroDTO1();		
 		centrosDTO = new ArrayList<CentroDTO>(){
@@ -94,13 +100,17 @@ public class DispositivoTest {
 		};
 		
 		
+=======
+		paradaQueNoEstaEnLaLista= FixtureParadaColectivo.dameUnaTercerParadaValida();
+		 parada114ValidaConMasEtiquetas= FixtureParadaColectivo.dameUnaParadaValidaConMasEtiquetas();
+>>>>>>> f564bcde64b8d5fad44fdcdf652e951187316ada
 	}
 
 	@Test
 	public void SiBuscoParadaQueEstaEnLaListaDePoisPorEtiquetaLaEncuentra() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
 	}
-	//Estos 3 son muy parecidos, solo varia en la clase de POI que encuentran.
+	
 	@Test
 	public void SiBuscoParadasPorEtiquetaEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
@@ -116,7 +126,6 @@ public class DispositivoTest {
 	public void SiBuscoCGPsPorPalabraClaveYPreguntoCuantosSonDevuelveLaCantidadDeCGPsQueLaTienen() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
 	}
-	//----------------------------------------------------------------------------
 	
 	@Test
 	public void SiBuscoPOIsPorEtiquetaQueNingunoTieneNoEncuentraNinguno() {
@@ -136,7 +145,7 @@ public class DispositivoTest {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 	}
-	
+
 	/*@Test
 	public void SiLePasoAUnCGPAdapterUnCentroDTOQueNoEstaEnLaListaLoAgrega(){
 		servicioExternoCgp = mock(ServicioExternoCGP.class);
@@ -157,4 +166,25 @@ public class DispositivoTest {
 		verify(servicioExternoCgp).buscar("rentas");
 		Assert.assertEquals(7, listaPoisDispositivo.size(),0);
 	}
+
+	@Test
+	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
+	Dispositivo.eliminarPOI(parada114Valida);
+	Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));	
+	}
+
+	@Test
+	public void SiAgregoUnaParadaQueNoEstaEnLaListaLaAgrega(){
+		Assert.assertFalse(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
+		Dispositivo.agregarPoi(paradaQueNoEstaEnLaLista);
+		Assert.assertTrue(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
+		
+	}
+	@Test
+	public void SiAgregoUnaParadaExistenteLaActualiza(){
+		Dispositivo.agregarPoi(parada114ValidaConMasEtiquetas);
+		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
+		Assert.assertTrue(listaPoisDispositivo.contains(parada114ValidaConMasEtiquetas));
+	}
+
 }
