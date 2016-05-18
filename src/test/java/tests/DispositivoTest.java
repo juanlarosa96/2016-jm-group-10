@@ -142,15 +142,6 @@ public class DispositivoTest {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 	}
-
-	/*@Test
-	public void SiLePasoAUnCGPAdapterUnCentroDTOQueNoEstaEnLaListaLoAgrega(){
-		servicioExternoCgp = mock(ServicioExternoCGP.class);
-		CgpAdapter cgpAdapter = new CgpAdapter(servicioExternoCgp);
-		ArrayList<POI> cgpsExternos = cgpAdapter.adaptarCentrosDTO(centrosDTO);
-		dispositivo.agregarPois(cgpsExternos);
-		Assert.assertEquals(7, listaPoisDispositivo.size(),0);
-	}*/
 	
 	@Test
 	public void SeAgreganLosCGPsCorrespondientesEnLaListaDePOIsCuandoBuscoEnElServicioExterno(){
