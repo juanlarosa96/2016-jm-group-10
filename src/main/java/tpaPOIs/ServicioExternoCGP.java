@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ServicioExternoCGP {
 
-	List<CentroDTO> buscar(String descripcion);
+	List<CentroDTO> buscar(String calleOZona);
 
 }
