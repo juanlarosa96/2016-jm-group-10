@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 
-
 public class BancoAdapter implements ComponenteExternoAdapter {
 
 	ServicioExternoBancos servicioExternoBancos;
