@@ -14,11 +14,15 @@ import static org.mockito.Mockito.*;
 
 import fixtures.FixtureBanco;
 import fixtures.FixtureCGP;
+import fixtures.FixtureCentroDTO;
 import fixtures.FixtureComercio;
 import fixtures.FixtureParadaColectivo;
 import tpaPOIs.Banco;
 import tpaPOIs.CGP;
+import tpaPOIs.CentroDTO;
+import tpaPOIs.CgpAdapter;
 import tpaPOIs.Comercio;
+import tpaPOIs.ConsultorExterno;
 import tpaPOIs.Dispositivo;
 import tpaPOIs.POI;
 import tpaPOIs.ParadaColectivo;
@@ -45,6 +49,8 @@ public class DispositivoTest {
 	private List<POI> CGPsConRentas;
 	
 	private ServicioExternoCGP servicioExternoCgp;
+	private ArrayList<CentroDTO> centrosDTO;
+	private CentroDTO centroDTO1;
 
 	@Before
 	public void init() {
@@ -79,7 +85,15 @@ public class DispositivoTest {
 
 		CGPsConRentas = new ArrayList<POI>();
 		
-		servicioExternoCgp = mock(ServicioExternoCGP.class);
+		//Servicio Externo
+		centroDTO1 = FixtureCentroDTO.dameCentroDTO1();		
+		centrosDTO = new ArrayList<CentroDTO>(){
+			{
+				add(centroDTO1);
+			}
+		};
+		
+		
 	}
 
 	@Test
@@ -122,5 +136,25 @@ public class DispositivoTest {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 	}
-
+	
+	/*@Test
+	public void SiLePasoAUnCGPAdapterUnCentroDTOQueNoEstaEnLaListaLoAgrega(){
+		servicioExternoCgp = mock(ServicioExternoCGP.class);
+		CgpAdapter cgpAdapter = new CgpAdapter(servicioExternoCgp);
+		ArrayList<POI> cgpsExternos = cgpAdapter.adaptarCentrosDTO(centrosDTO);
+		dispositivo.agregarPois(cgpsExternos);
+		Assert.assertEquals(7, listaPoisDispositivo.size(),0);
+	}*/
+	
+	@Test
+	public void SeAgreganLosCGPsCorrespondientesEnLaListaDePOIsCuandoBuscoEnElServicioExterno(){
+		servicioExternoCgp = mock(ServicioExternoCGP.class);
+		when(servicioExternoCgp.buscar("rentas")).thenReturn(centrosDTO);
+		CgpAdapter cgpAdapter = new CgpAdapter(servicioExternoCgp);
+		ConsultorExterno.agregarAdapter(cgpAdapter);
+		dispositivo.buscarPOIs("rentas");
+		
+		verify(servicioExternoCgp).buscar("rentas");
+		Assert.assertEquals(7, listaPoisDispositivo.size(),0);
+	}
 }
