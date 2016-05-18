@@ -14,6 +14,7 @@ public class BancoTest {
 	private DateTime horarioBancario;
 	private DateTime horarioCierreBanco;
 	private DateTime horarioNoBancario;
+	private DateTime horarioAperturaBanco;
 
 	private Banco bancoValido;
 
@@ -25,6 +26,7 @@ public class BancoTest {
 		horarioBancario = FixtureBanco.getHorarioBancario();
 		horarioNoBancario = FixtureBanco.getHorarioNoBancario();
 		horarioCierreBanco = FixtureBanco.getHorarioCierreBanco();
+		horarioAperturaBanco = FixtureBanco.getHorarioAperturaBanco();
 
 		bancoValido = FixtureBanco.dameUnBancoValido();
 
@@ -45,6 +47,11 @@ public class BancoTest {
 	@Test
 	public void SiLePreguntoAUnBancoSiEstaDisponibleEnHorarioDeCierreRespondeFalse() {
 		Assert.assertFalse(bancoValido.estaDisponible(horarioCierreBanco));
+	}
+	
+	@Test
+	public void SiLePreguntoAUnBancoSiEstaDisponibleEnHorarioDeAperturaRespondeTrue() {
+		Assert.assertTrue(bancoValido.estaDisponible(horarioAperturaBanco));
 	}
 
 	@Test

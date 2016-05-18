@@ -37,6 +37,7 @@ public class FixtureBanco {
 	private static DateTime horarioBancario = new DateTime(2016, 4, 4, 10, 0);
 	private static DateTime horarioNoBancario = new DateTime(2016, 4, 5, 2, 30);
 	private static DateTime horarioCierreBanco = new DateTime(2016, 5, 20, 15, 0, 0);
+	private static DateTime horarioAperturaBanco = new DateTime(2016, 5, 20, 9, 0);
 	
 	public static Banco dameUnBancoValido() {
 		return bancoProvincia;
@@ -60,6 +61,10 @@ public class FixtureBanco {
 
 	public static DateTime getHorarioCierreBanco() {
 		return horarioCierreBanco;
+	}
+
+	public static DateTime getHorarioAperturaBanco() {		
+		return horarioAperturaBanco ;
 	}
 	
 	

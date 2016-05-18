@@ -39,13 +39,7 @@ public class CGPTest {
 	@Test
 	public void SiLePreguntoAUnCGPSiEstaDisponibleEnUnHorarioNoValidoRespondeFalse() {
 		Assert.assertFalse(cgp.estaDisponible(horarioNoValido));
-	}
-
-	@Test
-	public void SiLePreguntoAUnCGPSiUnServicioInexistenteEstaDisponibleRespondeFalse(){
-		Assert.assertFalse(cgp.estaDisponibleServicio("Servicio Inexistente", horarioValido));
-
-	}
+	}	
 
 	@Test
 	public void SiLePreguntoAUnCGPSiEstaCercaDeUnaPosicionNoCercanaAElRespondeFalse() {
@@ -65,5 +59,11 @@ public class CGPTest {
 	@Test
 	public void SiLePreguntoAUnCGPSiEstaDisponibleUnServicioEnUnHorarioNoValidoRespondeFalse() {
 		Assert.assertFalse(cgp.estaDisponibleServicio("Rentas", horarioNoValido));
+	}
+	
+	@Test
+	public void SiLePreguntoAUnCGPSiUnServicioInexistenteEstaDisponibleRespondeFalse(){
+		Assert.assertFalse(cgp.estaDisponibleServicio("Servicio Inexistente", horarioValido));
+
 	}
 }
