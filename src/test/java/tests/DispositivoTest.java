@@ -40,6 +40,8 @@ public class DispositivoTest {
 	private DateTime horarioValidoParaRentas;
 	private DateTime horarioNoValidoParaNingunServicio;
 	private List<POI> CGPsConRentas;
+	private ParadaColectivo paradaQueNoEstaEnLaLista;
+	private ParadaColectivo parada114ValidaConMasEtiquetas;
 
 	@Before
 	public void init() {
@@ -58,7 +60,7 @@ public class DispositivoTest {
 		otroCgpValido = FixtureCGP.dameOtroCgpValido();
 
 		comercioValido = FixtureComercio.dameComercioValido();
-
+		
 		listaPoisDispositivo = new ArrayList<POI>() {
 			{
 				add(parada114Valida);
@@ -73,6 +75,9 @@ public class DispositivoTest {
 		Dispositivo.setListaPois(listaPoisDispositivo);
 
 		CGPsConRentas = new ArrayList<POI>();
+		
+		paradaQueNoEstaEnLaLista= FixtureParadaColectivo.dameUnaTercerParadaValida();
+		 parada114ValidaConMasEtiquetas= FixtureParadaColectivo.dameUnaParadaValidaConMasEtiquetas();
 	}
 
 	@Test
@@ -114,6 +119,26 @@ public class DispositivoTest {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 
+	}
+
+	@Test
+	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
+	Dispositivo.eliminarPOI(parada114Valida);
+	Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));	
+	}
+
+	@Test
+	public void SiAgregoUnaParadaQueNoEstaEnLaListaLaAgrega(){
+		Assert.assertFalse(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
+		Dispositivo.agregarPoi(paradaQueNoEstaEnLaLista);
+		Assert.assertTrue(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
+		
+	}
+	@Test
+	public void SiAgregoUnaParadaExistenteLaActualiza(){
+		Dispositivo.agregarPoi(parada114ValidaConMasEtiquetas);
+		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
+		Assert.assertTrue(listaPoisDispositivo.contains(parada114ValidaConMasEtiquetas));
 	}
 
 }

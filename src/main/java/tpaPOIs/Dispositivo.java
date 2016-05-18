@@ -35,7 +35,7 @@ public class Dispositivo {
 		listaPois.add(poiNuevo);
 	}
 
-	private static void eliminarPOI(POI poi) {		
+	public static void eliminarPOI(POI poi) {		
 		listaPois.remove(poi);		
 	}
 
