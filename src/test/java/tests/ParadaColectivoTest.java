@@ -7,23 +7,24 @@ import org.junit.Test;
 import org.uqbar.geodds.Point;
 
 import fixtures.FixtureParadaColectivo;
-import tpaPOIs.Banco;
 import tpaPOIs.ParadaColectivo;
 
 public class ParadaColectivoTest {
-	DateTime unHorarioCualquiera;
-	Banco bancoValido;
-	ParadaColectivo paradaValida;
-	Point posicionLejanaParadaValida;
-	Point posicionCercanaParadaValida;
+	private DateTime unHorarioCualquiera;
+	private ParadaColectivo paradaValida;
+	private ParadaColectivo otraParadaValida;
+	private ParadaColectivo otraParadaConIgualPosicionDeParadaValida;
+	private Point posicionLejanaParadaValida;
+	private Point posicionCercanaParadaValida;
 	
 	@Before
-	public void init() {
-		
+	public void init() {		
 		unHorarioCualquiera=FixtureParadaColectivo.dameUnHorarioCualquiera();
 		paradaValida=FixtureParadaColectivo.dameUnaParadaValida();
 		posicionLejanaParadaValida = FixtureParadaColectivo.dameUnaPosicionLejanaParadaValida();
 		posicionCercanaParadaValida = FixtureParadaColectivo.dameUnaPosicionCercanaParadaValida();
+		otraParadaValida = FixtureParadaColectivo.dameOtraParadaValida();
+		otraParadaConIgualPosicionDeParadaValida = FixtureParadaColectivo.dameOtraParadaConIgualPosicionQueParadaValida();
 	}
 	
 
@@ -40,6 +41,17 @@ public class ParadaColectivoTest {
 	public void SiPreguntoSiUnaParadaEstaCercaDeUnaPosicionCercanaAEllaRespondeTrue(){
 		Assert.assertTrue(paradaValida.estasCerca(posicionCercanaParadaValida));
 	}
+	
+	@Test
+	public void SiPreguntoSiUnaParadaEsIgualAOtraParadaConDistintaPosicionRespondeFalse(){
+		Assert.assertFalse(paradaValida.esIgualA(otraParadaValida));
+	}
+	
+	@Test
+	public void SiPreguntoSiUnaParadaEsIgualAOtraParadaConIgualPosicionRespondeTrue(){
+		Assert.assertTrue(paradaValida.esIgualA(otraParadaConIgualPosicionDeParadaValida));
+	}
+	
 
     
 }
