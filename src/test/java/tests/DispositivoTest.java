@@ -155,13 +155,26 @@ public class DispositivoTest {
 	@Test
 	public void SeAgreganLosCGPsCorrespondientesEnLaListaDePOIsCuandoBuscoEnElServicioExterno(){
 		servicioExternoCgp = mock(ServicioExternoCGP.class);
-		when(servicioExternoCgp.buscar("rentas")).thenReturn(centrosDTO);
+		when(servicioExternoCgp.buscar("balvanera")).thenReturn(centrosDTO);
 		CgpAdapter cgpAdapter = new CgpAdapter(servicioExternoCgp);
 		ConsultorExterno.agregarAdapter(cgpAdapter);
-		dispositivo.buscarPOIs("rentas");
+		dispositivo.buscarPOIs("balvanera");
 		
-		verify(servicioExternoCgp).buscar("rentas");
+		verify(servicioExternoCgp).buscar("balvanera");
 		Assert.assertEquals(7, listaPoisDispositivo.size(),0);
+	}
+	
+	@Test
+	public void NoSeAgreganLosCGPsEnLaListaDePOIsCuandoBuscoEnElServicioExternoPorUnaZonaQueNoExiste(){
+		servicioExternoCgp = mock(ServicioExternoCGP.class);
+		centrosDTO.clear();
+		when(servicioExternoCgp.buscar("manchester")).thenReturn(centrosDTO);
+		CgpAdapter cgpAdapter = new CgpAdapter(servicioExternoCgp);
+		ConsultorExterno.agregarAdapter(cgpAdapter);
+		dispositivo.buscarPOIs("manchester");
+		
+		verify(servicioExternoCgp).buscar("manchester");
+		Assert.assertEquals(6, listaPoisDispositivo.size(),0);
 	}
 
 	@Test
