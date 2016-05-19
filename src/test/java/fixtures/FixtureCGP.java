@@ -46,11 +46,11 @@ public class FixtureCGP {
 		}
 	};
 
-	private static Servicio rentas = new Servicio("Rentas", horariosRentas);
+	private static Servicio rentas = new Servicio("rentas", horariosRentas);
 	private static Servicio asesoramientoJuridico = new Servicio("asesoramiento juridico",
 			horariosAsesoramientoJuridico);
 	private static Servicio asesoramientoLegal = new Servicio("asesoramiento legal", horariosAsesoramientoLegal);
-	private static Servicio ecobici = new Servicio("Ecobici", horariosEcobici);
+	private static Servicio ecobici = new Servicio("ecobici", horariosEcobici);
 
 	// CGP10
 
@@ -66,9 +66,10 @@ public class FixtureCGP {
 		{
 			add("cgp");
 			add("rentas");
-			add("asesoramiento");
-			add("juridico");
+			add("asesoramiento juridico");
 			add("ecobici");
+			add("comuna");
+			add("10");
 		}
 	};
 

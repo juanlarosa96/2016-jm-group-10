@@ -70,4 +70,16 @@ public class CGP extends POI {
 		
 		return this.comuna.getNumero();
 	}
+	
+	@Override
+	public List<FranjaHoraria> getHorarios(){
+		return this.servicios.stream().map(servicio -> servicio.getHorarios())
+				.flatMap(listaHorarios -> listaHorarios.stream()).collect(Collectors.toList());
+	}
+	
+	public List<String> getNombreServicios(){
+		return this.servicios.stream().map(servicio -> servicio.getNombre()).collect(Collectors.toList());
+	}
+
+	
 }

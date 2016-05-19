@@ -402,9 +402,10 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 		List<Servicio> servicios = this.adaptarServiciosCentroDTO(centroDTO.getServiciosDTO());
 		List<String> etiquetas = new ArrayList<String>() {
 			{
-				add("CGP");
+				add("cgp");
 				add(numeroComuna.toString());
-				add("Comuna");
+				addAll(centroDTO.getServiciosDTO().stream().map(servicio -> servicio.getNombre()).collect(Collectors.toList()));
+				add("comuna");
 			}
 		};
 

@@ -23,4 +23,11 @@ public class ManejadorDeFechas {
 	private static Boolean estaElHorarioContenidoEnElIntervalo(Integer apertura, Integer cierre, Integer horario) {
 		return (horario >= apertura) && (horario < cierre);
 	}
+	
+public static Boolean sonIguales(FranjaHoraria franja1, FranjaHoraria franja2) {
+		
+		return franja1.getDiaDeLaSemana()==franja2.getDiaDeLaSemana()
+				&& franja1.getHorarioApertura().equals(franja2.getHorarioApertura()) 
+				&& franja1.getHorarioCierre().equals(franja2.getHorarioCierre());
+	}
 }

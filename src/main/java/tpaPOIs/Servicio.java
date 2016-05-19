@@ -8,6 +8,15 @@ public class Servicio {
 
 	private String nombre;
 	private List<FranjaHoraria> horarios;
+	
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public List<FranjaHoraria> getHorarios() {
+		return horarios;
+	}
 
 	public Servicio(String nombre, List<FranjaHoraria> horarios) {
 		this.nombre = nombre;
@@ -21,5 +30,7 @@ public class Servicio {
 	public Boolean estaDisponible(DateTime fecha) {
 		return horarios.stream().anyMatch(franjaHoraria -> ManejadorDeFechas.estaEnFranjaHoraria(fecha,franjaHoraria));
 	}
+	
+	
 
 }

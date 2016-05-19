@@ -11,31 +11,33 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import fixtures.FixtureCGP;
 import fixtures.FixtureCentroDTO;
 import tpaPOIs.CGP;
 import tpaPOIs.CentroDTO;
 import tpaPOIs.CgpAdapter;
 import tpaPOIs.Direccion;
+import tpaPOIs.ManejadorDeFechas;
 import tpaPOIs.POI;
 import tpaPOIs.ServicioExternoCGP;
 
 public class CgpAdapterTest {
 
 	private ServicioExternoCGP servicioExternoCgpMockeado;
-	private CentroDTO centroDTO1;
+	private CentroDTO centroDTO;
 	private ArrayList<CentroDTO> centrosDTO;
-	private String domicilioCentroDTO1;
-	private String[] calleyNumero;
 	private CgpAdapter cgpAdapter;
 	private List<CentroDTO> listaVaciaCentrosDTO;
+	private CGP cgpValido;
 
 	@Before
 	public void init() {	
+		cgpValido=FixtureCGP.dameCGPValido();
 		// Servicio Externo
-		centroDTO1 = FixtureCentroDTO.dameCentroDTO1();
+		centroDTO = FixtureCentroDTO.dameCentroDTOparecidoACgpValido();
 		centrosDTO = new ArrayList<CentroDTO>() {
 			{
-				add(centroDTO1);
+				add(centroDTO);
 			}
 		};
 		
@@ -43,34 +45,50 @@ public class CgpAdapterTest {
 		
 		servicioExternoCgpMockeado = mock(ServicioExternoCGP.class);
 		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(listaVaciaCentrosDTO);
-		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);
+		when(servicioExternoCgpMockeado.buscar("floresta")).thenReturn(centrosDTO);
 		
 		// CGP Adapter
-				cgpAdapter = new CgpAdapter(servicioExternoCgpMockeado);
+		cgpAdapter = new CgpAdapter(servicioExternoCgpMockeado);
 	}
 
+		
 	@Test
 	public void SiBuscoEnElServicioExternoConZonaValidaMeDevuelveElCGPCorrespondienteAdaptado() {
 		
-		List<POI> cgpsEncontrados = cgpAdapter.buscarPoisExternos("balvanera");
+		List<POI> cgpsEncontrados = cgpAdapter.buscarPoisExternos("floresta");
 
-		verify(servicioExternoCgpMockeado).buscar("balvanera");
+		verify(servicioExternoCgpMockeado).buscar("floresta");
 
 		CGP cgpAdaptado = (CGP) cgpsEncontrados.get(0);
 		
+		//Nombre		
+		Assert.assertTrue(cgpValido.getNombre().equals(cgpAdaptado.getNombre()));
+		
+		//NombreServicios
+		Assert.assertTrue(cgpValido.getNombreServicios().stream().allMatch(servicio -> cgpAdaptado.getNombreServicios().contains(servicio)));		
+		Assert.assertTrue(cgpAdaptado.getNombreServicios().stream().allMatch(servicio -> cgpValido.getNombreServicios().contains(servicio)));
+		
+		//NumeroComuna
+		Assert.assertTrue(cgpValido.dameNumeroComuna()==cgpAdaptado.dameNumeroComuna());
+		
+		//Horarios
+		Assert.assertTrue(cgpValido.getHorarios().stream()
+				.allMatch(franjaHoraria -> cgpAdaptado.getHorarios().stream()
+						.anyMatch(otraFranjaHoraria -> ManejadorDeFechas.sonIguales(franjaHoraria,otraFranjaHoraria))));		
+		Assert.assertTrue(cgpAdaptado.getHorarios().stream()
+				.allMatch(franjaHoraria -> cgpValido.getHorarios().stream()
+						.anyMatch(otraFranjaHoraria -> ManejadorDeFechas.sonIguales(franjaHoraria,otraFranjaHoraria))));	
+		//Etiquetas
+		Assert.assertTrue(cgpValido.getEtiquetas().stream().allMatch(etiqueta -> cgpAdaptado.getEtiquetas().contains(etiqueta)));		
+		Assert.assertTrue(cgpAdaptado.getEtiquetas().stream().allMatch(etiqueta -> cgpValido.getEtiquetas().contains(etiqueta)));
+		
+		//Direccion
+		Direccion direccionCgpValido = cgpValido.getDireccion();
 		Direccion direccionCgpAdaptado = cgpAdaptado.getDireccion();
 		
-		domicilioCentroDTO1 = centroDTO1.getDomicilioCentroDTO();
-
-		calleyNumero = domicilioCentroDTO1.split(" ", 2);
+		Assert.assertTrue(direccionCgpValido.getCalle().equals(direccionCgpAdaptado.getCalle()));
+		Assert.assertTrue(direccionCgpValido.getAltura().equals(direccionCgpAdaptado.getAltura()));
 		
-
-		Assert.assertTrue(calleyNumero[0].equals(direccionCgpAdaptado.getCalle()));
-
-		Assert.assertTrue(calleyNumero[1].equals(direccionCgpAdaptado.getAltura().toString()));
-
-		Assert.assertTrue(centroDTO1.getNumeroComunaCentroDTO() == cgpAdaptado.dameNumeroComuna());
-
 	}
 	
 	@Test
