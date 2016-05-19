@@ -51,18 +51,21 @@ public class DispositivoTest {
 	private DateTime horarioValidoParaRentas;
 	private DateTime horarioNoValidoParaNingunServicio;
 	private List<POI> CGPsConRentas;
-	
+
 	private ServicioExternoCGP servicioExternoCgpMockeado;
 	private ArrayList<CentroDTO> centrosDTO;
 	private CentroDTO centroDTO1;
-	
-	private String listaBancoJson; 
+
+	private String listaBancoJson;
 	private String listaVaciaBancoJson;
 	private ServicioExternoBancos servicioExternoBancoMockeado;
 
 	private ParadaColectivo paradaQueNoEstaEnLaLista;
 	private ParadaColectivo parada114ValidaConMasEtiquetas;
-
+	
+	private CgpAdapter cgpAdapter;
+	private BancoAdapter bancoAdapter;
+	private List<ComponenteExternoAdapter> listaAdapters; 
 
 	@Before
 	public void init() {
@@ -81,7 +84,7 @@ public class DispositivoTest {
 		otroCgpValido = FixtureCGP.dameOtroCgpValido();
 
 		comercioValido = FixtureComercio.dameComercioValido();
-		
+
 		listaPoisDispositivo = new ArrayList<POI>() {
 			{
 				add(parada114Valida);
@@ -96,41 +99,34 @@ public class DispositivoTest {
 		Dispositivo.setListaPois(listaPoisDispositivo);
 
 		CGPsConRentas = new ArrayList<POI>();
-		
+
 		servicioExternoCgpMockeado = mock(ServicioExternoCGP.class);
 		servicioExternoBancoMockeado = mock(ServicioExternoBancos.class);
-		
-		paradaQueNoEstaEnLaLista= FixtureParadaColectivo.dameUnaTercerParadaValida();
-		parada114ValidaConMasEtiquetas= FixtureParadaColectivo.dameUnaParadaValidaConMasEtiquetas();
-		
-		// CGP Adapter
-		CgpAdapter cgpAdapter = new CgpAdapter(servicioExternoCgpMockeado);
-		
-		//Banco Adapter
-		
-		BancoAdapter bancoAdapter = new BancoAdapter(servicioExternoBancoMockeado);
 
-		List<ComponenteExternoAdapter> listaAdapters = new ArrayList<ComponenteExternoAdapter>() {
-			{
-				add(cgpAdapter);
-				add(bancoAdapter);
-			}
-		};
+		paradaQueNoEstaEnLaLista = FixtureParadaColectivo.dameUnaTercerParadaValida();
+		parada114ValidaConMasEtiquetas = FixtureParadaColectivo.dameUnaParadaValidaConMasEtiquetas();
+
+		// CGP Adapter
+		cgpAdapter = new CgpAdapter(servicioExternoCgpMockeado);
+
+		// Banco Adapter
+
+		bancoAdapter = new BancoAdapter(servicioExternoBancoMockeado);
+
+		listaAdapters = new ArrayList<ComponenteExternoAdapter>();
 
 		ConsultorExterno.setListaAdapters(listaAdapters);
-	
-		
-		//Servicio Externo
-		centroDTO1 = FixtureCentroDTO.dameCentroDTO1();		
-		centrosDTO = new ArrayList<CentroDTO>(){
+
+		// Servicio Externo
+		centroDTO1 = FixtureCentroDTO.dameCentroDTO1();
+		centrosDTO = new ArrayList<CentroDTO>() {
 			{
 				add(centroDTO1);
 			}
 		};
-		
+
 		listaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonNoVacia();
 		listaVaciaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonVacia();
-		
 
 	}
 
@@ -138,7 +134,7 @@ public class DispositivoTest {
 	public void SiBuscoParadaQueEstaEnLaListaDePoisPorEtiquetaLaEncuentra() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
 	}
-	
+
 	@Test
 	public void SiBuscoParadasPorEtiquetaEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
 		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
@@ -154,11 +150,11 @@ public class DispositivoTest {
 	public void SiBuscoCGPsPorPalabraClaveYPreguntoCuantosSonDevuelveLaCantidadDeCGPsQueLaTienen() {
 		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
 	}
-	
+
 	@Test
 	public void SiBuscoPOIsPorEtiquetaQueNingunoTieneNoEncuentraNinguno() {
 		Assert.assertTrue(dispositivo.buscarPOIs("negra").isEmpty());
-	}	
+	}
 
 	@Test
 	public void SiBuscoUnServicioQueSeEncuentraDisponibleEn2CGPEnUnHorarioDisponibleParaEseServicioEncuentraLos2CGP() {
@@ -173,62 +169,74 @@ public class DispositivoTest {
 		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 	}
-	
-	//Servicios Externos------------------------------------------------------------------
-	 @Test
-	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs(){
+
+	// Servicios Externos------------------------------------------------------------------
+	@Test
+	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs() {
+		listaAdapters.clear();
+		listaAdapters.add(cgpAdapter);
+		ConsultorExterno.setListaAdapters(listaAdapters);
 		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);
 		dispositivo.buscarPOIs("balvanera");
-		
+
 		verify(servicioExternoCgpMockeado).buscar("balvanera");
-		Assert.assertEquals(7, listaPoisDispositivo.size(),0);
-	}
-	
-	@Test
-	public void SiBuscoEnElServicioExternoConUnaZonaInvalidaNoSeAgregaNingunCGPALaListaDePOIs(){		
-		centrosDTO.clear();
-		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(centrosDTO);
-		dispositivo.buscarPOIs("manchester");
-		
-		verify(servicioExternoCgpMockeado).buscar("manchester");
-		Assert.assertEquals(6, listaPoisDispositivo.size(),0);
-	}
-	
-	
-	@Test
-	public void SiBuscoEnElServicioExternoConServicioDeBancoDisponibleSeAgreganLosBancosCorrespondientesEnLaListaDePOIs(){
-		when(servicioExternoBancoMockeado.buscar("Banco de la Plaza","extracciones")).thenReturn(listaBancoJson);
-		dispositivo.buscarPOIs("Banco de la Plaza,extracciones");
-		
-		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza","extracciones");
-		Assert.assertEquals(7, listaPoisDispositivo.size(),0);
-	}
-	
-	@Test
-	public void SiBuscoEnElServicioExternoConServicioDeBancoNoDisponibleNoSeAgregaNingunBancoEnLaListaDePOIs(){
-		when(servicioExternoBancoMockeado.buscar("","")).thenReturn(listaVaciaBancoJson);
-		dispositivo.buscarPOIs(",");
-		
-		verify(servicioExternoBancoMockeado).buscar("","");
-		Assert.assertEquals(6, listaPoisDispositivo.size(),0);
-	}
-	
-	//------------------------------------------------------------------------
-	@Test
-	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
-	Dispositivo.eliminarPOI(parada114Valida);
-	Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));	
+		Assert.assertEquals(7, listaPoisDispositivo.size(), 0);
 	}
 
 	@Test
-	public void SiAgregoUnaParadaQueNoEstaEnLaListaLaAgrega(){
+	public void SiBuscoEnElServicioExternoConUnaZonaInvalidaNoSeAgregaNingunCGPALaListaDePOIs() {
+		listaAdapters.clear();
+		listaAdapters.add(cgpAdapter);
+		ConsultorExterno.setListaAdapters(listaAdapters);
+		centrosDTO.clear();
+		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(centrosDTO);
+		dispositivo.buscarPOIs("manchester");
+
+		verify(servicioExternoCgpMockeado).buscar("manchester");
+		Assert.assertEquals(6, listaPoisDispositivo.size(), 0);
+	}
+
+	@Test
+	public void SiBuscoEnElServicioExternoConServicioDeBancoDisponibleSeAgreganLosBancosCorrespondientesEnLaListaDePOIs() {
+		listaAdapters.clear();
+		listaAdapters.add(bancoAdapter);
+		ConsultorExterno.setListaAdapters(listaAdapters);
+		when(servicioExternoBancoMockeado.buscar("Banco de la Plaza", "extracciones")).thenReturn(listaBancoJson);
+		dispositivo.buscarPOIs("Banco de la Plaza,extracciones");
+
+		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza", "extracciones");
+		Assert.assertEquals(7, listaPoisDispositivo.size(), 0);
+	}
+
+	@Test
+	public void SiBuscoEnElServicioExternoConServicioDeBancoNoDisponibleNoSeAgregaNingunBancoEnLaListaDePOIs() {
+		listaAdapters.clear();
+		listaAdapters.add(bancoAdapter);
+		ConsultorExterno.setListaAdapters(listaAdapters);
+		when(servicioExternoBancoMockeado.buscar("", "")).thenReturn(listaVaciaBancoJson);
+		dispositivo.buscarPOIs(",");
+
+		verify(servicioExternoBancoMockeado).buscar("", "");
+		Assert.assertEquals(6, listaPoisDispositivo.size(), 0);
+	}
+
+	// ------------------------------------------------------------------------
+	@Test
+	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
+		Dispositivo.eliminarPOI(parada114Valida);
+		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
+	}
+
+	@Test
+	public void SiAgregoUnaParadaQueNoEstaEnLaListaLaAgrega() {
 		Assert.assertFalse(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
 		Dispositivo.agregarPoi(paradaQueNoEstaEnLaLista);
 		Assert.assertTrue(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
-		
+
 	}
+
 	@Test
-	public void SiAgregoUnaParadaExistenteLaActualiza(){
+	public void SiAgregoUnaParadaExistenteLaActualiza() {
 		Dispositivo.agregarPoi(parada114ValidaConMasEtiquetas);
 		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
 		Assert.assertTrue(listaPoisDispositivo.contains(parada114ValidaConMasEtiquetas));
