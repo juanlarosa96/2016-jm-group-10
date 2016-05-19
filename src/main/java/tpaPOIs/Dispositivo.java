@@ -40,7 +40,7 @@ public class Dispositivo {
 	}
 
 	private static boolean estaEnLaLista(POI poiBuscado) {
-		return listaPois.stream().anyMatch(unPoi -> unPoi.esIgualA(poiBuscado));
+		return listaPois.stream().anyMatch(unPoi -> poiBuscado.esIgualA(unPoi));
 		
 	}
 
