@@ -21,8 +21,14 @@ public class BancoAdapter implements ComponenteExternoAdapter {
 	@Override
 	public ArrayList<POI> buscarPoisExternos(String descripcion) {
 		
+		String[] parametros = new String[2];
 		
-		String[] parametros = descripcion.split(",", 2);
+		parametros[1] = "";
+		if (descripcion.contains(",")){
+		parametros = descripcion.split(",", 2);
+		}else{			
+		parametros[0] = descripcion;	
+		}		
 		
 		return this.convertirJsonALista(servicioExternoBancos.buscar(parametros[0],parametros[1]));		
 	}
