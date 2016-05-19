@@ -13,11 +13,13 @@ import org.uqbar.geodds.Point;
 import static org.mockito.Mockito.*;
 
 import fixtures.FixtureBanco;
+import fixtures.FixtureBancoAdapter;
 import fixtures.FixtureCGP;
 import fixtures.FixtureCentroDTO;
 import fixtures.FixtureComercio;
 import fixtures.FixtureParadaColectivo;
 import tpaPOIs.Banco;
+import tpaPOIs.BancoAdapter;
 import tpaPOIs.CGP;
 import tpaPOIs.CentroDTO;
 import tpaPOIs.CgpAdapter;
@@ -27,6 +29,7 @@ import tpaPOIs.ConsultorExterno;
 import tpaPOIs.Dispositivo;
 import tpaPOIs.POI;
 import tpaPOIs.ParadaColectivo;
+import tpaPOIs.ServicioExternoBancos;
 import tpaPOIs.ServicioExternoCGP;
 
 public class DispositivoTest {
@@ -52,6 +55,10 @@ public class DispositivoTest {
 	private ServicioExternoCGP servicioExternoCgpMockeado;
 	private ArrayList<CentroDTO> centrosDTO;
 	private CentroDTO centroDTO1;
+	
+	private String listaBancoJson; 
+	private String listaVaciaBancoJson;
+	private ServicioExternoBancos servicioExternoBancoMockeado;
 
 	private ParadaColectivo paradaQueNoEstaEnLaLista;
 	private ParadaColectivo parada114ValidaConMasEtiquetas;
@@ -91,16 +98,22 @@ public class DispositivoTest {
 		CGPsConRentas = new ArrayList<POI>();
 		
 		servicioExternoCgpMockeado = mock(ServicioExternoCGP.class);
+		servicioExternoBancoMockeado = mock(ServicioExternoBancos.class);
 		
 		paradaQueNoEstaEnLaLista= FixtureParadaColectivo.dameUnaTercerParadaValida();
 		parada114ValidaConMasEtiquetas= FixtureParadaColectivo.dameUnaParadaValidaConMasEtiquetas();
 		
 		// CGP Adapter
 		CgpAdapter cgpAdapter = new CgpAdapter(servicioExternoCgpMockeado);
+		
+		//Banco Adapter
+		
+		BancoAdapter bancoAdapter = new BancoAdapter(servicioExternoBancoMockeado);
 
 		List<ComponenteExternoAdapter> listaAdapters = new ArrayList<ComponenteExternoAdapter>() {
 			{
 				add(cgpAdapter);
+				add(bancoAdapter);
 			}
 		};
 
@@ -114,6 +127,9 @@ public class DispositivoTest {
 				add(centroDTO1);
 			}
 		};
+		
+		listaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonNoVacia();
+		listaVaciaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonVacia();
 		
 
 	}
@@ -159,7 +175,7 @@ public class DispositivoTest {
 	}
 	
 	//Servicios Externos------------------------------------------------------------------
-	@Test
+	 @Test
 	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs(){
 		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);
 		dispositivo.buscarPOIs("balvanera");
@@ -177,6 +193,26 @@ public class DispositivoTest {
 		verify(servicioExternoCgpMockeado).buscar("manchester");
 		Assert.assertEquals(6, listaPoisDispositivo.size(),0);
 	}
+	
+	
+	@Test
+	public void SiBuscoEnElServicioExternoConServicioDeBancoDisponibleSeAgreganLosBancosCorrespondientesEnLaListaDePOIs(){
+		when(servicioExternoBancoMockeado.buscar("Banco de la Plaza","extracciones")).thenReturn(listaBancoJson);
+		dispositivo.buscarPOIs("Banco de la Plaza,extracciones");
+		
+		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza","extracciones");
+		Assert.assertEquals(7, listaPoisDispositivo.size(),0);
+	}
+	
+	@Test
+	public void SiBuscoEnElServicioExternoConServicioDeBancoNoDisponibleNoSeAgregaNingunBancoEnLaListaDePOIs(){
+		when(servicioExternoBancoMockeado.buscar("","")).thenReturn(listaVaciaBancoJson);
+		dispositivo.buscarPOIs(",");
+		
+		verify(servicioExternoBancoMockeado).buscar("","");
+		Assert.assertEquals(6, listaPoisDispositivo.size(),0);
+	}
+	
 	//------------------------------------------------------------------------
 	@Test
 	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
