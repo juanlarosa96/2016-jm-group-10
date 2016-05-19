@@ -65,4 +65,9 @@ public class CGP extends POI {
 		return this.getDireccion().esLaMismaDireccionQue(otroPoi.getDireccion());		
 		
 	}
+
+	public Integer dameNumeroComuna() {
+		
+		return this.comuna.getNumero();
+	}
 }
