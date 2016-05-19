@@ -62,10 +62,15 @@ public class DispositivoTest {
 
 	private ParadaColectivo paradaQueNoEstaEnLaLista;
 	private ParadaColectivo parada114ValidaConMasEtiquetas;
+
 	
 	private CgpAdapter cgpAdapter;
 	private BancoAdapter bancoAdapter;
 	private List<ComponenteExternoAdapter> listaAdapters; 
+
+	private int tamanioListaPois;
+
+
 
 	@Before
 	public void init() {
@@ -97,6 +102,8 @@ public class DispositivoTest {
 		};
 
 		Dispositivo.setListaPois(listaPoisDispositivo);
+		
+		tamanioListaPois = listaPoisDispositivo.size();
 
 		CGPsConRentas = new ArrayList<POI>();
 
@@ -171,16 +178,18 @@ public class DispositivoTest {
 	}
 
 	// Servicios Externos------------------------------------------------------------------
-	@Test
-	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs() {
-		listaAdapters.clear();
-		listaAdapters.add(cgpAdapter);
-		ConsultorExterno.setListaAdapters(listaAdapters);
-		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);
+	
+	
+	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs(){
+		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);		
+		
+
 		dispositivo.buscarPOIs("balvanera");
 
-		verify(servicioExternoCgpMockeado).buscar("balvanera");
-		Assert.assertEquals(7, listaPoisDispositivo.size(), 0);
+		verify(servicioExternoCgpMockeado).buscar("balvanera");		
+
+		Assert.assertEquals(tamanioListaPois+1, listaPoisDispositivo.size(),0);
+
 	}
 
 	@Test
@@ -190,9 +199,11 @@ public class DispositivoTest {
 		ConsultorExterno.setListaAdapters(listaAdapters);
 		centrosDTO.clear();
 		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(centrosDTO);
+		
 		dispositivo.buscarPOIs("manchester");
 
 		verify(servicioExternoCgpMockeado).buscar("manchester");
+
 		Assert.assertEquals(6, listaPoisDispositivo.size(), 0);
 	}
 
@@ -204,8 +215,10 @@ public class DispositivoTest {
 		when(servicioExternoBancoMockeado.buscar("Banco de la Plaza", "extracciones")).thenReturn(listaBancoJson);
 		dispositivo.buscarPOIs("Banco de la Plaza,extracciones");
 
-		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza", "extracciones");
-		Assert.assertEquals(7, listaPoisDispositivo.size(), 0);
+		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza", "extracciones");		
+
+		Assert.assertEquals(tamanioListaPois+1, listaPoisDispositivo.size(),0);
+
 	}
 
 	@Test
