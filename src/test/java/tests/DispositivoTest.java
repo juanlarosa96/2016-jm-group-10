@@ -179,10 +179,12 @@ public class DispositivoTest {
 
 	// Servicios Externos------------------------------------------------------------------
 	
-	
+	@Test
 	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs(){
-		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);		
-		
+		listaAdapters.clear();
+		listaAdapters.add(cgpAdapter);
+		ConsultorExterno.setListaAdapters(listaAdapters);
+		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);				
 
 		dispositivo.buscarPOIs("balvanera");
 
