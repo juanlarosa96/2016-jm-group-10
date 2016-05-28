@@ -13,7 +13,7 @@ public class Dispositivo {
 	public Dispositivo(Point unaPosicion) {
 		this.posicion = unaPosicion;
 	}
-
+	//------Metodos para un manejador de pois (Singleton) => todos metodos de clase
 	public static void setListaPois(List<POI> listaPois) {
 		Dispositivo.listaPois = listaPois;
 	}
@@ -77,7 +77,7 @@ public class Dispositivo {
 				.collect(Collectors.toList());
 
 	}
-
+	//---------------------------------------------------
 	public Boolean estoyCercaDe(POI poi) {
 		return poi.estasCerca(this.posicion);
 
