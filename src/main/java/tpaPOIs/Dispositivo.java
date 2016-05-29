@@ -13,7 +13,7 @@ public class Dispositivo {
 	public Dispositivo(Point unaPosicion) {
 		this.posicion = unaPosicion;
 	}
-	//------Metodos para un manejador de pois (Singleton) => todos metodos de clase
+	//------Metodos para delegar en un manejador de pois, que tenga la listaDePois
 	public static void setListaPois(List<POI> listaPois) {
 		Dispositivo.listaPois = listaPois;
 	}
