@@ -1,0 +1,2 @@
+-analizar todos los casos de error en los adapters
+-testear esos casos de error
