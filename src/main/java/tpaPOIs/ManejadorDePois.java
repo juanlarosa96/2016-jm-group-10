@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 
 public class ManejadorDePois {
 
-	private static ManejadorDePois singleton;
+	private static ManejadorDePois singleton = null;
 	public static List<POI> listaPois;
 	private static List<ComponenteExternoAdapter> adaptersComponentesExternos;
 
