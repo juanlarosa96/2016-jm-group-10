@@ -53,7 +53,7 @@ public class CgpAdapterTest {
 
 		
 	@Test
-	public void SiBuscoEnElServicioExternoConZonaValidaMeDevuelveElCGPCorrespondienteAdaptado() {
+	public void SiBuscoEnElServicioExternoConZonaExistenteMeDevuelveElCGPCorrespondienteAdaptado() {
 		
 		List<POI> cgpsEncontrados = cgpAdapter.buscarPoisExternos("floresta");
 
@@ -92,7 +92,7 @@ public class CgpAdapterTest {
 	}
 	
 	@Test
-	public void SiBuscoEnElServicioExternoConUnaZonaInvalidaMeDevuelveListaVacia() {
+	public void SiBuscoEnElServicioExternoConUnaZonaNoExistenteMeDevuelveListaVacia() {
 		
 		List<POI> cgpsEncontrados = cgpAdapter.buscarPoisExternos("manchester");
 

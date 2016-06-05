@@ -6,10 +6,9 @@ import java.util.stream.Collectors;
 import org.uqbar.geodds.Point;
 import org.joda.time.LocalTime;
 
-
 public class CgpAdapter implements ComponenteExternoAdapter {
 	private ServicioExternoCGP servicioExternoCgp;
-	
+
 	public CgpAdapter(ServicioExternoCGP servicioExternoCgp) {
 		this.servicioExternoCgp = servicioExternoCgp;
 	}
@@ -176,7 +175,7 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 			add(new Point(-34.622404, -58.477557));
 			add(new Point(-34.614069, -58.459447));
 			add(new Point(-34.630455, -58.451808));
-			
+
 		}
 	};
 	private static Comuna comuna7 = new Comuna(7, limitesComuna7);
@@ -390,6 +389,7 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 	}
 
 	private ArrayList<POI> adaptarCentrosDTO(List<CentroDTO> centrosDTO) {
+
 		return (ArrayList<POI>) centrosDTO.stream().map(centroDTO -> this.adaptarACGP(centroDTO))
 				.collect(Collectors.toList());
 	}
@@ -404,12 +404,13 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 			{
 				add("cgp");
 				add(numeroComuna.toString());
-				addAll(centroDTO.getServiciosDTO().stream().map(servicio -> servicio.getNombre()).collect(Collectors.toList()));
+				addAll(centroDTO.getServiciosDTO().stream().map(servicio -> servicio.getNombre())
+						.collect(Collectors.toList()));
 				add("comuna");
 			}
 		};
 
-		//no sabemos la posicion del cgp en coordenadas
+		// no sabemos la posicion del cgp en coordenadas
 		return new CGP(servicios, comuna, null /* posicion */, nombre, direccion, etiquetas);
 
 	}
