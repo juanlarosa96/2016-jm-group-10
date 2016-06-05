@@ -8,8 +8,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
-
 import static org.mockito.Mockito.*;
 
 import fixtures.FixtureBanco;
@@ -25,17 +23,13 @@ import tpaPOIs.CentroDTO;
 import tpaPOIs.CgpAdapter;
 import tpaPOIs.Comercio;
 import tpaPOIs.ComponenteExternoAdapter;
-import tpaPOIs.ConsultorExterno;
-import tpaPOIs.Dispositivo;
+import tpaPOIs.ManejadorDePois;
 import tpaPOIs.POI;
 import tpaPOIs.ParadaColectivo;
 import tpaPOIs.ServicioExternoBancos;
 import tpaPOIs.ServicioExternoCGP;
 
-public class DispositivoTest {
-
-	private Dispositivo dispositivo;
-	private Point posicionDispositivo;
+public class ManejadorDePoisTest {
 
 	private CGP cgpValido;
 	private CGP otroCgpValido;
@@ -69,14 +63,12 @@ public class DispositivoTest {
 	private List<ComponenteExternoAdapter> listaAdapters; 
 
 	private int tamanioListaPois;
+	private ManejadorDePois manejadorDePois;
 
 
 
 	@Before
 	public void init() {
-		posicionDispositivo = new Point(-34.631402, -58.488060);
-		dispositivo = new Dispositivo(posicionDispositivo);
-
 		horarioValidoParaRentas = new DateTime(2016, 4, 4, 10, 0);
 		horarioNoValidoParaNingunServicio = new DateTime(2016, 4, 5, 2, 30);
 
@@ -101,7 +93,9 @@ public class DispositivoTest {
 			}
 		};
 
-		Dispositivo.setListaPois(listaPoisDispositivo);
+		manejadorDePois = ManejadorDePois.getInstance();
+		
+		manejadorDePois.setListaPois(listaPoisDispositivo);
 		
 		tamanioListaPois = listaPoisDispositivo.size();
 
@@ -122,7 +116,7 @@ public class DispositivoTest {
 
 		listaAdapters = new ArrayList<ComponenteExternoAdapter>();
 
-		ConsultorExterno.setListaAdapters(listaAdapters);
+		manejadorDePois.setListaAdapters(listaAdapters);
 
 		// Servicio Externo
 		centroDTO1 = FixtureCentroDTO.dameCentroDTO1();
@@ -139,33 +133,33 @@ public class DispositivoTest {
 
 	@Test
 	public void SiBuscoParadaQueEstaEnLaListaDePoisPorEtiquetaLaEncuentra() {
-		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
+		Assert.assertTrue((manejadorDePois.buscarPOIs("114")).contains(parada114Valida));
 	}
 
 	@Test
 	public void SiBuscoParadasPorEtiquetaEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
-		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(parada114Valida));
-		Assert.assertTrue((dispositivo.buscarPOIs("114")).contains(otraParada114Valida));
+		Assert.assertTrue((manejadorDePois.buscarPOIs("114")).contains(parada114Valida));
+		Assert.assertTrue((manejadorDePois.buscarPOIs("114")).contains(otraParada114Valida));
 	}
 
 	@Test
 	public void SiBuscoPOIsPorPalabraClaveDevuelveTodosLosQueLaTienen() {
-		Assert.assertEquals(2, dispositivo.buscarPOIs("tarjeta de credito").size(), 0);
+		Assert.assertEquals(2, manejadorDePois.buscarPOIs("tarjeta de credito").size(), 0);
 	}
 
 	@Test
 	public void SiBuscoCGPsPorPalabraClaveYPreguntoCuantosSonDevuelveLaCantidadDeCGPsQueLaTienen() {
-		Assert.assertEquals(2, (dispositivo.buscarPOIs("asesoramiento").size()), 0);
+		Assert.assertEquals(2, (manejadorDePois.buscarPOIs("asesoramiento").size()), 0);
 	}
 
 	@Test
 	public void SiBuscoPOIsPorEtiquetaQueNingunoTieneNoEncuentraNinguno() {
-		Assert.assertTrue(dispositivo.buscarPOIs("negra").isEmpty());
+		Assert.assertTrue(manejadorDePois.buscarPOIs("negra").isEmpty());
 	}
 
 	@Test
 	public void SiBuscoUnServicioQueSeEncuentraDisponibleEn2CGPEnUnHorarioDisponibleParaEseServicioEncuentraLos2CGP() {
-		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioValidoParaRentas);
+		CGPsConRentas = manejadorDePois.buscarServicioDisponible("Rentas", horarioValidoParaRentas);
 		Assert.assertEquals(2, CGPsConRentas.size(), 0);
 		Assert.assertTrue(CGPsConRentas.contains(cgpValido));
 		Assert.assertTrue(CGPsConRentas.contains(otroCgpValido));
@@ -173,7 +167,7 @@ public class DispositivoTest {
 
 	@Test
 	public void SiBuscoSiUnServicioEstaDisponibleEnUnHorarioEnQueEstaCerradoNoEncuentraNinguno() {
-		CGPsConRentas = dispositivo.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
+		CGPsConRentas = manejadorDePois.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 	}
 
@@ -183,10 +177,10 @@ public class DispositivoTest {
 	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs(){
 		listaAdapters.clear();
 		listaAdapters.add(cgpAdapter);
-		ConsultorExterno.setListaAdapters(listaAdapters);
+		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);				
 
-		dispositivo.buscarPOIs("balvanera");
+		manejadorDePois.buscarPOIs("balvanera");
 
 		verify(servicioExternoCgpMockeado).buscar("balvanera");		
 
@@ -198,11 +192,11 @@ public class DispositivoTest {
 	public void SiBuscoEnElServicioExternoConUnaZonaInvalidaNoSeAgregaNingunCGPALaListaDePOIs() {
 		listaAdapters.clear();
 		listaAdapters.add(cgpAdapter);
-		ConsultorExterno.setListaAdapters(listaAdapters);
+		manejadorDePois.setListaAdapters(listaAdapters);
 		centrosDTO.clear();
 		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(centrosDTO);
 		
-		dispositivo.buscarPOIs("manchester");
+		manejadorDePois.buscarPOIs("manchester");
 
 		verify(servicioExternoCgpMockeado).buscar("manchester");
 
@@ -213,9 +207,9 @@ public class DispositivoTest {
 	public void SiBuscoEnElServicioExternoConServicioDeBancoDisponibleSeAgreganLosBancosCorrespondientesEnLaListaDePOIs() {
 		listaAdapters.clear();
 		listaAdapters.add(bancoAdapter);
-		ConsultorExterno.setListaAdapters(listaAdapters);
+		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoBancoMockeado.buscar("Banco de la Plaza", "extracciones")).thenReturn(listaBancoJson);
-		dispositivo.buscarPOIs("Banco de la Plaza,extracciones");
+		manejadorDePois.buscarPOIs("Banco de la Plaza,extracciones");
 
 		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza", "extracciones");		
 
@@ -227,9 +221,9 @@ public class DispositivoTest {
 	public void SiBuscoEnElServicioExternoConServicioDeBancoNoDisponibleNoSeAgregaNingunBancoEnLaListaDePOIs() {
 		listaAdapters.clear();
 		listaAdapters.add(bancoAdapter);
-		ConsultorExterno.setListaAdapters(listaAdapters);
+		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoBancoMockeado.buscar("", "")).thenReturn(listaVaciaBancoJson);
-		dispositivo.buscarPOIs(",");
+		manejadorDePois.buscarPOIs(",");
 
 		verify(servicioExternoBancoMockeado).buscar("", "");
 		Assert.assertEquals(6, listaPoisDispositivo.size(), 0);
@@ -238,21 +232,21 @@ public class DispositivoTest {
 	// ------------------------------------------------------------------------
 	@Test
 	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
-		Dispositivo.eliminarPOI(parada114Valida);
+		manejadorDePois.eliminarPOI(parada114Valida);
 		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
 	}
 
 	@Test
 	public void SiAgregoUnaParadaQueNoEstaEnLaListaLaAgrega() {
 		Assert.assertFalse(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
-		Dispositivo.agregarPoi(paradaQueNoEstaEnLaLista);
+		manejadorDePois.agregarPoi(paradaQueNoEstaEnLaLista);
 		Assert.assertTrue(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
 
 	}
 
 	@Test
 	public void SiAgregoUnaParadaExistenteLaActualiza() {
-		Dispositivo.agregarPoi(parada114ValidaConMasEtiquetas);
+		manejadorDePois.agregarPoi(parada114ValidaConMasEtiquetas);
 		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
 		Assert.assertTrue(listaPoisDispositivo.contains(parada114ValidaConMasEtiquetas));
 	}
