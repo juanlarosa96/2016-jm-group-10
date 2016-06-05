@@ -35,6 +35,7 @@ public class BancoAdapterTest {
 		
 		when(componenteBancos.buscar("Banco de la Plaza", "extracciones")).thenReturn(jsonListaBancos);
 		when(componenteBancos.buscar("","")).thenReturn(jsonListaVacia);
+		when(componenteBancos.buscar("Banco","")).thenReturn(jsonListaVacia);
 		
 	
 	}
@@ -55,6 +56,18 @@ public class BancoAdapterTest {
 	@Test
 	public void SiBuscoEnElServicioExternoBancosPorNombreYServicioVaciosNoEncuentraNingunBancoYDevuelveListaVacia() {
 		ArrayList<POI> listaBancos = bancoAdapter.buscarPoisExternos(",");
+		Assert.assertTrue(listaBancos.isEmpty());
+	}
+	
+	@Test
+	public void SiBuscoEnElServicioExternoBancosConUnParametroSinComaNoEncuentraNingunBancoYDevuelveListaVacia() {
+		ArrayList<POI> listaBancos = bancoAdapter.buscarPoisExternos("Banco");
+		Assert.assertTrue(listaBancos.isEmpty());
+	}
+	
+	@Test
+	public void SiBuscoEnElServicioExternoBancosConUnParametroVacioNoEncuentraNingunBancoYDevuelveListaVacia() {
+		ArrayList<POI> listaBancos = bancoAdapter.buscarPoisExternos("");
 		Assert.assertTrue(listaBancos.isEmpty());
 	}
 	
