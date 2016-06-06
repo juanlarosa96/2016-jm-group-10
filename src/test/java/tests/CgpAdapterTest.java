@@ -45,7 +45,9 @@ public class CgpAdapterTest {
 		
 		servicioExternoCgpMockeado = mock(ServicioExternoCGP.class);
 		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(listaVaciaCentrosDTO);
+		when(servicioExternoCgpMockeado.buscar("")).thenReturn(listaVaciaCentrosDTO);
 		when(servicioExternoCgpMockeado.buscar("floresta")).thenReturn(centrosDTO);
+		
 		
 		// CGP Adapter
 		cgpAdapter = new CgpAdapter(servicioExternoCgpMockeado);
@@ -97,6 +99,16 @@ public class CgpAdapterTest {
 		List<POI> cgpsEncontrados = cgpAdapter.buscarPoisExternos("manchester");
 
 		verify(servicioExternoCgpMockeado).buscar("manchester");
+
+		Assert.assertTrue(cgpsEncontrados.isEmpty());
+
+	}
+	
+	@Test
+	public void SiBuscoEnElServicioExternoConUnStringVacioMeDevuelveListaVacia(){
+		List<POI> cgpsEncontrados = cgpAdapter.buscarPoisExternos("");
+
+		verify(servicioExternoCgpMockeado).buscar("");
 
 		Assert.assertTrue(cgpsEncontrados.isEmpty());
 
