@@ -89,7 +89,7 @@ public class ManejadorDePois {
 
 	}
 
-	public ArrayList<POI> damePoisExternos(String descripcion) {
+	private ArrayList<POI> damePoisExternos(String descripcion) {
 
 		return (ArrayList<POI>) adaptersComponentesExternos.stream()
 				.map(adapter -> adapter.buscarPoisExternos(descripcion)).flatMap(listaPois -> listaPois.stream())
