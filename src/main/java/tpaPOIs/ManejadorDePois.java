@@ -47,20 +47,12 @@ public class ManejadorDePois {
 		listaPois.add(poiNuevo);
 	}
 
-	public void eliminarPOI(POI poi) {
-		listaPois.remove(poi);
-	}
 
 	private boolean estaEnLaLista(POI poiBuscado) {
 		return listaPois.stream().anyMatch(unPoi -> poiBuscado.esIgualA(unPoi));
 
 	}
 
-	public List<POI> buscarPOIs(String descripcion) {
-		this.consultarPoisExternos(descripcion);
-		return listaPois.stream().filter(poi -> poi.contiene(descripcion)).collect(Collectors.toList());
-
-	}
 
 	private void consultarPoisExternos(String descripcion) {
 
@@ -68,12 +60,27 @@ public class ManejadorDePois {
 
 	}
 
+	private ArrayList<POI> damePoisExternos(String descripcion) {
+		
+		return (ArrayList<POI>) adaptersComponentesExternos.stream()
+				.map(adapter -> adapter.buscarPoisExternos(descripcion)).flatMap(listaPois -> listaPois.stream())
+				.collect(Collectors.toList());
+	}
+	
 	private void agregarPois(ArrayList<POI> listaDePois) {
 		listaDePois.stream().forEach(poi -> this.agregarPoi(poi));
 	}
 
 	public Boolean poiDisponible(POI poi, DateTime momento) {
 		return poi.estaDisponible(momento);
+	}
+	public void eliminarPOI(POI poi) {
+		listaPois.remove(poi);
+	}
+	public List<POI> buscarPOIs(String descripcion) {
+		this.consultarPoisExternos(descripcion);
+		return listaPois.stream().filter(poi -> poi.contiene(descripcion)).collect(Collectors.toList());
+		
 	}
 
 	public List<POI> buscarPoisDisponibles(String descripcion, DateTime momento) {
@@ -86,14 +93,7 @@ public class ManejadorDePois {
 		// estaDisponibleServicio
 		return this.buscarPOIs(servicio).stream().filter(poi -> poi.estaDisponibleServicio(servicio, momento))
 				.collect(Collectors.toList());
-
 	}
 
-	private ArrayList<POI> damePoisExternos(String descripcion) {
-
-		return (ArrayList<POI>) adaptersComponentesExternos.stream()
-				.map(adapter -> adapter.buscarPoisExternos(descripcion)).flatMap(listaPois -> listaPois.stream())
-				.collect(Collectors.toList());
-	}
 
 }
