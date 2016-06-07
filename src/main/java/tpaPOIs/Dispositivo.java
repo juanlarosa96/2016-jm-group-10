@@ -37,6 +37,14 @@ public class Dispositivo {
 		
 		return listaPoisEncontrados;
 	}
+	
+	public void agregarInteresadoEnBusquedas(InteresadoEnBusquedas unInteresado){
+		observers.add(unInteresado);
+	}
+	
+	public void eliminarInteresadoEnBusquedas(InteresadoEnBusquedas unInteresado){
+		observers.remove(unInteresado);
+	}
 }
 
 
