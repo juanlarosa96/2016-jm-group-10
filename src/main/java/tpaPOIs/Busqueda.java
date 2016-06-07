@@ -10,6 +10,26 @@ public class Busqueda {
 	private Double demoraEnSegundos;
 	private String descripcionBuscada;
 	
+	public String getNombreTerminal() {
+		return nombreTerminal;
+	}
+
+	public Integer getCantResultados() {
+		return cantResultados;
+	}
+
+	public DateTime getFecha() {
+		return fecha;
+	}
+
+	public Double getDemoraEnSegundos() {
+		return demoraEnSegundos;
+	}
+
+	public String getDescripcionBuscada() {
+		return descripcionBuscada;
+	}
+
 	public Busqueda(String nombreTerminal, Integer cantResultados, DateTime fecha, Double demoraEnSegundos,
 			String descripcionBuscada) {
 		this.nombreTerminal = nombreTerminal;
