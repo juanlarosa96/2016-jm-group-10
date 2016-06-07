@@ -30,7 +30,7 @@ public class ManejadorDeFechas {
 				&& franja1.getHorarioCierre().equals(franja2.getHorarioCierre());
 	}
 
-	public static Double obtenerDuracionIntervalo(DateTime inicio, DateTime fin) {
-		return (double) (fin.getMillis()-inicio.getMillis());
+	public static Double obtenerDuracionIntervaloEnSegundos(DateTime inicio, DateTime fin) {
+		return (double) (fin.getMillis()-inicio.getMillis())/1000;
 	}
 }

@@ -28,7 +28,7 @@ public class Dispositivo {
 		
 		DateTime fin = DateTime.now();
 		
-		Double demoraEnSegundos = ManejadorDeFechas.obtenerDuracionIntervalo(inicio,fin);
+		Double demoraEnSegundos = ManejadorDeFechas.obtenerDuracionIntervaloEnSegundos(inicio,fin);
 		
 		Busqueda unaBusqueda = new Busqueda(nombre, listaPoisEncontrados.size(), DateTime.now(), demoraEnSegundos,
 				descripcion);
