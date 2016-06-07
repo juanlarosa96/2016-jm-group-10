@@ -3,6 +3,8 @@ package tpaPOIs;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ManejadorDeReportes implements InteresadoEnBusquedas {
 
@@ -29,16 +31,38 @@ public class ManejadorDeReportes implements InteresadoEnBusquedas {
 
 	public HashMap<String, Integer> generarReporteBusquedasPorFecha() {
 
-		return null;
+		HashMap<String, Integer> reporte = new HashMap<String, Integer>();
 
+		Set<String> fechas = busquedas.stream()
+				.map(busqueda -> ManejadorDeFechas.convertirFechaAString(busqueda.getFecha()))
+				.collect(Collectors.toSet());
+
+		fechas.stream().forEach(fecha -> {
+			Integer cantBusquedas = this.contarBusquedasPorFecha(fecha);
+			reporte.put(fecha, cantBusquedas);
+		});
+
+		return reporte;
+
+	}
+
+	private Integer contarBusquedasPorFecha(String fecha) {
+
+		return busquedas.stream()
+				.filter(busqueda -> fecha.equals(ManejadorDeFechas.convertirFechaAString(busqueda.getFecha())))
+				.collect(Collectors.toList()).size();
 	}
 
 	public HashMap<String, List<Integer>> generarReporteDeResultadosParcialesPorBusquedaPorTerminal() {
-		return null;
+		HashMap<String, List<Integer>> reporte = new HashMap<String, List<Integer>>();
+
+		return reporte;
 	}
-	
-	public HashMap<String, Integer> generarReporteDeResultadoTotalesPorTerminales(){
-		
-		return null;
+
+	public HashMap<String, Integer> generarReporteDeResultadoTotalesPorTerminales() {
+
+		HashMap<String, Integer> reporte = new HashMap<String, Integer>();
+
+		return reporte;
 	}
 }

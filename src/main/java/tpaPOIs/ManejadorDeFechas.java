@@ -33,4 +33,10 @@ public class ManejadorDeFechas {
 	public static Double obtenerDuracionIntervaloEnSegundos(DateTime inicio, DateTime fin) {
 		return (double) (fin.getMillis()-inicio.getMillis())/1000;
 	}
+
+	public static String convertirFechaAString(DateTime unaFecha) {
+		
+		return unaFecha.dayOfMonth().toString()+ "/" + unaFecha.monthOfYear().toString() + "/" + unaFecha.year().toString();
+		
+	}
 }
