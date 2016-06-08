@@ -7,9 +7,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import tpaPOIs.Busqueda;
-import tpaPOIs.ManejadorDeFechas;
-import tpaPOIs.ManejadorDeReportes;
+import eventosBusqueda.Busqueda;
+import eventosBusqueda.ManejadorDeReportes;
+import herramientas.ManejadorDeFechas;
 
 public class ManejadorDeReportesTest {
 

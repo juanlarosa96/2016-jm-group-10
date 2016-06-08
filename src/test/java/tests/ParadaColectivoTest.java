@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.uqbar.geodds.Point;
 
 import fixtures.FixtureParadaColectivo;
-import tpaPOIs.ParadaColectivo;
+import pois.ParadaColectivo;
 
 public class ParadaColectivoTest {
 	private DateTime unHorarioCualquiera;

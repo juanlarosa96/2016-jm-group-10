@@ -11,15 +11,15 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import adapters.CentroDTO;
+import adapters.CgpAdapter;
+import adapters.ServicioExternoCGP;
 import fixtures.FixtureCGP;
 import fixtures.FixtureCentroDTO;
-import tpaPOIs.CGP;
-import tpaPOIs.CentroDTO;
-import tpaPOIs.CgpAdapter;
-import tpaPOIs.Direccion;
-import tpaPOIs.ManejadorDeFechas;
-import tpaPOIs.POI;
-import tpaPOIs.ServicioExternoCGP;
+import herramientas.ManejadorDeFechas;
+import pois.CGP;
+import pois.Direccion;
+import pois.POI;
 
 public class CgpAdapterTest {
 

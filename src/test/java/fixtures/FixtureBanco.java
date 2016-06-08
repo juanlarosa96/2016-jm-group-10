@@ -6,8 +6,8 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
-import tpaPOIs.Banco;
-import tpaPOIs.Direccion;
+import pois.Banco;
+import pois.Direccion;
 
 public class FixtureBanco {
 	//Banco Provincia

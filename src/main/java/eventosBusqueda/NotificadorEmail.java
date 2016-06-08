@@ -1,4 +1,4 @@
-package tpaPOIs;
+package eventosBusqueda;
 
 public class NotificadorEmail implements InteresadoEnBusquedas {
 	

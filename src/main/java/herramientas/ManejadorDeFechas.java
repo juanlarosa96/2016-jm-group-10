@@ -1,7 +1,9 @@
-package tpaPOIs;
+package herramientas;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
+
+import pois.FranjaHoraria;
 
 public class ManejadorDeFechas {
 	public static Boolean estaEnFranjaHoraria(DateTime fecha, FranjaHoraria franjaHoraria) {

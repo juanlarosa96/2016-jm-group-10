@@ -6,10 +6,10 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.uqbar.geodds.Point;
 
-import tpaPOIs.Comercio;
-import tpaPOIs.Direccion;
-import tpaPOIs.FranjaHoraria;
-import tpaPOIs.Rubro;
+import pois.Comercio;
+import pois.Direccion;
+import pois.FranjaHoraria;
+import pois.Rubro;
 
 public class FixtureComercio {
 	

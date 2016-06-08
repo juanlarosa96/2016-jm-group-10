@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.uqbar.geodds.Point;
 
 import fixtures.FixtureComercio;
-import tpaPOIs.Comercio;
+import pois.Comercio;
 
 public class ComercioTest {
 	

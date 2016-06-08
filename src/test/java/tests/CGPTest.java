@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.uqbar.geodds.Point;
 
 import fixtures.FixtureCGP;
-import tpaPOIs.CGP;
+import pois.CGP;
 
 public class CGPTest {
 

@@ -1,9 +1,11 @@
-package tpaPOIs;
+package pois;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.joda.time.DateTime;
+
+import adapters.ComponenteExternoAdapter;
 
 public class ManejadorDePois {
 

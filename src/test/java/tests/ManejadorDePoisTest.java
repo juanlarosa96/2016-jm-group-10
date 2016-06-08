@@ -8,6 +8,14 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import adapters.BancoAdapter;
+import adapters.CentroDTO;
+import adapters.CgpAdapter;
+import adapters.ComponenteExternoAdapter;
+import adapters.ServicioExternoBancos;
+import adapters.ServicioExternoCGP;
+
 import static org.mockito.Mockito.*;
 
 import fixtures.FixtureBanco;
@@ -16,18 +24,12 @@ import fixtures.FixtureCGP;
 import fixtures.FixtureCentroDTO;
 import fixtures.FixtureComercio;
 import fixtures.FixtureParadaColectivo;
-import tpaPOIs.Banco;
-import tpaPOIs.BancoAdapter;
-import tpaPOIs.CGP;
-import tpaPOIs.CentroDTO;
-import tpaPOIs.CgpAdapter;
-import tpaPOIs.Comercio;
-import tpaPOIs.ComponenteExternoAdapter;
-import tpaPOIs.ManejadorDePois;
-import tpaPOIs.POI;
-import tpaPOIs.ParadaColectivo;
-import tpaPOIs.ServicioExternoBancos;
-import tpaPOIs.ServicioExternoCGP;
+import pois.Banco;
+import pois.CGP;
+import pois.Comercio;
+import pois.ManejadorDePois;
+import pois.POI;
+import pois.ParadaColectivo;
 
 public class ManejadorDePoisTest {
 

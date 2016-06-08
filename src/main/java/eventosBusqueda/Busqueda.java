@@ -1,4 +1,4 @@
-package tpaPOIs;
+package eventosBusqueda;
 
 import org.joda.time.DateTime;
 

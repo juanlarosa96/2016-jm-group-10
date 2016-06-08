@@ -6,8 +6,8 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
-import tpaPOIs.Direccion;
-import tpaPOIs.ParadaColectivo;
+import pois.Direccion;
+import pois.ParadaColectivo;
 
 public class FixtureParadaColectivo {
 	

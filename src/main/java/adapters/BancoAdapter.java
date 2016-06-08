@@ -1,4 +1,4 @@
-package tpaPOIs;
+package adapters;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,6 +7,10 @@ import org.uqbar.geodds.Point;
 import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
+
+import pois.Banco;
+import pois.Direccion;
+import pois.POI;
 
 public class BancoAdapter implements ComponenteExternoAdapter {
 

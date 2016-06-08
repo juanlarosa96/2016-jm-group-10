@@ -3,9 +3,9 @@ package fixtures;
 import java.util.ArrayList;
 import java.util.List;
 
-import tpaPOIs.CentroDTO;
-import tpaPOIs.RangoServicioDTO;
-import tpaPOIs.ServicioDTO;
+import adapters.CentroDTO;
+import adapters.RangoServicioDTO;
+import adapters.ServicioDTO;
 
 public class FixtureCentroDTO {
 

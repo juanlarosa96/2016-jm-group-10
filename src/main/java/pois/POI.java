@@ -1,9 +1,12 @@
-package tpaPOIs;
+package pois;
 
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
+
+import herramientas.ManejadorDeFechas;
+import herramientas.ManejadorDeStrings;
 
 public abstract class POI {
 	

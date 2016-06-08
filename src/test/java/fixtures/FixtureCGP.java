@@ -6,11 +6,11 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.uqbar.geodds.Point;
 
-import tpaPOIs.CGP;
-import tpaPOIs.Comuna;
-import tpaPOIs.Direccion;
-import tpaPOIs.FranjaHoraria;
-import tpaPOIs.Servicio;
+import pois.CGP;
+import pois.Comuna;
+import pois.Direccion;
+import pois.FranjaHoraria;
+import pois.Servicio;
 
 
 public class FixtureCGP {

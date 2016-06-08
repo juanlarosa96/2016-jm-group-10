@@ -1,4 +1,4 @@
-package tpaPOIs;
+package pois;
 
 import java.util.ArrayList;
 import java.util.List;

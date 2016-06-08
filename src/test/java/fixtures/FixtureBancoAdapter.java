@@ -7,9 +7,9 @@ import org.uqbar.geodds.Point;
 
 import com.google.gson.Gson;
 
-import tpaPOIs.Banco;
-import tpaPOIs.BancoJson;
-import tpaPOIs.Direccion;
+import adapters.BancoJson;
+import pois.Banco;
+import pois.Direccion;
 
 public class FixtureBancoAdapter {
 

@@ -1,8 +1,11 @@
-package tpaPOIs;
+package pois;
 
 import java.util.List;
 
 import org.joda.time.DateTime;
+
+import herramientas.ManejadorDeFechas;
+import herramientas.ManejadorDeStrings;
 
 public class Servicio {
 

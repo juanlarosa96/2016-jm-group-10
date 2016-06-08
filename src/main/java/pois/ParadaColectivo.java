@@ -1,9 +1,11 @@
-package tpaPOIs;
+package pois;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.LocalTime;
 import org.uqbar.geodds.Point;
+
+import herramientas.ManejadorDeStrings;
 
 public class ParadaColectivo extends POI {
 	private Integer linea;

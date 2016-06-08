@@ -1,9 +1,13 @@
-package tpaPOIs;
+package pois;
 
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
+
+import eventosBusqueda.Busqueda;
+import eventosBusqueda.InteresadoEnBusquedas;
+import herramientas.ManejadorDeFechas;
 
 public class Dispositivo {
 	private String nombre;
