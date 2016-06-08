@@ -22,6 +22,7 @@ public class ManejadorDeReportesTest {
 	private Busqueda busquedaCaballito1;
 	private DateTime fecha2;
 	private Busqueda busquedaAbasto2;
+	private Busqueda busquedaAbastoCon0Resultados;
 
 	@Before
 	public void init() {
@@ -32,6 +33,7 @@ public class ManejadorDeReportesTest {
 		busquedaRecoleta1 = new Busqueda("terminalRecoleta", 5, fecha1, 12.5, "libreria");
 		busquedaCaballito1 = new Busqueda("terminalCaballito", 4, fecha2, 3.4, "restaurant");
 		busquedaAbasto2= new Busqueda("terminalAbasto", 8 , fecha2, 2.5, "burguer");
+		busquedaAbastoCon0Resultados = new Busqueda("terminalAbasto", 0, fecha2, 1.5, "fabrica de pizza");
 
 		manejadorDeReportes = ManejadorDeReportes.getInstance();
 		manejadorDeReportes.limpiarBusquedas();
@@ -147,6 +149,23 @@ public class ManejadorDeReportesTest {
 		Assert.assertEquals(resultadosParciales2, reporte.get(terminalAbasto).get(1), 0);
 		Assert.assertEquals(resultadosParciales3, reporte.get(terminalCaballito).get(0), 0);
 	}
+	
+	@Test
+	public void SiNotificoDosBusquedasDeUnTerminalConUnaBusquedaQueArroja0ResultadosElReporteDeBusquedasParcialesGeneraCorrectamenteAmbosResultados() {
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto1);
+		manejadorDeReportes.notificarBusqueda(busquedaAbastoCon0Resultados);
+		
+		HashMap<String, List<Integer>> reporte = manejadorDeReportes.generarReporteDeResultadosParcialesPorBusquedaPorTerminal();
+		
+		Integer resultadosParciales1 = busquedaAbasto1.getCantResultados();
+		Integer resultadosParciales2 = busquedaAbastoCon0Resultados.getCantResultados();
+		
+		String terminalAbasto = busquedaAbasto1.getNombreTerminal();
+		
+		Assert.assertEquals(resultadosParciales1, reporte.get(terminalAbasto).get(0), 0);
+		Assert.assertEquals(resultadosParciales2, reporte.get(terminalAbasto).get(1), 0);
+	}
+	
 }
 
 
