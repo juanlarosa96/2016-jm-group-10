@@ -65,4 +65,8 @@ public class ManejadorDeReportes implements InteresadoEnBusquedas {
 
 		return reporte;
 	}
+
+	public void limpiarBusquedas() {
+		busquedas.clear();	
+	}
 }

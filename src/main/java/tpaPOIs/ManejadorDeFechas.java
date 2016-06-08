@@ -36,7 +36,11 @@ public class ManejadorDeFechas {
 
 	public static String convertirFechaAString(DateTime unaFecha) {
 		
-		return unaFecha.dayOfMonth().toString()+ "/" + unaFecha.monthOfYear().toString() + "/" + unaFecha.year().toString();
+		return Integer.toString(unaFecha.getDayOfMonth())+ "/" + Integer.toString(unaFecha.getMonthOfYear()) + "/" + Integer.toString(unaFecha.getYear());
 		
 	}
+
+	
 }
+
+
