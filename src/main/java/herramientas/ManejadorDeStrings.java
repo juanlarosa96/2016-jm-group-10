@@ -1,4 +1,4 @@
-package tpaPOIs;
+package herramientas;
 
 import java.util.Arrays;
 import java.util.List;

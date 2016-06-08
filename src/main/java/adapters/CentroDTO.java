@@ -1,4 +1,4 @@
-package tpaPOIs;
+package adapters;
 
 import java.util.List;
 

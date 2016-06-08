@@ -4,16 +4,15 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import adapters.BancoAdapter;
+import adapters.ServicioExternoBancos;
 import fixtures.FixtureBancoAdapter;
+import pois.Banco;
+import pois.POI;
 
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
-
-import tpaPOIs.Banco;
-import tpaPOIs.BancoAdapter;
-import tpaPOIs.POI;
-import tpaPOIs.ServicioExternoBancos;
 
 public class BancoAdapterTest {
 

@@ -1,4 +1,4 @@
-package tpaPOIs;
+package pois;
 
 import org.joda.time.LocalTime;
 

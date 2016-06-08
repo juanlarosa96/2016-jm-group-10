@@ -1,9 +1,17 @@
-package tpaPOIs;
+package adapters;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.uqbar.geodds.Point;
+
+import pois.CGP;
+import pois.Comuna;
+import pois.Direccion;
+import pois.FranjaHoraria;
+import pois.POI;
+import pois.Servicio;
+
 import org.joda.time.LocalTime;
 
 public class CgpAdapter implements ComponenteExternoAdapter {

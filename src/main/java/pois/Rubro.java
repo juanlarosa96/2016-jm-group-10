@@ -1,4 +1,4 @@
-package tpaPOIs;
+package pois;
 
 public class Rubro {
 	private String nombreRubro;

@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.uqbar.geodds.Point;
 
 import fixtures.FixtureComuna;
-import tpaPOIs.Comuna;
+import pois.Comuna;
 
 public class ComunaTest {
 

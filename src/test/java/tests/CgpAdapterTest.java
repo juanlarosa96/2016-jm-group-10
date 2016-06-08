@@ -11,15 +11,15 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import adapters.CentroDTO;
+import adapters.CgpAdapter;
+import adapters.ServicioExternoCGP;
 import fixtures.FixtureCGP;
 import fixtures.FixtureCentroDTO;
-import tpaPOIs.CGP;
-import tpaPOIs.CentroDTO;
-import tpaPOIs.CgpAdapter;
-import tpaPOIs.Direccion;
-import tpaPOIs.ManejadorDeFechas;
-import tpaPOIs.POI;
-import tpaPOIs.ServicioExternoCGP;
+import herramientas.ManejadorDeFechas;
+import pois.CGP;
+import pois.Direccion;
+import pois.POI;
 
 public class CgpAdapterTest {
 
@@ -45,7 +45,9 @@ public class CgpAdapterTest {
 		
 		servicioExternoCgpMockeado = mock(ServicioExternoCGP.class);
 		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(listaVaciaCentrosDTO);
+		when(servicioExternoCgpMockeado.buscar("")).thenReturn(listaVaciaCentrosDTO);
 		when(servicioExternoCgpMockeado.buscar("floresta")).thenReturn(centrosDTO);
+		
 		
 		// CGP Adapter
 		cgpAdapter = new CgpAdapter(servicioExternoCgpMockeado);
@@ -97,6 +99,16 @@ public class CgpAdapterTest {
 		List<POI> cgpsEncontrados = cgpAdapter.buscarPoisExternos("manchester");
 
 		verify(servicioExternoCgpMockeado).buscar("manchester");
+
+		Assert.assertTrue(cgpsEncontrados.isEmpty());
+
+	}
+	
+	@Test
+	public void SiBuscoEnElServicioExternoConUnStringVacioMeDevuelveListaVacia(){
+		List<POI> cgpsEncontrados = cgpAdapter.buscarPoisExternos("");
+
+		verify(servicioExternoCgpMockeado).buscar("");
 
 		Assert.assertTrue(cgpsEncontrados.isEmpty());
 

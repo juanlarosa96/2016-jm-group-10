@@ -1,7 +1,9 @@
-package tpaPOIs;
+package pois;
 
 import java.util.*;
 import org.uqbar.geodds.Point;
+
+import herramientas.ManejadorDeStrings;
 
 public class Comercio extends POI {
 

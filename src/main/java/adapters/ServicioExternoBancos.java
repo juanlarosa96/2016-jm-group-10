@@ -1,4 +1,4 @@
-package tpaPOIs;
+package adapters;
 
 public interface ServicioExternoBancos {
 

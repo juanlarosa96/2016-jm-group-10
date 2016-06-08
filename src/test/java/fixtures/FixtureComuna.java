@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.uqbar.geodds.Point;
 
-import tpaPOIs.Comuna;
+import pois.Comuna;
 
 public class FixtureComuna {
 
