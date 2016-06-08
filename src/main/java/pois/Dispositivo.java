@@ -1,5 +1,6 @@
 package pois;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -19,6 +20,7 @@ public class Dispositivo {
 		this.nombre = unNombre;
 		this.posicion = unaPosicion;
 		this.manejadorDePois = ManejadorDePois.getInstance();
+		this.observers = new ArrayList<InteresadoEnBusquedas>();
 	}
 
 	public Boolean estoyCercaDe(POI poi) {
