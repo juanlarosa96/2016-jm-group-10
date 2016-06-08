@@ -37,7 +37,7 @@ public class ManejadorDeReportes implements InteresadoEnBusquedas {
 				.filter(busqueda -> fecha.equals(ManejadorDeFechas.convertirFechaAString(busqueda.getFecha())))
 				.collect(Collectors.toList()).size();
 	}
-	
+
 	public HashMap<String, Integer> generarReporteBusquedasPorFecha() {
 
 		HashMap<String, Integer> reporte = new HashMap<String, Integer>();
@@ -49,7 +49,6 @@ public class ManejadorDeReportes implements InteresadoEnBusquedas {
 		return reporte;
 
 	}
-
 
 	public HashMap<String, List<Integer>> generarReporteDeResultadosParcialesPorBusquedaPorTerminal() {
 

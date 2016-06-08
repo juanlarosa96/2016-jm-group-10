@@ -1,9 +1,12 @@
 package eventosBusqueda;
 
+import adapters.AdapterMail;
+
 public class NotificadorEmail implements InteresadoEnBusquedas {
 	
 	Double demoraMaximaEnSegundos;
 	String emailAdmin;
+	AdapterMail adapterMail;
 	
 	public NotificadorEmail(Double demoraMaximaEnSegundos, String emailAdmin){
 		this.demoraMaximaEnSegundos = demoraMaximaEnSegundos;
@@ -14,9 +17,7 @@ public class NotificadorEmail implements InteresadoEnBusquedas {
 	public void notificarBusqueda(Busqueda unaBusqueda) {
 		
 		if(unaBusqueda.getDemoraEnSegundos()> this.demoraMaximaEnSegundos){			
-			//mandar mail a emailAdmin
-			//incluir en el mail los elementos de la busqueda realizada
-			
+			adapterMail.enviarMailPorBusquedaLenta(unaBusqueda,emailAdmin);			
 		}
 	}
 
