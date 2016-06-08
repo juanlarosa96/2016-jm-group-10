@@ -106,4 +106,12 @@ public class DispositivoTest {
 		Assert.assertEquals(2, manejadorDeReportes.generarReporteDeResultadoTotalesPorTerminales().get("DispositivoValido"),0);	
 		
 	}
+	
+	@Test
+	public void siRealizoBusquedaEnUnDispositivoSinManejadorDeReportersNoSeRegistranBusquedas(){
+		otroDispositivo.buscarPOIs("114");
+		Assert.assertTrue(manejadorDeReportes.generarReporteBusquedasPorFecha().isEmpty());
+	}
+	
+	
 }
