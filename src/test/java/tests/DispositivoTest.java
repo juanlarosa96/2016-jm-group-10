@@ -40,6 +40,7 @@ public class DispositivoTest {
 	private ManejadorDePois manejadorDePois;
 	
 	private Dispositivo dispositivo;
+	private Dispositivo otroDispositivo;
 	
 	private ManejadorDeReportes manejadorDeReportes;
 
@@ -73,6 +74,8 @@ public class DispositivoTest {
 		manejadorDePois.setListaPois(listaPoisDispositivo);
 		
 		dispositivo = new Dispositivo("DispositivoValido", new Point(-34.6327475, -58.4851584));
+		otroDispositivo = new Dispositivo("OtroDispositivoValido", new Point(-35, -54));
+		
 		manejadorDePois.setListaAdapters(new ArrayList<ComponenteExternoAdapter>());
 		
 		
@@ -93,4 +96,93 @@ public class DispositivoTest {
 	}
 	
 
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Test
+	public void siRealizoBusquedasEnDosDispositivosPeroSoloUnoTieneObserversHabilitadosSoloReportaLosDelDispositivoConObservers(){
+		
+		dispositivo.agregarInteresadoEnBusquedas(manejadorDeReportes);		
+		dispositivo.buscarPOIs("114");
+		otroDispositivo.buscarPOIs("114");
+		Assert.assertEquals(1, manejadorDeReportes.generarReporteBusquedasPorFecha().get(ManejadorDeFechas.convertirFechaAString(DateTime.now())),0);				
+		
+	}
 }
