@@ -13,22 +13,24 @@ import tpaPOIs.ManejadorDeReportes;
 
 public class ManejadorDeReportesTest {
 
-	private Busqueda busqueda1;
-	private Busqueda busqueda2;
+	private Busqueda busquedaAbasto1;
+	private Busqueda busquedaRecoleta1;
 	private DateTime fecha1;
 
 	private ManejadorDeReportes manejadorDeReportes;
-	private Busqueda busqueda3;
+	private Busqueda busquedaCaballito1;
 	private DateTime fecha2;
+	private Busqueda busquedaAbasto2;
 
 	@Before
 	public void init() {
 		fecha1 = new DateTime(2016, 06, 07, 20, 51);
 		fecha2 = new DateTime(2014, 03, 05, 10, 20);
 
-		busqueda1 = new Busqueda("terminalAbasto", 3, fecha1, 10.0, "hospital");
-		busqueda2 = new Busqueda("terminalRecoleta", 5, fecha1, 12.5, "libreria");
-		busqueda3 = new Busqueda("terminalCaballito", 4, fecha2, 3.4, "restaurant");
+		busquedaAbasto1 = new Busqueda("terminalAbasto", 3, fecha1, 10.0, "hospital");
+		busquedaRecoleta1 = new Busqueda("terminalRecoleta", 5, fecha1, 12.5, "libreria");
+		busquedaCaballito1 = new Busqueda("terminalCaballito", 4, fecha2, 3.4, "restaurant");
+		busquedaAbasto2= new Busqueda("terminalAbasto", 8 , fecha2, 2.5, "burguer");
 
 		manejadorDeReportes = ManejadorDeReportes.getInstance();
 		manejadorDeReportes.limpiarBusquedas();
@@ -36,8 +38,8 @@ public class ManejadorDeReportesTest {
 
 	@Test
 	public void SiNotificoDosBusquedasConIgualFechayGeneroReporteDeBusquedasPorFechaDevuelveDosBusquedasParaEsaFecha() {
-		manejadorDeReportes.notificarBusqueda(busqueda1);
-		manejadorDeReportes.notificarBusqueda(busqueda2);
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto1);
+		manejadorDeReportes.notificarBusqueda(busquedaRecoleta1);
 
 		HashMap<String, Integer> reporte = manejadorDeReportes.generarReporteBusquedasPorFecha();
 
@@ -46,8 +48,8 @@ public class ManejadorDeReportesTest {
 
 	@Test
 	public void SiNotificoDosBusquedasConDistintaFechayGeneroReporteDeBusquedasPorFechaDevuelve1BusquedaParaCadaFecha() {
-		manejadorDeReportes.notificarBusqueda(busqueda1);
-		manejadorDeReportes.notificarBusqueda(busqueda3);
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto1);
+		manejadorDeReportes.notificarBusqueda(busquedaCaballito1);
 
 		HashMap<String, Integer> reporte = manejadorDeReportes.generarReporteBusquedasPorFecha();
 
@@ -57,9 +59,9 @@ public class ManejadorDeReportesTest {
 
 	@Test
 	public void SiNotificoDosBusquedasConIgualFechaYOtraConOtraFechaYGeneroReporteDeBusquedasPorFechaDevuelveLaCantidadDeBusquedasCorrectaParaCadaFecha() {
-		manejadorDeReportes.notificarBusqueda(busqueda1);
-		manejadorDeReportes.notificarBusqueda(busqueda2);
-		manejadorDeReportes.notificarBusqueda(busqueda3);
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto1);
+		manejadorDeReportes.notificarBusqueda(busquedaRecoleta1);
+		manejadorDeReportes.notificarBusqueda(busquedaCaballito1);
 
 		HashMap<String, Integer> reporte = manejadorDeReportes.generarReporteBusquedasPorFecha();
 		
@@ -68,9 +70,44 @@ public class ManejadorDeReportesTest {
 	}
 
 	@Test
-	public void SiNoNotificoNingunaBusquedaMeGeneraUnReporteVacio() {
+	public void SiNoNotificoNingunaBusquedaMeGeneraUnReporteDeBusquedasPorFechaVacio() {
 		HashMap<String, Integer> reporte = manejadorDeReportes.generarReporteBusquedasPorFecha();
 
 		Assert.assertTrue(reporte.isEmpty());
+	}
+	
+	@Test
+	public void SiNoNotificoNingunaBusquedaMeGeneraUnReporteDeCantidadDeResultadosTotalesPorTerminalVacio(){
+		HashMap<String, Integer> reporte = manejadorDeReportes.generarReporteDeResultadoTotalesPorTerminales();
+
+		Assert.assertTrue(reporte.isEmpty());
+	}
+	
+	@Test
+	public void SiNotificoDosBusquedasConIgualTerminalYGeneroReporteDeCantidadDeResultadosTotalesPorTerminalMeDevuelveLaSumaDeResultadosDeLasDosBusquedasParaEsaTerminal(){
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto1);
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto2);
+
+		HashMap<String, Integer> reporte = manejadorDeReportes.generarReporteDeResultadoTotalesPorTerminales();
+		
+		Integer cantResultadosTotalesAbasto = busquedaAbasto1.getCantResultados()+busquedaAbasto2.getCantResultados();
+		String terminalAbasto = busquedaAbasto1.getNombreTerminal();
+		
+		Assert.assertEquals(cantResultadosTotalesAbasto, reporte.get(terminalAbasto), 0);
+	}
+	
+	@Test
+	public void SiNotificoDosBusquedasDeUnaTerminalYUnaDeOtraYGeneroReporteCantResultadosPorTerminalDevuelveCantCorrectaResultadosParaCadaTerminal(){
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto1);
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto2);
+		manejadorDeReportes.notificarBusqueda(busquedaCaballito1);
+
+		HashMap<String, Integer> reporte = manejadorDeReportes.generarReporteDeResultadoTotalesPorTerminales();
+		
+		Integer cantResultadosTotalesAbasto = busquedaAbasto1.getCantResultados()+busquedaAbasto2.getCantResultados();
+		String terminalAbasto = busquedaAbasto1.getNombreTerminal();
+		
+		Assert.assertEquals(cantResultadosTotalesAbasto, reporte.get(terminalAbasto), 0);
+		Assert.assertEquals(busquedaCaballito1.getCantResultados(),reporte.get(busquedaCaballito1.getNombreTerminal()),0);
 	}
 }
