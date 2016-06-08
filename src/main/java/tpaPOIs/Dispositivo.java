@@ -5,7 +5,6 @@ import org.uqbar.geodds.Point;
 public class Dispositivo {
 	private Point posicion;
 
-
 	public Dispositivo(Point unaPosicion) {
 		this.posicion = unaPosicion;
 	}
