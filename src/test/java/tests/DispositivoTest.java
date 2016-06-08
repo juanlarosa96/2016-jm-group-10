@@ -95,18 +95,6 @@ public class DispositivoTest {
 		Assert.assertEquals(2, manejadorDeReportes.generarReporteDeResultadoTotalesPorTerminales().get("DispositivoValido"),0);		
 	}
 	
-	
-	@Test
-	public void siRealizoBusquedasEnDosDispositivosPeroSoloUnoTieneObserversHabilitadosSoloReportaLosDelDispositivoConObservers(){
-		
-		dispositivo.agregarInteresadoEnBusquedas(manejadorDeReportes);		
-		dispositivo.buscarPOIs("114");
-		otroDispositivo.buscarPOIs("114");
-		Assert.assertEquals(1, manejadorDeReportes.generarReporteBusquedasPorFecha().get(ManejadorDeFechas.convertirFechaAString(DateTime.now())),0);
-		Assert.assertEquals(2, manejadorDeReportes.generarReporteDeResultadoTotalesPorTerminales().get("DispositivoValido"),0);	
-		
-	}
-	
 	@Test
 	public void siRealizoBusquedaEnUnDispositivoSinManejadorDeReportersNoSeRegistranBusquedas(){
 		otroDispositivo.buscarPOIs("114");
