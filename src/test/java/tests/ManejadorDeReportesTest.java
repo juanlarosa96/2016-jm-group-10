@@ -1,6 +1,7 @@
 package tests;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.junit.Assert;
@@ -110,4 +111,42 @@ public class ManejadorDeReportesTest {
 		Assert.assertEquals(cantResultadosTotalesAbasto, reporte.get(terminalAbasto), 0);
 		Assert.assertEquals(busquedaCaballito1.getCantResultados(),reporte.get(busquedaCaballito1.getNombreTerminal()),0);
 	}
+	
+	@Test
+	public void SiNotificoDosBusquedasConIgualTerminalYGeneroReporteDeCantidadDeResultadosParcialesPorTerminalMeDevuelveResultadosParcialesDeLasDosBusquedasParaEsaTerminal(){
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto1);
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto2);
+
+		HashMap<String, List<Integer>> reporte = manejadorDeReportes.generarReporteDeResultadosParcialesPorBusquedaPorTerminal();
+		
+		
+		Integer resultadosParciales1 = busquedaAbasto1.getCantResultados();
+		Integer resultadosParciales2 = busquedaAbasto2.getCantResultados();
+		String terminalAbasto = busquedaAbasto1.getNombreTerminal();
+		
+		Assert.assertEquals(resultadosParciales1, reporte.get(terminalAbasto).get(0), 0);
+		Assert.assertEquals(resultadosParciales2, reporte.get(terminalAbasto).get(1), 0);
+	}
+	
+	@Test
+	public void SiNotificoDosBusquedasDeUnaTerminalYUnaDeOtraYGeneroReporteCantResultadosParcialesPorTerminalDevuelveCantCorrectaResultadosParaCadaTerminal(){
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto1);
+		manejadorDeReportes.notificarBusqueda(busquedaAbasto2);
+		manejadorDeReportes.notificarBusqueda(busquedaCaballito1);
+		
+		HashMap<String, List<Integer>> reporte = manejadorDeReportes.generarReporteDeResultadosParcialesPorBusquedaPorTerminal();
+		
+		
+		Integer resultadosParciales1 = busquedaAbasto1.getCantResultados();
+		Integer resultadosParciales2 = busquedaAbasto2.getCantResultados();
+		Integer resultadosParciales3 = busquedaCaballito1.getCantResultados();
+		String terminalAbasto = busquedaAbasto1.getNombreTerminal();
+		String terminalCaballito = busquedaCaballito1.getNombreTerminal();
+		
+		Assert.assertEquals(resultadosParciales1, reporte.get(terminalAbasto).get(0), 0);
+		Assert.assertEquals(resultadosParciales2, reporte.get(terminalAbasto).get(1), 0);
+		Assert.assertEquals(resultadosParciales3, reporte.get(terminalCaballito).get(0), 0);
+	}
 }
+
+
