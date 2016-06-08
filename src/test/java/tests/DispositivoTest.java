@@ -91,8 +91,8 @@ public class DispositivoTest {
 		dispositivo.buscarPOIs("114");
 		dispositivo.eliminarInteresadoEnBusquedas(manejadorDeReportes);
 		dispositivo.buscarPOIs("114");
-		Assert.assertEquals(2, manejadorDeReportes.generarReporteBusquedasPorFecha().get(ManejadorDeFechas.convertirFechaAString(DateTime.now())),0);				
-		
+		Assert.assertEquals(1, manejadorDeReportes.generarReporteBusquedasPorFecha().get(ManejadorDeFechas.convertirFechaAString(DateTime.now())),0);				
+		Assert.assertEquals(2, manejadorDeReportes.generarReporteDeResultadoTotalesPorTerminales().get("DispositivoValido"),0);		
 	}
 	
 
