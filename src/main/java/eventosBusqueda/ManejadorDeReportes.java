@@ -39,10 +39,7 @@ public class ManejadorDeReportes implements InteresadoEnBusquedas {
 				.map(busqueda -> ManejadorDeFechas.convertirFechaAString(busqueda.getFecha()))
 				.collect(Collectors.toSet());
 
-		fechas.stream().forEach(fecha -> {
-			Integer cantBusquedas = this.contarBusquedasPorFecha(fecha);
-			reporte.put(fecha, cantBusquedas);
-		});
+		fechas.stream().forEach(fecha -> reporte.put(fecha, this.contarBusquedasPorFecha(fecha)));
 
 		return reporte;
 
@@ -56,22 +53,20 @@ public class ManejadorDeReportes implements InteresadoEnBusquedas {
 	}
 
 	public HashMap<String, List<Integer>> generarReporteDeResultadosParcialesPorBusquedaPorTerminal() {
-		
+
 		HashMap<String, List<Integer>> reporte = new HashMap<String, List<Integer>>();
-		
+
 		Set<String> terminales = busquedas.stream().map(busqueda -> busqueda.getNombreTerminal())
 				.collect(Collectors.toSet());
 
-		terminales.stream().forEach(terminal -> {
-			List<Integer> cantResultadosParciales = this.contarResultadosParcialesPorTerminal(terminal);
-			reporte.put(terminal, cantResultadosParciales);
-		});
+		terminales.stream()
+				.forEach(terminal -> reporte.put(terminal, this.contarResultadosParcialesPorTerminal(terminal)));
 
-		return reporte;	
+		return reporte;
 	}
 
 	private List<Integer> contarResultadosParcialesPorTerminal(String terminal) {
-		
+
 		return busquedas.stream().filter(busqueda -> terminal.equals(busqueda.getNombreTerminal()))
 				.map(busqueda -> busqueda.getCantResultados()).collect(Collectors.toList());
 	}
@@ -83,10 +78,8 @@ public class ManejadorDeReportes implements InteresadoEnBusquedas {
 		Set<String> terminales = busquedas.stream().map(busqueda -> busqueda.getNombreTerminal())
 				.collect(Collectors.toSet());
 
-		terminales.stream().forEach(terminal -> {
-			Integer cantResultados = this.contarResultadosTotalesPorTerminal(terminal);
-			reporte.put(terminal, cantResultados);
-		});
+		terminales.stream()
+				.forEach(terminal -> reporte.put(terminal, this.contarResultadosTotalesPorTerminal(terminal)));
 
 		return reporte;
 	}
