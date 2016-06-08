@@ -56,11 +56,24 @@ public class ManejadorDeReportes implements InteresadoEnBusquedas {
 	}
 
 	public HashMap<String, List<Integer>> generarReporteDeResultadosParcialesPorBusquedaPorTerminal() {
+		
 		HashMap<String, List<Integer>> reporte = new HashMap<String, List<Integer>>();
+		
+		Set<String> terminales = busquedas.stream().map(busqueda -> busqueda.getNombreTerminal())
+				.collect(Collectors.toSet());
 
-		// aca hay que cargar las cosas al reporte
+		terminales.stream().forEach(terminal -> {
+			List<Integer> cantResultadosParciales = this.contarResultadosParcialesPorTerminal(terminal);
+			reporte.put(terminal, cantResultadosParciales);
+		});
 
-		return reporte;
+		return reporte;	
+	}
+
+	private List<Integer> contarResultadosParcialesPorTerminal(String terminal) {
+		
+		return busquedas.stream().filter(busqueda -> terminal.equals(busqueda.getNombreTerminal()))
+				.map(busqueda -> busqueda.getCantResultados()).collect(Collectors.toList());
 	}
 
 	public HashMap<String, Integer> generarReporteDeResultadoTotalesPorTerminales() {
