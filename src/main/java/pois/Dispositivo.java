@@ -39,6 +39,7 @@ public class Dispositivo {
 		Busqueda unaBusqueda = new Busqueda(this.nombre, listaPoisEncontrados.size(), DateTime.now(), demoraEnSegundos,
 				descripcion);
 		
+		//delegar en metodo notificar busqueda
 		observers.stream().forEach(observer -> observer.notificarBusqueda(unaBusqueda));
 		
 		return listaPoisEncontrados;

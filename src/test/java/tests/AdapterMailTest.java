@@ -44,5 +44,7 @@ public class AdapterMailTest {
 	verify(adapterMailMockeado,Mockito.times(0)).enviarMailPorBusquedaLenta(busquedaConMenorTiempo, "admin@gmail.com");
 	
 	}
+	
+	//agregar test para demora igual a la maxima
 
 }

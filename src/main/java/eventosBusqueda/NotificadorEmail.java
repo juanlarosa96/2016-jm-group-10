@@ -16,7 +16,7 @@ public class NotificadorEmail implements InteresadoEnBusquedas {
 	
 	@Override
 	public void notificarBusqueda(Busqueda unaBusqueda) {
-		
+		//delegar en metodos privados
 		if(unaBusqueda.getDemoraEnSegundos()> this.demoraMaximaEnSegundos){			
 			adapterMail.enviarMailPorBusquedaLenta(unaBusqueda,emailAdmin);			
 		}
