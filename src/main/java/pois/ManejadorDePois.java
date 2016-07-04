@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.joda.time.DateTime;
-
 import adapters.ComponenteExternoAdapter;
 
 public class ManejadorDePois {
@@ -96,11 +95,20 @@ public class ManejadorDePois {
 		// estaDisponibleServicio
 		return this.buscarPOIs(servicio).stream().filter(poi -> poi.estaDisponibleServicio(servicio, momento))
 				.collect(Collectors.toList());
-	
+
 	}
-	
-	public void actualizarEtiquetasLocalesComerciales(String nombre, List<String> etiquetas){
-		listaPois.stream().filter(comercio -> comercio.getNombre().equals(nombre)).forEach(comercio -> comercio.setEtiquetas(etiquetas));		
+
+	public void actualizarEtiquetasLocalesComerciales(String nombre, List<String> etiquetas) {
+		listaPois.stream().filter(comercio -> comercio.getNombre().equals(nombre))
+				.forEach(comercio -> comercio.setEtiquetas(etiquetas));
+	}
+
+	public POI buscarPOI(String nombrePOI, Direccion direccionPOI) {
+		return listaPois.stream().filter(
+				poi -> poi.getNombre().equals(nombrePOI) && poi.getDireccion().esLaMismaDireccionQue(direccionPOI))
+				.collect(Collectors.toList()).get(0);
+		
+		//Si no encuentra ninguno tira IndexOutOfBoundsException
 	}
 
 }
