@@ -96,6 +96,11 @@ public class ManejadorDePois {
 		// estaDisponibleServicio
 		return this.buscarPOIs(servicio).stream().filter(poi -> poi.estaDisponibleServicio(servicio, momento))
 				.collect(Collectors.toList());
+	
+	}
+	
+	public void actualizarEtiquetasLocalesComerciales(String nombre, List<String> etiquetas){
+		listaPois.stream().filter(comercio -> comercio.getNombre().equals(nombre)).forEach(comercio -> comercio.setEtiquetas(etiquetas));		
 	}
 
 }
