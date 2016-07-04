@@ -1,5 +1,6 @@
 package procesos;
 
+import org.joda.time.DateTime;
 
 public class ManejadorDeProcesos {
 	
@@ -15,6 +16,11 @@ public class ManejadorDeProcesos {
 		}
 
 		return singleton;
+	}
+	
+	
+	public void configurarProceso(Proceso proceso,DateTime fechaYhoraDeEjecucion){
+		
 	}
 	
 }
