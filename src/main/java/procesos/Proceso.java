@@ -1,7 +1,5 @@
 package procesos;
 
-import java.util.List;
-
 public class Proceso {
 
 	private Accion accion;
