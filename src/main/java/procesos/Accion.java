@@ -2,6 +2,6 @@ package procesos;
 
 public interface Accion {
 
-	public void ejecutar();
+	public void ejecutar() throws Exception;
 		
 }
