@@ -1,13 +1,14 @@
 package pois;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import adapters.CgpAdapter;
 
 public class ManejadorDeDispositivos {
 	private static ManejadorDeDispositivos singleton = null;
 	public List<Dispositivo> listaDispositivos;
-	private CgpAdapter cgpAdapter;
 	
 	private ManejadorDeDispositivos() {
 
@@ -21,9 +22,6 @@ public class ManejadorDeDispositivos {
 		return singleton;
 	}
 
-	public void setCgpAdapter(CgpAdapter cgpAdapter) {
-		this.cgpAdapter = cgpAdapter;
-	}
 
 	public void setListaDispositivos(List<Dispositivo> unaListaDeDispositivos) {
 		listaDispositivos = unaListaDeDispositivos;
@@ -34,7 +32,7 @@ public class ManejadorDeDispositivos {
 	}
 
 	public List<Dispositivo> filtrarPorComuna(Comuna comuna) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Dispositivo> dispositivos = listaDispositivos.stream().filter(dispositivo -> comuna.incluyeA(dispositivo.getPosicion())).collect(Collectors.toList());
+		return dispositivos;
 	}
 }
