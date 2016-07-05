@@ -16,7 +16,12 @@ public class CriterioComuna implements CriterioSeleccionUsuarios {
 	}
 	
 	public List<Dispositivo> filtrar(){
-		List<Dispositivo> dispositivos = manejadorDeDispositivos.filtrarPorComuna(numeroComuna);
+		List<Dispositivo> dispositivos = null;
+		try {
+			dispositivos = manejadorDeDispositivos.filtrarPorComuna(numeroComuna);
+		} catch (Exception e) {
+			//Manejarlo
+		}
 		return dispositivos;
 	}
 
