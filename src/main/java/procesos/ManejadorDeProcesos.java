@@ -23,8 +23,7 @@ public class ManejadorDeProcesos {
 	}
 
 	public void configurarProceso(Accion accion, Double frecuencia, DateTime fechaYhoraDeEjecucion) {
-		// Agregar a una lista ordenada por horario de procesos
-
+		
 		Proceso procesoAEjecutar = new Proceso(accion, frecuencia, fechaYhoraDeEjecucion);
 		DateTime fechaYhoraProcesoParaEjecutar = procesoAEjecutar.getFechaYhoraDeEjecucion();
 
