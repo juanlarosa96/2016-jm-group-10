@@ -14,10 +14,15 @@ public class AccionDarDeBajaPOI implements Accion {
 	private DateTime fechaYhoraDeBaja;
 
 	@Override
-	public void ejecutar() throws Exception {
+	public ResultadoEjecucion ejecutar() throws Exception {
 		try{
 		POI poiBuscado = manejadorDePois.buscarPOI(nombrePOI, direccionPOI);
 		manejadorDePois.eliminarPOI(poiBuscado);
+		
+		String resultado = "POI " + nombrePOI + " dado de baja.";
+		
+		return new ResultadoEjecucion(1, DateTime.now(), resultado);
+		
 		}
 		catch(Exception e){
 			throw new Exception();
