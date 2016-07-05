@@ -7,7 +7,7 @@ public class Proceso {
 	private Accion accion;
 	private Double frecuenciaEnHoras;
 	private DateTime fechaYhoraDeEjecucion;
-	private CriterioDeManejoDeError criterioManejoError;
+	private CriterioDeManejoDeError criterioManejoError; //falta setter o pasarlo por constructor
 
 	private ResultadoEjecucion resultadoEjecucion;
 
