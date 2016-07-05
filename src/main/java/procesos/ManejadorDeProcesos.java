@@ -1,20 +1,19 @@
 package procesos;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.SortedSet;
-
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import org.joda.time.DateTime;
 
-public class ManejadorDeProcesos implements Runnable {
-	
-	private static ManejadorDeProcesos singleton;
-	private List<Proceso> procesos;
+public class ManejadorDeProcesos {
 
-	private ManejadorDeProcesos(){
-		
+	private static ManejadorDeProcesos singleton;
+
+	ScheduledThreadPoolExecutor scheduler;
+
+	private ManejadorDeProcesos() {
+		this.scheduler = new ScheduledThreadPoolExecutor(1);
 	}
-	
+
 	public static ManejadorDeProcesos getInstance() {
 		if (singleton == null) {
 			singleton = new ManejadorDeProcesos();
@@ -22,23 +21,27 @@ public class ManejadorDeProcesos implements Runnable {
 
 		return singleton;
 	}
-	
-	
-	public void configurarProceso(Accion accion, Double frecuencia,DateTime fechaYhoraDeEjecucion){
-		//Agregar a una lista ordenada por horario de procesos
-		procesos.add(new Proceso(accion, frecuencia, fechaYhoraDeEjecucion));
-	}
-	
-	@Override
-	public void run() {
-		//Verificar el horario y ejecutar el proceso si corresponde
-//		procesos.sort((proceso1, proceso2) -> (proceso1.getFechaYhoraDeEjecucion().getMillisOfDay()) < (proceso2.getFechaYhoraDeEjecucion().getMillisOfDay()));
-	}
-	
-	public static void main(String[] args) {
-		
 
+	public void configurarProceso(Accion accion, Double frecuencia, DateTime fechaYhoraDeEjecucion) {
+		
+		Proceso procesoAEjecutar = new Proceso(accion, frecuencia, fechaYhoraDeEjecucion);
+		DateTime fechaYhoraProcesoParaEjecutar = procesoAEjecutar.getFechaYhoraDeEjecucion();
+
+		if (procesoAEjecutar.getFrecuenciaEnHoras() == 0) {
+
+			scheduler.schedule(this.ejecutarProceso(procesoAEjecutar),
+					fechaYhoraProcesoParaEjecutar.getMillis() - DateTime.now().getMillis(), TimeUnit.MILLISECONDS);
+
+		} else {
+			scheduler.scheduleAtFixedRate(this.ejecutarProceso(procesoAEjecutar),
+					fechaYhoraProcesoParaEjecutar.getMillis() - DateTime.now().getMillis(),
+					(long) (procesoAEjecutar.getFrecuenciaEnHoras() * 60 * 60 * 1000), TimeUnit.MILLISECONDS);
+		}
+	}
+
+	private Runnable ejecutarProceso(Proceso proceso) {
+		proceso.ejecutar();
+		return null;
 	}
 
 }
-
