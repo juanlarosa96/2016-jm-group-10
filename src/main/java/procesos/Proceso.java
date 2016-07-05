@@ -28,6 +28,16 @@ public class Proceso {
 	public Double getFrecuenciaEnHoras() {
 		return frecuenciaEnHoras;
 	}
+
+
+	public void ejecutar() {
+		try {
+			accion.ejecutar();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
 	
 	
 	//o podrian ser dos clases que hereden de proceso (abstracta), una con frecuencia y otra sin. 
