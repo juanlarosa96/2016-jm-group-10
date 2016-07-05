@@ -7,39 +7,47 @@ public class Proceso {
 	private Accion accion;
 	private Double frecuenciaEnHoras;
 	private DateTime fechaYhoraDeEjecucion;
-	
-	public Proceso(Accion accion, Double frecuencia, DateTime fechaYhora){
+	private CriterioDeManejoDeError criterioManejoError;
+
+	private ResultadoEjecucion resultadoEjecucion;
+
+	public ResultadoEjecucion getResultadoEjecucion() {
+		return resultadoEjecucion;
+	}
+
+	public void setResultadoEjecucion(ResultadoEjecucion resultadoEjecucion) {
+		this.resultadoEjecucion = resultadoEjecucion;
+	}
+
+	public Proceso(Accion accion, Double frecuencia, DateTime fechaYhora) {
 		this.accion = accion;
 		this.frecuenciaEnHoras = frecuencia;
 		this.fechaYhoraDeEjecucion = fechaYhora;
 	}
-	
-	
+
 	public Accion getAccion() {
 		return accion;
 	}
-
 
 	public DateTime getFechaYhoraDeEjecucion() {
 		return fechaYhoraDeEjecucion;
 	}
 
-
 	public Double getFrecuenciaEnHoras() {
 		return frecuenciaEnHoras;
 	}
 
-
 	public void ejecutar() {
 		try {
-			accion.ejecutar();
+			ResultadoEjecucion resultadoEjecucion = accion.ejecutar();
+
+			this.resultadoEjecucion = resultadoEjecucion;
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+
+			this.criterioManejoError.manejarError(this);
+
+		}
 	}
-	
-	
-	//o podrian ser dos clases que hereden de proceso (abstracta), una con frecuencia y otra sin. 
-	
+
 }
