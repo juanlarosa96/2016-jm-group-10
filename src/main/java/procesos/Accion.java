@@ -2,6 +2,6 @@ package procesos;
 
 public interface Accion {
 
-	public void ejecutar() throws Exception;
+	public ResultadoEjecucion ejecutar() throws Exception;
 		
 }
