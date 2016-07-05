@@ -1,10 +1,7 @@
 package pois;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
-import adapters.CgpAdapter;
 
 public class ManejadorDeDispositivos {
 	private static ManejadorDeDispositivos singleton = null;
@@ -22,6 +19,10 @@ public class ManejadorDeDispositivos {
 		return singleton;
 	}
 
+
+	public List<Dispositivo> getListaDispositivos() {
+		return listaDispositivos;
+	}
 
 	public void setListaDispositivos(List<Dispositivo> unaListaDeDispositivos) {
 		listaDispositivos = unaListaDeDispositivos;
