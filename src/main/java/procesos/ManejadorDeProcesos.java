@@ -1,5 +1,7 @@
 package procesos;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.joda.time.DateTime;
@@ -7,11 +9,12 @@ import org.joda.time.DateTime;
 public class ManejadorDeProcesos {
 
 	private static ManejadorDeProcesos singleton;
-
-	ScheduledThreadPoolExecutor scheduler;
+	private ScheduledThreadPoolExecutor scheduler;
+	private List<Proceso> procesosEjecutados;
 
 	private ManejadorDeProcesos() {
 		this.scheduler = new ScheduledThreadPoolExecutor(1);
+		this.procesosEjecutados = new ArrayList<Proceso>();
 	}
 
 	public static ManejadorDeProcesos getInstance() {
@@ -41,6 +44,7 @@ public class ManejadorDeProcesos {
 
 	private Runnable ejecutarProceso(Proceso proceso) {
 		proceso.ejecutar();
+		procesosEjecutados.add(proceso);		
 		return null;
 	}
 
