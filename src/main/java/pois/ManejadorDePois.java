@@ -3,6 +3,8 @@ package pois;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.joda.time.DateTime;
 import adapters.ComponenteExternoAdapter;
 
@@ -98,17 +100,21 @@ public class ManejadorDePois {
 
 	}
 
-	public void actualizarEtiquetasLocalesComerciales(String nombre, List<String> etiquetas) {
-		listaPois.stream().filter(comercio -> comercio.getNombre().equals(nombre))
-				.forEach(comercio -> comercio.setEtiquetas(etiquetas));
+	public Integer actualizarEtiquetasLocalesComerciales(String nombre, List<String> etiquetas) {
+		Stream<POI> streamPois = listaPois.stream().filter(comercio -> comercio.getNombre().equals(nombre));
+
+		streamPois.forEach(comercio -> comercio.setEtiquetas(etiquetas));
+
+		return streamPois.collect(Collectors.toList()).size();
+
 	}
 
 	public POI buscarPOI(String nombrePOI, Direccion direccionPOI) {
 		return listaPois.stream().filter(
 				poi -> poi.getNombre().equals(nombrePOI) && poi.getDireccion().esLaMismaDireccionQue(direccionPOI))
 				.collect(Collectors.toList()).get(0);
-		
-		//Si no encuentra ninguno tira IndexOutOfBoundsException
+
+		// Si no encuentra ninguno tira IndexOutOfBoundsException
 	}
 
 }
