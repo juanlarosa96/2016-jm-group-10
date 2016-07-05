@@ -461,4 +461,9 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 		return new Direccion(calle, altura, null, null, null, null, null, "CABA", null, null, "Argentina");
 	}
 
+	
+	public Comuna dameComuna(Integer numComuna) {
+		return comunas.stream().filter(comuna -> comuna.getNumero().equals(numComuna)).collect(Collectors.toList()).get(0);
+	}
+
 }

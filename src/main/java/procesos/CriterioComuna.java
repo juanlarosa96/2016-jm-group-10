@@ -2,22 +2,21 @@ package procesos;
 
 import java.util.List;
 
-import pois.Comuna;
 import pois.Dispositivo;
 import pois.ManejadorDeDispositivos;
 
 public class CriterioComuna implements CriterioSeleccionUsuarios {
 
-	private Comuna comuna;
+	private Integer numeroComuna;
 	private ManejadorDeDispositivos manejadorDeDispositivos;
 
-	public CriterioComuna(Comuna comuna) {
-		this.comuna = comuna;
+	public CriterioComuna(Integer comuna) {
+		this.numeroComuna = comuna;
 		this.manejadorDeDispositivos = ManejadorDeDispositivos.getInstance();
 	}
 	
 	public List<Dispositivo> filtrar(){
-		List<Dispositivo> dispositivos = manejadorDeDispositivos.filtrarPorComuna(comuna);
+		List<Dispositivo> dispositivos = manejadorDeDispositivos.filtrarPorComuna(numeroComuna);
 		return dispositivos;
 	}
 
