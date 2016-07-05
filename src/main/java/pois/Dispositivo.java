@@ -56,6 +56,12 @@ public class Dispositivo {
 	public void eliminarInteresadoEnBusquedas(InteresadoEnBusquedas unInteresado){
 		observers.remove(unInteresado);
 	}
+
+	public Point getPosicion() {
+		return posicion;
+	}
+	
+	
 }
 
 
