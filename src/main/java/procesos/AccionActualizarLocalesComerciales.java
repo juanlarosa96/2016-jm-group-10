@@ -28,6 +28,8 @@ public class AccionActualizarLocalesComerciales implements Accion {
 		catch(Exception e){
 				throw new Exception();		
 		}
+		
+		lectorArchivo.close();
 	}
 
 	public AccionActualizarLocalesComerciales(String ruta) {
