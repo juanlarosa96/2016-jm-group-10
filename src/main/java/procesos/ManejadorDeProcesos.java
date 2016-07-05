@@ -32,6 +32,7 @@ public class ManejadorDeProcesos implements Runnable {
 	@Override
 	public void run() {
 		//Verificar el horario y ejecutar el proceso si corresponde
+//		procesos.sort((proceso1, proceso2) -> (proceso1.getFechaYhoraDeEjecucion().getMillisOfDay()) < (proceso2.getFechaYhoraDeEjecucion().getMillisOfDay()));
 	}
 	
 	public static void main(String[] args) {

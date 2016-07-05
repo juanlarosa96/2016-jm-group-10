@@ -9,8 +9,8 @@ import adapters.ComponenteExternoAdapter;
 public class ManejadorDePois {
 
 	private static ManejadorDePois singleton = null;
-	public static List<POI> listaPois;
-	private static List<ComponenteExternoAdapter> adaptersComponentesExternos;
+	public List<POI> listaPois;
+	private List<ComponenteExternoAdapter> adaptersComponentesExternos;
 
 	private ManejadorDePois() {
 
