@@ -1,29 +1,14 @@
 package tests;
 
-import adapters.AdapterMail;
-import adapters.CentroDTO;
-import eventosBusqueda.Busqueda;
-import eventosBusqueda.NotificadorEmail;
-import fixtures.FixtureCGP;
-import fixtures.FixtureCentroDTO;
-
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-import java.util.ArrayList;
-
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-
 import procesos.Accion;
-import procesos.CriterioDeManejoDeError;
-import procesos.CriterioSinManejoDeError;
-import procesos.ExceptionErrorEjecucionDeAccion;
 import procesos.ManejadorDeProcesos;
 import procesos.Proceso;
 import procesos.ResultadoEjecucion;;
