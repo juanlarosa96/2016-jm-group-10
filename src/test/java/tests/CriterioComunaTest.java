@@ -12,6 +12,7 @@ import adapters.ServicioExternoCGP;
 import pois.Dispositivo;
 import pois.ManejadorDeDispositivos;
 import procesos.CriterioComuna;
+import procesos.ExceptionErrorEjecucionDeAccion;
 
 public class CriterioComunaTest {
 	
@@ -22,7 +23,8 @@ public class CriterioComunaTest {
 	private Dispositivo dispositivoConPosicionDeComunaInvalida;
 	private ArrayList<Dispositivo> dispositivosValidos;
 	private ManejadorDeDispositivos manejadorDeDispositivos;
-	private CriterioComuna criterioComuna;
+	private CriterioComuna criterioComunaValida;
+	private CriterioComuna criterioComunaInvalida;
 	private CgpAdapter cgpAdapter;
 	private ServicioExternoCGP servicioExternoCGP;
 
@@ -32,7 +34,9 @@ public class CriterioComunaTest {
 		posicionComunaValida = new Point(-34.614978, -58.372815);
 		posicionComunaInvalida = new Point(-34.620999, -58.416590);
 		cgpAdapter = new CgpAdapter(servicioExternoCGP);
-		criterioComuna = new CriterioComuna(1);
+		criterioComunaValida = new CriterioComuna(1);
+		criterioComunaInvalida = new CriterioComuna(20);
+		
 		dispositivoConPosicionDeComunaValida = new Dispositivo("dispositivoValido", posicionComunaValida);
 		dispositivoConPosicionDeComunaValida2 = new Dispositivo("dispositivoValido2", posicionComunaValida);
 		dispositivoConPosicionDeComunaInvalida = new Dispositivo("dispostivoValido3", posicionComunaInvalida);
@@ -53,11 +57,17 @@ public class CriterioComunaTest {
 	@Test
 	public void siFiltroDispositivosPorComunaValidaDevuelveUnaListaNoVaciaDeDispositivos(){
 		try {
-			Assert.assertEquals(2, criterioComuna.filtrar().size(),0);
+			Assert.assertEquals(2, criterioComunaValida.filtrar().size(),0);
 		} catch (Exception e) {
 						
 		}
 
 	}
+	
+	@Test(expected = ExceptionErrorEjecucionDeAccion.class)
+	public void siFiltroDispositivosPorComunaInvalidaArrojaExcepcion() throws Exception{
+		criterioComunaInvalida.filtrar();
+	}
+	
 
 }
