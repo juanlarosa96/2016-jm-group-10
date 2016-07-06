@@ -11,6 +11,12 @@ public class ManejadorDeProcesos {
 	private static ManejadorDeProcesos singleton = null;
 	private ScheduledThreadPoolExecutor scheduler;
 	private List<Proceso> procesosEjecutados;
+	
+	public List<Proceso> getProcesosEjecutados(){
+		
+		return this.procesosEjecutados;
+		
+	}
 
 	private ManejadorDeProcesos() {
 		this.scheduler = new ScheduledThreadPoolExecutor(1);
@@ -29,23 +35,26 @@ public class ManejadorDeProcesos {
 		
 		Proceso procesoAEjecutar = new Proceso(accion, frecuencia, fechaYhoraDeEjecucion, criterioError);
 		DateTime fechaYhoraProcesoParaEjecutar = procesoAEjecutar.getFechaYhoraDeEjecucion();
-
+	
 		if (procesoAEjecutar.getFrecuenciaEnHoras() == 0) {
 
-			scheduler.schedule(this.ejecutarProceso(procesoAEjecutar),
+			scheduler.schedule(procesoAEjecutar,
 					fechaYhoraProcesoParaEjecutar.getMillis() - DateTime.now().getMillis(), TimeUnit.MILLISECONDS);
 
 		} else {
-			scheduler.scheduleAtFixedRate(this.ejecutarProceso(procesoAEjecutar),
+			scheduler.scheduleAtFixedRate(procesoAEjecutar,
 					fechaYhoraProcesoParaEjecutar.getMillis() - DateTime.now().getMillis(),
 					(long) (procesoAEjecutar.getFrecuenciaEnHoras() * 60 * 60 * 1000), TimeUnit.MILLISECONDS);
 		}
 	}
 
-	private Runnable ejecutarProceso(Proceso proceso) {
-		proceso.ejecutar();
-		procesosEjecutados.add(proceso);		
-		return null;
+	public void agregarProcesoEjecutado(Proceso proceso) {
+		this.procesosEjecutados.add(proceso);		
+	}
+
+	public void vaciarListaProcesosEjecutados() {
+		this.procesosEjecutados.clear();
+		
 	}
 
 }
