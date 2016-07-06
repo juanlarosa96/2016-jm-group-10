@@ -11,6 +11,12 @@ public class ManejadorDeProcesos {
 	private static ManejadorDeProcesos singleton;
 	private ScheduledThreadPoolExecutor scheduler;
 	private List<Proceso> procesosEjecutados;
+	
+	public List<Proceso> getProcesosEjecutados(){
+		
+		return this.procesosEjecutados;
+		
+	}
 
 	private ManejadorDeProcesos() {
 		this.scheduler = new ScheduledThreadPoolExecutor(1);
@@ -29,7 +35,7 @@ public class ManejadorDeProcesos {
 		
 		Proceso procesoAEjecutar = new Proceso(accion, frecuencia, fechaYhoraDeEjecucion, criterioError);
 		DateTime fechaYhoraProcesoParaEjecutar = procesoAEjecutar.getFechaYhoraDeEjecucion();
-
+	
 		if (procesoAEjecutar.getFrecuenciaEnHoras() == 0) {
 
 			scheduler.schedule(this.ejecutarProceso(procesoAEjecutar),
