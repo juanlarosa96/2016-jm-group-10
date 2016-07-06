@@ -15,7 +15,6 @@ import eventosBusqueda.InteresadoEnBusquedas;
 import eventosBusqueda.NotificadorEmail;
 import pois.Dispositivo;
 import pois.ManejadorDeDispositivos;
-import procesos.AccionQuitaarAccionesParaLosUsuarios;
 import procesos.AccionQuitarAccionesParaLosUsuarios;
 import procesos.CriterioComuna;
 import procesos.CriterioTodosLosUsuarios;
