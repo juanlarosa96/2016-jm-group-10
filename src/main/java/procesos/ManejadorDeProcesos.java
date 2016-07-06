@@ -32,20 +32,18 @@ public class ManejadorDeProcesos {
 
 		if (procesoAEjecutar.getFrecuenciaEnHoras() == 0) {
 
-			scheduler.schedule(this.ejecutarProceso(procesoAEjecutar),
+			scheduler.schedule(procesoAEjecutar,
 					fechaYhoraProcesoParaEjecutar.getMillis() - DateTime.now().getMillis(), TimeUnit.MILLISECONDS);
 
 		} else {
-			scheduler.scheduleAtFixedRate(this.ejecutarProceso(procesoAEjecutar),
+			scheduler.scheduleAtFixedRate(procesoAEjecutar,
 					fechaYhoraProcesoParaEjecutar.getMillis() - DateTime.now().getMillis(),
 					(long) (procesoAEjecutar.getFrecuenciaEnHoras() * 60 * 60 * 1000), TimeUnit.MILLISECONDS);
 		}
 	}
 
-	private Runnable ejecutarProceso(Proceso proceso) {
-		proceso.ejecutar();
+	public void agregarProcesoEjecutado(Proceso proceso) {
 		procesosEjecutados.add(proceso);		
-		return null;
 	}
 
 }
