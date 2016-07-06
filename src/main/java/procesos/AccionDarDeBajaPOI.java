@@ -12,7 +12,7 @@ public class AccionDarDeBajaPOI implements Accion {
 
 	private ManejadorDePois manejadorDePois;
 	private String urlPoisAEliminar;
-	private ComponenteExternoAdapter adapterServicioRest;
+	private AdapterServicioRest adapterServicioRest;
 
 	@Override
 	public ResultadoEjecucion ejecutar() throws ExceptionErrorEjecucionDeAccion {
