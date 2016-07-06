@@ -20,9 +20,10 @@ import procesos.AccionAgregarAccionesParaLosUsuarios;
 import procesos.CriterioComuna;
 import procesos.CriterioTodosLosUsuarios;
 import procesos.CriterioUsuariosSeleccionados;
+import procesos.ExceptionErrorEjecucionDeAccion;
 
 public class AgregarAccionesUsuarioTest {
-	
+
 	private CriterioComuna comunaValida;
 	private CriterioComuna comunaInvalida;
 	private CriterioTodosLosUsuarios todosLosUsuarios;
@@ -30,74 +31,87 @@ public class AgregarAccionesUsuarioTest {
 	private InteresadoEnBusquedas accionValida;
 	private AdapterMail adapterMail;
 	private ManejadorDeDispositivos manejadorDeDispositivos;
-	private Dispositivo	dispositivoConPosicionDeComunaValida;
+	private Dispositivo dispositivoConPosicionDeComunaValida;
 	private Dispositivo dispositivoConPosicionDeComunaValida2;
 	private Dispositivo dispositivoConPosicionDeComunaInvalida;
 	private Point posicionComunaValida;
-	private Point posicionComunaInvalida;
+	private Point posicionOtraComunaValida;
 	private List<Dispositivo> dispositivosSeleccionados;
-	private AccionAgregarAccionesParaLosUsuarios accionValidaConComunaValida;
-	private AccionAgregarAccionesParaLosUsuarios accionValidaConComunaInvalida;
-	private AccionAgregarAccionesParaLosUsuarios accionValidaTodosLosUsuarios;
-	private AccionAgregarAccionesParaLosUsuarios accionValidaUsuariosSeleccionados;
+	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaConComunaValida;
+	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaConComunaInvalida;
+	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaTodosLosUsuarios;
+	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaUsuariosSeleccionados;
 	private List<Dispositivo> dispositivosValidos;
 	private CgpAdapter cgpAdapter;
 	private ServicioExternoCGP servicioExternoCGP;
-	
+
 	@Before
-	public void init(){
+	public void init() {
 		posicionComunaValida = new Point(-34.621891, -58.509017);
-		posicionComunaInvalida = new Point(-34.620999, -58.416590);
-		
+		posicionOtraComunaValida = new Point(-34.620999, -58.416590);
+
 		dispositivoConPosicionDeComunaValida = new Dispositivo("dispositivoValido", posicionComunaValida);
 		dispositivoConPosicionDeComunaValida2 = new Dispositivo("dispositivoValido2", posicionComunaValida);
-		dispositivoConPosicionDeComunaInvalida = new Dispositivo("dispostivoValido3", posicionComunaInvalida);
-		
+		dispositivoConPosicionDeComunaInvalida = new Dispositivo("dispostivoValido3", posicionOtraComunaValida);
+
 		cgpAdapter = new CgpAdapter(servicioExternoCGP);
-		
+
 		dispositivosValidos = new ArrayList<Dispositivo>();
 		dispositivosValidos.add(dispositivoConPosicionDeComunaValida);
 		dispositivosValidos.add(dispositivoConPosicionDeComunaValida2);
 		dispositivosValidos.add(dispositivoConPosicionDeComunaInvalida);
-		
+
 		manejadorDeDispositivos = ManejadorDeDispositivos.getInstance();
 		manejadorDeDispositivos.setListaDispositivos(dispositivosValidos);
 		manejadorDeDispositivos.setCgpAdapter(cgpAdapter);
-		
+
 		comunaValida = new CriterioComuna(10);
 		comunaInvalida = new CriterioComuna(100);
 
 		accionValida = new NotificadorEmail(5.0, "emailAdmin@hotmail.com", adapterMail);
-		
+
 		dispositivosSeleccionados = new ArrayList<Dispositivo>();
 		dispositivosSeleccionados.add(dispositivoConPosicionDeComunaValida);
 		dispositivosSeleccionados.add(dispositivoConPosicionDeComunaInvalida);
-		
+
 		usuariosSeleccionados = new CriterioUsuariosSeleccionados(dispositivosSeleccionados);
 		
-		accionValidaConComunaValida = new AccionAgregarAccionesParaLosUsuarios(accionValida, comunaValida);
-		accionValidaConComunaInvalida = new AccionAgregarAccionesParaLosUsuarios(accionValida, comunaInvalida);
-		accionValidaTodosLosUsuarios = new AccionAgregarAccionesParaLosUsuarios(accionValida, todosLosUsuarios);
-		accionValidaUsuariosSeleccionados = new AccionAgregarAccionesParaLosUsuarios(accionValida, usuariosSeleccionados);
+		todosLosUsuarios = new CriterioTodosLosUsuarios();
+
+		agregarAccionValidaConComunaValida = new AccionAgregarAccionesParaLosUsuarios(accionValida, comunaValida);
+		agregarAccionValidaConComunaInvalida = new AccionAgregarAccionesParaLosUsuarios(accionValida, comunaInvalida);
+		agregarAccionValidaTodosLosUsuarios = new AccionAgregarAccionesParaLosUsuarios(accionValida, todosLosUsuarios);
+		agregarAccionValidaUsuariosSeleccionados = new AccionAgregarAccionesParaLosUsuarios(accionValida,
+				usuariosSeleccionados);
 	}
-	
+
 	@Test
-	public void siEjecutoLaAccionConUnaComunaValidaEntoncesLaAccionEsAgregadaALasAccionesDeLosUsuarios(){
+	public void siEjecutoLaAccionConCriterioDeComunaValidaEntoncesLaAccionEsAgregadaALasAccionesDeLosUsuarios() {
 		try {
-			accionValidaConComunaValida.ejecutar();
+			agregarAccionValidaConComunaValida.ejecutar();
 		} catch (Exception e) {
 		}
-		
+
 		Assert.assertTrue(dispositivoConPosicionDeComunaValida.getObservers().contains(accionValida));
 		Assert.assertTrue(dispositivoConPosicionDeComunaValida2.getObservers().contains(accionValida));
 	}
-	
-	@Test(expected = Exception.class)
-	public void siEjecutoLaAccionConUnaComunaInvalidaEntoncesLaAccionNoEsAgregadaALasAccionesDeLosUsuarios() throws Exception{
-			accionValidaConComunaInvalida.ejecutar();
+
+	@Test(expected = ExceptionErrorEjecucionDeAccion.class)
+	public void siEjecutoLaAccionConCriterioDeComunaInvalidaEntoncesLaAccionNoEsAgregadaALasAccionesDeLosUsuarios()
+			throws Exception {
+		agregarAccionValidaConComunaInvalida.ejecutar();
 	}
-	
-//	@Test
-//	public void si
+
+	@Test
+	public void siEjecutoLaAccionConCriterioTodosLosUsuariosEntoncesLaAccionEsAgregadaALasAccionesDeTodosLosUsuarios() {
+		try {
+			agregarAccionValidaTodosLosUsuarios.ejecutar();
+		} catch (Exception e) {
+		}
+		
+		List<Dispositivo> dispositivos = manejadorDeDispositivos.getListaDispositivos();
+		
+		Assert.assertTrue(dispositivos.stream().allMatch(disp -> disp.getObservers().contains(accionValida)));
+	}
 
 }
