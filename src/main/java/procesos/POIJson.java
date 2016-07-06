@@ -1,7 +1,5 @@
 package procesos;
 
-import java.util.ArrayList;
-
 import org.joda.time.DateTime;
 
 public class POIJson {
