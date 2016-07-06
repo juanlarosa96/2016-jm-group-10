@@ -8,7 +8,7 @@ import org.joda.time.DateTime;
 
 public class ManejadorDeProcesos {
 
-	private static ManejadorDeProcesos singleton;
+	private static ManejadorDeProcesos singleton = null;
 	private ScheduledThreadPoolExecutor scheduler;
 	private List<Proceso> procesosEjecutados;
 	

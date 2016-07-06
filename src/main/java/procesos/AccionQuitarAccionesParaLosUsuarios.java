@@ -18,14 +18,14 @@ public class AccionQuitarAccionesParaLosUsuarios implements Accion {
 	}
 
 	@Override
-	public ResultadoEjecucion ejecutar() throws Exception {
+	public ResultadoEjecucion ejecutar() throws ExceptionErrorEjecucionDeAccion {
 		try{
 			List<Dispositivo> usuarios = criterio.filtrar();
 			usuarios.stream().forEach(usuario -> usuario.eliminarInteresadoEnBusquedas(accionUsuario));
 			return new ResultadoEjecucion(usuarios.size(),DateTime.now(),"Acciones removidas para los usuarios seleccionados");
 		}
 		catch(Exception e){
-			throw new Exception();
+			throw new ExceptionErrorEjecucionDeAccion();
 		}	
 	}
 }

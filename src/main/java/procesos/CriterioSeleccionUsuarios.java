@@ -5,5 +5,5 @@ import pois.Dispositivo;
 
 public interface CriterioSeleccionUsuarios {
 
-	public List<Dispositivo> filtrar();
+	public List<Dispositivo> filtrar() throws Exception;
 }

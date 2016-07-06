@@ -20,14 +20,14 @@ public class AccionAgregarAccionesParaLosUsuarios implements Accion {
 
 
 	@Override
-	public ResultadoEjecucion ejecutar() throws Exception {
+	public ResultadoEjecucion ejecutar() throws ExceptionErrorEjecucionDeAccion {
 		try{
 			List<Dispositivo> usuarios = criterio.filtrar();
 			usuarios.stream().forEach(usuario -> usuario.agregarInteresadoEnBusquedas(accionUsuario));
 			return new ResultadoEjecucion(usuarios.size(),DateTime.now(),"Acciones agregadas para los usuarios seleccionados");
 		}
 		catch(Exception e){
-			throw new Exception();
+			throw new ExceptionErrorEjecucionDeAccion();
 		}	
 	}
 

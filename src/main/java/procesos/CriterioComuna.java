@@ -15,12 +15,12 @@ public class CriterioComuna implements CriterioSeleccionUsuarios {
 		this.manejadorDeDispositivos = ManejadorDeDispositivos.getInstance();
 	}
 	
-	public List<Dispositivo> filtrar(){
+	public List<Dispositivo> filtrar() throws Exception{
 		List<Dispositivo> dispositivos = null;
 		try {
 			dispositivos = manejadorDeDispositivos.filtrarPorComuna(numeroComuna);
 		} catch (Exception e) {
-			//Manejarlo
+			throw new ExceptionErrorEjecucionDeAccion();
 		}
 		return dispositivos;
 	}
