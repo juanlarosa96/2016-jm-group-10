@@ -32,35 +32,39 @@ public class AgregarAccionesUsuarioTest {
 	private Dispositivo dispositivoConPosicionDeComunaInvalida;
 	private Point posicionComunaValida;
 	private Point posicionComunaInvalida;
-	private List<Dispositivo> dispositivosValidos;
+	private List<Dispositivo> dispositivosSeleccionados;
 	private AccionAgregarAccionesParaLosUsuarios accionValidaConComunaValida;
 	private AccionAgregarAccionesParaLosUsuarios accionValidaConComunaInvalida;
 	private AccionAgregarAccionesParaLosUsuarios accionValidaTodosLosUsuarios;
 	private AccionAgregarAccionesParaLosUsuarios accionValidaUsuariosSeleccionados;
+	private List<Dispositivo> dispositivosValidos;
 	
 	@Before
 	public void init(){
 		comunaValida = new CriterioComuna(1);
 		comunaInvalida = new CriterioComuna(100);
-		posicionComunaValida = new Point(-34.614978, -58.372815);
-		posicionComunaInvalida = new Point(-34.620999, -58.416590);
 
 		accionValida = new NotificadorEmail(5.0, "emailAdmin@hotmail.com", adapterMail);
 		
-		dispositivosValidos = new ArrayList<Dispositivo>();
-		dispositivosValidos.add(dispositivoConPosicionDeComunaValida);
-		dispositivosValidos.add(dispositivoConPosicionDeComunaInvalida);
+		dispositivosSeleccionados = new ArrayList<Dispositivo>();
+		dispositivosSeleccionados.add(dispositivoConPosicionDeComunaValida);
+		dispositivosSeleccionados.add(dispositivoConPosicionDeComunaInvalida);
 		
-		usuariosSeleccionados = new CriterioUsuariosSeleccionados(dispositivosValidos);
-		
+		usuariosSeleccionados = new CriterioUsuariosSeleccionados(dispositivosSeleccionados);
+
 		dispositivoConPosicionDeComunaValida = new Dispositivo("dispositivoValido", posicionComunaValida);
 		dispositivoConPosicionDeComunaValida2 = new Dispositivo("dispositivoValido2", posicionComunaValida);
 		dispositivoConPosicionDeComunaInvalida = new Dispositivo("dispostivoValido3", posicionComunaInvalida);
+		posicionComunaValida = new Point(-34.614978, -58.372815);
+		posicionComunaInvalida = new Point(-34.620999, -58.416590);
+		
+		dispositivosValidos = new ArrayList<Dispositivo>();
+		dispositivosValidos.add(dispositivoConPosicionDeComunaValida);
+		dispositivosValidos.add(dispositivoConPosicionDeComunaValida2);
+		dispositivosValidos.add(dispositivoConPosicionDeComunaInvalida);
 		
 		manejadorDeDispositivos = ManejadorDeDispositivos.getInstance();
-		manejadorDeDispositivos.agregarDispositivo(dispositivoConPosicionDeComunaValida);
-		manejadorDeDispositivos.agregarDispositivo(dispositivoConPosicionDeComunaValida2);
-		manejadorDeDispositivos.agregarDispositivo(dispositivoConPosicionDeComunaInvalida);
+		manejadorDeDispositivos.setListaDispositivos(dispositivosValidos);
 		
 		accionValidaConComunaValida = new AccionAgregarAccionesParaLosUsuarios(accionValida, comunaValida);
 		accionValidaConComunaInvalida = new AccionAgregarAccionesParaLosUsuarios(accionValida, comunaInvalida);
@@ -68,6 +72,30 @@ public class AgregarAccionesUsuarioTest {
 		accionValidaUsuariosSeleccionados = new AccionAgregarAccionesParaLosUsuarios(accionValida, usuariosSeleccionados);
 	}
 	
+	@Test
+	public void siEjecutoLaAccionConUnaComunaValidaEntoncesLaAccionEsAgregadaALasAccionesDeLosUsuarios(){
+		try {
+			accionValidaConComunaValida.ejecutar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertEquals(1, dispositivoConPosicionDeComunaValida.getObservers().size(),0);
+		Assert.assertEquals(1, dispositivoConPosicionDeComunaValida2.getObservers().size(),0);
+//		Assert.assertTrue(dispositivoConPosicionDeComunaValida.getObservers().contains(accionValida));
+//		Assert.assertTrue(dispositivoConPosicionDeComunaValida2.getObservers().contains(accionValida));
+	}
 	
+	@Test
+	public void siEjecutoLaAccionConUnaComunaInvalidaEntoncesLaAccionNoEsAgregadaALasAccionesDeLosUsuarios(){
+		try {
+			accionValidaConComunaInvalida.ejecutar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertTrue(dispositivoConPosicionDeComunaValida.getObservers().isEmpty());
+		Assert.assertTrue(dispositivoConPosicionDeComunaValida2.getObservers().isEmpty());
+	}
 
 }

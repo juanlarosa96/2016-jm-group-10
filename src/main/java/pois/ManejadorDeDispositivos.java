@@ -47,7 +47,7 @@ public class ManejadorDeDispositivos {
 			throw new Exception("Numero de comuna invalido");
 		}
 
-		List<Dispositivo> dispositivos = listaDispositivos.stream()
+		List<Dispositivo> dispositivos = this.listaDispositivos.stream()
 				.filter(dispositivo -> comuna.incluyeA(dispositivo.getPosicion())).collect(Collectors.toList());
 		return dispositivos;
 	}
