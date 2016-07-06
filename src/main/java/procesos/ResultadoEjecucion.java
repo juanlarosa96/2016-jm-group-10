@@ -14,4 +14,17 @@ public class ResultadoEjecucion {
 		this.resultado = resultado;
 	}
 
+	public Integer getCantElementosAfectados() {
+		return cantElementosAfectados;
+	}
+
+	public DateTime getFechaYhoraEjecucion() {
+		return fechaYhoraEjecucion;
+	}
+
+	public String getResultado() {
+		return resultado;
+	}
+	
+
 }

@@ -3,21 +3,12 @@ package procesos;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
-
-import org.uqbar.geodds.Point;
-
-import adapters.BancoJson;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import pois.Banco;
 import pois.Direccion;
 import pois.ManejadorDePois;
 import pois.POI;
-import org.joda.time.DateTime;
 
 public class AdapterServicioRest {
 	

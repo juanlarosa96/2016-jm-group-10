@@ -1,12 +1,7 @@
 package procesos;
 
-import java.util.List;
-
 import org.joda.time.DateTime;
 import java.util.ArrayList;
-import java.util.List;
-
-import adapters.ComponenteExternoAdapter;
 import pois.ManejadorDePois;
 import pois.POI;
 

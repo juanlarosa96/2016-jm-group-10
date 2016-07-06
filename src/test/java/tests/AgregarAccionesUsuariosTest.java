@@ -15,7 +15,7 @@ import eventosBusqueda.InteresadoEnBusquedas;
 import eventosBusqueda.NotificadorEmail;
 import pois.Dispositivo;
 import pois.ManejadorDeDispositivos;
-import procesos.AccionQuitaarAccionesParaLosUsuarios;
+import procesos.AccionQuitarAccionesParaLosUsuarios;
 import procesos.CriterioComuna;
 import procesos.CriterioTodosLosUsuarios;
 import procesos.CriterioUsuariosSeleccionados;
@@ -36,10 +36,10 @@ public class AgregarAccionesUsuariosTest {
 	private Point posicionComunaValida;
 	private Point posicionOtraComunaValida;
 	private List<Dispositivo> dispositivosSeleccionados;
-	private AccionQuitaarAccionesParaLosUsuarios agregarAccionValidaConComunaValida;
-	private AccionQuitaarAccionesParaLosUsuarios agregarAccionValidaConComunaInvalida;
-	private AccionQuitaarAccionesParaLosUsuarios agregarAccionValidaTodosLosUsuarios;
-	private AccionQuitaarAccionesParaLosUsuarios agregarAccionValidaUsuariosSeleccionados;
+	private AccionQuitarAccionesParaLosUsuarios agregarAccionValidaConComunaValida;
+	private AccionQuitarAccionesParaLosUsuarios agregarAccionValidaConComunaInvalida;
+	private AccionQuitarAccionesParaLosUsuarios agregarAccionValidaTodosLosUsuarios;
+	private AccionQuitarAccionesParaLosUsuarios agregarAccionValidaUsuariosSeleccionados;
 	private List<Dispositivo> dispositivosValidos;
 	private CgpAdapter cgpAdapter;
 	private ServicioExternoCGP servicioExternoCGP;
@@ -77,10 +77,10 @@ public class AgregarAccionesUsuariosTest {
 		
 		todosLosUsuarios = new CriterioTodosLosUsuarios();
 
-		agregarAccionValidaConComunaValida = new AccionQuitaarAccionesParaLosUsuarios(accionValida, comunaValida);
-		agregarAccionValidaConComunaInvalida = new AccionQuitaarAccionesParaLosUsuarios(accionValida, comunaInvalida);
-		agregarAccionValidaTodosLosUsuarios = new AccionQuitaarAccionesParaLosUsuarios(accionValida, todosLosUsuarios);
-		agregarAccionValidaUsuariosSeleccionados = new AccionQuitaarAccionesParaLosUsuarios(accionValida,
+		agregarAccionValidaConComunaValida = new AccionQuitarAccionesParaLosUsuarios(accionValida, comunaValida);
+		agregarAccionValidaConComunaInvalida = new AccionQuitarAccionesParaLosUsuarios(accionValida, comunaInvalida);
+		agregarAccionValidaTodosLosUsuarios = new AccionQuitarAccionesParaLosUsuarios(accionValida, todosLosUsuarios);
+		agregarAccionValidaUsuariosSeleccionados = new AccionQuitarAccionesParaLosUsuarios(accionValida,
 				usuariosSeleccionados);
 	}
 
