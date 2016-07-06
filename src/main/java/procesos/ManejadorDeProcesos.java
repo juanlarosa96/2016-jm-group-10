@@ -49,7 +49,12 @@ public class ManejadorDeProcesos {
 	}
 
 	public void agregarProcesoEjecutado(Proceso proceso) {
-		procesosEjecutados.add(proceso);		
+		this.procesosEjecutados.add(proceso);		
+	}
+
+	public void vaciarListaProcesosEjecutados() {
+		this.procesosEjecutados.clear();
+		
 	}
 
 }
