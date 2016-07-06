@@ -20,7 +20,7 @@ public class CriterioComuna implements CriterioSeleccionUsuarios {
 		try {
 			dispositivos = manejadorDeDispositivos.filtrarPorComuna(numeroComuna);
 		} catch (Exception e) {
-			throw new Exception();
+			throw new ExceptionErrorEjecucionDeAccion();
 		}
 		return dispositivos;
 	}

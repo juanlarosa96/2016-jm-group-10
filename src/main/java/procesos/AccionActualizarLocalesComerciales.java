@@ -14,7 +14,7 @@ public class AccionActualizarLocalesComerciales implements Accion {
 	private ManejadorDePois manejedorPois;
 
 	@Override
-	public ResultadoEjecucion ejecutar() throws Exception {
+	public ResultadoEjecucion ejecutar() throws ExceptionErrorEjecucionDeAccion {
 
 		String linea;
 		BufferedReader lectorArchivo = null;
@@ -36,7 +36,7 @@ public class AccionActualizarLocalesComerciales implements Accion {
 			return new ResultadoEjecucion(cantElementosAfectados, DateTime.now(), "Locales Comerciales Actualizados");
 
 		} catch (Exception e) {
-			throw new Exception();
+			throw new ExceptionErrorEjecucionDeAccion();
 		}
 
 	}

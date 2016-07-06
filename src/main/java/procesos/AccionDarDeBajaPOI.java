@@ -14,7 +14,7 @@ public class AccionDarDeBajaPOI implements Accion {
 	private DateTime fechaYhoraDeBaja;
 
 	@Override
-	public ResultadoEjecucion ejecutar() throws Exception {
+	public ResultadoEjecucion ejecutar() throws ExceptionErrorEjecucionDeAccion {
 		try{
 		POI poiBuscado = manejadorDePois.buscarPOI(nombrePOI, direccionPOI);
 		manejadorDePois.eliminarPOI(poiBuscado);
@@ -25,7 +25,7 @@ public class AccionDarDeBajaPOI implements Accion {
 		
 		}
 		catch(Exception e){
-			throw new Exception();
+			throw new ExceptionErrorEjecucionDeAccion();
 		}		
 	}
 
