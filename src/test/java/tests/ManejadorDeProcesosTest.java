@@ -29,6 +29,7 @@ import procesos.ResultadoEjecucion;;
 
 public class ManejadorDeProcesosTest {
 	private Accion accionValida;
+	private Accion otraAccionValida;
 	private ManejadorDeProcesos manejadorProcesos;
 	private ResultadoEjecucion resultadoEjecucion;
 
@@ -36,11 +37,13 @@ public class ManejadorDeProcesosTest {
 	public void init() {
 		resultadoEjecucion = new ResultadoEjecucion(0, DateTime.now(), null);
 		accionValida = mock(Accion.class);
+		otraAccionValida = mock(Accion.class);
 		manejadorProcesos = ManejadorDeProcesos.getInstance();
 		manejadorProcesos.vaciarListaProcesosEjecutados();
 
 		try {
 			when(accionValida.ejecutar()).thenReturn(resultadoEjecucion);
+			when(otraAccionValida.ejecutar()).thenReturn(resultadoEjecucion);
 		} catch (Exception e) {
 
 		}
@@ -70,31 +73,51 @@ public class ManejadorDeProcesosTest {
 		manejadorProcesos.configurarProceso(accionValida, 0.0, tiempoDeEjecucion, null);
 		Assert.assertTrue(manejadorProcesos.getProcesosEjecutados().isEmpty());
 		try {
-			Thread.sleep(2002);
+			Thread.sleep(2010);
 		} catch (InterruptedException e) {
 		}
-		// dejo 2 ms de margen para que ejecute el hilo
+		// dejo 10 ms de margen para que ejecute el hilo
 		Proceso procesoEjecutado = manejadorProcesos.getProcesosEjecutados().get(0);
 
 		Assert.assertEquals(procesoEjecutado.getFechaYhoraDeEjecucion().getMillis(), tiempoDeEjecucion.getMillis(), 0);
 	}
 
 	@Test
-	public void testSiEjecutoUnProcesoConMenorTiempoDeRetardoDeLosQueEstabanEnLaListaDeEjecutadosEntoncesSeEjecutaPrimero() {
+	public void testSiEjecutoUnProcesoConMenorTiempoDeRetardoDeLosQueEstanEnLaColaDeEjecucionEntoncesSeEjecutaPrimero() {
 
-		DateTime tiempoEjecucionProcesoEntrante = DateTime.now();
+		DateTime tiempoEjecucionProcesoEntrante = DateTime.now().plusMillis(800);
 		DateTime tiempoEjecucionProcesoEnLista = DateTime.now().plusMillis(1000);
 
 		manejadorProcesos.configurarProceso(accionValida, 0.0, tiempoEjecucionProcesoEnLista, null);
-		manejadorProcesos.configurarProceso(accionValida, 0.0, tiempoEjecucionProcesoEntrante, null);
+		manejadorProcesos.configurarProceso(otraAccionValida, 0.0, tiempoEjecucionProcesoEntrante, null);
 
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 		}
 		List<Proceso> listaProcesosEjecutados = manejadorProcesos.getProcesosEjecutados();
-		Assert.assertEquals(listaProcesosEjecutados.get(0).getFechaYhoraDeEjecucion().getMillis(),
-				tiempoEjecucionProcesoEntrante.getMillis(), 0);
+
+		Assert.assertTrue(listaProcesosEjecutados.get(0).getAccion() == otraAccionValida);
+	}
+
+	@Test
+	public void testSiEjecutoUnProcesoConIgualTiempoDeRetardoDeOtroQueEstaEnLaColaDeEjecucionEntoncesSeEjecutaPrimeroElQueEstabaEnLaCola() {
+
+		DateTime tiempoEjecucionProcesoEnLista = DateTime.now().plusMillis(1000);
+		DateTime tiempoEjecucionProcesoEntrante = DateTime.now().plusMillis(1000);
+
+		manejadorProcesos.configurarProceso(accionValida, 0.0, tiempoEjecucionProcesoEnLista, null);
+		manejadorProcesos.configurarProceso(otraAccionValida, 0.0, tiempoEjecucionProcesoEntrante, null);
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+		}
+		List<Proceso> listaProcesosEjecutados = manejadorProcesos.getProcesosEjecutados();
+
+		Assert.assertTrue(listaProcesosEjecutados.get(0).getAccion() == accionValida);
+		Assert.assertTrue(listaProcesosEjecutados.get(1).getAccion() == otraAccionValida);
+
 	}
 
 }
