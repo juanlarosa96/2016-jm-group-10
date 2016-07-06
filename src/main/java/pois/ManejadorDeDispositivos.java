@@ -43,7 +43,6 @@ public class ManejadorDeDispositivos {
 		try {
 			comuna = cgpAdapter.dameComuna(numComuna);
 		} catch (Exception e) {
-			//Manejarlo
 			throw new Exception("Numero de comuna invalido");
 		}
 
