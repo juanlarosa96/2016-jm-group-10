@@ -3,10 +3,13 @@ package procesos;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import adapters.ComponenteExternoAdapter;
 import pois.ManejadorDePois;
 import pois.POI;
+
 
 public class AccionDarDeBajaPOI implements Accion {
 
@@ -18,7 +21,7 @@ public class AccionDarDeBajaPOI implements Accion {
 	public ResultadoEjecucion ejecutar() throws ExceptionErrorEjecucionDeAccion {
 		try {
 
-			List<POI> poisAEliminar = adapterServicioRest.buscarPoisDadosDeBaja(urlPoisAEliminar);
+			ArrayList<POI> poisAEliminar = adapterServicioRest.buscarPoisDadosDeBaja(urlPoisAEliminar);
 
 			poisAEliminar.stream().forEach(poi -> manejadorDePois.eliminarPOI(poi));
 
