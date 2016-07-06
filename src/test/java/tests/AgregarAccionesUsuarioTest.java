@@ -113,5 +113,15 @@ public class AgregarAccionesUsuarioTest {
 		
 		Assert.assertTrue(dispositivos.stream().allMatch(disp -> disp.getObservers().contains(accionValida)));
 	}
+	
+	@Test
+	public void siEjecutoLaAccionConCriterioUsuariosSeleccionadosEntoncesLaAccionEsAgregadaALasAccionesDeTodosLosUsuariosSeleccionados() {
+		try {
+			agregarAccionValidaUsuariosSeleccionados.ejecutar();
+		} catch (Exception e) {
+		}
+		
+		Assert.assertTrue(dispositivosSeleccionados.stream().allMatch(disp -> disp.getObservers().contains(accionValida)));
+	}
 
 }
