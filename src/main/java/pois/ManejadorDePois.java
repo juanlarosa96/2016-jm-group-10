@@ -100,7 +100,7 @@ public class ManejadorDePois {
 
 	}
 
-	public int actualizarEtiquetasLocalesComerciales(String nombre, List<String> etiquetas) {
+	public Integer actualizarEtiquetasLocalesComerciales(String nombre, List<String> etiquetas) {
 		Stream<POI> streamPois = listaPois.stream().filter(comercio -> comercio.getNombre().equals(nombre));
 		List<POI> lista = streamPois.collect(Collectors.toList());	
 		lista.stream().forEach(comercio -> comercio.setEtiquetas(etiquetas));
