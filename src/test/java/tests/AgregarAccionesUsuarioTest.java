@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.uqbar.geodds.Point;
 
@@ -91,15 +92,12 @@ public class AgregarAccionesUsuarioTest {
 		Assert.assertTrue(dispositivoConPosicionDeComunaValida2.getObservers().contains(accionValida));
 	}
 	
-	@Test
-	public void siEjecutoLaAccionConUnaComunaInvalidaEntoncesLaAccionNoEsAgregadaALasAccionesDeLosUsuarios(){
-		try {
+	@Test(expected = Exception.class)
+	public void siEjecutoLaAccionConUnaComunaInvalidaEntoncesLaAccionNoEsAgregadaALasAccionesDeLosUsuarios() throws Exception{
 			accionValidaConComunaInvalida.ejecutar();
-		} catch (Exception e) {
-		}
-		
-		Assert.assertTrue(dispositivoConPosicionDeComunaValida.getObservers().isEmpty());
-		Assert.assertTrue(dispositivoConPosicionDeComunaValida2.getObservers().isEmpty());
 	}
+	
+//	@Test
+//	public void si
 
 }
