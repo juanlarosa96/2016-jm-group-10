@@ -25,9 +25,9 @@ public class ManejadorDeProcesos {
 		return singleton;
 	}
 
-	public void configurarProceso(Accion accion, Double frecuencia, DateTime fechaYhoraDeEjecucion) {
+	public void configurarProceso(Accion accion, Double frecuencia, DateTime fechaYhoraDeEjecucion, CriterioDeManejoDeError criterioError) {
 		
-		Proceso procesoAEjecutar = new Proceso(accion, frecuencia, fechaYhoraDeEjecucion);
+		Proceso procesoAEjecutar = new Proceso(accion, frecuencia, fechaYhoraDeEjecucion, criterioError);
 		DateTime fechaYhoraProcesoParaEjecutar = procesoAEjecutar.getFechaYhoraDeEjecucion();
 
 		if (procesoAEjecutar.getFrecuenciaEnHoras() == 0) {

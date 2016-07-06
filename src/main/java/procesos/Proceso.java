@@ -7,8 +7,7 @@ public class Proceso {
 	private Accion accion;
 	private Double frecuenciaEnHoras;
 	private DateTime fechaYhoraDeEjecucion;
-	private CriterioDeManejoDeError criterioManejoError; //falta setter o pasarlo por constructor
-
+	private CriterioDeManejoDeError criterioManejoError;
 	private ResultadoEjecucion resultadoEjecucion;
 
 	public ResultadoEjecucion getResultadoEjecucion() {
@@ -19,10 +18,11 @@ public class Proceso {
 		this.resultadoEjecucion = resultadoEjecucion;
 	}
 
-	public Proceso(Accion accion, Double frecuencia, DateTime fechaYhora) {
+	public Proceso(Accion accion, Double frecuencia, DateTime fechaYhora, CriterioDeManejoDeError criterioError) {
 		this.accion = accion;
 		this.frecuenciaEnHoras = frecuencia;
 		this.fechaYhoraDeEjecucion = fechaYhora;
+		this.criterioManejoError = criterioError;
 	}
 
 	public Accion getAccion() {
