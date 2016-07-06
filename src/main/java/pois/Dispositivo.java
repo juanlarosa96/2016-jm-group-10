@@ -23,6 +23,10 @@ public class Dispositivo {
 		this.observers = new ArrayList<InteresadoEnBusquedas>();
 	}
 
+	public List<InteresadoEnBusquedas> getObservers() {
+		return observers;
+	}
+
 	public Boolean estoyCercaDe(POI poi) {
 		return poi.estasCerca(this.posicion);
 	}
