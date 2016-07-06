@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.uqbar.geodds.Point;
 
@@ -16,13 +15,13 @@ import eventosBusqueda.InteresadoEnBusquedas;
 import eventosBusqueda.NotificadorEmail;
 import pois.Dispositivo;
 import pois.ManejadorDeDispositivos;
-import procesos.AccionAgregarAccionesParaLosUsuarios;
+import procesos.AccionQuitaarAccionesParaLosUsuarios;
 import procesos.CriterioComuna;
 import procesos.CriterioTodosLosUsuarios;
 import procesos.CriterioUsuariosSeleccionados;
 import procesos.ExceptionErrorEjecucionDeAccion;
 
-public class AgregarAccionesUsuarioTest {
+public class AgregarAccionesUsuariosTest {
 
 	private CriterioComuna comunaValida;
 	private CriterioComuna comunaInvalida;
@@ -37,10 +36,10 @@ public class AgregarAccionesUsuarioTest {
 	private Point posicionComunaValida;
 	private Point posicionOtraComunaValida;
 	private List<Dispositivo> dispositivosSeleccionados;
-	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaConComunaValida;
-	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaConComunaInvalida;
-	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaTodosLosUsuarios;
-	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaUsuariosSeleccionados;
+	private AccionQuitaarAccionesParaLosUsuarios agregarAccionValidaConComunaValida;
+	private AccionQuitaarAccionesParaLosUsuarios agregarAccionValidaConComunaInvalida;
+	private AccionQuitaarAccionesParaLosUsuarios agregarAccionValidaTodosLosUsuarios;
+	private AccionQuitaarAccionesParaLosUsuarios agregarAccionValidaUsuariosSeleccionados;
 	private List<Dispositivo> dispositivosValidos;
 	private CgpAdapter cgpAdapter;
 	private ServicioExternoCGP servicioExternoCGP;
@@ -78,10 +77,10 @@ public class AgregarAccionesUsuarioTest {
 		
 		todosLosUsuarios = new CriterioTodosLosUsuarios();
 
-		agregarAccionValidaConComunaValida = new AccionAgregarAccionesParaLosUsuarios(accionValida, comunaValida);
-		agregarAccionValidaConComunaInvalida = new AccionAgregarAccionesParaLosUsuarios(accionValida, comunaInvalida);
-		agregarAccionValidaTodosLosUsuarios = new AccionAgregarAccionesParaLosUsuarios(accionValida, todosLosUsuarios);
-		agregarAccionValidaUsuariosSeleccionados = new AccionAgregarAccionesParaLosUsuarios(accionValida,
+		agregarAccionValidaConComunaValida = new AccionQuitaarAccionesParaLosUsuarios(accionValida, comunaValida);
+		agregarAccionValidaConComunaInvalida = new AccionQuitaarAccionesParaLosUsuarios(accionValida, comunaInvalida);
+		agregarAccionValidaTodosLosUsuarios = new AccionQuitaarAccionesParaLosUsuarios(accionValida, todosLosUsuarios);
+		agregarAccionValidaUsuariosSeleccionados = new AccionQuitaarAccionesParaLosUsuarios(accionValida,
 				usuariosSeleccionados);
 	}
 

@@ -7,12 +7,12 @@ import org.joda.time.DateTime;
 import eventosBusqueda.InteresadoEnBusquedas;
 import pois.Dispositivo;
 
-public class AccionAgregarAccionesParaLosUsuarios implements Accion {
+public class AccionQuitaarAccionesParaLosUsuarios implements Accion {
 
 	private InteresadoEnBusquedas accionUsuario;
 	private CriterioSeleccionUsuarios criterio;
 	
-	public AccionAgregarAccionesParaLosUsuarios(InteresadoEnBusquedas accion, CriterioSeleccionUsuarios criterio) {
+	public AccionQuitaarAccionesParaLosUsuarios(InteresadoEnBusquedas accion, CriterioSeleccionUsuarios criterio) {
 		this.accionUsuario = accion;
 		this.criterio = criterio;
 	}
