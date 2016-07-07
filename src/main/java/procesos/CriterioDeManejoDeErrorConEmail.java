@@ -20,6 +20,8 @@ public class CriterioDeManejoDeErrorConEmail implements CriterioDeManejoDeError 
 		adapterMail.enviarMailPorErrorDeProceso(proceso, emailAdmin);
 
 		ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion(0, DateTime.now(), "Error. Email enviado");
+		//ResultadoEjecucion.DameUnResultadoErroneoConElMensaje()
+		
 		proceso.setResultadoEjecucion(resultadoEjecucion);
 
 	}

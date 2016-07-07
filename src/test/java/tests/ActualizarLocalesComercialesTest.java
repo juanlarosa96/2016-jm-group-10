@@ -38,6 +38,8 @@ public class ActualizarLocalesComercialesTest {
 	
 	@Test
 	public void testEjecutoActualizarLocalesComercialesYNoEncuentraLocalesConNombreEnElArchivo() throws ExceptionErrorEjecucionDeAccion {
+		//Crear el archivo de prueba
+		
 		ArrayList<String> listaEtiquetas = new ArrayList<String>();
 		listaEtiquetas.add("OtraEtiquetaValida");
 		listaEtiquetas.add("OtraEtiquetaValida2");
@@ -51,8 +53,10 @@ public class ActualizarLocalesComercialesTest {
 		Assert.assertEquals(0, accion.ejecutar().getCantElementosAfectados(), 0);
 		Assert.assertEquals(cantidadEtiquetasInicial, ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().size(), 0);
 		Assert.assertTrue(ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().get(0).equals("OtraEtiquetaValida"));
-		ManejadorDePois.getInstance().listaPois.clear();
+		ManejadorDePois.getInstance().listaPois.clear(); //After
 
 	}
+	
+	//Testear si el archivo esta vacio
 
 }

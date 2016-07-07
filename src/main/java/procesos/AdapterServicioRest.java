@@ -28,7 +28,9 @@ public class AdapterServicioRest {
 		return singleton;
 	}
 	
-	public ArrayList<POI> buscarPoisDadosDeBaja(String json) {
+	public ArrayList<POI> buscarPoisDadosDeBaja(String urlPoisAEliminar) {
+		
+		String json = componenteExterno.getJson(urlPoisAEliminar);
 		
 		ArrayList<POIJson> listaJson = new ArrayList<POIJson>();
 		ArrayList<POI> listaPois;

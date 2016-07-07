@@ -10,6 +10,8 @@ public class CriterioSinManejoDeError implements CriterioDeManejoDeError {
 		//No maneja el error
 
 		ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion(0, DateTime.now(), "Error. No se maneja");
+		//ResultadoEjecucion.DameUnResultadoErroneoConElMensaje()
+		
 		proceso.setResultadoEjecucion(resultadoEjecucion);
 	}
 
