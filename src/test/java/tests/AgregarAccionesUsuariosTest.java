@@ -15,11 +15,11 @@ import eventosBusqueda.InteresadoEnBusquedas;
 import eventosBusqueda.NotificadorEmail;
 import pois.Dispositivo;
 import pois.ManejadorDeDispositivos;
-import procesos.AccionQuitarAccionesParaLosUsuarios;
 import procesos.CriterioComuna;
 import procesos.CriterioTodosLosUsuarios;
 import procesos.CriterioUsuariosSeleccionados;
 import procesos.ExceptionErrorEjecucionDeAccion;
+import procesos.AccionAgregarAccionesParaLosUsuarios;
 
 public class AgregarAccionesUsuariosTest {
 
@@ -36,13 +36,13 @@ public class AgregarAccionesUsuariosTest {
 	private Point posicionComunaValida;
 	private Point posicionOtraComunaValida;
 	private List<Dispositivo> dispositivosSeleccionados;
-	private AccionQuitarAccionesParaLosUsuarios agregarAccionValidaConComunaValida;
-	private AccionQuitarAccionesParaLosUsuarios agregarAccionValidaConComunaInvalida;
-	private AccionQuitarAccionesParaLosUsuarios agregarAccionValidaTodosLosUsuarios;
-	private AccionQuitarAccionesParaLosUsuarios agregarAccionValidaUsuariosSeleccionados;
 	private List<Dispositivo> dispositivosValidos;
 	private CgpAdapter cgpAdapter;
 	private ServicioExternoCGP servicioExternoCGP;
+	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaConComunaValida;
+	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaConComunaInvalida;
+	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaTodosLosUsuarios;
+	private AccionAgregarAccionesParaLosUsuarios agregarAccionValidaUsuariosSeleccionados;
 
 	@Before
 	public void init() {
@@ -76,12 +76,12 @@ public class AgregarAccionesUsuariosTest {
 		usuariosSeleccionados = new CriterioUsuariosSeleccionados(dispositivosSeleccionados);
 		
 		todosLosUsuarios = new CriterioTodosLosUsuarios();
+		
+		agregarAccionValidaConComunaValida = new AccionAgregarAccionesParaLosUsuarios(accionValida, comunaValida);
+		agregarAccionValidaConComunaInvalida = new AccionAgregarAccionesParaLosUsuarios(accionValida, comunaInvalida);
+		agregarAccionValidaTodosLosUsuarios = new AccionAgregarAccionesParaLosUsuarios(accionValida, todosLosUsuarios);
+		agregarAccionValidaUsuariosSeleccionados = new AccionAgregarAccionesParaLosUsuarios(accionValida, usuariosSeleccionados);
 
-		agregarAccionValidaConComunaValida = new AccionQuitarAccionesParaLosUsuarios(accionValida, comunaValida);
-		agregarAccionValidaConComunaInvalida = new AccionQuitarAccionesParaLosUsuarios(accionValida, comunaInvalida);
-		agregarAccionValidaTodosLosUsuarios = new AccionQuitarAccionesParaLosUsuarios(accionValida, todosLosUsuarios);
-		agregarAccionValidaUsuariosSeleccionados = new AccionQuitarAccionesParaLosUsuarios(accionValida,
-				usuariosSeleccionados);
 	}
 
 	@Test
@@ -104,7 +104,7 @@ public class AgregarAccionesUsuariosTest {
 	@Test
 	public void siEjecutoLaAccionConCriterioTodosLosUsuariosEntoncesLaAccionEsAgregadaALasAccionesDeTodosLosUsuarios() {
 		try {
-			agregarAccionValidaTodosLosUsuarios.ejecutar();
+		agregarAccionValidaTodosLosUsuarios.ejecutar();
 		} catch (Exception e) {
 		}
 		
@@ -116,7 +116,7 @@ public class AgregarAccionesUsuariosTest {
 	@Test
 	public void siEjecutoLaAccionConCriterioUsuariosSeleccionadosEntoncesLaAccionEsAgregadaALasAccionesDeTodosLosUsuariosSeleccionados() {
 		try {
-			agregarAccionValidaUsuariosSeleccionados.ejecutar();
+		agregarAccionValidaUsuariosSeleccionados.ejecutar();	
 		} catch (Exception e) {
 		}
 		
