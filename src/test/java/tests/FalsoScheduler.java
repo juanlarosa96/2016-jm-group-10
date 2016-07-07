@@ -12,7 +12,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class FalsoScheduler implements ScheduledExecutorService {
+public class FalsoScheduler implements ScheduledExecutorService{
 
 	private Queue<Runnable> colaProcesos;
 	private Integer cantidadProcesosEjecutados;
@@ -45,12 +45,13 @@ public class FalsoScheduler implements ScheduledExecutorService {
 	}
 
 	public void start() {
-		while (!colaProcesos.isEmpty()) {
-			colaProcesos.poll().run();
-
-			this.cantidadProcesosEjecutados++;
-		}
+		(new FalsoSchedulerThread(this)).run();
 	}
+
+	public void aumentarCantProcesosEjecutados() {
+		this.cantidadProcesosEjecutados++;
+	}
+
 
 	public void resetCantidadProcesosEjecutados() {
 		this.cantidadProcesosEjecutados = 0;
