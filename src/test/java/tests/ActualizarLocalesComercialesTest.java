@@ -1,10 +1,7 @@
 package tests;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.*;
-
 import fixtures.FixtureComercio;
 import pois.Comercio;
 import pois.ManejadorDePois;
