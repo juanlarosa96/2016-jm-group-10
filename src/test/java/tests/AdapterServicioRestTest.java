@@ -30,6 +30,7 @@ public class AdapterServicioRestTest {
 	parada114Segurola = FixtureParadaColectivo.dameUnaParada114Valida();
 	
 	listaPOISJson = FixtureAdapterServicioRest.devolverListaPOIJsonNoVacia();
+	adapterServicioRest = AdapterServicioRest.getInstance();
 	
 	}
 	
