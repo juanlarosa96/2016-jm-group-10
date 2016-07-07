@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.sun.org.apache.bcel.internal.ExceptionConstants;
-
 import procesos.Accion;
 import procesos.CriterioDeManejoDeError;
 import procesos.ExceptionErrorEjecucionDeAccion;
