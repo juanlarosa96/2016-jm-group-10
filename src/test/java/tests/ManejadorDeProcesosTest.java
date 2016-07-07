@@ -2,7 +2,6 @@ package tests;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
