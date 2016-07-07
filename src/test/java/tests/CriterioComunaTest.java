@@ -55,7 +55,7 @@ public class CriterioComunaTest {
 	}
 	
 	@Test
-	public void siFiltroDispositivosPorComunaValidaDevuelveUnaListaNoVaciaDeDispositivos(){
+	public void siFiltroDispositivosPorComunaValidaDevuelveUnaListaDeDispositivos(){
 		try {
 			Assert.assertEquals(2, criterioComunaValida.filtrar().size(),0);
 		} catch (Exception e) {
