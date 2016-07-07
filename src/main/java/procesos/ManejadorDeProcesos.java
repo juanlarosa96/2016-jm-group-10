@@ -2,6 +2,7 @@ package procesos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.joda.time.DateTime;
@@ -9,13 +10,17 @@ import org.joda.time.DateTime;
 public class ManejadorDeProcesos {
 
 	private static ManejadorDeProcesos singleton = null;
-	private ScheduledThreadPoolExecutor scheduler;
+	private ScheduledExecutorService scheduler;
 	private List<Proceso> procesosEjecutados;
 	
 	public List<Proceso> getProcesosEjecutados(){
 		
 		return this.procesosEjecutados;
 		
+	}
+
+	public void setScheduler(ScheduledExecutorService scheduler) {
+		this.scheduler = scheduler;
 	}
 
 	private ManejadorDeProcesos() {
@@ -55,6 +60,10 @@ public class ManejadorDeProcesos {
 	public void vaciarListaProcesosEjecutados() {
 		this.procesosEjecutados.clear();
 		
+	}
+
+	public ScheduledExecutorService getScheduler() {
+		return scheduler;
 	}
 
 }
