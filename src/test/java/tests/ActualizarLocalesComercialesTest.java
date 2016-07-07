@@ -22,12 +22,17 @@ public class ActualizarLocalesComercialesTest {
 	@Test
 	public void testEjecutoActualizarLocalesComercialesYModificaPoisEnListaDePois() throws ExceptionErrorEjecucionDeAccion {
 		
-		ManejadorDePois.getInstance().agregarPoi(FixtureComercio.dameComercioValido());
+		ArrayList<String> listaEtiquetas = new ArrayList<String>();
+		listaEtiquetas.add("EtiquetaValida");
+		listaEtiquetas.add("EtiquetaValida2");
+		Comercio comercio = new Comercio(null,null,null,"LocalValido",null, listaEtiquetas);
+		ManejadorDePois.getInstance().agregarPoi(comercio);
 		AccionActualizarLocalesComerciales accion = new AccionActualizarLocalesComerciales(ruta);
 
 		Assert.assertEquals(1, accion.ejecutar().getCantElementosAfectados(), 0);
 		Assert.assertEquals(1, ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().size(), 0);
 		Assert.assertTrue(ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().get(0).equals("EtiquetaValida"));
+		ManejadorDePois.getInstance().listaPois.clear();
 
 	}
 	
@@ -35,6 +40,7 @@ public class ActualizarLocalesComercialesTest {
 	public void testEjecutoActualizarLocalesComercialesYNoEncuentraLocalesConNombreEnElArchivo() throws ExceptionErrorEjecucionDeAccion {
 		ArrayList<String> listaEtiquetas = new ArrayList<String>();
 		listaEtiquetas.add("OtraEtiquetaValida");
+		listaEtiquetas.add("OtraEtiquetaValida2");
 		Comercio comercio = new Comercio(null,null,null,"OtroLocalValido",null, listaEtiquetas);
 		ManejadorDePois.getInstance().agregarPoi(comercio);		
 		
@@ -45,6 +51,7 @@ public class ActualizarLocalesComercialesTest {
 		Assert.assertEquals(0, accion.ejecutar().getCantElementosAfectados(), 0);
 		Assert.assertEquals(cantidadEtiquetasInicial, ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().size(), 0);
 		Assert.assertTrue(ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().get(0).equals("OtraEtiquetaValida"));
+		ManejadorDePois.getInstance().listaPois.clear();
 
 	}
 
