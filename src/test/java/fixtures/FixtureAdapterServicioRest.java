@@ -19,7 +19,7 @@ public class FixtureAdapterServicioRest {
 	private static void inicializarPOIJson() {
 	
 
-		unPOIJson = new POIJson("114", "Av. Segurola", 230, unHorarioCualquiera );
+		unPOIJson = new POIJson("114", "Av. Segurola", 230 /*, unHorarioCualquiera */);
 		
 		return;
 		

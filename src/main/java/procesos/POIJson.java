@@ -7,18 +7,18 @@ public class POIJson {
 	private String Nombre;
 	private String Calle;
 	private Integer Altura;
-	private DateTime FechaBaja;
+	//private DateTime FechaBaja;
 	
 public POIJson (){
 		
 		
 	} 
 
-public POIJson(String Nombre, String Calle, Integer Altura, DateTime FechaBaja) {
+public POIJson(String Nombre, String Calle, Integer Altura /* ,DateTime FechaBaja*/) {
 	this.setNombre(Nombre);
 	this.setCalle(Calle);
 	this.setAltura(Altura);
-	this.setFechaBaja(FechaBaja);
+	//this.setFechaBaja(FechaBaja);
 	
 }
 
@@ -46,13 +46,13 @@ public void setAltura(Integer altura) {
 	Altura = altura;
 }
 	
-public DateTime getFechaBaja() {
+/*public DateTime getFechaBaja() {
 	return FechaBaja;
-}
+}*/
 
-public void setFechaBaja(DateTime fechaBaja) {
+/*public void setFechaBaja(DateTime fechaBaja) {
 	FechaBaja = fechaBaja;
-}
+}*/
 
 
 }
