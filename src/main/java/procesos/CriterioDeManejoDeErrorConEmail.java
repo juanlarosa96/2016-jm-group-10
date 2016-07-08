@@ -1,7 +1,5 @@
 package procesos;
 
-import org.joda.time.DateTime;
-
 import adapters.AdapterMail;
 
 public class CriterioDeManejoDeErrorConEmail implements CriterioDeManejoDeError {
@@ -19,9 +17,9 @@ public class CriterioDeManejoDeErrorConEmail implements CriterioDeManejoDeError 
 
 		adapterMail.enviarMailPorErrorDeProceso(proceso, emailAdmin);
 
-		ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion(0, DateTime.now(), "Error. Email enviado");
-		//ResultadoEjecucion.DameUnResultadoErroneoConElMensaje()
-		
+		ResultadoEjecucion resultadoEjecucion = ResultadoEjecucion
+				.dameUnResultadoDeErrorConElMensaje("Error. Email enviado.");
+
 		proceso.setResultadoEjecucion(resultadoEjecucion);
 
 	}

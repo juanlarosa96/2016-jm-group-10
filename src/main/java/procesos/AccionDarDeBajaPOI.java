@@ -1,10 +1,8 @@
 package procesos;
 
-import org.joda.time.DateTime;
 import java.util.ArrayList;
 import pois.ManejadorDePois;
 import pois.POI;
-
 
 public class AccionDarDeBajaPOI implements Accion {
 
@@ -20,7 +18,7 @@ public class AccionDarDeBajaPOI implements Accion {
 
 			poisAEliminar.stream().forEach(poi -> manejadorDePois.eliminarPOI(poi));
 
-			return new ResultadoEjecucion(poisAEliminar.size(), DateTime.now(), "POIs dados de baja correctamente.");
+			return ResultadoEjecucion.dameResultadoCon(poisAEliminar.size(), "POIs dados de baja correctamente.");
 
 		} catch (Exception e) {
 			throw new ExceptionErrorEjecucionDeAccion();

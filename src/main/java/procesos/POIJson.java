@@ -1,7 +1,5 @@
 package procesos;
 
-import org.joda.time.DateTime;
-
 public class POIJson {
 	
 	private String Nombre;

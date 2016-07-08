@@ -33,7 +33,7 @@ public class AccionActualizarLocalesComerciales implements Accion {
 
 			lectorArchivo.close();
 			
-			return new ResultadoEjecucion(cantElementosAfectados, DateTime.now(), "Locales Comerciales Actualizados");
+			return ResultadoEjecucion.dameResultadoCon(cantElementosAfectados,"Locales Comerciales Actualizados");
 
 		} catch (Exception e) {
 			throw new ExceptionErrorEjecucionDeAccion();

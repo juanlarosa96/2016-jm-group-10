@@ -25,6 +25,14 @@ public class ResultadoEjecucion {
 	public String getResultado() {
 		return resultado;
 	}
-	
+
+	public static ResultadoEjecucion dameUnResultadoDeErrorConElMensaje(String mensajeError) {
+		return new ResultadoEjecucion(0, DateTime.now(), mensajeError);
+	}
+
+	public static ResultadoEjecucion dameResultadoCon(Integer cantidadElementosAfectados, String descripcion) {
+
+		return new ResultadoEjecucion(cantidadElementosAfectados, DateTime.now(), descripcion);
+	}
 
 }
