@@ -6,10 +6,9 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import adapters.BancoJson;
+import procesos.POIJson;
 
 import com.google.gson.Gson;
-
-import procesos.POIJson;
 
 public class FixtureAdapterServicioRest {
 	
@@ -34,6 +33,10 @@ public class FixtureAdapterServicioRest {
 
 		return new Gson().toJson(listaPOIJson);
 
+	}
+
+	public static String dameStringPoisValidos() {
+		return null;
 	}
 
 }

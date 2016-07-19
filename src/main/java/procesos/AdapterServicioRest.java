@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import pois.Direccion;
 import pois.ManejadorDePois;
 import pois.POI;
@@ -14,6 +15,7 @@ public class AdapterServicioRest {
 	
 	private static AdapterServicioRest singleton = null;
 	private ManejadorDePois manejadorDePois;
+	private ServicioRest servicioRest;
 	
 	private AdapterServicioRest() {
 		this.manejadorDePois = ManejadorDePois.getInstance();
@@ -30,14 +32,14 @@ public class AdapterServicioRest {
 	
 	public ArrayList<POI> buscarPoisDadosDeBaja(String urlPoisAEliminar) {
 		
-		String json = componenteExterno.getJson(urlPoisAEliminar);
+		String stringJson = servicioRest.obtenerContenidoEnStringDeURL(urlPoisAEliminar);
 		
 		ArrayList<POIJson> listaJson = new ArrayList<POIJson>();
 		ArrayList<POI> listaPois;
 		Type tipoListaPOISJson = new TypeToken<Collection<POIJson>>(){}.getType();
 		Gson parserGson = new Gson();
 		
-		listaJson = parserGson.fromJson(json,tipoListaPOISJson);
+		listaJson = parserGson.fromJson(stringJson,tipoListaPOISJson);
 		
 		listaPois = (ArrayList<POI>) listaJson.stream().map(POIJson-> convertirAPOI(POIJson)).collect(Collectors.toList());
 		
@@ -57,5 +59,11 @@ public class AdapterServicioRest {
 		return unPoi;
 		
 	}
+
+	public void setServicioRest(ServicioRest servicioRest) {
+		this.servicioRest = servicioRest;
+	}
+
+	
 
 }

@@ -1,6 +1,7 @@
 package procesos;
 
 import java.util.ArrayList;
+
 import pois.ManejadorDePois;
 import pois.POI;
 
