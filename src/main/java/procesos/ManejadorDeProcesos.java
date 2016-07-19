@@ -6,6 +6,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.joda.time.DateTime;
+import org.mockito.stubbing.Answer;
 
 public class ManejadorDeProcesos {
 
@@ -41,7 +42,7 @@ public class ManejadorDeProcesos {
 		Proceso procesoAEjecutar = new Proceso(accion, frecuencia, fechaYhoraDeEjecucion, criterioError);
 		DateTime fechaYhoraProcesoParaEjecutar = procesoAEjecutar.getFechaYhoraDeEjecucion();
 	
-		if (procesoAEjecutar.getFrecuenciaEnHoras() == 0) {
+		if (procesoAEjecutar.getFrecuenciaEnHoras() == 0.0) {
 
 			scheduler.schedule(procesoAEjecutar,
 					fechaYhoraProcesoParaEjecutar.getMillis() - DateTime.now().getMillis(), TimeUnit.MILLISECONDS);
@@ -64,6 +65,15 @@ public class ManejadorDeProcesos {
 
 	public ScheduledExecutorService getScheduler() {
 		return scheduler;
+	}
+	
+	public Answer<?> ejecutarProceso(Proceso proceso){
+		proceso.run();
+		return null;
+	}
+
+	public Integer cantProcesosEjecutados() {
+		return this.procesosEjecutados.size();
 	}
 
 }
