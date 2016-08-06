@@ -2,8 +2,6 @@ package tests;
 
 import static org.mockito.Mockito.*;
 
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
@@ -12,54 +10,61 @@ import org.junit.Before;
 import org.junit.Test;
 
 import procesos.Accion;
+import procesos.ExceptionErrorEjecucionDeAccion;
 import procesos.ManejadorDeProcesos;
 import procesos.Proceso;
-import procesos.ResultadoEjecucion;;
+import procesos.ResultadoEjecucion;
+import procesos.Scheduler;
+import procesos.SchedulerAdapter;;
 
 public class ManejadorDeProcesosTest {
 	private Accion accionValida;
 	private Accion otraAccionValida;
 	private ManejadorDeProcesos manejadorProcesos;
 	private ResultadoEjecucion resultadoEjecucion;
-	private ScheduledExecutorService falsoScheduler;
 	private Proceso proceso;
+	private Scheduler scheduler;
+	private SchedulerAdapter schedulerAdapter;
 
 	@Before
-	public void init() {
+	public void init(){
+
 		resultadoEjecucion = new ResultadoEjecucion(0, DateTime.now(), null);
+
 		accionValida = mock(Accion.class);
 		otraAccionValida = mock(Accion.class);
+
+		scheduler = mock(Scheduler.class);
+		schedulerAdapter = SchedulerAdapter.getInstance();
+		schedulerAdapter.setScheduler(scheduler);
+		
 		manejadorProcesos = ManejadorDeProcesos.getInstance();
 		manejadorProcesos.vaciarListaProcesosEjecutados();
 
-		falsoScheduler = mock(ScheduledExecutorService.class);
-
 		proceso = new Proceso(accionValida, 0.0, DateTime.now(), null);
-		manejadorProcesos.setScheduler(falsoScheduler);
 
 		try {
 			when(accionValida.ejecutar()).thenReturn(resultadoEjecucion);
 			when(otraAccionValida.ejecutar()).thenReturn(resultadoEjecucion);
-		} catch (Exception e) {
+		} catch (ExceptionErrorEjecucionDeAccion e) {
 		}
+
+		//when(scheduler.schedule(any(Proceso.class), anyLong(), any(TimeUnit.class), anyDouble())).thenReturn(proceso.run());
 
 	}
 
 	@Test
 	public void testSiConfiguroUnProcesoElSchedulerLoEjecuta() {
-		
-		when(falsoScheduler.schedule(any(Proceso.class), anyLong(),any(TimeUnit.class)))
-		.thenReturn(manejadorProcesos.ejecutarProceso(proceso));
-		
+
 		DateTime tiempoDeEjecucion = DateTime.now();
 		manejadorProcesos.configurarProceso(accionValida, 0.0, tiempoDeEjecucion, null);
-		verify(falsoScheduler).schedule(any(Proceso.class), anyLong(),
-				any(TimeUnit.class));
+
+		verify(scheduler).schedule(any(Proceso.class), anyLong(), any(TimeUnit.class), anyDouble());
 		Assert.assertEquals(1, manejadorProcesos.cantProcesosEjecutados(), 0);
-		
+
 	}
 
-	/*@Test
+	@Test
 	public void testSiConfiguroDosProcesosEjecutaAmbos() {
 
 		DateTime tiempoEjecucionProceso1 = DateTime.now();
@@ -68,10 +73,10 @@ public class ManejadorDeProcesosTest {
 		manejadorProcesos.configurarProceso(accionValida, 0.0, tiempoEjecucionProceso1, null);
 		manejadorProcesos.configurarProceso(otraAccionValida, 0.0, tiempoEjecucionProceso2, null);
 
-		verify(falsoScheduler, times(2)).schedule(any(Proceso.class), anyLong(),
-				any(TimeUnit.class));
+		verify(scheduler, times(2)).schedule(any(Proceso.class), anyLong(), any(TimeUnit.class), anyDouble());
 
 		Assert.assertEquals(2, manejadorProcesos.cantProcesosEjecutados(), 0);
 
-	}*/
+	}
+
 }
