@@ -2,31 +2,23 @@ package procesos;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import org.joda.time.DateTime;
-import org.mockito.stubbing.Answer;
 
 public class ManejadorDeProcesos {
 
 	private static ManejadorDeProcesos singleton = null;
-	private ScheduledExecutorService scheduler;
+	private SchedulerAdapter schedulerAdapter;
 	private List<Proceso> procesosEjecutados;
-	
-	public List<Proceso> getProcesosEjecutados(){
-		
-		return this.procesosEjecutados;
-		
-	}
 
-	public void setScheduler(ScheduledExecutorService scheduler) {
-		this.scheduler = scheduler;
+	public List<Proceso> getProcesosEjecutados() {
+
+		return this.procesosEjecutados;
+
 	}
 
 	private ManejadorDeProcesos() {
-		this.scheduler = new ScheduledThreadPoolExecutor(1);
+		this.schedulerAdapter = SchedulerAdapter.getInstance();
 		this.procesosEjecutados = new ArrayList<Proceso>();
 	}
 
@@ -38,39 +30,23 @@ public class ManejadorDeProcesos {
 		return singleton;
 	}
 
-	public void configurarProceso(Accion accion, Double frecuencia, DateTime fechaYhoraDeEjecucion, CriterioDeManejoDeError criterioError) {
-		
+	public void configurarProceso(Accion accion, Double frecuencia, DateTime fechaYhoraDeEjecucion,
+			CriterioDeManejoDeError criterioError) {
+
 		Proceso procesoAEjecutar = new Proceso(accion, frecuencia, fechaYhoraDeEjecucion, criterioError);
 		DateTime fechaYhoraProcesoParaEjecutar = procesoAEjecutar.getFechaYhoraDeEjecucion();
-	
-		if (procesoAEjecutar.getFrecuenciaEnHoras() == 0.0) {
 
-			scheduler.schedule(procesoAEjecutar,
-					fechaYhoraProcesoParaEjecutar.getMillis() - DateTime.now().getMillis(), TimeUnit.MILLISECONDS);
+		schedulerAdapter.schedule(procesoAEjecutar,
+				fechaYhoraProcesoParaEjecutar.getMillis() - DateTime.now().getMillis(), TimeUnit.MILLISECONDS, frecuencia);
 
-		} else {
-			scheduler.scheduleAtFixedRate(procesoAEjecutar,
-					fechaYhoraProcesoParaEjecutar.getMillis() - DateTime.now().getMillis(),
-					(long) (procesoAEjecutar.getFrecuenciaEnHoras() * 60 * 60 * 1000), TimeUnit.MILLISECONDS);
-		}
 	}
 
 	public void agregarProcesoEjecutado(Proceso proceso) {
-		this.procesosEjecutados.add(proceso);		
+		this.procesosEjecutados.add(proceso);
 	}
 
 	public void vaciarListaProcesosEjecutados() {
 		this.procesosEjecutados.clear();
-		
-	}
-
-	public ScheduledExecutorService getScheduler() {
-		return scheduler;
-	}
-	
-	public ScheduledFuture<Object> ejecutarProceso(Proceso proceso){
-		proceso.run();
-		return null;
 	}
 
 	public Integer cantProcesosEjecutados() {
