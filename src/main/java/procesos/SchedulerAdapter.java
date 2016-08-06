@@ -6,7 +6,7 @@ public class SchedulerAdapter {
 
 	private Scheduler scheduler;
 
-	private static SchedulerAdapter singleton;
+	private static SchedulerAdapter singleton = null;
 
 	public SchedulerAdapter() {
 
@@ -19,7 +19,8 @@ public class SchedulerAdapter {
 	public static SchedulerAdapter getInstance() {
 
 		if (singleton == null) {
-			return new SchedulerAdapter();
+
+			singleton = new SchedulerAdapter();
 		}
 		return singleton;
 	}
