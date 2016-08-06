@@ -2,7 +2,7 @@ package procesos;
 
 import org.joda.time.DateTime;
 
-public class Proceso {
+public class Proceso implements Runnable {
 
 	private Accion accion;
 	private Double frecuenciaEnHoras;
@@ -50,11 +50,11 @@ public class Proceso {
 		}
 	}
 
-	public Proceso run() {
+	public void run() {
+		
 		this.ejecutar();
 		ManejadorDeProcesos.getInstance().agregarProcesoEjecutado(this);
 		
-		return this;
 	}
 
 }
