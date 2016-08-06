@@ -49,7 +49,7 @@ public class ManejadorDeProcesosTest {
 		} catch (ExceptionErrorEjecucionDeAccion e) {
 		}
 
-		//when(scheduler.schedule(any(Proceso.class), anyLong(), any(TimeUnit.class), anyDouble())).thenReturn(proceso.run());
+		when(scheduler.schedule(any(Proceso.class), anyLong(), any(TimeUnit.class), anyDouble())).thenReturn(proceso.run());
 
 	}
 
