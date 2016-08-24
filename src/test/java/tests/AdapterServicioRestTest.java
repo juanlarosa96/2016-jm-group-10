@@ -1,6 +1,7 @@
 package tests;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,6 +27,7 @@ public class AdapterServicioRestTest {
 	private POI unPOI;
 	private ServicioRest servicioRest;
 	private String stringPoisValidos;
+	List<POI> ListaPOIsManejador;
 	
 	@Before
 	public void init() {
@@ -33,13 +35,24 @@ public class AdapterServicioRestTest {
 	
 	parada114Segurola = FixtureParadaColectivo.dameUnaParada114Valida();
 	
+
+			
+	ListaPOIsManejador = new ArrayList<POI>() {
+				{
+					add(parada114Segurola);
+					
+				}
+			};
+	
+	manejadorDePois.setListaPois(ListaPOIsManejador);
+	
 	listaPOISJson = FixtureAdapterServicioRest.devolverListaPOIJsonNoVacia();
 	
 	servicioRest = mock(ServicioRest.class);
 	
 	stringPoisValidos = FixtureAdapterServicioRest.dameStringPoisValidos();
 	
-	when(servicioRest.obtenerContenidoEnStringDeURL(anyString())).thenReturn(stringPoisValidos);
+	when(servicioRest.obtenerContenidoEnStringDeURL(anyString())).thenReturn(listaPOISJson);
 	
 	
 	adapterServicioRest = AdapterServicioRest.getInstance();
@@ -49,7 +62,7 @@ public class AdapterServicioRestTest {
 	
 	@Test
 	public void siAdapterRecibeUnaUrlConPoisValidosEnJsonDevuelveLaListaDePoisValidosCorrespondientes(){
-		listaPois = adapterServicioRest.buscarPoisDadosDeBaja(listaPOISJson);
+		listaPois = adapterServicioRest.buscarPoisDadosDeBaja("URL");
 		Assert.assertEquals(listaPois.size(), 1);
 	}
 	
