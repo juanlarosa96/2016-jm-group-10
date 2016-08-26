@@ -75,6 +75,7 @@ public class Direccion {
 	}
 
 	public Boolean esLaMismaDireccionQue(Direccion otraDireccion) {		
-		return (otraDireccion.getCalle()==this.calle) && (otraDireccion.getAltura()==this.altura);
+		return (otraDireccion.getCalle().equalsIgnoreCase(this.calle)) && (otraDireccion.getAltura().equals(this.altura));
+		
 	}
 }
