@@ -110,9 +110,9 @@ public class ManejadorDePois {
 
 	public POI buscarPOI(String nombrePOI, Direccion direccionPOI) {
 		return listaPois.stream().filter(
-				poi -> poi.getNombre().equals(nombrePOI) && poi.getDireccion().esLaMismaDireccionQue(direccionPOI))
+				poi -> poi.getNombre().equalsIgnoreCase(nombrePOI) && poi.getDireccion().esLaMismaDireccionQue(direccionPOI))
 				.collect(Collectors.toList()).get(0);
-
+	
 		// Si no encuentra ninguno tira IndexOutOfBoundsException
 	}
 
