@@ -1,7 +1,7 @@
 package tests;
 
 import adapters.AdapterMail;
-import eventosBusqueda.Busqueda;
+import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.NotificadorEmail;
 
 import static org.mockito.Mockito.mock;
@@ -15,17 +15,17 @@ public class AdapterMailTest {
 
 	private AdapterMail adapterMailMockeado;
 	private NotificadorEmail notificadorEmail;
-	private Busqueda busquedaConMayorTiempo;
-	private Busqueda busquedaConMenorTiempo;
-	private Busqueda busquedaConIgualTiempo;
+	private ResultadoBusqueda busquedaConMayorTiempo;
+	private ResultadoBusqueda busquedaConMenorTiempo;
+	private ResultadoBusqueda busquedaConIgualTiempo;
 
 	@Before
 	public void init() {
 		adapterMailMockeado = mock(AdapterMail.class);
 
-		busquedaConMayorTiempo = new Busqueda("terminalAbasto", 3, null, 10.0, "hospital");
-		busquedaConMenorTiempo = new Busqueda("terminalCaballito", 4, null, 3.0, "cine");
-		busquedaConIgualTiempo = new Busqueda("terminalRecoleta", 6, null, 5.0, "ropa");
+		busquedaConMayorTiempo = new ResultadoBusqueda("terminalAbasto", null , null, 10.0, "hospital");
+		busquedaConMenorTiempo = new ResultadoBusqueda("terminalCaballito", null , null, 3.0, "cine");
+		busquedaConIgualTiempo = new ResultadoBusqueda("terminalRecoleta", null, null, 5.0, "ropa");
 
 		notificadorEmail = new NotificadorEmail(5.0, "admin@gmail.com", adapterMailMockeado);
 
