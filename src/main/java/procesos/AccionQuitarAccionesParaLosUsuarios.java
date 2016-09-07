@@ -22,7 +22,7 @@ public class AccionQuitarAccionesParaLosUsuarios implements Accion {
 
 			usuarios.stream().forEach(usuario -> usuario.eliminarInteresadoEnBusquedas(accionUsuario));
 
-			return ResultadoEjecucion.dameResultadoCon(usuarios.size(),
+			return ResultadoEjecucion.dameResultadoConCantElemAfectadosYMensaje(usuarios.size(),
 					"Acciones removidas para los usuarios seleccionados.");
 
 		} catch (Exception e) {

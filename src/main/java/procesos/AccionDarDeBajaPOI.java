@@ -19,7 +19,7 @@ public class AccionDarDeBajaPOI implements Accion {
 
 			poisAEliminar.stream().forEach(poi -> manejadorDePois.eliminarPOI(poi));
 
-			return ResultadoEjecucion.dameResultadoCon(poisAEliminar.size(), "POIs dados de baja correctamente.");
+			return ResultadoEjecucion.dameResultadoConCantElemAfectadosYMensaje(poisAEliminar.size(), "POIs dados de baja correctamente.");
 
 		} catch (Exception e) {
 			throw new ExceptionErrorEjecucionDeAccion();

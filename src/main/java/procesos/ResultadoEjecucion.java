@@ -30,7 +30,7 @@ public class ResultadoEjecucion {
 		return new ResultadoEjecucion(0, DateTime.now(), mensajeError);
 	}
 
-	public static ResultadoEjecucion dameResultadoCon(Integer cantidadElementosAfectados, String descripcion) {
+	public static ResultadoEjecucion dameResultadoConCantElemAfectadosYMensaje(Integer cantidadElementosAfectados, String descripcion) {
 
 		return new ResultadoEjecucion(cantidadElementosAfectados, DateTime.now(), descripcion);
 	}
