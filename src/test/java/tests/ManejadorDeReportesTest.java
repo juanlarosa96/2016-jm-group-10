@@ -8,32 +8,32 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import eventosBusqueda.Busqueda;
+import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.ManejadorDeReportes;
 import herramientas.ManejadorDeFechas;
 
 public class ManejadorDeReportesTest {
 
-	private Busqueda busquedaAbasto1;
-	private Busqueda busquedaRecoleta1;
+	private ResultadoBusqueda busquedaAbasto1;
+	private ResultadoBusqueda busquedaRecoleta1;
 	private DateTime fecha1;
 
 	private ManejadorDeReportes manejadorDeReportes;
-	private Busqueda busquedaCaballito1;
+	private ResultadoBusqueda busquedaCaballito1;
 	private DateTime fecha2;
-	private Busqueda busquedaAbasto2;
-	private Busqueda busquedaAbastoCon0Resultados;
+	private ResultadoBusqueda busquedaAbasto2;
+	private ResultadoBusqueda busquedaAbastoCon0Resultados;
 
 	@Before
 	public void init() {
 		fecha1 = new DateTime(2016, 06, 07, 20, 51);
 		fecha2 = new DateTime(2014, 03, 05, 10, 20);
 
-		busquedaAbasto1 = new Busqueda("terminalAbasto", 3, fecha1, 10.0, "hospital");
-		busquedaRecoleta1 = new Busqueda("terminalRecoleta", 5, fecha1, 12.5, "libreria");
-		busquedaCaballito1 = new Busqueda("terminalCaballito", 4, fecha2, 3.4, "restaurant");
-		busquedaAbasto2= new Busqueda("terminalAbasto", 8 , fecha2, 2.5, "burguer");
-		busquedaAbastoCon0Resultados = new Busqueda("terminalAbasto", 0, fecha2, 1.5, "fabrica de pizza");
+		busquedaAbasto1 = new ResultadoBusqueda("terminalAbasto", 3, fecha1, 10.0, "hospital");
+		busquedaRecoleta1 = new ResultadoBusqueda("terminalRecoleta", 5, fecha1, 12.5, "libreria");
+		busquedaCaballito1 = new ResultadoBusqueda("terminalCaballito", 4, fecha2, 3.4, "restaurant");
+		busquedaAbasto2= new ResultadoBusqueda("terminalAbasto", 8 , fecha2, 2.5, "burguer");
+		busquedaAbastoCon0Resultados = new ResultadoBusqueda("terminalAbasto", 0, fecha2, 1.5, "fabrica de pizza");
 
 		manejadorDeReportes = ManejadorDeReportes.getInstance();
 		manejadorDeReportes.limpiarBusquedas();
