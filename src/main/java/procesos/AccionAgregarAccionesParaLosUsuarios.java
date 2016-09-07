@@ -23,7 +23,7 @@ public class AccionAgregarAccionesParaLosUsuarios implements Accion {
 			
 			usuarios.stream().forEach(usuario -> usuario.agregarInteresadoEnBusquedas(accionUsuario));
 			
-			return ResultadoEjecucion.dameResultadoCon(usuarios.size(),
+			return ResultadoEjecucion.dameResultadoConCantElemAfectadosYMensaje(usuarios.size(),
 					"Acciones agregadas para los usuarios seleccionados");
 			
 		} catch (Exception e) {
