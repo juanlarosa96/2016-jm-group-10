@@ -1,5 +1,8 @@
 package tests;
 
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,10 +10,12 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.ManejadorDeReportes;
 import herramientas.ManejadorDeFechas;
+import pois.POI;
 
 public class ManejadorDeReportesTest {
 
@@ -23,20 +28,41 @@ public class ManejadorDeReportesTest {
 	private DateTime fecha2;
 	private ResultadoBusqueda busquedaAbasto2;
 	private ResultadoBusqueda busquedaAbastoCon0Resultados;
+	
+	private ArrayList<POI> listaSize0;
+	private ArrayList<POI> listaSize3;
+	private ArrayList<POI> listaSize4;
+	private ArrayList<POI> listaSize5;
+	private ArrayList<POI> listaSize8;
 
+	@SuppressWarnings("unchecked")
 	@Before
 	public void init() {
 		fecha1 = new DateTime(2016, 06, 07, 20, 51);
 		fecha2 = new DateTime(2014, 03, 05, 10, 20);
+		
+		listaSize0 = Mockito.mock(ArrayList.class);
+		listaSize3 = Mockito.mock(ArrayList.class);
+		listaSize4 = Mockito.mock(ArrayList.class);
+		listaSize5 = Mockito.mock(ArrayList.class);
+		listaSize8 = Mockito.mock(ArrayList.class);
+		
+		when(listaSize0.size()).thenReturn(0);
+		when(listaSize3.size()).thenReturn(3);
+		when(listaSize4.size()).thenReturn(4);
+		when(listaSize5.size()).thenReturn(5);
+		when(listaSize8.size()).thenReturn(8);
 
-		busquedaAbasto1 = new ResultadoBusqueda("terminalAbasto", 3, fecha1, 10.0, "hospital");
-		busquedaRecoleta1 = new ResultadoBusqueda("terminalRecoleta", 5, fecha1, 12.5, "libreria");
-		busquedaCaballito1 = new ResultadoBusqueda("terminalCaballito", 4, fecha2, 3.4, "restaurant");
-		busquedaAbasto2= new ResultadoBusqueda("terminalAbasto", 8 , fecha2, 2.5, "burguer");
-		busquedaAbastoCon0Resultados = new ResultadoBusqueda("terminalAbasto", 0, fecha2, 1.5, "fabrica de pizza");
+		busquedaAbasto1 = new ResultadoBusqueda("terminalAbasto", listaSize3, fecha1, 10.0, "hospital");
+		busquedaRecoleta1 = new ResultadoBusqueda("terminalRecoleta", listaSize5, fecha1, 12.5, "libreria");
+		busquedaCaballito1 = new ResultadoBusqueda("terminalCaballito", listaSize4, fecha2, 3.4, "restaurant");
+		busquedaAbasto2= new ResultadoBusqueda("terminalAbasto", listaSize8 , fecha2, 2.5, "burguer");
+		busquedaAbastoCon0Resultados = new ResultadoBusqueda("terminalAbasto", listaSize0, fecha2, 1.5, "fabrica de pizza");
 
 		manejadorDeReportes = ManejadorDeReportes.getInstance();
 		manejadorDeReportes.limpiarBusquedas();
+		
+		
 	}
 
 	@Test
