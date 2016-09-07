@@ -6,7 +6,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
-import eventosBusqueda.Busqueda;
+import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.InteresadoEnBusquedas;
 import herramientas.ManejadorDeFechas;
 
@@ -40,7 +40,7 @@ public class Dispositivo {
 		
 		Double demoraEnSegundos = ManejadorDeFechas.obtenerDuracionIntervaloEnSegundos(inicio,fin);
 		
-		Busqueda unaBusqueda = new Busqueda(this.nombre, listaPoisEncontrados, DateTime.now(), demoraEnSegundos,
+		ResultadoBusqueda unaBusqueda = new ResultadoBusqueda(this.nombre, listaPoisEncontrados, DateTime.now(), demoraEnSegundos,
 				descripcion);
 		
 		this.notificarBusqueda(unaBusqueda);
@@ -48,7 +48,7 @@ public class Dispositivo {
 		return listaPoisEncontrados;
 	}
 	
-	private void notificarBusqueda(Busqueda unaBusqueda) {
+	private void notificarBusqueda(ResultadoBusqueda unaBusqueda) {
 		observers.stream().forEach(observer -> observer.notificarBusqueda(unaBusqueda));
 		
 	}

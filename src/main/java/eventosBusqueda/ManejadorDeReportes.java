@@ -11,16 +11,16 @@ import herramientas.ManejadorDeFechas;
 
 public class ManejadorDeReportes implements InteresadoEnBusquedas {
 
-	List<Busqueda> busquedas;
+	List<ResultadoBusqueda> busquedas;
 	private static ManejadorDeReportes singleton;
 
 	private ManejadorDeReportes() {
 
-		busquedas = new ArrayList<Busqueda>();
+		busquedas = new ArrayList<ResultadoBusqueda>();
 	}
 
 	@Override
-	public void notificarBusqueda(Busqueda unaBusqueda) {
+	public void notificarBusqueda(ResultadoBusqueda unaBusqueda) {
 		busquedas.add(unaBusqueda);
 	}
 

@@ -15,19 +15,19 @@ public class NotificadorEmail implements InteresadoEnBusquedas {
 	}
 
 	@Override
-	public void notificarBusqueda(Busqueda unaBusqueda) {
+	public void notificarBusqueda(ResultadoBusqueda unaBusqueda) {
 
 		if (this.deboNotificarBusqueda(unaBusqueda)) {
 			this.notificarBusquedaPorMail(unaBusqueda);
 		}
 	}
 
-	private void notificarBusquedaPorMail(Busqueda unaBusqueda) {
+	private void notificarBusquedaPorMail(ResultadoBusqueda unaBusqueda) {
 		adapterMail.enviarMailPorBusquedaLenta(unaBusqueda, emailAdmin);
 
 	}
 
-	private boolean deboNotificarBusqueda(Busqueda unaBusqueda) {
+	private boolean deboNotificarBusqueda(ResultadoBusqueda unaBusqueda) {
 
 		return unaBusqueda.getDemoraEnSegundos() > this.demoraMaximaEnSegundos;
 	}

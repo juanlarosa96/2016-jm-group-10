@@ -1,11 +1,11 @@
 package adapters;
 
-import eventosBusqueda.Busqueda;
+import eventosBusqueda.ResultadoBusqueda;
 import procesos.Proceso;
 
 public interface AdapterMail {
 
-	public void enviarMailPorBusquedaLenta(Busqueda unaBusqueda, String direccionEmailDestino);
+	public void enviarMailPorBusquedaLenta(ResultadoBusqueda unaBusqueda, String direccionEmailDestino);
 
 	public void enviarMailPorErrorDeProceso(Proceso proceso, String direccionEmailDestino);
 

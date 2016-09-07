@@ -6,7 +6,7 @@ import org.joda.time.DateTime;
 
 import pois.POI;
 
-public class Busqueda {
+public class ResultadoBusqueda {
 
 	private String nombreTerminal;
 	private List<POI> poisEncontrados;
@@ -34,7 +34,7 @@ public class Busqueda {
 		return descripcionBuscada;
 	}
 
-	public Busqueda(String nombreTerminal, List<POI> listaPoisEncontrados, DateTime fecha, Double demoraEnSegundos,
+	public ResultadoBusqueda(String nombreTerminal, List<POI> listaPoisEncontrados, DateTime fecha, Double demoraEnSegundos,
 			String descripcionBuscada) {
 		this.nombreTerminal = nombreTerminal;
 		this.poisEncontrados = listaPoisEncontrados;
