@@ -1,11 +1,15 @@
 package eventosBusqueda;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
+
+import pois.POI;
 
 public class Busqueda {
 
 	private String nombreTerminal;
-	private Integer cantResultados;
+	private List<POI> poisEncontrados;
 	private DateTime fecha;
 	private Double demoraEnSegundos;
 	private String descripcionBuscada;
@@ -15,7 +19,7 @@ public class Busqueda {
 	}
 
 	public Integer getCantResultados() {
-		return cantResultados;
+		return poisEncontrados.size();
 	}
 
 	public DateTime getFecha() {
@@ -30,10 +34,10 @@ public class Busqueda {
 		return descripcionBuscada;
 	}
 
-	public Busqueda(String nombreTerminal, Integer cantResultados, DateTime fecha, Double demoraEnSegundos,
+	public Busqueda(String nombreTerminal, List<POI> listaPoisEncontrados, DateTime fecha, Double demoraEnSegundos,
 			String descripcionBuscada) {
 		this.nombreTerminal = nombreTerminal;
-		this.cantResultados = cantResultados;
+		this.poisEncontrados = listaPoisEncontrados;
 		this.fecha = fecha;
 		this.demoraEnSegundos = demoraEnSegundos;
 		this.descripcionBuscada = descripcionBuscada;

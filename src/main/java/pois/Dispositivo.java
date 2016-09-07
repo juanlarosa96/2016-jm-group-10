@@ -40,7 +40,7 @@ public class Dispositivo {
 		
 		Double demoraEnSegundos = ManejadorDeFechas.obtenerDuracionIntervaloEnSegundos(inicio,fin);
 		
-		Busqueda unaBusqueda = new Busqueda(this.nombre, listaPoisEncontrados.size(), DateTime.now(), demoraEnSegundos,
+		Busqueda unaBusqueda = new Busqueda(this.nombre, listaPoisEncontrados, DateTime.now(), demoraEnSegundos,
 				descripcion);
 		
 		this.notificarBusqueda(unaBusqueda);
