@@ -2,18 +2,34 @@ package pois;
 
 import java.util.List;
 
+import javax.persistence.*;
+
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
 import herramientas.ManejadorDeFechas;
 import herramientas.ManejadorDeStrings;
 
+
+@Entity
+@Table(name = "pois")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class POI {
 	
+	@Id @GeneratedValue
+	private Integer id;
+	
+	@OneToOne
 	private Point posicion;
 	private String nombre;
+	
+	@OneToOne
 	private Direccion direccion;
+	
+	@OneToMany
 	private List<String> etiquetas;
+	
+	@OneToMany
 	private List<FranjaHoraria> horarios;	
 	
 
