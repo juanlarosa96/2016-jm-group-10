@@ -1,12 +1,22 @@
 package pois;
 
+import javax.persistence.*;
+
 import org.joda.time.LocalTime;
 
+@Table(name= "franjas_horarias")
+@Entity
 public class FranjaHoraria {
-
+	
+	@Id @GeneratedValue
+	private Integer id;
+	
 	private Integer diaDeLaSemana;
 	private LocalTime horarioApertura;
 	private LocalTime horarioCierre;
+	
+	@SuppressWarnings("unused")
+	private FranjaHoraria(){}
 
 	public FranjaHoraria(Integer dia, LocalTime horarioApertura, LocalTime horarioCierre) {
 
@@ -26,6 +36,19 @@ public class FranjaHoraria {
 	public LocalTime getHorarioCierre() {
 		return horarioCierre;
 	}
+
+	public void setDiaDeLaSemana(Integer diaDeLaSemana) {
+		this.diaDeLaSemana = diaDeLaSemana;
+	}
+
+	public void setHorarioApertura(LocalTime horarioApertura) {
+		this.horarioApertura = horarioApertura;
+	}
+
+	public void setHorarioCierre(LocalTime horarioCierre) {
+		this.horarioCierre = horarioCierre;
+	}
+	
 
 	
 
