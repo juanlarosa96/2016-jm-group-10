@@ -1,6 +1,14 @@
 package pois;
 
+import javax.persistence.*;
+
+@Table(name = "direcciones")
+@Entity
 public class Direccion {
+	
+	@Id @GeneratedValue
+	private Integer id;
+	
 	private String calle;
 	private Integer altura;
 	private String entreCalle1;
@@ -8,6 +16,90 @@ public class Direccion {
 	private Integer piso;
 	private Character departamento;
 	private Integer codigoPostal;
+	
+	@SuppressWarnings("unused")
+	private Direccion(){}
+	
+	public String getEntreCalle1() {
+		return entreCalle1;
+	}
+
+	public void setEntreCalle1(String entreCalle1) {
+		this.entreCalle1 = entreCalle1;
+	}
+
+	public String getEntreCalle2() {
+		return entreCalle2;
+	}
+
+	public void setEntreCalle2(String entreCalle2) {
+		this.entreCalle2 = entreCalle2;
+	}
+
+	public Integer getPiso() {
+		return piso;
+	}
+
+	public void setPiso(Integer piso) {
+		this.piso = piso;
+	}
+
+	public Character getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Character departamento) {
+		this.departamento = departamento;
+	}
+
+	public Integer getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(Integer codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
+
+	public String getBarrio() {
+		return barrio;
+	}
+
+	public void setBarrio(String barrio) {
+		this.barrio = barrio;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public void setAltura(Integer altura) {
+		this.altura = altura;
+	}
+
 	private String localidad;
 	private String barrio;
 	private String provincia;
