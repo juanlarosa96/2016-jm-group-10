@@ -2,13 +2,25 @@ package pois;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.persistence.*;
+
 import org.joda.time.DateTime;
 import org.uqbar.geodds.Point;
 
+@Table(name = "cgps")
+@Entity
 public class CGP extends POI {
+	
+	@OneToMany
 	private List<Servicio> servicios;
+	
+	@Embedded
 	private Comuna comuna;
-
+	
+	@SuppressWarnings("unused")
+	private CGP(){}
+	
 	public CGP(List<Servicio> servicios, Comuna comuna, Point posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
 		this.servicios = servicios;
@@ -17,6 +29,22 @@ public class CGP extends POI {
 		this.setNombre(nombre);
 		this.setDireccion(direccion);
 		this.setEtiquetas(etiquetas);
+	}
+
+	public List<Servicio> getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(List<Servicio> servicios) {
+		this.servicios = servicios;
+	}
+
+	public Comuna getComuna() {
+		return comuna;
+	}
+
+	public void setComuna(Comuna comuna) {
+		this.comuna = comuna;
 	}
 
 	@Override
