@@ -8,6 +8,18 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
     	 
+    	  <class> tpaPois.pois.POI </class>
+    	  <class> tpaPois.pois.ParadaColectivo </class>
+    	  <class> tpaPois.pois.CGP </class>
+    	  <class> tpaPois.pois.Comercio </class>
+    	  
+    	  <class> tpaPois.pois.FranjaHoraria </class>
+    	  <class> tpaPois.pois.Direccion </class>
+    	  <class> tpaPois.pois.Servicio </class>
+    	  <class> tpaPois.pois.Rubro </class>
+    	  <class> tpaPois.pois.Dispositivo </class>
+    	  
+    	 
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         
