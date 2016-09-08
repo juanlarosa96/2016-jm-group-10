@@ -1,13 +1,31 @@
 package pois;
 
 import java.util.*;
+
+import javax.persistence.*;
+
 import org.uqbar.geodds.Point;
 
 import herramientas.ManejadorDeStrings;
 
-public class Comercio extends POI {
 
+@Table(name="comercios")
+@Entity
+public class Comercio extends POI {
+	
+	@ManyToOne
 	private Rubro rubro;
+
+	@SuppressWarnings("unused")
+	private Comercio(){}
+	
+	public Rubro getRubro() {
+		return rubro;
+	}
+
+	public void setRubro(Rubro rubro) {
+		this.rubro = rubro;
+	}
 
 	public Comercio(Rubro unRubro, List<FranjaHoraria> losHorarios, Point posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
