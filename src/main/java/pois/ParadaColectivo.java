@@ -2,13 +2,25 @@ package pois;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.*;
+
 import org.joda.time.LocalTime;
 import org.uqbar.geodds.Point;
 
 import herramientas.ManejadorDeStrings;
 
+@Entity
+@Table(name = "paradas_colectivo")
 public class ParadaColectivo extends POI {
+	
+	@Id @GeneratedValue
+	private Integer id;
+	
 	private Integer linea;
+	
+	@SuppressWarnings("unused")
+	private ParadaColectivo(){}
 
 	public ParadaColectivo(Integer unaLinea, Point posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
@@ -39,4 +51,14 @@ public class ParadaColectivo extends POI {
 	public Boolean condicionDeBusqueda(String descripcion) {
 		return ManejadorDeStrings.estaIncluido(linea.toString(), descripcion);
 	}
+
+	public Integer getLinea() {
+		return linea;
+	}
+
+	public void setLinea(Integer linea) {
+		this.linea = linea;
+	}
+	
+	
 }
