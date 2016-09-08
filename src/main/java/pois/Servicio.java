@@ -2,23 +2,29 @@ package pois;
 
 import java.util.List;
 
+import javax.persistence.*;
+
 import org.joda.time.DateTime;
 
 import herramientas.ManejadorDeFechas;
 import herramientas.ManejadorDeStrings;
 
+@Entity
+@Table(name = "servicios")
+
 public class Servicio {
 
-	private String nombre;
-	private List<FranjaHoraria> horarios;
-	
-	
-	public String getNombre() {
-		return nombre;
-	}
+	@Id
+	@GeneratedValue
+	private Integer id;
 
-	public List<FranjaHoraria> getHorarios() {
-		return horarios;
+	private String nombre;
+
+	@OneToMany
+	private List<FranjaHoraria> horarios;
+
+	@SuppressWarnings("unused")
+	private Servicio() {
 	}
 
 	public Servicio(String nombre, List<FranjaHoraria> horarios) {
@@ -31,9 +37,23 @@ public class Servicio {
 	}
 
 	public Boolean estaDisponible(DateTime fecha) {
-		return horarios.stream().anyMatch(franjaHoraria -> ManejadorDeFechas.estaEnFranjaHoraria(fecha,franjaHoraria));
+		return horarios.stream().anyMatch(franjaHoraria -> ManejadorDeFechas.estaEnFranjaHoraria(fecha, franjaHoraria));
 	}
-	
-	
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setHorarios(List<FranjaHoraria> horarios) {
+		this.horarios = horarios;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public List<FranjaHoraria> getHorarios() {
+		return horarios;
+	}
 
 }
