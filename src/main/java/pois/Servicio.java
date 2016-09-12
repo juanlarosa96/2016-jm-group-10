@@ -20,8 +20,10 @@ public class Servicio {
 
 	private String nombre;
 
-	@OneToMany
+	@ElementCollection
 	private List<FranjaHoraria> horarios;
+	
+	//-------------------------
 
 	@SuppressWarnings("unused")
 	private Servicio() {
