@@ -28,7 +28,7 @@ public class Dispositivo {
 	@Transient
 	private ManejadorDePois manejadorDePois;
 
-	@Transient
+	@ManyToMany
 	private List<InteresadoEnBusquedas> observers;
 	
 	@SuppressWarnings("unused")
