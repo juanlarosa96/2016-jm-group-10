@@ -9,6 +9,7 @@ import org.uqbar.geodds.Point;
 
 import herramientas.ManejadorDeFechas;
 import herramientas.ManejadorDeStrings;
+import herramientas.PointConverter;
 
 
 @Entity
@@ -21,7 +22,7 @@ public abstract class POI {
 	
 	
 	@OneToOne
-	//Como convertir point?
+	@Convert(converter = PointConverter.class)
 	private Point posicion;
 	
 	private String nombre;
