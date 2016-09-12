@@ -11,6 +11,7 @@ import org.uqbar.geodds.Point;
 import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.InteresadoEnBusquedas;
 import herramientas.ManejadorDeFechas;
+import herramientas.PointConverter;
 
 @Table(name = "dispositivos")
 @Entity
@@ -22,7 +23,7 @@ public class Dispositivo {
 
 	private String nombre;
 
-	// Averiguar como convertir posicion
+	@Convert(converter = PointConverter.class)
 	private Point posicion;
 
 	@Transient
@@ -31,6 +32,10 @@ public class Dispositivo {
 	@ManyToMany
 	private List<InteresadoEnBusquedas> observers;
 	
+	public Integer getId() {
+		return id;
+	}
+
 	@SuppressWarnings("unused")
 	private Dispositivo(){}
 
