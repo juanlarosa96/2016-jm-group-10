@@ -20,8 +20,11 @@ public class Servicio {
 
 	private String nombre;
 
-	@OneToMany
+	@CollectionTable(name= "franjas_horarias_servicios")
+	@ElementCollection
 	private List<FranjaHoraria> horarios;
+	
+	//-------------------------
 
 	@SuppressWarnings("unused")
 	private Servicio() {

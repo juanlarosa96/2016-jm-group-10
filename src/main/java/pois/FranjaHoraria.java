@@ -1,19 +1,22 @@
 package pois;
 
 import javax.persistence.*;
-
 import org.joda.time.LocalTime;
 
 @Table(name= "franjas_horarias")
 @Entity
+@Embeddable
 public class FranjaHoraria {
 	
 	@Id @GeneratedValue
 	private Integer id;
 	
 	private Integer diaDeLaSemana;
-	private LocalTime horarioApertura;
+	
+	private LocalTime horarioApertura;	
 	private LocalTime horarioCierre;
+	
+	//---------------------
 	
 	@SuppressWarnings("unused")
 	private FranjaHoraria(){}

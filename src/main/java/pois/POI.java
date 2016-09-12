@@ -19,20 +19,25 @@ public abstract class POI {
 	@Id @GeneratedValue
 	private Integer id;
 	
+	
 	@OneToOne
+	//Como convertir point?
 	private Point posicion;
+	
 	private String nombre;
 	
 	@OneToOne
 	private Direccion direccion;
 	
-	@OneToMany
+	@ElementCollection
 	private List<String> etiquetas;
 	
-	@OneToMany
+	@CollectionTable(name= "franjas_horarias_pois")
+	@ElementCollection
 	private List<FranjaHoraria> horarios;	
 	
-
+	//-------------------------------------------
+	
 	public Boolean distanciaAPoiMenorA(Double distancia, POI poi) {
 
 		return distanciaAPoi(poi) < distancia;

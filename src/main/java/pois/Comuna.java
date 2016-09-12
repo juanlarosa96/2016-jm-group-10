@@ -8,7 +8,23 @@ import org.uqbar.geodds.Point;
 import org.uqbar.geodds.Polygon;
 
 @Embeddable
-public class Comuna {
+public class Comuna {	
+	
+	private Integer numero;
+	
+	//Como convertir polygon?
+	private Polygon territorio;
+	
+	//-----------------------
+	
+	@SuppressWarnings("unused")
+	private Comuna(){}
+
+	public Comuna(Integer unNumero, List<Point> puntosFrontera) {
+		numero = unNumero;
+		territorio = new Polygon(puntosFrontera);
+	}
+	
 	public Polygon getTerritorio() {
 		return territorio;
 	}
@@ -19,19 +35,6 @@ public class Comuna {
 
 	public void setNumero(Integer numero) {
 		this.numero = numero;
-	}
-
-	private Integer numero;
-	
-	//Averiguar como hacer para convertir polygon
-	private Polygon territorio;
-	
-	@SuppressWarnings("unused")
-	private Comuna(){}
-
-	public Comuna(Integer unNumero, List<Point> puntosFrontera) {
-		numero = unNumero;
-		territorio = new Polygon(puntosFrontera);
 	}
 
 	public Boolean incluyeA(Point unaPosicion) {
