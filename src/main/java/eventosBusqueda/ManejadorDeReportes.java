@@ -7,21 +7,30 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.*;
+
 import herramientas.ManejadorDeFechas;
 
-public class ManejadorDeReportes implements InteresadoEnBusquedas {
-
-	List<ResultadoBusqueda> busquedas;
+@Entity
+public class ManejadorDeReportes extends InteresadoEnBusquedas {
+	
+	@Id
+	private Integer id = 1;
+	
+	@ElementCollection
+	List<ResultadoBusqueda> resultadosBusquedas;
+	
+	@Transient
 	private static ManejadorDeReportes singleton;
 
 	private ManejadorDeReportes() {
 
-		busquedas = new ArrayList<ResultadoBusqueda>();
+		resultadosBusquedas = new ArrayList<ResultadoBusqueda>();
 	}
 
 	@Override
 	public void notificarBusqueda(ResultadoBusqueda unaBusqueda) {
-		busquedas.add(unaBusqueda);
+		resultadosBusquedas.add(unaBusqueda);
 	}
 
 	public static ManejadorDeReportes getInstance() {
@@ -33,7 +42,7 @@ public class ManejadorDeReportes implements InteresadoEnBusquedas {
 	}
 
 	private Integer contarBusquedasPorFecha(String fecha) {
-		return busquedas.stream()
+		return resultadosBusquedas.stream()
 				.filter(busqueda -> fecha.equals(ManejadorDeFechas.convertirFechaAString(busqueda.getFecha())))
 				.collect(Collectors.toList()).size();
 	}
@@ -75,20 +84,30 @@ public class ManejadorDeReportes implements InteresadoEnBusquedas {
 	}
 
 	private Stream<Integer> obtenerCantidadResultadosDeTerminal(String terminal) {
-		return busquedas.stream().filter(busqueda -> terminal.equals(busqueda.getNombreTerminal()))
+		return resultadosBusquedas.stream().filter(busqueda -> terminal.equals(busqueda.getNombreTerminal()))
 				.map(busqueda -> busqueda.getCantResultados());
 	}
 
 	private Set<String> obtenerSetDeTerminales() {
-		return busquedas.stream().map(busqueda -> busqueda.getNombreTerminal()).collect(Collectors.toSet());
+		return resultadosBusquedas.stream().map(busqueda -> busqueda.getNombreTerminal()).collect(Collectors.toSet());
 	}
 
 	private Set<String> obtenerSetDeFechas() {
-		return busquedas.stream().map(busqueda -> ManejadorDeFechas.convertirFechaAString(busqueda.getFecha()))
+		return resultadosBusquedas.stream().map(busqueda -> ManejadorDeFechas.convertirFechaAString(busqueda.getFecha()))
 				.collect(Collectors.toSet());
 	}
 
 	public void limpiarBusquedas() {
-		busquedas.clear();
+		resultadosBusquedas.clear();
 	}
+
+	public List<ResultadoBusqueda> getResultadosBusquedas() {
+		return resultadosBusquedas;
+	}
+
+	public void setResultadosBusquedas(List<ResultadoBusqueda> resultadosBusquedas) {
+		this.resultadosBusquedas = resultadosBusquedas;
+	}
+	
+	
 }
