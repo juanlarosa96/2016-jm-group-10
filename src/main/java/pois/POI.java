@@ -21,18 +21,20 @@ public abstract class POI {
 	
 	@OneToOne
 	private Point posicion;
+	
 	private String nombre;
 	
 	@OneToOne
 	private Direccion direccion;
 	
-	@OneToMany
+	@ElementCollection
 	private List<String> etiquetas;
 	
-	@OneToMany
+	@ElementCollection
 	private List<FranjaHoraria> horarios;	
 	
-
+	//-------------------------------------------
+	
 	public Boolean distanciaAPoiMenorA(Double distancia, POI poi) {
 
 		return distanciaAPoi(poi) < distancia;
