@@ -30,6 +30,7 @@ public abstract class POI {
 	@ElementCollection
 	private List<String> etiquetas;
 	
+	@CollectionTable(name= "franjas_horarias_pois")
 	@ElementCollection
 	private List<FranjaHoraria> horarios;	
 	
