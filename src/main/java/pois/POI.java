@@ -19,7 +19,9 @@ public abstract class POI {
 	@Id @GeneratedValue
 	private Integer id;
 	
+	
 	@OneToOne
+	//Como convertir point?
 	private Point posicion;
 	
 	private String nombre;
