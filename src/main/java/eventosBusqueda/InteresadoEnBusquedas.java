@@ -1,7 +1,11 @@
 package eventosBusqueda;
 
-public interface InteresadoEnBusquedas {
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class InteresadoEnBusquedas {	
 	
-	public void notificarBusqueda(ResultadoBusqueda unaBusqueda);
+	public abstract void notificarBusqueda(ResultadoBusqueda unaBusqueda);
+	
 }
