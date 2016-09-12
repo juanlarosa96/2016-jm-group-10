@@ -2,15 +2,22 @@ package eventosBusqueda;
 
 import java.util.List;
 
+import javax.persistence.*;
+
 import org.joda.time.DateTime;
 
 import pois.POI;
 
+@Embeddable
 public class ResultadoBusqueda {
-
+	
 	private String nombreTerminal;
+	
+	@ManyToMany
 	private List<POI> poisEncontrados;
+	
 	private DateTime fecha;
+	
 	private Double demoraEnSegundos;
 	private String descripcionBuscada;
 	
