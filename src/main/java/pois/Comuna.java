@@ -13,7 +13,7 @@ public class Comuna {
 	private Integer numero;
 	
 	//Como convertir polygon?
-	private Polygon territorio;
+	private Territorio territorio;
 	
 	//-----------------------
 	
@@ -22,14 +22,14 @@ public class Comuna {
 
 	public Comuna(Integer unNumero, List<Point> puntosFrontera) {
 		numero = unNumero;
-		territorio = new Polygon(puntosFrontera);
+		territorio = new Territorio(puntosFrontera);
 	}
 	
-	public Polygon getTerritorio() {
+	public Territorio getTerritorio() {
 		return territorio;
 	}
 
-	public void setTerritorio(Polygon territorio) {
+	public void setTerritorio(Territorio territorio) {
 		this.territorio = territorio;
 	}
 
