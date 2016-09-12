@@ -20,6 +20,7 @@ public class Servicio {
 
 	private String nombre;
 
+	@CollectionTable(name= "franjas_horarias_servicios")
 	@ElementCollection
 	private List<FranjaHoraria> horarios;
 	
