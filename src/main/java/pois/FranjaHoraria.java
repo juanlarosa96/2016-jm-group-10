@@ -5,6 +5,7 @@ import org.joda.time.LocalTime;
 
 @Table(name= "franjas_horarias")
 @Entity
+@Embeddable
 public class FranjaHoraria {
 	
 	@Id @GeneratedValue
