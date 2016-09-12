@@ -1,13 +1,24 @@
 package eventosBusqueda;
 
+import javax.persistence.*;
+
 import adapters.AdapterMail;
 
-public class NotificadorEmail implements InteresadoEnBusquedas {
-
-	Double demoraMaximaEnSegundos;
-	String emailAdmin;
+@Entity
+public class NotificadorEmail extends InteresadoEnBusquedas {
+	
+	@Id @GeneratedValue
+	private Integer id;
+	
+	private Double demoraMaximaEnSegundos;
+	private String emailAdmin;
+	
+	@Transient
 	private AdapterMail adapterMail;
 
+	@SuppressWarnings("unused")
+	private NotificadorEmail(){}
+	
 	public NotificadorEmail(Double demoraMaximaEnSegundos, String emailAdmin, AdapterMail unAdapter) {
 		this.demoraMaximaEnSegundos = demoraMaximaEnSegundos;
 		this.emailAdmin = emailAdmin;
@@ -39,5 +50,15 @@ public class NotificadorEmail implements InteresadoEnBusquedas {
 	public void setEmailAdmin(String emailAdmin) {
 		this.emailAdmin = emailAdmin;
 	}
+
+	public Double getDemoraMaximaEnSegundos() {
+		return demoraMaximaEnSegundos;
+	}
+
+	public String getEmailAdmin() {
+		return emailAdmin;
+	}
+	
+	
 
 }
