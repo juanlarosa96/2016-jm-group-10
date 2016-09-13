@@ -14,9 +14,6 @@ import herramientas.ManejadorDeStrings;
 @Table(name = "paradas_colectivo")
 public class ParadaColectivo extends POI {
 	
-	@Id @GeneratedValue
-	private Integer id;
-	
 	private Integer linea;
 	
 	@SuppressWarnings("unused")
