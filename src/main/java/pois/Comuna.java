@@ -9,7 +9,7 @@ public class Comuna {
 	
 	private Integer numero;
 	
-	@OneToOne
+	@Embedded
 	private Territorio territorio;
 	
 	//-----------------------

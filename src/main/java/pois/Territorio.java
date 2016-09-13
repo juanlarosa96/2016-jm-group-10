@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -22,8 +23,7 @@ import org.uqbar.geodds.NumberUtils;
  */
 @SuppressWarnings("all")
 
-@Table(name = "territorios")
-@Entity
+@Embeddable
 public class Territorio {
 	
 	@ElementCollection
