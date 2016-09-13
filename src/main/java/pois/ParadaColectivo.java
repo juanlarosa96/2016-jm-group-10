@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.*;
 
 import org.joda.time.LocalTime;
-import org.uqbar.geodds.Point;
 
 import herramientas.ManejadorDeStrings;
 
@@ -19,7 +18,7 @@ public class ParadaColectivo extends POI {
 	@SuppressWarnings("unused")
 	private ParadaColectivo(){}
 
-	public ParadaColectivo(Integer unaLinea, Point posicion, String nombre, Direccion direccion,
+	public ParadaColectivo(Integer unaLinea, Posicion posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
 		this.linea = unaLinea;
 		this.setNombre(nombre);

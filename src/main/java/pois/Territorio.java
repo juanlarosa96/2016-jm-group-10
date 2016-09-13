@@ -3,9 +3,13 @@ package pois;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.uqbar.geodds.NumberUtils;
-import org.uqbar.geodds.Point;
 
 /**
  * Define una zona conformada por vértices (un conjunto de puntos)<br>
@@ -17,26 +21,31 @@ import org.uqbar.geodds.Point;
  * @author DDS
  */
 @SuppressWarnings("all")
+
+@Table(name = "territorios")
+@Entity
 public class Territorio {
-	private List<Point> surface;
+	
+	@ElementCollection
+	private List<Posicion> surface;
 
 	/**
 	   * Constructor default, obliga luego a agregar los puntos manualmente mediante el mensaje add(Point point). <br><br>
 	   * Para trabajar con un polígono inmutable, no debe usarse este constructor ni el add posterior.<br>
 	   */
 	  public Territorio() {
-	    ArrayList<Point> _arrayList = new ArrayList<Point>();
+	    ArrayList<Posicion> _arrayList = new ArrayList<Posicion>();
 	    this.surface = _arrayList;
 	  }
 
-	public boolean add(final Point point) {
+	public boolean add(final Posicion point) {
 		return this.surface.add(point);
 	}
 
 	/**
 	   * Constructor que le pasa un conjunto de puntos que definen el polígono
 	   */
-	  public Territorio(final List<Point> points) {
+	  public Territorio(final List<Posicion> points) {
 	    this.surface = points;
 	  }
 
@@ -45,9 +54,9 @@ public class Territorio {
 	 * <br>
 	 * No compatible con la idea de un polígono inmutable.<br>
 	 */
-	public static Territorio asPolygon(final Point point) {
+	public static Territorio asPolygon(final Posicion point) {
 		return new Territorio(
-				((List<Point>) Collections.<Point> unmodifiableList(CollectionLiterals.<Point> newArrayList(point))));
+				((List<Posicion>) Collections.<Posicion> unmodifiableList(CollectionLiterals.<Posicion> newArrayList(point))));
 	}
 
 	/**
@@ -56,15 +65,15 @@ public class Territorio {
 	 * 
 	 * @Deprecated Usar isInside
 	 */
-	public boolean isInsideOld(final Point point) {
+	public boolean isInsideOld(final Posicion point) {
 		boolean _xblockexpression = false;
 		{
 			int counter = 0;
-			Point point1 = this.surface.get(0);
+			Posicion point1 = this.surface.get(0);
 			final int N = this.surface.size();
 			for (int i = 1; (i <= N); i++) {
 				{
-					Point point2 = this.surface.get((i % N));
+					Posicion point2 = this.surface.get((i % N));
 					boolean _intersects = point.intersects(point1, point2);
 					if (_intersects) {
 						counter++;
@@ -80,7 +89,7 @@ public class Territorio {
 	/**
 	 * Función mejorada para determinar si un punto está en el polígono
 	 */
-	public boolean isInside(final Point point) {
+	public boolean isInside(final Posicion point) {
 		boolean _xblockexpression = false;
 		{
 			final int N = this.surface.size();
@@ -90,13 +99,13 @@ public class Territorio {
 			double y = point.latitude();
 			for (int i = 0; (i < N); i++) {
 				{
-					Point _get = this.surface.get(i);
+					Posicion _get = this.surface.get(i);
 					final double verticeIY = _get.latitude();
-					Point _get_1 = this.surface.get(i);
+					Posicion _get_1 = this.surface.get(i);
 					final double verticeIX = _get_1.longitude();
-					Point _get_2 = this.surface.get(j);
+					Posicion _get_2 = this.surface.get(j);
 					final double verticeJY = _get_2.latitude();
-					Point _get_3 = this.surface.get(j);
+					Posicion _get_3 = this.surface.get(j);
 					final double verticeJX = _get_3.longitude();
 					if (((((verticeIY < y) && (verticeJY >= y)) || ((verticeJY < y) && (verticeIY >= y)))
 							&& ((verticeIX <= x) || (verticeJX <= x)))) {
@@ -116,11 +125,11 @@ public class Territorio {
 	/**
 	 * Indica si un punto es alguno de los vértices del polígono
 	 */
-	public boolean pointOnVertex(final Point point) {
+	public boolean pointOnVertex(final Posicion point) {
 		return this.surface.contains(point);
 	}
 
-	public List<Point> getSurface() {
+	public List<Posicion> getSurface() {
 		return surface;
 	}
 

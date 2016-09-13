@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
-import org.uqbar.geodds.Point;
+import pois.Posicion;
 
 import pois.Comercio;
 import pois.Direccion;
@@ -16,9 +16,9 @@ public class FixtureComercio {
 	static DateTime horarioAbiertoElHalcon= new DateTime(2016, 4, 19, 10, 0, 0);
 	static DateTime horarioCerradoElHalcon = new DateTime(2016, 4, 19, 1, 0, 0);
 	
-	static Point posicionElHalcon = new Point(-34.6327106, -58.4877209);
-	static Point posicionCercanaElHalcon = new Point(-34.6327105, -58.4877208);
-	static Point posicionNoCercanaElHalcon = new Point(-10.6327105, -10.4877208);
+	static Posicion posicionElHalcon = new Posicion(-34.6327106, -58.4877209);
+	static Posicion posicionCercanaElHalcon = new Posicion(-34.6327105, -58.4877208);
+	static Posicion posicionNoCercanaElHalcon = new Posicion(-10.6327105, -10.4877208);
 	
 	static Direccion direccionElHalcon = new Direccion("Av. Rivadavia", 8451, "Mercedes", "Av. Segurola", null, null, 1407, "CABA",
 			"Floresta", "CABA", "Argentina");
@@ -68,11 +68,11 @@ public class FixtureComercio {
 		return horarioCerradoElHalcon;
 	}
 	
-	public static Point damePosicionCercanaComercioValido() {		
+	public static Posicion damePosicionCercanaComercioValido() {		
 		return posicionCercanaElHalcon;
 	}
 	
-	public static Point damePosicionNoCercanaComercioValido() {		
+	public static Posicion damePosicionNoCercanaComercioValido() {		
 		return posicionNoCercanaElHalcon;
 	}
 	

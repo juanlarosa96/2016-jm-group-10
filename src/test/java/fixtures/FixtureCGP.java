@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
-import org.uqbar.geodds.Point;
+import pois.Posicion;
 
 import pois.CGP;
 import pois.Comuna;
@@ -78,13 +78,13 @@ public class FixtureCGP {
 	private static Direccion direccionCgp10 = new Direccion("Bacacay", 3968, "Concordia", "Campana", null, null, 1417,
 			"CABA", "Floresta", "Buenos Aires", "Argentina");
 
-	private static Point posicionCgp10 = new Point(-34.6318455, -58.4857468);
+	private static Posicion posicionCgp10 = new Posicion(-34.6318455, -58.4857468);
 
 	private static CGP cgp10 = new CGP(serviciosCgp10, comuna10, posicionCgp10, "CGP Comuna 10", direccionCgp10,
 			etiquetasCgp10);
 
 	// CGP5
-	public static Point posicionCgp5 = new Point(-34.6229418, -58.4146764);
+	public static Posicion posicionCgp5 = new Posicion(-34.6229418, -58.4146764);
 
 	private static List<Servicio> serviciosCGP5 = new ArrayList<Servicio>() {
 		{
@@ -113,8 +113,8 @@ public class FixtureCGP {
 			etiquetasCGP5);
 
 	// Posiciones
-	private static Point posicionLejanaCgpValido = new Point(-34.6184994, -58.4368164);
-	private static Point posicionCercanaCgpValido = new Point(-34.6327475, -58.4851585);
+	private static Posicion posicionLejanaCgpValido = new Posicion(-34.6184994, -58.4368164);
+	private static Posicion posicionCercanaCgpValido = new Posicion(-34.6327475, -58.4851585);
 
 	// Horarios
 	private static DateTime horarioValidoCgpValido = new DateTime(2016, 4, 4, 10, 0);
@@ -138,11 +138,11 @@ public class FixtureCGP {
 		return horarioNoValidoCgpValido;
 	}
 
-	public static Point damePosicionNoCercanaCgpValido() {
+	public static Posicion damePosicionNoCercanaCgpValido() {
 		return posicionLejanaCgpValido;
 	}
 
-	public static Point damePosicionCercanaCgpValido() {
+	public static Posicion damePosicionCercanaCgpValido() {
 		return posicionCercanaCgpValido;
 	}
 	

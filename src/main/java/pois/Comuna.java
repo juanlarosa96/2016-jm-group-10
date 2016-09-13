@@ -4,15 +4,12 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import org.uqbar.geodds.Point;
-import org.uqbar.geodds.Polygon;
-
 @Embeddable
 public class Comuna {	
 	
 	private Integer numero;
 	
-	//Como convertir polygon?
+	@OneToOne
 	private Territorio territorio;
 	
 	//-----------------------
@@ -20,7 +17,7 @@ public class Comuna {
 	@SuppressWarnings("unused")
 	private Comuna(){}
 
-	public Comuna(Integer unNumero, List<Point> puntosFrontera) {
+	public Comuna(Integer unNumero, List<Posicion> puntosFrontera) {
 		numero = unNumero;
 		territorio = new Territorio(puntosFrontera);
 	}
@@ -37,7 +34,7 @@ public class Comuna {
 		this.numero = numero;
 	}
 
-	public Boolean incluyeA(Point unaPosicion) {
+	public Boolean incluyeA(Posicion unaPosicion) {
 		return territorio.isInside(unaPosicion);
 	}
 

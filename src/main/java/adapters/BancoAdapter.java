@@ -3,7 +3,6 @@ package adapters;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
-import org.uqbar.geodds.Point;
 import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
@@ -11,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import pois.Banco;
 import pois.Direccion;
 import pois.POI;
+import pois.Posicion;
 
 public class BancoAdapter implements ComponenteExternoAdapter {
 
@@ -55,7 +55,7 @@ public class BancoAdapter implements ComponenteExternoAdapter {
 	private POI convertirABanco(BancoJson bancoJson) {
 		
 		String nombre = bancoJson.getBanco();
-		Point point = new Point(bancoJson.getX(),bancoJson.getY());
+		Posicion point = new Posicion(bancoJson.getX(),bancoJson.getY());
 		Direccion direccion = null;
 		ArrayList <String> etiquetas = bancoJson.getServicios();
 		

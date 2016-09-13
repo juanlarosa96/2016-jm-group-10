@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
+import pois.Posicion;
 
 import fixtures.FixtureComercio;
 import pois.Comercio;
@@ -14,8 +14,8 @@ public class ComercioTest {
 	private Comercio comercioValido;
 	private DateTime horarioAbiertoDeComercioValido;
 	private DateTime horarioCerradoDeComercioValido;
-	private Point posicionCercanaComercioValido;
-	private Point posicionNoCercanaComercioValido;
+	private Posicion posicionCercanaComercioValido;
+	private Posicion posicionNoCercanaComercioValido;
 
 	@Before
 	public void init() {

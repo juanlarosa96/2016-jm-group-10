@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
+import pois.Posicion;
 
 import fixtures.FixtureCGP;
 import pois.CGP;
@@ -18,8 +18,8 @@ public class CGPTest {
 	private DateTime horarioValido;
 	private DateTime horarioNoValido;
 
-	private Point posicionNoCercana;
-	private Point posicionCercana;
+	private Posicion posicionNoCercana;
+	private Posicion posicionCercana;
 
 	@Before
 	public void init() {

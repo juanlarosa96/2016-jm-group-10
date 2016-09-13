@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.LocalTime;
 import org.joda.time.DateTimeConstants;
-import org.uqbar.geodds.Point;
 
 public class Banco extends POI {
 
-	public Banco(Point posicion, String nombre, Direccion direccion, List<String> etiquetas) {
+	public Banco(Posicion posicion, String nombre, Direccion direccion, List<String> etiquetas) {
 		this.setPosicion(posicion);
 		this.setNombre(nombre);
 		this.setHorarios(new ArrayList<FranjaHoraria>() {

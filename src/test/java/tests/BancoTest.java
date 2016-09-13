@@ -4,8 +4,7 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
-
+import pois.Posicion;
 import fixtures.FixtureBanco;
 import pois.Banco;
 
@@ -18,8 +17,8 @@ public class BancoTest {
 
 	private Banco bancoValido;
 
-	private Point posicionCercanaBancoValido;
-	private Point posicionLejanaBancoValido;
+	private Posicion posicionCercanaBancoValido;
+	private Posicion posicionLejanaBancoValido;
 
 	@Before
 	public void init() {

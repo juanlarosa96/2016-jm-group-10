@@ -6,12 +6,10 @@ import java.util.List;
 import javax.persistence.*;
 
 import org.joda.time.DateTime;
-import org.uqbar.geodds.Point;
 
 import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.InteresadoEnBusquedas;
 import herramientas.ManejadorDeFechas;
-import herramientas.PointConverter;
 
 @Table(name = "dispositivos")
 @Entity
@@ -23,14 +21,16 @@ public class Dispositivo {
 
 	private String nombre;
 
-	@Convert(converter = PointConverter.class)
-	private Point posicion;
+	@Embedded
+	private Posicion posicion;
 
 	@Transient
 	private ManejadorDePois manejadorDePois;
 
 	@ManyToMany
 	private List<InteresadoEnBusquedas> observers;
+	
+	//---------------------
 	
 	public Integer getId() {
 		return id;
@@ -39,7 +39,7 @@ public class Dispositivo {
 	@SuppressWarnings("unused")
 	private Dispositivo(){}
 
-	public Dispositivo(String unNombre, Point unaPosicion) {
+	public Dispositivo(String unNombre, Posicion unaPosicion) {
 		this.nombre = unNombre;
 		this.posicion = unaPosicion;
 		this.manejadorDePois = ManejadorDePois.getInstance();
@@ -84,7 +84,7 @@ public class Dispositivo {
 		observers.remove(unInteresado);
 	}
 
-	public Point getPosicion() {
+	public Posicion getPosicion() {
 		return posicion;
 	}
 	
@@ -96,7 +96,7 @@ public class Dispositivo {
 		this.nombre = nombre;
 	}
 
-	public void setPosicion(Point posicion) {
+	public void setPosicion(Posicion posicion) {
 		this.posicion = posicion;
 	}
 

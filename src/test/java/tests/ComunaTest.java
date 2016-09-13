@@ -3,7 +3,7 @@ package tests;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
+import pois.Posicion;
 
 import fixtures.FixtureComuna;
 import pois.Comuna;
@@ -11,9 +11,9 @@ import pois.Comuna;
 public class ComunaTest {
 
 	private Comuna comunaValida;
-	private Point posicionIncluidaEnComunaValida;
-	private Point posicionNoIncluidaEnComunaValida;
-	private Point posicionFronteraComunaValida;
+	private Posicion posicionIncluidaEnComunaValida;
+	private Posicion posicionNoIncluidaEnComunaValida;
+	private Posicion posicionFronteraComunaValida;
 
 	@Before
 	public void init() {

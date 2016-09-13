@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
+import pois.Posicion;
 
 import adapters.AdapterMail;
 import adapters.CgpAdapter;
@@ -33,8 +33,8 @@ public class QuitarAccionesUsuariosTest {
 	private Dispositivo dispositivoConPosicionDeComunaValida;
 	private Dispositivo dispositivoConPosicionDeComunaValida2;
 	private Dispositivo dispositivoConPosicionDeComunaInvalida;
-	private Point posicionComunaValida;
-	private Point posicionOtraComunaValida;
+	private Posicion posicionComunaValida;
+	private Posicion posicionOtraComunaValida;
 	private List<Dispositivo> dispositivosSeleccionados;
 	private AccionQuitarAccionesParaLosUsuarios quitarAccionValidaConComunaValida;
 	private AccionQuitarAccionesParaLosUsuarios quitarAccionValidaConComunaInvalida;
@@ -48,8 +48,8 @@ public class QuitarAccionesUsuariosTest {
 	public void init() {
 		accionValida = new NotificadorEmail(5.0, "emailAdmin@hotmail.com", adapterMail);
 
-		posicionComunaValida = new Point(-34.621891, -58.509017);
-		posicionOtraComunaValida = new Point(-34.620999, -58.416590);
+		posicionComunaValida = new Posicion(-34.621891, -58.509017);
+		posicionOtraComunaValida = new Posicion(-34.620999, -58.416590);
 
 		dispositivoConPosicionDeComunaValida = new Dispositivo("dispositivoValido", posicionComunaValida);
 		dispositivoConPosicionDeComunaValida2 = new Dispositivo("dispositivoValido2", posicionComunaValida);

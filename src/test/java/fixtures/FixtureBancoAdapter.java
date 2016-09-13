@@ -3,7 +3,7 @@ package fixtures;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uqbar.geodds.Point;
+import pois.Posicion;
 
 import com.google.gson.Gson;
 
@@ -59,7 +59,7 @@ public class FixtureBancoAdapter {
 		
 		FixtureBancoAdapter.inicializarBancoJson();
 		String nombre = unBancoJson.getBanco();
-		Point point = new Point(unBancoJson.getX(), unBancoJson.getY());
+		Posicion point = new Posicion(unBancoJson.getX(), unBancoJson.getY());
 		Direccion direccion = null;
 		ArrayList<String> etiquetas = unBancoJson.getServicios();
 

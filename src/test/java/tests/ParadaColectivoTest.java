@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
+import pois.Posicion;
 
 import fixtures.FixtureParadaColectivo;
 import pois.ParadaColectivo;
@@ -14,8 +14,8 @@ public class ParadaColectivoTest {
 	private ParadaColectivo paradaValida;
 	private ParadaColectivo otraParadaValida;
 	private ParadaColectivo otraParadaConIgualPosicionDeParadaValida;
-	private Point posicionLejanaParadaValida;
-	private Point posicionCercanaParadaValida;
+	private Posicion posicionLejanaParadaValida;
+	private Posicion posicionCercanaParadaValida;
 	
 	@Before
 	public void init() {		

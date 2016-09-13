@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 
 import org.joda.time.DateTime;
-import org.uqbar.geodds.Point;
 
 @Table(name = "cgps")
 @Entity
@@ -21,7 +20,7 @@ public class CGP extends POI {
 	@SuppressWarnings("unused")
 	private CGP(){}
 	
-	public CGP(List<Servicio> servicios, Comuna comuna, Point posicion, String nombre, Direccion direccion,
+	public CGP(List<Servicio> servicios, Comuna comuna, Posicion posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
 		this.servicios = servicios;
 		this.comuna = comuna;
@@ -80,7 +79,7 @@ public class CGP extends POI {
 	}
 
 	@Override
-	public Boolean estasCerca(Point unaPosicion) {
+	public Boolean estasCerca(Posicion unaPosicion) {
 		return comuna.incluyeA(unaPosicion);
 	}
 	@Override

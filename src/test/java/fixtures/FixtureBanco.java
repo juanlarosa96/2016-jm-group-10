@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.uqbar.geodds.Point;
 
 import pois.Banco;
 import pois.Direccion;
+import pois.Posicion;
 
 public class FixtureBanco {
 	//Banco Provincia
 	private static Direccion direccionBancoProvincia = new Direccion("Av. Rivadavia", 8468, "Benedetti", "Mariano Acosta", null, null, 1407,
 			"CABA", "Floresta", "CABA", "Argentina");
-	private static Point posicionBancoProvincia = new Point(-34.6327475, -58.4851585);
+	private static Posicion posicionBancoProvincia = new Posicion(-34.6327475, -58.4851585);
 	private static List<String> etiquetasBancoProvincia = new ArrayList<String>() {
 		{
 			add("banco");
@@ -30,8 +30,8 @@ public class FixtureBanco {
 	private static Banco bancoProvincia = new Banco(posicionBancoProvincia, "Banco Provincia", direccionBancoProvincia, etiquetasBancoProvincia);
 	
 	//Posiciones
-	private static Point posicionLejanaBancoProvincia = new Point(-34.6184994, -58.4368164);
-	private static Point posicionCercanaBancoProvincia = new Point(-34.6327474, -58.4851584);
+	private static Posicion posicionLejanaBancoProvincia = new Posicion(-34.6184994, -58.4368164);
+	private static Posicion posicionCercanaBancoProvincia = new Posicion(-34.6327474, -58.4851584);
 	
 	//Horarios
 	private static DateTime horarioBancario = new DateTime(2016, 4, 4, 10, 0);
@@ -43,11 +43,11 @@ public class FixtureBanco {
 		return bancoProvincia;
 	}
 	
-	public static Point getPosicionCercanaABancoValido() {
+	public static Posicion getPosicionCercanaABancoValido() {
 		return posicionCercanaBancoProvincia;
 	}
 
-	public static Point getPosicionLejanaABancoValido() {
+	public static Posicion getPosicionLejanaABancoValido() {
 		return posicionLejanaBancoProvincia;
 	}
 

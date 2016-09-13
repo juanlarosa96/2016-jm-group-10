@@ -5,11 +5,9 @@ import java.util.List;
 import javax.persistence.*;
 
 import org.joda.time.DateTime;
-import org.uqbar.geodds.Point;
 
 import herramientas.ManejadorDeFechas;
 import herramientas.ManejadorDeStrings;
-import herramientas.PointConverter;
 
 
 @Entity
@@ -18,12 +16,10 @@ import herramientas.PointConverter;
 public abstract class POI {
 	
 	@Id @GeneratedValue
-	private Integer id;
+	private Integer id;	
 	
-	
-	@OneToOne
-	@Convert(converter = PointConverter.class)
-	private Point posicion;
+	@Embedded
+	private Posicion posicion;
 	
 	private String nombre;
 	
@@ -58,13 +54,13 @@ public abstract class POI {
 		return horarios.stream().anyMatch(franjaHoraria -> ManejadorDeFechas.estaEnFranjaHoraria(fecha,franjaHoraria));
 	}
 
-	public Boolean estasCerca(Point unaPosicion) {
+	public Boolean estasCerca(Posicion unaPosicion) {
 		
 		return this.distanciaAPosicion(unaPosicion) <= this.condicionDeCercania();
 		
 	}
 
-	private Double distanciaAPosicion(Point unaPosicion) {
+	private Double distanciaAPosicion(Posicion unaPosicion) {
 		
 		return posicion.distance(unaPosicion);
 	}
@@ -88,7 +84,7 @@ public abstract class POI {
 		return false;
 	}
 
-	public Point getPosicion() {
+	public Posicion getPosicion() {
 		return posicion;
 	}
 
@@ -124,7 +120,7 @@ public abstract class POI {
 		this.etiquetas = etiquetas;
 	}
 
-	public void setPosicion(Point posicion) {
+	public void setPosicion(Posicion posicion) {
 		this.posicion = posicion;
 	}
 

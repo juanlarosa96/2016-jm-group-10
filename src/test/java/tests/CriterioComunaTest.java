@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
+import pois.Posicion;
 
 import adapters.CgpAdapter;
 import adapters.ServicioExternoCGP;
@@ -16,8 +16,8 @@ import procesos.ExceptionErrorEjecucionDeAccion;
 
 public class CriterioComunaTest {
 	
-	private Point posicionComunaValida;
-	private Point posicionComunaInvalida;
+	private Posicion posicionComunaValida;
+	private Posicion posicionComunaInvalida;
 	private Dispositivo dispositivoConPosicionDeComunaValida;
 	private Dispositivo dispositivoConPosicionDeComunaValida2;
 	private Dispositivo dispositivoConPosicionDeComunaInvalida;
@@ -31,8 +31,8 @@ public class CriterioComunaTest {
 	@Before
 	public void init() {
 		
-		posicionComunaValida = new Point(-34.614978, -58.372815);
-		posicionComunaInvalida = new Point(-34.620999, -58.416590);
+		posicionComunaValida = new Posicion(-34.614978, -58.372815);
+		posicionComunaInvalida = new Posicion(-34.620999, -58.416590);
 		cgpAdapter = new CgpAdapter(servicioExternoCGP);
 		criterioComunaValida = new CriterioComuna(1);
 		criterioComunaInvalida = new CriterioComuna(20);

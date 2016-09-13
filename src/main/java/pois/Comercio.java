@@ -4,7 +4,6 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import org.uqbar.geodds.Point;
 
 import herramientas.ManejadorDeStrings;
 
@@ -27,7 +26,7 @@ public class Comercio extends POI {
 		this.rubro = rubro;
 	}
 
-	public Comercio(Rubro unRubro, List<FranjaHoraria> losHorarios, Point posicion, String nombre, Direccion direccion,
+	public Comercio(Rubro unRubro, List<FranjaHoraria> losHorarios, Posicion posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
 		this.rubro = unRubro;
 		this.setPosicion(posicion);

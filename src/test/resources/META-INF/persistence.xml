@@ -17,12 +17,13 @@
     	  <class> pois.Servicio </class>
     	  <class> pois.Rubro </class>
     	  <class> pois.Dispositivo </class>
+    	  <class> pois.Territorio </class>
+    	  <class> pois.Posicion </class>
     	  
     	  <class> eventosBusqueda.InteresadoEnBusquedas </class>
     	  <class> eventosBusqueda.ManejadorDeReportes </class>
     	  <class> eventosBusqueda.NotificadorEmail </class>
     	  <class> eventosBusqueda.ResultadoBusqueda </class>
-    	  
     	  
     	 
         <properties> 

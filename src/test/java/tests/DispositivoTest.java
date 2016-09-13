@@ -7,8 +7,7 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbar.geodds.Point;
-
+import pois.Posicion;
 import adapters.ComponenteExternoAdapter;
 import eventosBusqueda.ManejadorDeReportes;
 import fixtures.FixtureBanco;
@@ -73,8 +72,8 @@ public class DispositivoTest {
 		
 		manejadorDePois.setListaPois(listaPoisDispositivo);
 		
-		dispositivo = new Dispositivo("DispositivoValido", new Point(-34.6327475, -58.4851584));
-		otroDispositivo = new Dispositivo("OtroDispositivoValido", new Point(-35, -54));
+		dispositivo = new Dispositivo("DispositivoValido", new Posicion(-34.6327475, -58.4851584));
+		otroDispositivo = new Dispositivo("OtroDispositivoValido", new Posicion(-35, -54));
 		
 		manejadorDePois.setListaAdapters(new ArrayList<ComponenteExternoAdapter>());
 		

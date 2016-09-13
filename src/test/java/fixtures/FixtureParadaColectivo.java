@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.uqbar.geodds.Point;
+import pois.Posicion;
 
 import pois.Direccion;
 import pois.ParadaColectivo;
@@ -22,19 +22,19 @@ public class FixtureParadaColectivo {
 	};
 	
 	//Parada 114 Segurola
-	private static Point posicionParada114Segurola = new Point(-34.631997, -58.484737);
+	private static Posicion posicionParada114Segurola = new Posicion(-34.631997, -58.484737);
 	private static Direccion direccionParada114Segurola = new Direccion("Av. Segurola", 230, "Bacacay", "Bogota", null, null, 1407, "CABA",
 			"Floresta", "CABA", "Argentina");
 	
 	private static ParadaColectivo parada114Segurola = new ParadaColectivo(114, posicionParada114Segurola, "114", direccionParada114Segurola,
 			etiquetasParada114);
 
-	private static Point posicionLejanaParada114Segurola = new Point(-32.631997, -60.484737);
+	private static Posicion posicionLejanaParada114Segurola = new Posicion(-32.631997, -60.484737);
 
-	private static Point posicionCercanaParada114Segurola = new Point(-34.631998, -58.484736);
+	private static Posicion posicionCercanaParada114Segurola = new Posicion(-34.631998, -58.484736);
 	
 	//Parada 114 Mercedes
-	private static Point posicionParada114Mercedes = new Point(-34.6334512, -58.4839027);
+	private static Posicion posicionParada114Mercedes = new Posicion(-34.6334512, -58.4839027);
 	private static Direccion direccionParada114Mercedes = new Direccion("Mercedes", 17, "Av. Rivadavia", "Yerbal", null, null, 1407, "CABA",
 			"Floresta", "CABA", "Argentina");
 
@@ -43,7 +43,7 @@ public class FixtureParadaColectivo {
 
 	private static ParadaColectivo parada114MercedesConPosicionDeParada114Segurola = new ParadaColectivo(114, posicionParada114Segurola, "114", direccionParada114Mercedes, etiquetasParada114);
 
-	private static Point posicionParada132RosarioyLaPlata = new Point(-34.618422, -58.429014);
+	private static Posicion posicionParada132RosarioyLaPlata = new Posicion(-34.618422, -58.429014);
 
 	private static Direccion direccionParada132RosarioyLaPlata = new Direccion("Rosario", 36,"Av La Plata", "Senillosa", null, null, 1424, "CABA", "Caballito", "Buenos Aires","Argentina");
 
@@ -81,11 +81,11 @@ public class FixtureParadaColectivo {
 		return parada114Mercedes;
 	}
 
-	public static Point dameUnaPosicionLejanaParadaValida() {		
+	public static Posicion dameUnaPosicionLejanaParadaValida() {		
 		return posicionLejanaParada114Segurola ;
 	}
 	
-	public static Point dameUnaPosicionCercanaParadaValida() {
+	public static Posicion dameUnaPosicionCercanaParadaValida() {
 		return posicionCercanaParada114Segurola ;
 	}
 	
