@@ -16,8 +16,6 @@
 		<class> pois.ParadaColectivo </class>
 		<class> pois.CGP </class>
 		<class> pois.Servicio </class>
-		<class> pois.Comuna </class>
-		<class> pois.Territorio </class>
 		<class> pois.Dispositivo </class> 
 		<class> eventosBusqueda.InteresadoEnBusquedas </class>
 		<class> eventosBusqueda.NotificadorEmail </class>

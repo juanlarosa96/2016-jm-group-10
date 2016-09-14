@@ -4,13 +4,12 @@ import java.util.List;
 
 import javax.persistence.*;
 
-@Entity
+@Embeddable
 public class Comuna {	
 	
-	@Id
 	private Integer numero;
 	
-	@OneToOne
+	@Embedded
 	private Territorio territorio;
 	
 	//-----------------------

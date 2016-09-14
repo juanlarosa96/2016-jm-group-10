@@ -14,7 +14,7 @@ public class CGP extends POI {
 	@ManyToMany
 	private List<Servicio> servicios;
 	
-	@OneToOne
+	@Embedded
 	private Comuna comuna;
 	
 	@SuppressWarnings("unused")

@@ -27,22 +27,11 @@ import org.uqbar.geodds.NumberUtils;
  */
 @SuppressWarnings("all")
 
-@Entity
+@Embeddable
 public class Territorio {
-	
-	@Id @GeneratedValue
-	private Integer id;
 	
 	@ElementCollection
 	private List<Posicion> surface;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public void setSurface(List<Posicion> surface) {
 		this.surface = surface;
