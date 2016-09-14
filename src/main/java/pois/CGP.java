@@ -11,10 +11,10 @@ import org.joda.time.DateTime;
 @Entity
 public class CGP extends POI {
 	
-	@OneToMany
+	@ManyToMany
 	private List<Servicio> servicios;
 	
-	@Embedded
+	@OneToOne
 	private Comuna comuna;
 	
 	@SuppressWarnings("unused")
