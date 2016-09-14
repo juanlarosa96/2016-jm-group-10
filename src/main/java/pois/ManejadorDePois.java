@@ -2,16 +2,23 @@ package pois;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.EntityManager;
+
 import org.joda.time.DateTime;
+import org.omg.CORBA.PERSIST_STORE;
+
 import adapters.ComponenteExternoAdapter;
+import tests.EntityManagerHelper;
+
 
 public class ManejadorDePois {
 
 	private static ManejadorDePois singleton = null;
-	public List<POI> listaPois;
+	//public List<POI> listaPois;
 	private List<ComponenteExternoAdapter> adaptersComponentesExternos;
 
 	private ManejadorDePois() {
@@ -26,34 +33,48 @@ public class ManejadorDePois {
 		return singleton;
 	}
 
-	public void setListaPois(List<POI> unaListaDePois) {
-		listaPois = unaListaDePois;
+	/*
+	 * public void setListaPois(List<POI> unaListaDePois) {
+	/
+		//listaPois = unaListaDePois;
+		unaListaDePois.stream().forEach(poi -> EntityManagerHelper.getEntityManager().persist(poi));
 	}
+
+	*/
 
 	public void setListaAdapters(List<ComponenteExternoAdapter> listaAdapters) {
 		adaptersComponentesExternos = listaAdapters;
 	}
 
 	public void agregarPoi(POI poi) {
-		if (this.estaEnLaLista(poi))
+		/*if (this.estaEnLaLista(poi))
 			actualizarPoi(poi);
 		else
-			listaPois.add(poi);
+		*/
+			//listaPois.add(poi);
+			EntityManagerHelper.getEntityManager().persist(poi);
 	}
 
 	private void actualizarPoi(POI poiNuevo) {
-
-		POI poiViejo = listaPois.stream().filter(unPoi -> unPoi.esIgualA(poiNuevo)).findFirst().get();
-
-		this.eliminarPOI(poiViejo);
-
-		listaPois.add(poiNuevo);
+		EntityManager em = EntityManagerHelper.getEntityManager(); 
+ 		POI poiViejo = em.find(POI.class, poiNuevo.getId());
+ 		poiViejo.copiarEstado(poiNuevo);
+		em.flush();
+		
+				
+		//agregarPoi(poiNuevo);
+		//listaPois.add(poiNuevo);
 	}
 
-	private boolean estaEnLaLista(POI poiBuscado) {
-		return listaPois.stream().anyMatch(unPoi -> poiBuscado.esIgualA(unPoi));
+	/* private boolean estaEnLaLista(POI poiBuscado) {
+	POI poi =  EntityManagerHelper.getEntityManager().find(POI.class, poiBuscado.getId());
+	if(poi != null){
+		return true;
+	}
+	return false;
 
 	}
+	*/
 
 	private void consultarPoisExternos(String descripcion) {
 
@@ -69,7 +90,7 @@ public class ManejadorDePois {
 	}
 
 	private void agregarPois(ArrayList<POI> listaDePois) {
-		listaDePois.stream().forEach(poi -> this.agregarPoi(poi));
+		listaDePois.stream().forEach(poi -> EntityManagerHelper.getEntityManager().persist(poi));
 	}
 
 	public Boolean poiDisponible(POI poi, DateTime momento) {
@@ -77,12 +98,16 @@ public class ManejadorDePois {
 	}
 
 	public void eliminarPOI(POI poi) {
-		listaPois.remove(poi);
+		//listaPois.remove(poi);
+		EntityManagerHelper.getEntityManager().remove(poi);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<POI> buscarPOIs(String descripcion) {
 		this.consultarPoisExternos(descripcion);
+		List<POI> listaPois = EntityManagerHelper.getEntityManager().createQuery("from pois").getResultList();
 		return listaPois.stream().filter(poi -> poi.contiene(descripcion)).collect(Collectors.toList());
+		
 
 	}
 
@@ -100,19 +125,23 @@ public class ManejadorDePois {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public Integer actualizarEtiquetasLocalesComerciales(String nombre, List<String> etiquetas) {
-		Stream<POI> streamPois = listaPois.stream().filter(comercio -> comercio.getNombre().equals(nombre));
-		List<POI> lista = streamPois.collect(Collectors.toList());	
+		EntityManager em = EntityManagerHelper.getEntityManager(); 
+		List<POI> lista = em.createQuery("from comercios where nombre = :nombre").setParameter("nombre", nombre).getResultList();			
 		lista.stream().forEach(comercio -> comercio.setEtiquetas(etiquetas));
+		em.flush();
 		return lista.size();
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public POI buscarPOI(String nombrePOI, Direccion direccionPOI) {
-		return listaPois.stream().filter(
-				poi -> poi.getNombre().equalsIgnoreCase(nombrePOI) && poi.getDireccion().esLaMismaDireccionQue(direccionPOI))
-				.collect(Collectors.toList()).get(0);
-	
+		//return listaPois.stream().filter(
+		//		poi -> poi.getNombre().equalsIgnoreCase(nombrePOI) && poi.getDireccion().esLaMismaDireccionQue(direccionPOI))
+			//	.collect(Collectors.toList()).get(0);
+		List<POI> listaPois = EntityManagerHelper.getEntityManager().createQuery("from pois where nombre = :nombrePOI").setParameter("nombrePOI", nombrePOI).getResultList();
+		return listaPois.stream().filter(poi -> poi.getDireccion().esLaMismaDireccionQue(direccionPOI)).collect(Collectors.toList()).get(0);
 		// Si no encuentra ninguno tira IndexOutOfBoundsException
 	}
 
