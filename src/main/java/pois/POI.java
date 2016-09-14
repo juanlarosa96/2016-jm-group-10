@@ -17,7 +17,7 @@ public abstract class POI {
 	
 	@Id @GeneratedValue
 	private Integer id;	
-	
+
 	@Embedded
 	private Posicion posicion;
 	
@@ -34,6 +34,10 @@ public abstract class POI {
 	private List<FranjaHoraria> horarios;	
 	
 	//-------------------------------------------
+	
+	public Integer getId() {
+		return id;
+	}
 	
 	public Boolean distanciaAPoiMenorA(Double distancia, POI poi) {
 
@@ -127,6 +131,14 @@ public abstract class POI {
 	public Boolean esIgualA(POI poi) {
 		
 		return this.getPosicion().equals(poi.getPosicion());
+	}
+	
+	public void copiarEstado(POI poiNuevo){
+		this.setDireccion(poiNuevo.getDireccion());	
+		this.setEtiquetas(poiNuevo.getEtiquetas());
+		this.setHorarios(poiNuevo.getHorarios());
+		this.setNombre(poiNuevo.getNombre());
+		this.setPosicion(poiNuevo.getPosicion());		
 	}
 	
 	
