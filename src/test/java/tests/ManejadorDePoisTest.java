@@ -8,6 +8,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import adapters.BancoAdapter;
 import adapters.CentroDTO;
@@ -15,9 +17,7 @@ import adapters.CgpAdapter;
 import adapters.ComponenteExternoAdapter;
 import adapters.ServicioExternoBancos;
 import adapters.ServicioExternoCGP;
-
 import static org.mockito.Mockito.*;
-
 import fixtures.FixtureBanco;
 import fixtures.FixtureBancoAdapter;
 import fixtures.FixtureCGP;
@@ -27,11 +27,13 @@ import fixtures.FixtureParadaColectivo;
 import pois.Banco;
 import pois.CGP;
 import pois.Comercio;
+import pois.Dispositivo;
 import pois.ManejadorDePois;
 import pois.POI;
 import pois.ParadaColectivo;
+import pois.Posicion;
 
-public class ManejadorDePoisTest {
+public class ManejadorDePoisTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
 	private CGP cgpValido;
 	private CGP otroCgpValido;
@@ -97,9 +99,9 @@ public class ManejadorDePoisTest {
 
 		manejadorDePois = ManejadorDePois.getInstance();
 		
-		manejadorDePois.setListaPois(listaPoisDispositivo);
+		//manejadorDePois.setListaPois(listaPoisDispositivo);
 		
-		tamanioListaPois = listaPoisDispositivo.size();
+		//tamanioListaPois = listaPoisDispositivo.size();
 
 		CGPsConRentas = new ArrayList<POI>();
 
@@ -131,6 +133,20 @@ public class ManejadorDePoisTest {
 		listaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonNoVacia();
 		listaVaciaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonVacia();
 
+	}
+	
+	@Test
+	public void SiPersistoUnPOILuegoLoEncuentro(){
+		
+		
+		entityManager().persist(cgpValido);
+		
+		CGP cgpEncontrado = entityManager().find(CGP.class, cgpValido.getId());
+		
+		Assert.assertTrue(cgpValido.getNombre().equals(cgpEncontrado.getNombre()));
+		
+		System.out.println("nombre: "+cgpEncontrado.getNombre()+"; id: "+cgpEncontrado.getId().toString());
+		
 	}
 
 	@Test
