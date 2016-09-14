@@ -18,7 +18,7 @@ import tests.EntityManagerHelper;
 public class ManejadorDePois {
 
 	private static ManejadorDePois singleton = null;
-	//public List<POI> listaPois;
+	public List<POI> listaPois;
 	private List<ComponenteExternoAdapter> adaptersComponentesExternos;
 
 	private ManejadorDePois() {
@@ -33,48 +33,53 @@ public class ManejadorDePois {
 		return singleton;
 	}
 
-	/*
-	 * public void setListaPois(List<POI> unaListaDePois) {
-	/
-		//listaPois = unaListaDePois;
+   public void setListaPois(List<POI> unaListaDePois) {
+	
+		listaPois = unaListaDePois;
 		unaListaDePois.stream().forEach(poi -> EntityManagerHelper.getEntityManager().persist(poi));
 	}
 
-	*/
 
 	public void setListaAdapters(List<ComponenteExternoAdapter> listaAdapters) {
 		adaptersComponentesExternos = listaAdapters;
 	}
 
 	public void agregarPoi(POI poi) {
-		/*if (this.estaEnLaLista(poi))
+		if(this.estaEnLaLista(poi))
 			actualizarPoi(poi);
-		else
-		*/
-			//listaPois.add(poi);
+		else{
+			listaPois.add(poi);
 			EntityManagerHelper.getEntityManager().persist(poi);
+	}
+		
 	}
 
 	private void actualizarPoi(POI poiNuevo) {
+		
+		POI poiViejoLista = listaPois.stream().filter(unPoi -> unPoi.esIgualA(poiNuevo)).findFirst().get();
+		
+		this.eliminarPOI(poiViejoLista);
+		
+		listaPois.add(poiNuevo);
+		
 		EntityManager em = EntityManagerHelper.getEntityManager(); 
  		POI poiViejo = em.find(POI.class, poiNuevo.getId());
  		poiViejo.copiarEstado(poiNuevo);
 		em.flush();
 		
 				
-		//agregarPoi(poiNuevo);
-		//listaPois.add(poiNuevo);
 	}
 
-	/* private boolean estaEnLaLista(POI poiBuscado) {
-	POI poi =  EntityManagerHelper.getEntityManager().find(POI.class, poiBuscado.getId());
+	private boolean estaEnLaLista(POI poiBuscado) {
+				return listaPois.stream().anyMatch(unPoi -> poiBuscado.esIgualA(unPoi));
+		/*POI poi =  EntityManagerHelper.getEntityManager().find(POI.class, poiBuscado.getId());
 	if(poi != null){
 		return true;
 	}
 	return false;
 
 	}
-	*/
+	*/}
 
 	private void consultarPoisExternos(String descripcion) {
 
@@ -90,6 +95,7 @@ public class ManejadorDePois {
 	}
 
 	private void agregarPois(ArrayList<POI> listaDePois) {
+		listaDePois.stream().forEach(poi -> this.agregarPoi(poi));
 		listaDePois.stream().forEach(poi -> EntityManagerHelper.getEntityManager().persist(poi));
 	}
 
@@ -98,7 +104,7 @@ public class ManejadorDePois {
 	}
 
 	public void eliminarPOI(POI poi) {
-		//listaPois.remove(poi);
+		listaPois.remove(poi);
 		EntityManagerHelper.getEntityManager().remove(poi);
 	}
 
@@ -137,11 +143,12 @@ public class ManejadorDePois {
 
 	@SuppressWarnings("unchecked")
 	public POI buscarPOI(String nombrePOI, Direccion direccionPOI) {
-		//return listaPois.stream().filter(
-		//		poi -> poi.getNombre().equalsIgnoreCase(nombrePOI) && poi.getDireccion().esLaMismaDireccionQue(direccionPOI))
-			//	.collect(Collectors.toList()).get(0);
-		List<POI> listaPois = EntityManagerHelper.getEntityManager().createQuery("from pois where nombre = :nombrePOI").setParameter("nombrePOI", nombrePOI).getResultList();
+		return listaPois.stream().filter(
+				poi -> poi.getNombre().equalsIgnoreCase(nombrePOI) && poi.getDireccion().esLaMismaDireccionQue(direccionPOI))
+				.collect(Collectors.toList()).get(0);
+		/*List<POI> listaPois = EntityManagerHelper.getEntityManager().createQuery("from pois where nombre = :nombrePOI").setParameter("nombrePOI", nombrePOI).getResultList();
 		return listaPois.stream().filter(poi -> poi.getDireccion().esLaMismaDireccionQue(direccionPOI)).collect(Collectors.toList()).get(0);
+		*/
 		// Si no encuentra ninguno tira IndexOutOfBoundsException
 	}
 
