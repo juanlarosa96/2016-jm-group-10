@@ -13,7 +13,7 @@ public class ManejadorDeDispositivosTest extends AbstractPersistenceTest impleme
 	@Test
 	public void SiPersistoUnDispositivoLuegoLoEncuentro(){
 		
-		Dispositivo disp = new Dispositivo("unDisp", new Posicion(50.3,52.5));
+		Dispositivo disp = new Dispositivo("unDisp", new Posicion(50.5,52.5));
 		
 		entityManager().persist(disp);
 		
@@ -21,7 +21,7 @@ public class ManejadorDeDispositivosTest extends AbstractPersistenceTest impleme
 		
 		Assert.assertTrue(disp.getNombre().equals(dispEncontrado.getNombre()));
 		
-		System.out.println(dispEncontrado.getNombre()+","+dispEncontrado.getPosicion().toString()+"/"+dispEncontrado.getId().toString());
+		System.out.println("nombre: "+dispEncontrado.getNombre()+"; pos: "+dispEncontrado.getPosicion().toString()+"; id: "+dispEncontrado.getId().toString());
 		
 	}
 
