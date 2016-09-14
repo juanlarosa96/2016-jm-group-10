@@ -2,9 +2,14 @@ package pois;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.*;
+
 import org.joda.time.LocalTime;
 import org.joda.time.DateTimeConstants;
 
+@Table (name = "bancos")
+@Entity
 public class Banco extends POI {
 
 	public Banco(Posicion posicion, String nombre, Direccion direccion, List<String> etiquetas) {

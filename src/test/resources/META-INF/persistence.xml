@@ -11,6 +11,7 @@
 		<class> pois.POI </class>
 		<class> pois.Direccion </class>
 		<class> pois.FranjaHoraria </class>
+		<class> pois.Banco </class>
 		<class> pois.Comercio </class>
 		<class> pois.Rubro </class>
 		<class> pois.ParadaColectivo </class>
