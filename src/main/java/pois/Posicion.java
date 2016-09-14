@@ -38,6 +38,12 @@ public class Posicion {
 		BigDecimal _bigDecimal_1 = new BigDecimal(aY);
 		this.y = _bigDecimal_1;
 	}
+	
+	/**
+	 * Constructor vacio
+	 */
+	
+	private Posicion(){}
 
 	/**
 	 * Builder que permite llamarse como extension method estático, de la forma
