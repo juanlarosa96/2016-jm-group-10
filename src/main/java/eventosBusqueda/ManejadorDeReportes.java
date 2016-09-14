@@ -21,7 +21,6 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	private static ManejadorDeReportes singleton;
 
 	private ManejadorDeReportes() {
-
 		resultadosBusquedas = new ArrayList<ResultadoBusqueda>();
 	}
 
