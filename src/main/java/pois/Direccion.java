@@ -7,18 +7,22 @@ import javax.persistence.*;
 public class Direccion {
 	
 	@Id @GeneratedValue
-	private Integer id;
-	
+	private Integer id;	
+
 	private String calle;
 	private Integer altura;
 	private String entreCalle1;
 	private String entreCalle2;
 	private Integer piso;
 	private Character departamento;
-	private Integer codigoPostal;
+	private Integer codigoPostal;	
 	
 	@SuppressWarnings("unused")
 	private Direccion(){}
+	
+	public Integer getId() {
+		return id;
+	}
 	
 	public String getEntreCalle1() {
 		return entreCalle1;
