@@ -10,23 +10,48 @@ import java.util.stream.Stream;
 import javax.persistence.*;
 
 import herramientas.ManejadorDeFechas;
+import tests.EntityManagerHelper;
 
 @Entity
 public class ManejadorDeReportes extends InteresadoEnBusquedas {
-	
-	@OneToMany @JoinColumn
+
+	@Transient
+	private Integer cantBusquedasPorPersistir = 0;
+
+	@OneToMany
+	@JoinColumn
 	private List<ResultadoBusqueda> resultadosBusquedas;
-	
+
+	private Integer maxBusquedasPendientesPersist = 10;
+
 	@Transient
 	private static ManejadorDeReportes singleton;
 
 	private ManejadorDeReportes() {
+		this.inicializarListaBusquedas();
+	}
+
+	private void inicializarListaBusquedas() {
 		resultadosBusquedas = new ArrayList<ResultadoBusqueda>();
+		resultadosBusquedas.addAll(this.busquedasPersistidas());
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<ResultadoBusqueda> busquedasPersistidas() {
+		return EntityManagerHelper.getEntityManager().createQuery("from ResultadoBusqueda").getResultList();
+
 	}
 
 	@Override
 	public void notificarBusqueda(ResultadoBusqueda unaBusqueda) {
+
 		resultadosBusquedas.add(unaBusqueda);
+		cantBusquedasPorPersistir++;
+
+		if (cantBusquedasPorPersistir >= maxBusquedasPendientesPersist) {
+			EntityManagerHelper.getEntityManager().persist(unaBusqueda);
+			cantBusquedasPorPersistir = 0;
+		}
 	}
 
 	public static ManejadorDeReportes getInstance() {
@@ -38,6 +63,7 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	}
 
 	private Integer contarBusquedasPorFecha(String fecha) {
+
 		return resultadosBusquedas.stream()
 				.filter(busqueda -> fecha.equals(ManejadorDeFechas.convertirFechaAString(busqueda.getFecha())))
 				.collect(Collectors.toList()).size();
@@ -89,7 +115,8 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	}
 
 	private Set<String> obtenerSetDeFechas() {
-		return resultadosBusquedas.stream().map(busqueda -> ManejadorDeFechas.convertirFechaAString(busqueda.getFecha()))
+		return resultadosBusquedas.stream()
+				.map(busqueda -> ManejadorDeFechas.convertirFechaAString(busqueda.getFecha()))
 				.collect(Collectors.toSet());
 	}
 
@@ -104,6 +131,5 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	public void setResultadosBusquedas(List<ResultadoBusqueda> resultadosBusquedas) {
 		this.resultadosBusquedas = resultadosBusquedas;
 	}
-	
-	
+
 }
