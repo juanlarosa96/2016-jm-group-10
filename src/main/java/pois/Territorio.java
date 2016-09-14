@@ -7,6 +7,10 @@ import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -23,11 +27,26 @@ import org.uqbar.geodds.NumberUtils;
  */
 @SuppressWarnings("all")
 
-@Embeddable
+@Entity
 public class Territorio {
+	
+	@Id @GeneratedValue
+	private Integer id;
 	
 	@ElementCollection
 	private List<Posicion> surface;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setSurface(List<Posicion> surface) {
+		this.surface = surface;
+	}
 
 	/**
 	   * Constructor default, obliga luego a agregar los puntos manualmente mediante el mensaje add(Point point). <br><br>
