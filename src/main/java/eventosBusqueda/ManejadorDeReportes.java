@@ -28,7 +28,18 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	private static ManejadorDeReportes singleton;
 
 	private ManejadorDeReportes() {
+		this.inicializarListaBusquedas();
+	}
+
+	private void inicializarListaBusquedas() {
 		resultadosBusquedas = new ArrayList<ResultadoBusqueda>();
+		resultadosBusquedas.addAll(this.busquedasPersistidas());
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<ResultadoBusqueda> busquedasPersistidas() {
+		return EntityManagerHelper.getEntityManager().createQuery("from ResultadoBusqueda").getResultList();
+
 	}
 
 	@Override
@@ -37,7 +48,7 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 		resultadosBusquedas.add(unaBusqueda);
 		cantBusquedasPorPersistir++;
 
-		if (cantBusquedasPorPersistir >= maxBusquedasPendientesPersist ) {
+		if (cantBusquedasPorPersistir >= maxBusquedasPendientesPersist) {
 			EntityManagerHelper.getEntityManager().persist(unaBusqueda);
 			cantBusquedasPorPersistir = 0;
 		}
