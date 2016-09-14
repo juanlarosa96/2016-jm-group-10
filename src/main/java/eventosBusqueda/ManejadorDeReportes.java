@@ -14,11 +14,8 @@ import herramientas.ManejadorDeFechas;
 @Entity
 public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	
-	@Id
-	private Integer id = 1;
-	
-	@ElementCollection
-	List<ResultadoBusqueda> resultadosBusquedas;
+	@OneToMany @JoinColumn
+	private List<ResultadoBusqueda> resultadosBusquedas;
 	
 	@Transient
 	private static ManejadorDeReportes singleton;

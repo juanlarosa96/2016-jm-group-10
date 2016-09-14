@@ -8,8 +8,11 @@ import org.joda.time.DateTime;
 
 import pois.POI;
 
-@Embeddable
+@Entity
 public class ResultadoBusqueda {
+	
+	@Id @GeneratedValue
+	private Integer id;
 	
 	private String nombreTerminal;
 	

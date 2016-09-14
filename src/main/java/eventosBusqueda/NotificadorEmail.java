@@ -7,9 +7,6 @@ import adapters.AdapterMail;
 @Entity
 public class NotificadorEmail extends InteresadoEnBusquedas {
 	
-	@Id @GeneratedValue
-	private Integer id;
-	
 	private Double demoraMaximaEnSegundos;
 	private String emailAdmin;
 	
