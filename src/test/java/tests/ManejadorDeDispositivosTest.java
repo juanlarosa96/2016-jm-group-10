@@ -13,7 +13,7 @@ import pois.Dispositivo;
 
 public class ManejadorDeDispositivosTest {
 
-	@Test
+	/*@Test
 	public void SiPersistoUnDispositivoLuegoLoEncuentro(){
 		
 		
@@ -34,6 +34,6 @@ public class ManejadorDeDispositivosTest {
 		Assert.assertTrue(disp.getNombre().equals(dispEncontrado.getNombre()));
 		
 		tx.rollback();
-	}
+	}*/
 	
 }
