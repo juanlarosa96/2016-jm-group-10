@@ -1,39 +1,28 @@
 package tests;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-
 import org.junit.Assert;
 import org.junit.Test;
-import pois.Posicion;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import pois.Dispositivo;
+import pois.Posicion;
 
-public class ManejadorDeDispositivosTest {
+public class ManejadorDeDispositivosTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
-	/*@Test
+	@Test
 	public void SiPersistoUnDispositivoLuegoLoEncuentro(){
 		
+		Dispositivo disp = new Dispositivo("unDisp", new Posicion(50.3,52.5));
 		
-		Dispositivo disp = new Dispositivo("unDisp", new Posicion(50.0,52.0));
+		entityManager().persist(disp);
 		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("db");
-		
-		EntityManager entityManager = factory.createEntityManager();
-
-		EntityTransaction tx = entityManager.getTransaction();
-		
-		tx.begin();
-		
-		entityManager.persist(disp);
-		
-		Dispositivo dispEncontrado = entityManager.find(Dispositivo.class, disp.getId());
+		Dispositivo dispEncontrado = entityManager().find(Dispositivo.class, disp.getId());
 		
 		Assert.assertTrue(disp.getNombre().equals(dispEncontrado.getNombre()));
 		
-		tx.rollback();
-	}*/
-	
+		System.out.println(dispEncontrado.getNombre()+","+dispEncontrado.getPosicion().toString()+"/"+dispEncontrado.getId().toString());
+		
+	}
+
 }
