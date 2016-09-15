@@ -1,25 +1,32 @@
 package eventosBusqueda;
 
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import org.joda.time.LocalDateTime;
 
+import javax.persistence.*;
 import adapters.AdapterMail;
 
 @Entity
 public class NotificadorEmail extends InteresadoEnBusquedas {
-	
+
 	private Double demoraMaximaEnSegundos;
 	private String emailAdmin;
-	
+
 	@Transient
 	private AdapterMail adapterMail;
+	
+	//private List<MailEnviado> mailsEnviados;
 
 	@SuppressWarnings("unused")
-	private NotificadorEmail(){}
-	
+	private NotificadorEmail() {
+	}
+
 	public NotificadorEmail(Double demoraMaximaEnSegundos, String emailAdmin, AdapterMail unAdapter) {
 		this.demoraMaximaEnSegundos = demoraMaximaEnSegundos;
 		this.emailAdmin = emailAdmin;
 		this.adapterMail = unAdapter;
+		//mailsEnviados = new ArrayList<MailEnviado>();
 	}
 
 	@Override
@@ -33,7 +40,16 @@ public class NotificadorEmail extends InteresadoEnBusquedas {
 	private void notificarBusquedaPorMail(ResultadoBusqueda unaBusqueda) {
 		adapterMail.enviarMailPorBusquedaLenta(unaBusqueda, emailAdmin);
 
+		/*mailsEnviados.add(new MailEnviado("dds@utn.com.ar", emailAdmin, "Busqueda Lenta", LocalDateTime.now(),
+				this.mensajeBusquedaLenta(unaBusqueda)));*/
+
 	}
+
+	/*private String mensajeBusquedaLenta(ResultadoBusqueda unaBusqueda) {
+		return "Se registro una busqueda desde la terminal " + unaBusqueda.getNombreTerminal() + " con una demora de "
+				+ unaBusqueda.getDemoraEnSegundos().toString() + "y con " + unaBusqueda.getCantResultados().toString()
+				+ " pois encontrados";
+	}*/
 
 	private boolean deboNotificarBusqueda(ResultadoBusqueda unaBusqueda) {
 
@@ -55,7 +71,5 @@ public class NotificadorEmail extends InteresadoEnBusquedas {
 	public String getEmailAdmin() {
 		return emailAdmin;
 	}
-	
-	
 
 }
