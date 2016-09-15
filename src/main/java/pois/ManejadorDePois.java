@@ -22,7 +22,7 @@ public class ManejadorDePois {
 	private List<ComponenteExternoAdapter> adaptersComponentesExternos;
 
 	private ManejadorDePois() {
-
+		listaPois= new ArrayList<POI>();
 	}
 
 	public static ManejadorDePois getInstance() {
@@ -96,7 +96,6 @@ public class ManejadorDePois {
 
 	private void agregarPois(ArrayList<POI> listaDePois) {
 		listaDePois.stream().forEach(poi -> this.agregarPoi(poi));
-		listaDePois.stream().forEach(poi -> EntityManagerHelper.getEntityManager().persist(poi));
 	}
 
 	public Boolean poiDisponible(POI poi, DateTime momento) {
@@ -111,7 +110,7 @@ public class ManejadorDePois {
 	@SuppressWarnings("unchecked")
 	public List<POI> buscarPOIs(String descripcion) {
 		this.consultarPoisExternos(descripcion);
-		List<POI> listaPois = EntityManagerHelper.getEntityManager().createQuery("from pois").getResultList();
+		List<POI> listaPois = EntityManagerHelper.getEntityManager().createQuery("from POI").getResultList();
 		return listaPois.stream().filter(poi -> poi.contiene(descripcion)).collect(Collectors.toList());
 		
 
