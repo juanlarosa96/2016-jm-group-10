@@ -18,10 +18,10 @@
 		<class> pois.CGP </class>
 		<class> pois.Servicio </class>
 		<class> pois.Dispositivo </class> 
-		<class> eventosBusqueda.InteresadoEnBusquedas </class>
-		<class> eventosBusqueda.NotificadorEmail </class>
+ 		<class> eventosBusqueda.InteresadoEnBusquedas </class>
+	<!--	<class> eventosBusqueda.NotificadorEmail </class>
 		<class> eventosBusqueda.ManejadorDeReportes </class>
-		<class> eventosBusqueda.ResultadoBusqueda </class>
+		<class> eventosBusqueda.ResultadoBusqueda </class> -->
 
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class" />
