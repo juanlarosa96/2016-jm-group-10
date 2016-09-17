@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+
 public class EntityManagerHelper {
 
     private static EntityManagerFactory emf;
@@ -89,6 +90,26 @@ public class EntityManagerHelper {
     		throw e;
     	}
     }
+
+	public static void persist(Object object) {
+		entityManager().persist(object);
+	}
+
+	 public static <T> T find(Class<T> entityClass, Object primaryKey){
+		 return entityManager().find(entityClass, primaryKey);
+	 }
+
+	public static void flush() {
+		entityManager().flush();
+	}
+
+	public static void remove(Object object) {
+		entityManager().remove(object);
+	}
+
+	public static boolean contains(Object object) {
+		return entityManager().contains(object);
+	}
     
     
 
