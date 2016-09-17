@@ -28,5 +28,8 @@ public class Banco extends POI {
 		this.setDireccion(direccion);
 		this.setEtiquetas(etiquetas);
 	}
+	
+	@SuppressWarnings("unused")
+	private Banco(){}
 		
 }
