@@ -5,10 +5,6 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityTransaction;
-
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,11 +27,9 @@ import fixtures.FixtureParadaColectivo;
 import pois.Banco;
 import pois.CGP;
 import pois.Comercio;
-import pois.Dispositivo;
 import pois.ManejadorDePois;
 import pois.POI;
 import pois.ParadaColectivo;
-import pois.Posicion;
 
 public class ManejadorDePoisTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
@@ -142,10 +136,16 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 
 	@Test
 	public void SiPersistoUnPOILuegoLoEncuentro(){
-				
-		entityManager().persist(cgpValido);
 		
-		CGP cgpEncontrado = entityManager().find(CGP.class, cgpValido.getId());
+		EntityManagerHelper.beginTransaction();
+				
+		EntityManagerHelper.persist(cgpValido);
+		
+		EntityManagerHelper.commit();
+		
+		Assert.assertTrue(EntityManagerHelper.contains(cgpValido));
+		
+		CGP cgpEncontrado = EntityManagerHelper.find(CGP.class, cgpValido.getId());				
 		
 		Assert.assertTrue(cgpValido.getNombre().equals(cgpEncontrado.getNombre()));
 		
@@ -175,10 +175,10 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 		Assert.assertEquals(2, (manejadorDePois.buscarPOIs("asesoramiento").size()), 0);
 	}
 	*/
-	@Test
+	/*@Test
 	public void SiBuscoPOIsPorEtiquetaQueNingunoTieneNoEncuentraNinguno() {
 		Assert.assertTrue(manejadorDePois.buscarPOIs("negra").isEmpty());
-	}
+	}*/
 	/*
 	@Test
 	public void SiBuscoUnServicioQueSeEncuentraDisponibleEn2CGPEnUnHorarioDisponibleParaEseServicioEncuentraLos2CGP() {
