@@ -9,8 +9,8 @@ import java.util.stream.Stream;
 
 import javax.persistence.*;
 
+import herramientas.EntityManagerHelper;
 import herramientas.ManejadorDeFechas;
-import tests.EntityManagerHelper;
 
 @Entity
 public class ManejadorDeReportes extends InteresadoEnBusquedas {
