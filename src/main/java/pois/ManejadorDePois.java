@@ -115,7 +115,8 @@ public class ManejadorDePois {
 
 	private void eliminarPoiDeBD(POI poi) {
 		EntityManagerHelper.beginTransaction();
-		EntityManagerHelper.remove(poi);
+		POI poiEncontrado = EntityManagerHelper.find(POI.class, poi.getId());
+		EntityManagerHelper.remove(poiEncontrado);
 		EntityManagerHelper.commit();
 	}
 
