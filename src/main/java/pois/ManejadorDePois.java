@@ -76,7 +76,7 @@ public class ManejadorDePois {
 		listaPois.add(poiNuevo);
 
 		EntityManagerHelper.beginTransaction();
-		POI poiViejo = EntityManagerHelper.find(POI.class, poiNuevo.getId());
+		POI poiViejo = EntityManagerHelper.find(POI.class, poiViejoLista.getId());
 		poiViejo.copiarEstado(poiNuevo);
 		EntityManagerHelper.flush();
 		EntityManagerHelper.commit();
