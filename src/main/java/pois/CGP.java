@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
 @Entity
 public class CGP extends POI {
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Servicio> servicios;
 	
 	@Embedded
