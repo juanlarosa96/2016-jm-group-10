@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -30,7 +31,7 @@ import org.uqbar.geodds.NumberUtils;
 @Embeddable
 public class Territorio {
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.LAZY)
 	private List<Posicion> surface;
 
 	public void setSurface(List<Posicion> surface) {
