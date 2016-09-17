@@ -12,7 +12,7 @@ import herramientas.ManejadorDeStrings;
 @Entity
 public class Comercio extends POI {
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Rubro rubro;
 
 	@SuppressWarnings("unused")
