@@ -23,7 +23,7 @@ public abstract class POI {
 	
 	private String nombre;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Direccion direccion;
 	
 	@ElementCollection
