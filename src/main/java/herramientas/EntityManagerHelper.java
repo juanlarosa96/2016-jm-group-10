@@ -110,6 +110,10 @@ public class EntityManagerHelper {
 	public static boolean contains(Object object) {
 		return entityManager().contains(object);
 	}
+
+	public static void clear() {
+		entityManager().clear();
+	}
     
     
 
