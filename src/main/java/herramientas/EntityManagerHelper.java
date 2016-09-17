@@ -1,4 +1,4 @@
-package tests;
+package herramientas;
 
 import java.util.function.*;
 
