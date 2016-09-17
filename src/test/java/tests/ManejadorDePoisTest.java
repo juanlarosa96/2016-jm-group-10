@@ -24,6 +24,7 @@ import fixtures.FixtureCGP;
 import fixtures.FixtureCentroDTO;
 import fixtures.FixtureComercio;
 import fixtures.FixtureParadaColectivo;
+import herramientas.EntityManagerHelper;
 import pois.Banco;
 import pois.CGP;
 import pois.Comercio;
@@ -59,15 +60,12 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 	private ParadaColectivo paradaQueNoEstaEnLaLista;
 	private ParadaColectivo parada114ValidaConMasEtiquetas;
 
-	
 	private CgpAdapter cgpAdapter;
 	private BancoAdapter bancoAdapter;
-	private List<ComponenteExternoAdapter> listaAdapters; 
+	private List<ComponenteExternoAdapter> listaAdapters;
 
 	private int tamanioListaPois;
 	private ManejadorDePois manejadorDePois;
-
-
 
 	@Before
 	public void init() {
@@ -96,10 +94,10 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 		};
 
 		manejadorDePois = ManejadorDePois.getInstance();
-		
-		//manejadorDePois.setListaPois(listaPoisDispositivo);
-		
-		//tamanioListaPois = listaPoisDispositivo.size();
+
+		manejadorDePois.setListaPois(listaPoisDispositivo);
+
+		tamanioListaPois = listaPoisDispositivo.size();
 
 		CGPsConRentas = new ArrayList<POI>();
 
@@ -130,40 +128,41 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 
 		listaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonNoVacia();
 		listaVaciaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonVacia();
-		
+
 	}
-	
 
 	@Test
-	public void SiPersistoUnPOILuegoLoEncuentro(){
-		
+	public void SiPersistoUnPOILuegoLoEncuentro() {
+
 		EntityManagerHelper.beginTransaction();
-				
+
 		EntityManagerHelper.persist(cgpValido);
-		
+
 		EntityManagerHelper.commit();
-		
+
 		Assert.assertTrue(EntityManagerHelper.contains(cgpValido));
-		
-		CGP cgpEncontrado = EntityManagerHelper.find(CGP.class, cgpValido.getId());				
-		
+
+		CGP cgpEncontrado = EntityManagerHelper.find(CGP.class, cgpValido.getId());
+
 		Assert.assertTrue(cgpValido.getNombre().equals(cgpEncontrado.getNombre()));
-		
-		System.out.println("nombre: "+cgpEncontrado.getNombre()+"; id: "+cgpEncontrado.getId().toString());
-		
+
+		System.out.println("nombre: " + cgpEncontrado.getNombre() + "; id: " + cgpEncontrado.getId().toString());
+
 	}
 
-/*	@Test
+	@Test
 	public void SiBuscoParadaQueEstaEnLaListaDePoisPorEtiquetaLaEncuentra() {
 		manejadorDePois.agregarPoi(parada114Valida);
 		Assert.assertTrue((manejadorDePois.buscarPOIs("114")).contains(parada114Valida));
-	}*/
-	
-	/*@Test
-	public void SiBuscoParadasPorEtiquetaEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
-		Assert.assertTrue((manejadorDePois.buscarPOIs("114")).contains(parada114Valida));
-		Assert.assertTrue((manejadorDePois.buscarPOIs("114")).contains(otraParada114Valida));
 	}
+
+/*	@Test
+	public void SiBuscoParadasPorEtiquetaEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
+		List<POI> poisEncontrados = manejadorDePois.buscarPOIs("114");
+
+		Assert.assertTrue(poisEncontrados.contains(parada114Valida));
+		Assert.assertTrue(poisEncontrados.contains(otraParada114Valida));
+	}*/
 
 	@Test
 	public void SiBuscoPOIsPorPalabraClaveDevuelveTodosLosQueLaTienen() {
@@ -174,12 +173,12 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 	public void SiBuscoCGPsPorPalabraClaveYPreguntoCuantosSonDevuelveLaCantidadDeCGPsQueLaTienen() {
 		Assert.assertEquals(2, (manejadorDePois.buscarPOIs("asesoramiento").size()), 0);
 	}
-	*/
-	/*@Test
+
+/*	@Test
 	public void SiBuscoPOIsPorEtiquetaQueNingunoTieneNoEncuentraNinguno() {
 		Assert.assertTrue(manejadorDePois.buscarPOIs("negra").isEmpty());
 	}*/
-	/*
+
 	@Test
 	public void SiBuscoUnServicioQueSeEncuentraDisponibleEn2CGPEnUnHorarioDisponibleParaEseServicioEncuentraLos2CGP() {
 		CGPsConRentas = manejadorDePois.buscarServicioDisponible("Rentas", horarioValidoParaRentas);
@@ -194,20 +193,21 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 	}
 
-	// Servicios Externos------------------------------------------------------------------
-	
+	// Servicios
+	// Externos------------------------------------------------------------------
+
 	@Test
-	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs(){
+	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs() {
 		listaAdapters.clear();
 		listaAdapters.add(cgpAdapter);
 		manejadorDePois.setListaAdapters(listaAdapters);
-		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);				
+		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);
 
 		manejadorDePois.buscarPOIs("balvanera");
 
-		verify(servicioExternoCgpMockeado).buscar("balvanera");		
+		verify(servicioExternoCgpMockeado).buscar("balvanera");
 
-		Assert.assertEquals(tamanioListaPois+1, listaPoisDispositivo.size(),0);
+		Assert.assertEquals(tamanioListaPois + 1, listaPoisDispositivo.size(), 0);
 
 	}
 
@@ -218,7 +218,7 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 		manejadorDePois.setListaAdapters(listaAdapters);
 		centrosDTO.clear();
 		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(centrosDTO);
-		
+
 		manejadorDePois.buscarPOIs("manchester");
 
 		verify(servicioExternoCgpMockeado).buscar("manchester");
@@ -234,9 +234,9 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 		when(servicioExternoBancoMockeado.buscar("Banco de la Plaza", "extracciones")).thenReturn(listaBancoJson);
 		manejadorDePois.buscarPOIs("Banco de la Plaza,extracciones");
 
-		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza", "extracciones");		
+		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza", "extracciones");
 
-		Assert.assertEquals(tamanioListaPois+1, listaPoisDispositivo.size(),0);
+		Assert.assertEquals(tamanioListaPois + 1, listaPoisDispositivo.size(), 0);
 
 	}
 
@@ -267,7 +267,7 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 
 	}
 
-	@Test
+/*	@Test
 	public void SiAgregoUnaParadaExistenteLaActualiza() {
 		manejadorDePois.agregarPoi(parada114ValidaConMasEtiquetas);
 		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
