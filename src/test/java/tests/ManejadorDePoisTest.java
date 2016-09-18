@@ -8,8 +8,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import adapters.BancoAdapter;
 import adapters.CentroDTO;
@@ -32,7 +30,7 @@ import pois.ManejadorDePois;
 import pois.POI;
 import pois.ParadaColectivo;
 
-public class ManejadorDePoisTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class ManejadorDePoisTest {
 
 	private CGP cgpValido;
 	private CGP otroCgpValido;
@@ -156,13 +154,13 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 		Assert.assertTrue((manejadorDePois.buscarPOIs("114")).contains(parada114Valida));
 	}
 
-/*	@Test
+	@Test
 	public void SiBuscoParadasPorEtiquetaEncuentraTodasLasQueEstanEnLaListaConEsaEtiqueta() {
 		List<POI> poisEncontrados = manejadorDePois.buscarPOIs("114");
 
 		Assert.assertTrue(poisEncontrados.contains(parada114Valida));
 		Assert.assertTrue(poisEncontrados.contains(otraParada114Valida));
-	}*/
+	}
 
 	@Test
 	public void SiBuscoPOIsPorPalabraClaveDevuelveTodosLosQueLaTienen() {
@@ -174,10 +172,10 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 		Assert.assertEquals(2, (manejadorDePois.buscarPOIs("asesoramiento").size()), 0);
 	}
 
-/*	@Test
+	@Test
 	public void SiBuscoPOIsPorEtiquetaQueNingunoTieneNoEncuentraNinguno() {
 		Assert.assertTrue(manejadorDePois.buscarPOIs("negra").isEmpty());
-	}*/
+	}
 
 	@Test
 	public void SiBuscoUnServicioQueSeEncuentraDisponibleEn2CGPEnUnHorarioDisponibleParaEseServicioEncuentraLos2CGP() {
@@ -267,11 +265,11 @@ public class ManejadorDePoisTest extends AbstractPersistenceTest implements With
 
 	}
 
-/*	@Test
+	@Test
 	public void SiAgregoUnaParadaExistenteLaActualiza() {
 		manejadorDePois.agregarPoi(parada114ValidaConMasEtiquetas);
 		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
 		Assert.assertTrue(listaPoisDispositivo.contains(parada114ValidaConMasEtiquetas));
-	}*/
+	}
 
 }
