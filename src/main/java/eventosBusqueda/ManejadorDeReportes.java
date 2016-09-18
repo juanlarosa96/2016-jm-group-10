@@ -14,21 +14,20 @@ import herramientas.ManejadorDeFechas;
 
 @Entity
 public class ManejadorDeReportes extends InteresadoEnBusquedas {
-
+	
 	@Transient
 	private Integer cantBusquedasPorPersistir = 0;
-
-	@OneToMany
-	@JoinColumn
-	private List<ResultadoBusqueda> resultadosBusquedas;
-
+	@Transient
 	private Integer maxBusquedasPendientesPersist = 10;
-
 	@Transient
 	private static ManejadorDeReportes singleton;
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn
+	private List<ResultadoBusqueda> resultadosBusquedas;
+
 	private ManejadorDeReportes() {
-		this.inicializarListaBusquedas();
+		
 	}
 
 	private void inicializarListaBusquedas() {
@@ -39,7 +38,6 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	@SuppressWarnings("unchecked")
 	private List<ResultadoBusqueda> busquedasPersistidas() {
 		return EntityManagerHelper.getEntityManager().createQuery("from ResultadoBusqueda").getResultList();
-
 	}
 
 	@Override
@@ -49,7 +47,11 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 		cantBusquedasPorPersistir++;
 
 		if (cantBusquedasPorPersistir >= maxBusquedasPendientesPersist) {
-			EntityManagerHelper.getEntityManager().persist(unaBusqueda);
+			
+			EntityManagerHelper.beginTransaction();
+			EntityManagerHelper.persist(unaBusqueda);
+			EntityManagerHelper.commit();
+			
 			cantBusquedasPorPersistir = 0;
 		}
 	}
@@ -57,6 +59,7 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	public static ManejadorDeReportes getInstance() {
 		if (singleton == null) {
 			singleton = new ManejadorDeReportes();
+			singleton.inicializarListaBusquedas();
 		}
 
 		return singleton;
@@ -128,8 +131,18 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 		return resultadosBusquedas;
 	}
 
-	public void setResultadosBusquedas(List<ResultadoBusqueda> resultadosBusquedas) {
-		this.resultadosBusquedas = resultadosBusquedas;
+	@SuppressWarnings("unchecked")
+	public void setResultadosBusquedas(List<ResultadoBusqueda> busquedasNuevas) {
+		this.resultadosBusquedas = busquedasNuevas;
+		
+		EntityManagerHelper.beginTransaction();
+
+		List<ResultadoBusqueda> busquedasViejas = EntityManagerHelper.createQuery("from ResultadoBusqueda").getResultList();
+		busquedasViejas.stream().forEach(busq -> EntityManagerHelper.remove(busq));
+
+		busquedasNuevas.stream().forEach(poi -> EntityManagerHelper.persist(poi));
+
+		EntityManagerHelper.commit();
 	}
 
 }
