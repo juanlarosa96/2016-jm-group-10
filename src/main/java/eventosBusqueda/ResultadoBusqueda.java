@@ -16,11 +16,34 @@ public class ResultadoBusqueda {
 	
 	private String nombreTerminal;
 	
-	@ManyToMany
+	public List<POI> getPoisEncontrados() {
+		return poisEncontrados;
+	}
+
+	public void setPoisEncontrados(List<POI> poisEncontrados) {
+		this.poisEncontrados = poisEncontrados;
+	}
+
+	public void setNombreTerminal(String nombreTerminal) {
+		this.nombreTerminal = nombreTerminal;
+	}
+
+	public void setFecha(DateTime fecha) {
+		this.fecha = fecha;
+	}
+
+	public void setDemoraEnSegundos(Double demoraEnSegundos) {
+		this.demoraEnSegundos = demoraEnSegundos;
+	}
+
+	public void setDescripcionBuscada(String descripcionBuscada) {
+		this.descripcionBuscada = descripcionBuscada;
+	}
+
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<POI> poisEncontrados;
 	
-	private DateTime fecha;
-	
+	private DateTime fecha;	
 	private Double demoraEnSegundos;
 	private String descripcionBuscada;
 	
