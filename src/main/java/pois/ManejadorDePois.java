@@ -39,8 +39,8 @@ public class ManejadorDePois {
 
 		EntityManagerHelper.beginTransaction();
 
-		List<POI> poisActuales = EntityManagerHelper.createQuery("from POI").getResultList();
-		poisActuales.stream().forEach(poi -> EntityManagerHelper.remove(poi));
+		List<POI> poisViejos = EntityManagerHelper.createQuery("from POI").getResultList();
+		poisViejos.stream().forEach(poi -> EntityManagerHelper.remove(poi));
 
 		listaPoisNueva.stream().forEach(poi -> EntityManagerHelper.persist(poi));
 
