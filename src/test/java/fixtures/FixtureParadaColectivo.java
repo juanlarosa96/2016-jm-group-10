@@ -74,7 +74,8 @@ public class FixtureParadaColectivo {
 	}
 
 	public static ParadaColectivo dameUnaParadaValida() {		
-		return parada114Segurola;
+		return new ParadaColectivo(114, posicionParada114Segurola, "114", direccionParada114Segurola,
+				etiquetasParada114);
 	}
 	
 	public static ParadaColectivo dameOtraParadaValida() {
@@ -90,7 +91,9 @@ public class FixtureParadaColectivo {
 	}
 	
 	public static ParadaColectivo dameUnaParada114Valida() {		
-		return parada114Segurola;
+		return new ParadaColectivo(114, posicionParada114Segurola, "114", new Direccion("Av. Segurola", 230, "Bacacay", "Bogota", null, null, 1407, "CABA",
+				"Floresta", "CABA", "Argentina"),
+				etiquetasParada114);
 	}
 	
 	public static ParadaColectivo dameOtraParada114Valida() {		
