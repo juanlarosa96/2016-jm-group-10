@@ -67,6 +67,9 @@ public class ResultadoBusqueda {
 		return descripcionBuscada;
 	}
 
+	@SuppressWarnings("unused")
+	private ResultadoBusqueda(){}
+	
 	public ResultadoBusqueda(String nombreTerminal, List<POI> listaPoisEncontrados, DateTime fecha, Double demoraEnSegundos,
 			String descripcionBuscada) {
 		this.nombreTerminal = nombreTerminal;
