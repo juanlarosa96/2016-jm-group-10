@@ -27,17 +27,18 @@ public class Dispositivo {
 	@Transient
 	private ManejadorDePois manejadorDePois;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private List<InteresadoEnBusquedas> observers;
-	
-	//---------------------
-	
+
+	// ---------------------
+
 	public Integer getId() {
 		return id;
 	}
 
 	@SuppressWarnings("unused")
-	private Dispositivo(){}
+	private Dispositivo() {
+	}
 
 	public Dispositivo(String unNombre, Posicion unaPosicion) {
 		this.nombre = unNombre;
@@ -87,7 +88,7 @@ public class Dispositivo {
 	public Posicion getPosicion() {
 		return posicion;
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
