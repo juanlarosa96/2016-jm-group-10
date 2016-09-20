@@ -16,6 +16,25 @@ public class ResultadoBusqueda {
 	
 	private String nombreTerminal;
 	
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<POI> poisEncontrados;
+	
+	private DateTime fecha;	
+	private Double demoraEnSegundos;
+	private String descripcionBuscada;	
+
+	@SuppressWarnings("unused")
+	private ResultadoBusqueda(){}
+	
+	public ResultadoBusqueda(String nombreTerminal, List<POI> listaPoisEncontrados, DateTime fecha, Double demoraEnSegundos,
+			String descripcionBuscada) {
+		this.nombreTerminal = nombreTerminal;
+		this.poisEncontrados = listaPoisEncontrados;
+		this.fecha = fecha;
+		this.demoraEnSegundos = demoraEnSegundos;
+		this.descripcionBuscada = descripcionBuscada;
+	}
+	
 	public List<POI> getPoisEncontrados() {
 		return poisEncontrados;
 	}
@@ -39,13 +58,6 @@ public class ResultadoBusqueda {
 	public void setDescripcionBuscada(String descripcionBuscada) {
 		this.descripcionBuscada = descripcionBuscada;
 	}
-
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<POI> poisEncontrados;
-	
-	private DateTime fecha;	
-	private Double demoraEnSegundos;
-	private String descripcionBuscada;
 	
 	public String getNombreTerminal() {
 		return nombreTerminal;
@@ -66,18 +78,5 @@ public class ResultadoBusqueda {
 	public String getDescripcionBuscada() {
 		return descripcionBuscada;
 	}
-
-	@SuppressWarnings("unused")
-	private ResultadoBusqueda(){}
-	
-	public ResultadoBusqueda(String nombreTerminal, List<POI> listaPoisEncontrados, DateTime fecha, Double demoraEnSegundos,
-			String descripcionBuscada) {
-		this.nombreTerminal = nombreTerminal;
-		this.poisEncontrados = listaPoisEncontrados;
-		this.fecha = fecha;
-		this.demoraEnSegundos = demoraEnSegundos;
-		this.descripcionBuscada = descripcionBuscada;
-	}
-	
 		
 }
