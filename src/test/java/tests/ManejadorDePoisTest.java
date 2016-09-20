@@ -144,14 +144,13 @@ public class ManejadorDePoisTest {
 
 		Assert.assertTrue(cgpValido.getNombre().equals(cgpEncontrado.getNombre()));
 
-		System.out.println("nombre: " + cgpEncontrado.getNombre() + "; id: " + cgpEncontrado.getId().toString());
-
 	}
 
 	@Test
 	public void SiBuscoParadaQueEstaEnLaListaDePoisPorEtiquetaLaEncuentra() {
 		manejadorDePois.agregarPoi(parada114Valida);
 		Assert.assertTrue((manejadorDePois.buscarPOIs("114")).contains(parada114Valida));
+		Assert.assertTrue(EntityManagerHelper.contains(parada114Valida));
 	}
 
 	@Test
@@ -160,6 +159,9 @@ public class ManejadorDePoisTest {
 
 		Assert.assertTrue(poisEncontrados.contains(parada114Valida));
 		Assert.assertTrue(poisEncontrados.contains(otraParada114Valida));
+
+		Assert.assertTrue(EntityManagerHelper.contains(parada114Valida));
+		Assert.assertTrue(EntityManagerHelper.contains(otraParada114Valida));
 	}
 
 	@Test
@@ -255,6 +257,7 @@ public class ManejadorDePoisTest {
 	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
 		manejadorDePois.eliminarPOI(parada114Valida);
 		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
+		Assert.assertFalse(EntityManagerHelper.contains(parada114Valida));
 	}
 
 	@Test
@@ -262,6 +265,7 @@ public class ManejadorDePoisTest {
 		Assert.assertFalse(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
 		manejadorDePois.agregarPoi(paradaQueNoEstaEnLaLista);
 		Assert.assertTrue(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
+		Assert.assertTrue(EntityManagerHelper.contains(paradaQueNoEstaEnLaLista));
 
 	}
 
@@ -270,6 +274,14 @@ public class ManejadorDePoisTest {
 		manejadorDePois.agregarPoi(parada114ValidaConMasEtiquetas);
 		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
 		Assert.assertTrue(listaPoisDispositivo.contains(parada114ValidaConMasEtiquetas));
+
+		Assert.assertTrue(EntityManagerHelper.contains(parada114Valida));
+
+		ParadaColectivo paradaEncontrada = EntityManagerHelper.find(ParadaColectivo.class,
+				parada114Valida.getId());
+
+		Assert.assertEquals(parada114ValidaConMasEtiquetas.getEtiquetas(), paradaEncontrada.getEtiquetas());
+
 	}
 
 }
