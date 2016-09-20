@@ -3,7 +3,6 @@ package pois;
 import javax.persistence.*;
 import org.joda.time.LocalTime;
 
-@Table(name= "franjas_horarias")
 @Embeddable
 public class FranjaHoraria {
 	
