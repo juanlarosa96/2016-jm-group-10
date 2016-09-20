@@ -3,9 +3,12 @@ package tests;
 import adapters.AdapterMail;
 import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.NotificadorEmail;
+import pois.POI;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,11 +24,11 @@ public class AdapterMailTest {
 
 	@Before
 	public void init() {
-		adapterMailMockeado = mock(AdapterMail.class);
-
-		busquedaConMayorTiempo = new ResultadoBusqueda("terminalAbasto", null , null, 10.0, "hospital");
-		busquedaConMenorTiempo = new ResultadoBusqueda("terminalCaballito", null , null, 3.0, "cine");
-		busquedaConIgualTiempo = new ResultadoBusqueda("terminalRecoleta", null, null, 5.0, "ropa");
+		adapterMailMockeado = mock(AdapterMail.class);	
+		
+		busquedaConMayorTiempo = new ResultadoBusqueda("terminalAbasto", new ArrayList<POI>() , null, 10.0, "hospital");
+		busquedaConMenorTiempo = new ResultadoBusqueda("terminalCaballito", new ArrayList<POI>()  , null, 3.0, "cine");
+		busquedaConIgualTiempo = new ResultadoBusqueda("terminalRecoleta", new ArrayList<POI>() , null, 5.0, "ropa");
 
 		notificadorEmail = new NotificadorEmail(5.0, "admin@gmail.com", adapterMailMockeado);
 
