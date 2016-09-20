@@ -14,6 +14,7 @@ public class ResultadoBusqueda {
 	@Id @GeneratedValue
 	private Integer id;
 	
+
 	private String nombreTerminal;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
@@ -35,6 +36,10 @@ public class ResultadoBusqueda {
 		this.descripcionBuscada = descripcionBuscada;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
 	public List<POI> getPoisEncontrados() {
 		return poisEncontrados;
 	}
