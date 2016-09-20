@@ -1,2 +1,3 @@
-- averiguar como mapear polygon
-- testear el mapeo a la BD
+-Agregar tests a los manejadores (Dispositivos, Pois, Reportes)
+-Agregar test MailEnviado
+-Agregar tests ResultadoBusqueda
