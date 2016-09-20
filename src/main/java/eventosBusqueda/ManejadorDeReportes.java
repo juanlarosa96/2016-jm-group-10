@@ -14,7 +14,7 @@ import herramientas.ManejadorDeFechas;
 
 @Entity
 public class ManejadorDeReportes extends InteresadoEnBusquedas {
-	
+
 	@Transient
 	private Integer cantBusquedasPorPersistir = 0;
 	@Transient
@@ -27,7 +27,14 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	private List<ResultadoBusqueda> resultadosBusquedas;
 
 	private ManejadorDeReportes() {
-		
+	}
+
+	public static ManejadorDeReportes getInstance() {
+		if (singleton == null) {
+			singleton = new ManejadorDeReportes();
+			singleton.inicializarListaBusquedas();
+		}
+		return singleton;
 	}
 
 	private void inicializarListaBusquedas() {
@@ -47,22 +54,19 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 		cantBusquedasPorPersistir++;
 
 		if (cantBusquedasPorPersistir >= maxBusquedasPendientesPersist) {
-			
+
 			EntityManagerHelper.beginTransaction();
-			EntityManagerHelper.persist(unaBusqueda);
+
+			Integer cantBusquedas = resultadosBusquedas.size();
+
+			List<ResultadoBusqueda> busquedasPorPersistir = resultadosBusquedas.stream().skip(cantBusquedas - 10)
+					.collect(Collectors.toList());
+			busquedasPorPersistir.stream().forEach(busq -> EntityManagerHelper.persist(busq));
+
 			EntityManagerHelper.commit();
-			
+
 			cantBusquedasPorPersistir = 0;
 		}
-	}
-
-	public static ManejadorDeReportes getInstance() {
-		if (singleton == null) {
-			singleton = new ManejadorDeReportes();
-			singleton.inicializarListaBusquedas();
-		}
-
-		return singleton;
 	}
 
 	private Integer contarBusquedasPorFecha(String fecha) {
@@ -125,22 +129,28 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 
 	public void limpiarBusquedas() {
 		resultadosBusquedas.clear();
+		cantBusquedasPorPersistir = 0;
+		this.eliminarBusquedasDeBD();
+	}
+
+	private void eliminarBusquedasDeBD() {
+		EntityManagerHelper.beginTransaction();
+		EntityManagerHelper.getEntityManager().createQuery("DELETE FROM ResultadoBusqueda").executeUpdate();
+		EntityManagerHelper.commit();
 	}
 
 	public List<ResultadoBusqueda> getResultadosBusquedas() {
 		return resultadosBusquedas;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void setResultadosBusquedas(List<ResultadoBusqueda> busquedasNuevas) {
 		this.resultadosBusquedas = busquedasNuevas;
-		
+
 		EntityManagerHelper.beginTransaction();
 
-		List<ResultadoBusqueda> busquedasViejas = EntityManagerHelper.createQuery("from ResultadoBusqueda").getResultList();
-		busquedasViejas.stream().forEach(busq -> EntityManagerHelper.remove(busq));
-
-		busquedasNuevas.stream().forEach(poi -> EntityManagerHelper.persist(poi));
+		EntityManagerHelper.createQuery("DELETE FROM ResultadoBusqueda").executeUpdate();
+		
+		busquedasNuevas.stream().forEach(busq -> EntityManagerHelper.persist(busq));
 
 		EntityManagerHelper.commit();
 	}
