@@ -1,7 +1,9 @@
 package eventosBusqueda;
 
+import javax.persistence.Convert;
 import javax.persistence.Embeddable;
 import org.joda.time.LocalDateTime;
+import org.uqbarproject.jpa.java8.extras.convert.LocalDateTimeConverter;
 
 @Embeddable
 public class MailEnviado {
@@ -9,7 +11,10 @@ public class MailEnviado {
 	private String mailOrigen;
 	private String mailDestinatario;
 	private String asunto;
+	
+	@Convert( converter = LocalDateTimeConverter.class)
 	private LocalDateTime fecha;
+	
 	private String mensaje;
 	
 	@SuppressWarnings("unused")
