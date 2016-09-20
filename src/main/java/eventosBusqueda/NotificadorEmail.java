@@ -8,6 +8,7 @@ import javax.persistence.*;
 import org.joda.time.LocalDateTime;
 
 import adapters.AdapterMail;
+import herramientas.EntityManagerHelper;
 
 @Entity
 public class NotificadorEmail extends InteresadoEnBusquedas {
@@ -20,6 +21,7 @@ public class NotificadorEmail extends InteresadoEnBusquedas {
 	
 	@ElementCollection
 	private List<MailEnviado> mailsEnviados;
+
 
 	@SuppressWarnings("unused")
 	private NotificadorEmail() {
@@ -43,9 +45,10 @@ public class NotificadorEmail extends InteresadoEnBusquedas {
 	private void notificarBusquedaPorMail(ResultadoBusqueda unaBusqueda) {
 		adapterMail.enviarMailPorBusquedaLenta(unaBusqueda, emailAdmin);
 
-		mailsEnviados.add(new MailEnviado("emailOrigen@dds.utn", emailAdmin, "Busqueda Lenta", LocalDateTime.now(),
-				this.mensajeBusquedaLenta(unaBusqueda)));
-
+		MailEnviado nuevoMail = new MailEnviado("emailOrigen@dds.utn", emailAdmin, "Busqueda Lenta", LocalDateTime.now(),
+				this.mensajeBusquedaLenta(unaBusqueda));
+		mailsEnviados.add(nuevoMail);
+		
 	}
 
 	private String mensajeBusquedaLenta(ResultadoBusqueda unaBusqueda) {
@@ -75,4 +78,7 @@ public class NotificadorEmail extends InteresadoEnBusquedas {
 		return emailAdmin;
 	}
 
+	public List<MailEnviado> getMailsEnviados() {
+		return mailsEnviados;
+	}
 }
