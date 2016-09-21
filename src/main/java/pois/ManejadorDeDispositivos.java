@@ -58,12 +58,12 @@ public class ManejadorDeDispositivos {
 		EntityManagerHelper.commit();
 	}
 
-	public List<Dispositivo> filtrarPorComuna(Integer numComuna) throws Exception {
+	public List<Dispositivo> filtrarPorComuna(Integer numComuna) throws ExceptionComunaInvalida{
 		Comuna comuna;
 		try {
 			comuna = cgpAdapter.dameComuna(numComuna);
 		} catch (Exception e) {
-			throw new Exception("Numero de comuna invalido");
+			throw new ExceptionComunaInvalida();
 		}
 
 		List<Dispositivo> dispositivos = this.listaDispositivos.stream()
@@ -79,5 +79,13 @@ public class ManejadorDeDispositivos {
 		EntityManagerHelper.remove(disp);
 		EntityManagerHelper.commit();
 				
+	}
+
+	public void clearDispositivos() {
+		listaDispositivos.clear();
+		
+		EntityManagerHelper.beginTransaction();
+		EntityManagerHelper.getEntityManager().createQuery("DELETE FROM Dispositivo").executeUpdate();
+		EntityManagerHelper.commit();
 	}
 }
