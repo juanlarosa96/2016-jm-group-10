@@ -14,6 +14,10 @@ public abstract class InteresadoEnBusquedas {
 	@Id @GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer id;
 	
+
 	public abstract void notificarBusqueda(ResultadoBusqueda unaBusqueda);
 	
+	public Integer getId() {
+		return id;
+	}
 }
