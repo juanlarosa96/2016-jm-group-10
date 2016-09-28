@@ -56,5 +56,8 @@ public class ParadaColectivo extends POI {
 		this.linea = linea;
 	}
 	
-	
+	private POIDTO agregarDatosEspecificosDelPOI(POIDTO poiDto) {
+		poiDto.setLinea(this.getLinea());
+		return poiDto;
+	}
 }

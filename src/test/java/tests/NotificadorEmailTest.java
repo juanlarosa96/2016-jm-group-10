@@ -13,6 +13,7 @@ import eventosBusqueda.NotificadorEmail;
 import eventosBusqueda.ResultadoBusqueda;
 import herramientas.EntityManagerHelper;
 import pois.POI;
+import pois.POIDTO;
 
 public class NotificadorEmailTest {
 	
@@ -24,7 +25,7 @@ public class NotificadorEmailTest {
 		public void init() {
 			adapterMailMockeado = mock(AdapterMail.class);	
 			
-			busqueda1 = new ResultadoBusqueda("terminalAbasto", new ArrayList<POI>() , null, 10.0, "hospital");
+			busqueda1 = new ResultadoBusqueda("terminalAbasto", new ArrayList<POIDTO>() , null, 10.0, "hospital");
 			
 			notificadorEmail = new NotificadorEmail(5.0, "admin@gmail.com", adapterMailMockeado);
 			

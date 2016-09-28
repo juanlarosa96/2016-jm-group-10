@@ -16,8 +16,10 @@
 		<class> pois.ParadaColectivo </class>
 		<class> pois.CGP </class>
 		<class> pois.Servicio </class>
-		<class> pois.Dispositivo </class> 
- 		<class> eventosBusqueda.InteresadoEnBusquedas </class>
+		<class> pois.Dispositivo </class>
+		<class> pois.POIDTO </class>
+
+		<class> eventosBusqueda.InteresadoEnBusquedas </class>
 		<class> eventosBusqueda.NotificadorEmail </class>
 		<class> eventosBusqueda.ManejadorDeReportes </class>
 		<class> eventosBusqueda.ResultadoBusqueda </class>

@@ -2,6 +2,7 @@ package pois;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
@@ -64,12 +65,21 @@ public class Dispositivo {
 
 		Double demoraEnSegundos = ManejadorDeFechas.obtenerDuracionIntervaloEnSegundos(inicio, fin);
 
-		ResultadoBusqueda unaBusqueda = new ResultadoBusqueda(this.nombre, listaPoisEncontrados, DateTime.now(),
-				demoraEnSegundos, descripcion);
+		ResultadoBusqueda unaBusqueda = this.crearResultadoBusqueda(listaPoisEncontrados, demoraEnSegundos,
+				descripcion);
 
 		this.notificarBusqueda(unaBusqueda);
 
 		return listaPoisEncontrados;
+	}
+
+	private ResultadoBusqueda crearResultadoBusqueda(List<POI> listaPoisEncontrados, Double demoraEnSegundos,
+			String descripcion) {
+		List<POIDTO> listaPoisParaResultadoBusqueda = listaPoisEncontrados.stream().map(poi -> poi.convertiteAPoiDto())
+				.collect(Collectors.toList());
+
+		return new ResultadoBusqueda(this.nombre, listaPoisParaResultadoBusqueda, DateTime.now(), demoraEnSegundos,
+				descripcion);
 	}
 
 	private void notificarBusqueda(ResultadoBusqueda unaBusqueda) {

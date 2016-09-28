@@ -16,6 +16,10 @@ public class Direccion {
 	private Integer piso;
 	private Character departamento;
 	private Integer codigoPostal;	
+	private String localidad;
+	private String barrio;
+	private String provincia;
+	private String pais;
 	
 	@SuppressWarnings("unused")
 	private Direccion(){}
@@ -103,11 +107,6 @@ public class Direccion {
 	public void setAltura(Integer altura) {
 		this.altura = altura;
 	}
-
-	private String localidad;
-	private String barrio;
-	private String provincia;
-	private String pais;
 
 	public Direccion(String calle, Integer altura, String entreCalle1, String entreCalle2, Integer piso,
 			Character departamento, Integer codigoPostal, String localidad, String barrio, String provincia,

@@ -140,6 +140,16 @@ public abstract class POI {
 		this.setNombre(poiNuevo.getNombre());
 		this.setPosicion(poiNuevo.getPosicion());		
 	}
+
+	public POIDTO convertiteAPoiDto() {
+		POIDTO poiDto = new POIDTO(this.getNombre(),this.getPosicion(),this.getDireccion(),this.getEtiquetas(),this.getHorarios());
+		return this.agregarDatosEspecificosDelPOI(poiDto);
+	}
+
+	private POIDTO agregarDatosEspecificosDelPOI(POIDTO poiDto) {
+		return poiDto;
+	}
+
 	
 	
 

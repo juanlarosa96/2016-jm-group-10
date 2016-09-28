@@ -4,6 +4,7 @@ import adapters.AdapterMail;
 import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.NotificadorEmail;
 import pois.POI;
+import pois.POIDTO;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -26,9 +27,9 @@ public class AdapterMailTest {
 	public void init() {
 		adapterMailMockeado = mock(AdapterMail.class);	
 		
-		busquedaConMayorTiempo = new ResultadoBusqueda("terminalAbasto", new ArrayList<POI>() , null, 10.0, "hospital");
-		busquedaConMenorTiempo = new ResultadoBusqueda("terminalCaballito", new ArrayList<POI>()  , null, 3.0, "cine");
-		busquedaConIgualTiempo = new ResultadoBusqueda("terminalRecoleta", new ArrayList<POI>() , null, 5.0, "ropa");
+		busquedaConMayorTiempo = new ResultadoBusqueda("terminalAbasto", new ArrayList<POIDTO>() , null, 10.0, "hospital");
+		busquedaConMenorTiempo = new ResultadoBusqueda("terminalCaballito", new ArrayList<POIDTO>()  , null, 3.0, "cine");
+		busquedaConIgualTiempo = new ResultadoBusqueda("terminalRecoleta", new ArrayList<POIDTO>() , null, 5.0, "ropa");
 
 		notificadorEmail = new NotificadorEmail(5.0, "admin@gmail.com", adapterMailMockeado);
 
