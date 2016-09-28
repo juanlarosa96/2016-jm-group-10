@@ -7,18 +7,18 @@ import javax.persistence.*;
 import org.joda.time.DateTime;
 
 import pois.POI;
+import pois.POIDTO;
 
 @Entity
 public class ResultadoBusqueda {
 	
 	@Id @GeneratedValue
 	private Integer id;
-	
 
 	private String nombreTerminal;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<POI> poisEncontrados;
+	private List<POIDTO> poisEncontrados;
 	
 	private DateTime fecha;	
 	private Double demoraEnSegundos;
@@ -27,7 +27,7 @@ public class ResultadoBusqueda {
 	@SuppressWarnings("unused")
 	private ResultadoBusqueda(){}
 	
-	public ResultadoBusqueda(String nombreTerminal, List<POI> listaPoisEncontrados, DateTime fecha, Double demoraEnSegundos,
+	public ResultadoBusqueda(String nombreTerminal, List<POIDTO> listaPoisEncontrados, DateTime fecha, Double demoraEnSegundos,
 			String descripcionBuscada) {
 		this.nombreTerminal = nombreTerminal;
 		this.poisEncontrados = listaPoisEncontrados;
@@ -40,11 +40,11 @@ public class ResultadoBusqueda {
 		return id;
 	}
 
-	public List<POI> getPoisEncontrados() {
+	public List<POIDTO> getPoisEncontrados() {
 		return poisEncontrados;
 	}
 
-	public void setPoisEncontrados(List<POI> poisEncontrados) {
+	public void setPoisEncontrados(List<POIDTO> poisEncontrados) {
 		this.poisEncontrados = poisEncontrados;
 	}
 
