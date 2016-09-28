@@ -17,7 +17,7 @@ public class AccionDarDeBajaPOI implements Accion {
 
 			ArrayList<POI> poisAEliminar = adapterServicioRest.buscarPoisDadosDeBaja(urlPoisAEliminar);
 
-			poisAEliminar.stream().forEach(poi -> manejadorDePois.eliminarPOI(poi));
+			poisAEliminar.stream().forEach(poi -> manejadorDePois.eliminarPOIInterno(poi));
 
 			return ResultadoEjecucion.dameResultadoConCantElemAfectadosYMensaje(poisAEliminar.size(), "POIs dados de baja correctamente.");
 
