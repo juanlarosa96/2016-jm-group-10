@@ -70,7 +70,7 @@ public class DispositivoTest {
 
 		manejadorDePois = ManejadorDePois.getInstance();
 		
-		manejadorDePois.setListaPois(listaPoisDispositivo);
+		manejadorDePois.setListaPoisInternos(listaPoisDispositivo);
 		
 		dispositivo = new Dispositivo("DispositivoValido", new Posicion(-34.6327475, -58.4851584));
 		otroDispositivo = new Dispositivo("OtroDispositivoValido", new Posicion(-35, -54));

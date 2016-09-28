@@ -1,14 +1,11 @@
 package tests;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.junit.*;
-import fixtures.FixtureComercio;
 import pois.Comercio;
 import pois.ManejadorDePois;
 import pois.POI;
@@ -23,7 +20,7 @@ public class ActualizarLocalesComercialesTest {
 
 	@Before
 	public void init() {
-		ManejadorDePois.getInstance().setListaPois(new ArrayList<POI>());
+		ManejadorDePois.getInstance().setListaPoisInternos(new ArrayList<POI>());
 		ArrayList<String> listaEtiquetas = new ArrayList<String>();
 		listaEtiquetas.add("EtiquetaValida");
 		listaEtiquetas.add("EtiquetaValida2");
@@ -49,12 +46,12 @@ public class ActualizarLocalesComercialesTest {
 	@Test
 	public void testEjecutoActualizarLocalesComercialesYModificaPoisEnListaDePois() throws ExceptionErrorEjecucionDeAccion {
 
-		ManejadorDePois.getInstance().agregarPoi(comercioValido);
+		ManejadorDePois.getInstance().agregarPoiInterno(comercioValido);
 		AccionActualizarLocalesComerciales accion = new AccionActualizarLocalesComerciales(ruta);
 
 		Assert.assertEquals(1, accion.ejecutar().getCantElementosAfectados(), 0);
-		Assert.assertEquals(1, ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().size(), 0);
-		Assert.assertTrue(ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().get(0).equals("EtiquetaValida"));		
+		Assert.assertEquals(1, ManejadorDePois.getInstance().getListaPoisInternos().get(0).getEtiquetas().size(), 0);
+		Assert.assertTrue(ManejadorDePois.getInstance().getListaPoisInternos().get(0).getEtiquetas().get(0).equals("EtiquetaValida"));		
 
 	}
 
@@ -62,14 +59,14 @@ public class ActualizarLocalesComercialesTest {
 	public void testEjecutoActualizarLocalesComercialesYNoEncuentraLocalesConNombreEnElArchivo() throws ExceptionErrorEjecucionDeAccion {
 		// Crear el archivo de prueba
 
-		ManejadorDePois.getInstance().agregarPoi(otroComercioValido);
-		ManejadorDePois.getInstance().listaPois.get(0).setNombre("OtroLocalValido");
-		Integer cantidadEtiquetasInicial = ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().size();
+		ManejadorDePois.getInstance().agregarPoiInterno(otroComercioValido);
+		ManejadorDePois.getInstance().getListaPoisInternos().get(0).setNombre("OtroLocalValido");
+		Integer cantidadEtiquetasInicial = ManejadorDePois.getInstance().getListaPoisInternos().get(0).getEtiquetas().size();
 		AccionActualizarLocalesComerciales accion = new AccionActualizarLocalesComerciales(ruta);
 
 		Assert.assertEquals(0, accion.ejecutar().getCantElementosAfectados(), 0);
-		Assert.assertEquals(cantidadEtiquetasInicial, ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().size(), 0);
-		Assert.assertTrue(ManejadorDePois.getInstance().listaPois.get(0).getEtiquetas().get(0).equals("OtraEtiquetaValida"));
+		Assert.assertEquals(cantidadEtiquetasInicial, ManejadorDePois.getInstance().getListaPoisInternos().get(0).getEtiquetas().size(), 0);
+		Assert.assertTrue(ManejadorDePois.getInstance().getListaPoisInternos().get(0).getEtiquetas().get(0).equals("OtraEtiquetaValida"));
 		
 
 	}
@@ -91,7 +88,7 @@ public class ActualizarLocalesComercialesTest {
 	@After
 	public void after() {
 		try {
-			ManejadorDePois.getInstance().listaPois.clear();
+			ManejadorDePois.getInstance().getListaPoisInternos().clear();
 			new File(ruta).delete();
 		} catch (Exception e) {
 

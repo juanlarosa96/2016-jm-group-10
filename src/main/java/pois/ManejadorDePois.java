@@ -12,8 +12,13 @@ import herramientas.EntityManagerHelper;
 public class ManejadorDePois {
 
 	private static ManejadorDePois singleton = null;
-	public List<POI> listaPois;
+	
+	private List<POI> listaPoisInternos;
+	private List<POI> listaPoisExternos;
+
 	private List<ComponenteExternoAdapter> adaptersComponentesExternos;
+	
+	private Integer cantBusquedasSinExternos = 100;
 
 	private ManejadorDePois() {
 		this.inicializarListaPois();
@@ -21,7 +26,9 @@ public class ManejadorDePois {
 
 	@SuppressWarnings("unchecked")
 	private void inicializarListaPois() {
-		listaPois = EntityManagerHelper.createQuery("from POI").getResultList();
+		listaPoisInternos = EntityManagerHelper.createQuery("from POI").getResultList();
+		listaPoisExternos = new ArrayList<POI>(); // traer los externos
+													// persistidos en BD
 	}
 
 	public static ManejadorDePois getInstance() {
@@ -33,9 +40,9 @@ public class ManejadorDePois {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void setListaPois(List<POI> listaPoisNueva) {
+	public void setListaPoisInternos(List<POI> listaPoisNueva) {
 
-		listaPois = listaPoisNueva;
+		listaPoisInternos = listaPoisNueva;
 
 		EntityManagerHelper.beginTransaction();
 
@@ -52,28 +59,47 @@ public class ManejadorDePois {
 		adaptersComponentesExternos = listaAdapters;
 	}
 
-	public void agregarPoi(POI poi) {
-		if (this.estaEnLaLista(poi))
-			actualizarPoi(poi);
+	public void agregarPoiInterno(POI poi) {
+		if (this.estaEnLaLista(listaPoisInternos, poi))
+			actualizarPoiInterno(poi);
 		else {
-			listaPois.add(poi);
-			this.persistirPOI(poi);
+			listaPoisInternos.add(poi);
+			this.persistirPOIInterno(poi);
 		}
 
 	}
 
-	private void persistirPOI(POI poi) {
+	public void agregarPoiExterno(POI poiExterno) {
+		if (this.estaEnLaLista(listaPoisExternos, poiExterno))
+			actualizarPoiExterno(poiExterno);
+		else {
+			listaPoisExternos.add(poiExterno);
+			this.persistirPOIExterno(poiExterno);
+		}
+
+	}
+
+	private void persistirPOIExterno(POI poiExterno) {
+		// Persistir en BD
+
+	}
+
+	private void actualizarPoiExterno(POI poiExterno) {
+		// Actualizarlo en la Lista de Externos y en BD
+	}
+
+	private void persistirPOIInterno(POI poi) {
 		EntityManagerHelper.beginTransaction();
 		EntityManagerHelper.persist(poi);
 		EntityManagerHelper.commit();
 	}
 
-	private void actualizarPoi(POI poiNuevo) {
+	private void actualizarPoiInterno(POI poiNuevo) {
 
-		POI poiViejoLista = listaPois.stream().filter(unPoi -> unPoi.esIgualA(poiNuevo)).findFirst().get();
+		POI poiViejoLista = listaPoisInternos.stream().filter(unPoi -> unPoi.esIgualA(poiNuevo)).findFirst().get();
 
-		listaPois.remove(poiViejoLista);
-		listaPois.add(poiNuevo);
+		listaPoisInternos.remove(poiViejoLista);
+		listaPoisInternos.add(poiNuevo);
 
 		EntityManagerHelper.beginTransaction();
 		POI poiViejo = EntityManagerHelper.find(POI.class, poiViejoLista.getId());
@@ -83,13 +109,18 @@ public class ManejadorDePois {
 
 	}
 
-	private boolean estaEnLaLista(POI poiBuscado) {
+	private boolean estaEnLaLista(List<POI> listaPois, POI poiBuscado) {
 		return listaPois.stream().anyMatch(unPoi -> poiBuscado.esIgualA(unPoi));
 	}
 
 	private void consultarPoisExternos(String descripcion) {
 
-		this.agregarPois(this.damePoisExternos(descripcion));
+		this.agregarPoisExternos(this.damePoisExternos(descripcion));
+
+	}
+
+	private void agregarPoisExternos(List<POI> poisExternosNuevos) {
+		poisExternosNuevos.stream().forEach(poiExterno -> this.agregarPoiExterno(poiExterno));
 
 	}
 
@@ -100,29 +131,52 @@ public class ManejadorDePois {
 				.collect(Collectors.toList());
 	}
 
-	private void agregarPois(ArrayList<POI> listaDePois) {
-		listaDePois.stream().forEach(poi -> this.agregarPoi(poi));
+	public void agregarPoisInternos(List<POI> poisNuevos) {
+		poisNuevos.stream().forEach(poi -> this.agregarPoiInterno(poi));
 	}
 
 	public Boolean poiDisponible(POI poi, DateTime momento) {
 		return poi.estaDisponible(momento);
 	}
 
-	public void eliminarPOI(POI poi) {
-		listaPois.remove(poi);
-		this.eliminarPoiDeBD(poi);
+	public void eliminarPOIInterno(POI poi) {
+		listaPoisInternos.remove(poi);
+		this.eliminarPoiInternoDeBD(poi);
 	}
 
-	private void eliminarPoiDeBD(POI poi) {
+	private void eliminarPoiInternoDeBD(POI poi) {
 		EntityManagerHelper.beginTransaction();
 		POI poiEncontrado = EntityManagerHelper.find(POI.class, poi.getId());
 		EntityManagerHelper.remove(poiEncontrado);
 		EntityManagerHelper.commit();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<POI> buscarPOIs(String descripcion) {
-		this.consultarPoisExternos(descripcion);
+
+		if (++cantBusquedasSinExternos > 100) {
+			consultarPoisExternos(descripcion);
+			cantBusquedasSinExternos = 0;
+		}
+
+		List<POI> poisEncontrados = new ArrayList<POI>();
+		poisEncontrados.addAll(this.buscarEnInternos(descripcion));
+		poisEncontrados.addAll(this.buscarEnExternos(descripcion));
+
+		return poisEncontrados;
+
+	}
+
+	private List<POI> buscarEnExternos(String descripcion) {
+		return this.buscarEnListaPois(listaPoisExternos, descripcion);
+
+	}
+
+	private List<POI> buscarEnInternos(String descripcion) {
+		return this.buscarEnListaPois(listaPoisInternos, descripcion);
+
+	}
+
+	private List<POI> buscarEnListaPois(List<POI> listaPois, String descripcion) {
 		return listaPois.stream().filter(poi -> poi.contiene(descripcion)).collect(Collectors.toList());
 
 	}
@@ -142,7 +196,7 @@ public class ManejadorDePois {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer actualizarEtiquetasLocalesComerciales(String nombre, List<String> etiquetas) {
+	public Integer actualizarEtiquetasLocalesComercialesYRetornarCantidadModificados(String nombre, List<String> etiquetas) {
 
 		EntityManagerHelper.beginTransaction();
 
@@ -158,12 +212,27 @@ public class ManejadorDePois {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	public POI buscarPOI(String nombrePOI, Direccion direccionPOI) {
 		// Si no encuentra ninguno tira IndexOutOfBoundsException
 
-		return listaPois.stream().filter(poi -> poi.getNombre().equalsIgnoreCase(nombrePOI)
+		return listaPoisInternos.stream().filter(poi -> poi.getNombre().equalsIgnoreCase(nombrePOI)
 				&& poi.getDireccion().esLaMismaDireccionQue(direccionPOI)).collect(Collectors.toList()).get(0);
+	}
+
+	public List<POI> getListaPoisInternos() {
+		return listaPoisInternos;
+	}
+
+	public List<POI> getListaPoisExternos() {
+		return listaPoisExternos;
+	}
+
+	public void activarBusquedaPoisExternos() {
+		this.cantBusquedasSinExternos = 100;
+	}
+
+	public void clearListaPoisExternos() {
+		listaPoisExternos.clear();
 	}
 
 }

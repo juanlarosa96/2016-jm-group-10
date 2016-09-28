@@ -15,9 +15,9 @@ public class AccionDarDeBajaPOI implements Accion {
 	public ResultadoEjecucion ejecutar() throws ExceptionErrorEjecucionDeAccion {
 		try {
 
-			ArrayList<POI> poisAEliminar = adapterServicioRest.buscarPoisDadosDeBaja(urlPoisAEliminar);
+			ArrayList<POI> poisAEliminar = adapterServicioRest.parsearPOISJson(urlPoisAEliminar);
 
-			poisAEliminar.stream().forEach(poi -> manejadorDePois.eliminarPOI(poi));
+			poisAEliminar.stream().forEach(poi -> manejadorDePois.eliminarPOIInterno(poi));
 
 			return ResultadoEjecucion.dameResultadoConCantElemAfectadosYMensaje(poisAEliminar.size(), "POIs dados de baja correctamente.");
 

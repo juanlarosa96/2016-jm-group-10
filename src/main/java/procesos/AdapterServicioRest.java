@@ -30,9 +30,9 @@ public class AdapterServicioRest {
 		return singleton;
 	}
 	
-	public ArrayList<POI> buscarPoisDadosDeBaja(String urlPoisAEliminar) {
+	public ArrayList<POI> parsearPOISJson(String urlPoisAEliminar) {
 		
-		String stringJson = servicioRest.obtenerContenidoEnStringDeURL(urlPoisAEliminar);
+		String stringJson = servicioRest.buscarPOISDadosDeBaja(urlPoisAEliminar);
 		
 		ArrayList<POIJson> listaJson = new ArrayList<POIJson>();
 		ArrayList<POI> listaPois;
