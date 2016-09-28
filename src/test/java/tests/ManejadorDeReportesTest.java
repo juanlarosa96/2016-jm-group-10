@@ -16,6 +16,7 @@ import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.ManejadorDeReportes;
 import herramientas.ManejadorDeFechas;
 import pois.POI;
+import pois.POIDTO;
 
 public class ManejadorDeReportesTest {
 
@@ -29,11 +30,11 @@ public class ManejadorDeReportesTest {
 	private ResultadoBusqueda busquedaAbasto2;
 	private ResultadoBusqueda busquedaAbastoCon0Resultados;
 	
-	private ArrayList<POI> listaSize0;
-	private ArrayList<POI> listaSize3;
-	private ArrayList<POI> listaSize4;
-	private ArrayList<POI> listaSize5;
-	private ArrayList<POI> listaSize8;
+	private ArrayList<POIDTO> listaSize0;
+	private ArrayList<POIDTO> listaSize3;
+	private ArrayList<POIDTO> listaSize4;
+	private ArrayList<POIDTO> listaSize5;
+	private ArrayList<POIDTO> listaSize8;
 
 	@SuppressWarnings("unchecked")
 	@Before
