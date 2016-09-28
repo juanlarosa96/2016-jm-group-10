@@ -108,5 +108,10 @@ public class CGP extends POI {
 		return this.servicios.stream().map(servicio -> servicio.getNombre()).collect(Collectors.toList());
 	}
 
+	private POIDTO agregarDatosEspecificosDelPOI(POIDTO poiDto) {
+		poiDto.setComuna(this.getComuna());
+		poiDto.setServicios(this.getServicios());
+		return poiDto;
+	}
 	
 }

@@ -45,4 +45,9 @@ public class Comercio extends POI {
 	public Boolean condicionDeBusqueda(String descripcion) {
 		return ManejadorDeStrings.estaIncluido(rubro.getNombreRubro(), descripcion);
 		}
+	
+	private POIDTO agregarDatosEspecificosDelPOI(POIDTO poiDto) {
+		poiDto.setRubro(this.getRubro());
+		return poiDto;
+	}
 }
