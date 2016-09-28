@@ -53,11 +53,18 @@
 			<artifactId>mockito-core</artifactId>
 			<version>1.10.19</version>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>2.2.8</version>
+			<groupId>org.mongodb.morphia</groupId>
+			<artifactId>morphia</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.0</version>
 		</dependency>
 
 	</dependencies>
