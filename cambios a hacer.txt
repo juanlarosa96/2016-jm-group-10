@@ -1,3 +1,0 @@
--Agregar tests a los manejadores (Dispositivos, Pois, Reportes)
--Agregar test MailEnviado
--Agregar tests ResultadoBusqueda
