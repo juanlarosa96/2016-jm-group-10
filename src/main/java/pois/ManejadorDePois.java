@@ -196,7 +196,7 @@ public class ManejadorDePois {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer actualizarEtiquetasLocalesComerciales(String nombre, List<String> etiquetas) {
+	public Integer actualizarEtiquetasLocalesComercialesYRetornarCantidadModificados(String nombre, List<String> etiquetas) {
 
 		EntityManagerHelper.beginTransaction();
 

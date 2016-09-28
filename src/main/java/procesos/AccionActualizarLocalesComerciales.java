@@ -27,7 +27,7 @@ public class AccionActualizarLocalesComerciales implements Accion {
 			while ((linea = lectorArchivo.readLine()) != null) {
 				String[] lineaComercio = linea.split(";", 2);
 				String[] etiquetas = lineaComercio[1].split(" ");
-				cantElementosAfectados += manejedorPois.actualizarEtiquetasLocalesComerciales(lineaComercio[0],
+				cantElementosAfectados += manejedorPois.actualizarEtiquetasLocalesComercialesYRetornarCantidadModificados(lineaComercio[0],
 						Arrays.asList(etiquetas));
 			}
 
