@@ -52,7 +52,7 @@ public class AdapterServicioRestTest {
 	
 	stringPoisValidos = FixtureAdapterServicioRest.dameStringPoisValidos();
 	
-	when(servicioRest.obtenerContenidoEnStringDeURL(anyString())).thenReturn(listaPOISJson);
+	when(servicioRest.buscarPOISDadosDeBaja(anyString())).thenReturn(listaPOISJson);
 	
 	
 	adapterServicioRest = AdapterServicioRest.getInstance();
@@ -62,7 +62,7 @@ public class AdapterServicioRestTest {
 	
 	@Test
 	public void siAdapterRecibeUnaUrlConPoisValidosEnJsonDevuelveLaListaDePoisValidosCorrespondientes(){
-		listaPois = adapterServicioRest.buscarPoisDadosDeBaja("URL");
+		listaPois = adapterServicioRest.parsearPOISJson("URL");
 		Assert.assertEquals(listaPois.size(), 1);
 	}
 	
