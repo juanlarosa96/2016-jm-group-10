@@ -42,7 +42,7 @@ public class ManejadorDePoisTest {
 	private ParadaColectivo parada114Valida;
 	private ParadaColectivo otraParada114Valida;
 
-	private List<POI> listaPoisDispositivo;
+	private List<POI> listaPoisInternos;
 	private DateTime horarioValidoParaRentas;
 	private DateTime horarioNoValidoParaNingunServicio;
 	private List<POI> CGPsConRentas;
@@ -62,7 +62,7 @@ public class ManejadorDePoisTest {
 	private BancoAdapter bancoAdapter;
 	private List<ComponenteExternoAdapter> listaAdapters;
 
-	private int tamanioListaPois;
+	private int tamanioListaPoisInternos;
 	private ManejadorDePois manejadorDePois;
 
 	@Before
@@ -80,7 +80,7 @@ public class ManejadorDePoisTest {
 
 		comercioValido = FixtureComercio.dameComercioValido();
 
-		listaPoisDispositivo = new ArrayList<POI>() {
+		listaPoisInternos = new ArrayList<POI>() {
 			{
 				add(parada114Valida);
 				add(otraParada114Valida);
@@ -93,9 +93,11 @@ public class ManejadorDePoisTest {
 
 		manejadorDePois = ManejadorDePois.getInstance();
 
-		manejadorDePois.setListaPois(listaPoisDispositivo);
+		manejadorDePois.setListaPoisInternos(listaPoisInternos);
 
-		tamanioListaPois = listaPoisDispositivo.size();
+		tamanioListaPoisInternos = listaPoisInternos.size();
+		
+		manejadorDePois.clearListaPoisExternos();
 
 		CGPsConRentas = new ArrayList<POI>();
 
@@ -128,7 +130,7 @@ public class ManejadorDePoisTest {
 		listaVaciaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonVacia();
 
 	}
-
+	
 	@Test
 	public void SiPersistoUnPOILuegoLoEncuentro() {
 
@@ -148,7 +150,7 @@ public class ManejadorDePoisTest {
 
 	@Test
 	public void SiBuscoParadaQueEstaEnLaListaDePoisPorEtiquetaLaEncuentra() {
-		manejadorDePois.agregarPoi(parada114Valida);
+		manejadorDePois.agregarPoiInterno(parada114Valida);
 		Assert.assertTrue((manejadorDePois.buscarPOIs("114")).contains(parada114Valida));
 		Assert.assertTrue(EntityManagerHelper.contains(parada114Valida));
 	}
@@ -195,7 +197,7 @@ public class ManejadorDePoisTest {
 
 	// Servicios
 	// Externos------------------------------------------------------------------
-
+	
 	@Test
 	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs() {
 		listaAdapters.clear();
@@ -203,11 +205,14 @@ public class ManejadorDePoisTest {
 		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);
 
+		manejadorDePois.activarBusquedaPoisExternos();
+		
 		manejadorDePois.buscarPOIs("balvanera");
 
 		verify(servicioExternoCgpMockeado).buscar("balvanera");
 
-		Assert.assertEquals(tamanioListaPois + 1, listaPoisDispositivo.size(), 0);
+		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
+		Assert.assertEquals(1, manejadorDePois.getListaPoisExternos().size(), 0);
 
 	}
 
@@ -219,61 +224,71 @@ public class ManejadorDePoisTest {
 		centrosDTO.clear();
 		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(centrosDTO);
 
+		manejadorDePois.activarBusquedaPoisExternos();
+		
 		manejadorDePois.buscarPOIs("manchester");
 
 		verify(servicioExternoCgpMockeado).buscar("manchester");
 
-		Assert.assertEquals(6, listaPoisDispositivo.size(), 0);
+		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
+		Assert.assertEquals(0,manejadorDePois.getListaPoisExternos().size(),0);
 	}
-
+	
 	@Test
 	public void SiBuscoEnElServicioExternoConServicioDeBancoDisponibleSeAgreganLosBancosCorrespondientesEnLaListaDePOIs() {
 		listaAdapters.clear();
 		listaAdapters.add(bancoAdapter);
 		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoBancoMockeado.buscar("Banco de la Plaza", "extracciones")).thenReturn(listaBancoJson);
+	
+		manejadorDePois.activarBusquedaPoisExternos();
 		manejadorDePois.buscarPOIs("Banco de la Plaza,extracciones");
 
 		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza", "extracciones");
+		
 
-		Assert.assertEquals(tamanioListaPois + 1, listaPoisDispositivo.size(), 0);
+		Assert.assertEquals(1, manejadorDePois.getListaPoisExternos().size(), 0);		
+		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
 
 	}
-
+	
 	@Test
 	public void SiBuscoEnElServicioExternoConServicioDeBancoNoDisponibleNoSeAgregaNingunBancoEnLaListaDePOIs() {
 		listaAdapters.clear();
 		listaAdapters.add(bancoAdapter);
 		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoBancoMockeado.buscar("", "")).thenReturn(listaVaciaBancoJson);
+		
+		manejadorDePois.activarBusquedaPoisExternos();
 		manejadorDePois.buscarPOIs(",");
 
 		verify(servicioExternoBancoMockeado).buscar("", "");
-		Assert.assertEquals(6, listaPoisDispositivo.size(), 0);
+		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
+		Assert.assertEquals(0, manejadorDePois.getListaPoisExternos().size(), 0);	
 	}
 
 	// ------------------------------------------------------------------------
 	@Test
 	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
-		manejadorDePois.eliminarPOI(parada114Valida);
-		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
+		manejadorDePois.eliminarPOIInterno(parada114Valida);
+		Assert.assertFalse(listaPoisInternos.contains(parada114Valida));
 		Assert.assertFalse(EntityManagerHelper.contains(parada114Valida));
 	}
 
 	@Test
 	public void SiAgregoUnaParadaQueNoEstaEnLaListaLaAgrega() {
-		Assert.assertFalse(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
-		manejadorDePois.agregarPoi(paradaQueNoEstaEnLaLista);
-		Assert.assertTrue(listaPoisDispositivo.contains(paradaQueNoEstaEnLaLista));
+		Assert.assertFalse(listaPoisInternos.contains(paradaQueNoEstaEnLaLista));
+		manejadorDePois.agregarPoiInterno(paradaQueNoEstaEnLaLista);
+		Assert.assertTrue(listaPoisInternos.contains(paradaQueNoEstaEnLaLista));
 		Assert.assertTrue(EntityManagerHelper.contains(paradaQueNoEstaEnLaLista));
 
 	}
 
 	@Test
 	public void SiAgregoUnaParadaExistenteLaActualiza() {
-		manejadorDePois.agregarPoi(parada114ValidaConMasEtiquetas);
-		Assert.assertFalse(listaPoisDispositivo.contains(parada114Valida));
-		Assert.assertTrue(listaPoisDispositivo.contains(parada114ValidaConMasEtiquetas));
+		manejadorDePois.agregarPoiInterno(parada114ValidaConMasEtiquetas);
+		Assert.assertFalse(listaPoisInternos.contains(parada114Valida));
+		Assert.assertTrue(listaPoisInternos.contains(parada114ValidaConMasEtiquetas));
 
 		Assert.assertTrue(EntityManagerHelper.contains(parada114Valida));
 
