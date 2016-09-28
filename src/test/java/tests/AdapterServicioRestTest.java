@@ -44,7 +44,7 @@ public class AdapterServicioRestTest {
 				}
 			};
 	
-	manejadorDePois.setListaPois(ListaPOIsManejador);
+	manejadorDePois.setListaPoisInternos(ListaPOIsManejador);
 	
 	listaPOISJson = FixtureAdapterServicioRest.devolverListaPOIJsonNoVacia();
 	
