@@ -7,21 +7,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.query.Query;
-
-import com.mongodb.MongoClient;
-
 import herramientas.ManejadorDeFechas;
+import herramientas.PersistidorMongo;
 
 public class ManejadorDeReportes extends InteresadoEnBusquedas {
 
 	private Integer cantBusquedasPorPersistir = 0;
 	private Integer maxBusquedasPendientesPersist = 10;
 	private static ManejadorDeReportes singleton;
-	private Morphia persistidor = new Morphia();
-	private Datastore datastore;
+	private PersistidorMongo persistidor;
 
 	private List<ResultadoBusqueda> resultadosBusquedas;
 
@@ -31,18 +25,14 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	public static ManejadorDeReportes getInstance() {
 		if (singleton == null) {
 			singleton = new ManejadorDeReportes();
-			singleton.inicializarMongoDB();
 			singleton.inicializarListaBusquedas();
-
 		}
 		return singleton;
 	}
 
-	private void inicializarMongoDB() {
-		persistidor.mapPackage("eventosBusqueda");
-		persistidor.mapPackage("pois");
-		datastore = persistidor.createDatastore(new MongoClient(), "tpaPOIs");
-		datastore.ensureIndexes();
+	public void inicializarMongoDB(String nombreDB) {
+		persistidor.inicializarDB(nombreDB);
+		
 	}
 
 	private void inicializarListaBusquedas() {
@@ -51,7 +41,7 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	}
 
 	private List<ResultadoBusqueda> busquedasPersistidas() {
-		return datastore.createQuery(ResultadoBusqueda.class).asList();
+		return persistidor.buscarTodosLosResultadosBusqueda();
 	}
 
 	@Override
@@ -65,7 +55,7 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 
 			List<ResultadoBusqueda> busquedasPorPersistir = resultadosBusquedas.stream().skip(cantBusquedas - maxBusquedasPendientesPersist)
 					.collect(Collectors.toList());
-			busquedasPorPersistir.stream().forEach(busq -> datastore.save(busq));
+			busquedasPorPersistir.stream().forEach(busq -> persistidor.guardar(busq));
 
 			cantBusquedasPorPersistir = 0;
 		}
@@ -133,11 +123,10 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 		resultadosBusquedas.clear();
 		cantBusquedasPorPersistir = 0;
 		this.eliminarBusquedasDeBD();
-	}
+		}
 
 	private void eliminarBusquedasDeBD() {
-		Query<ResultadoBusqueda> resultadosABorrar = datastore.createQuery(ResultadoBusqueda.class);
-		datastore.delete(resultadosABorrar);
+		persistidor.borrarTodosLosResultadosBusquedaDeBD();
 	}
 
 	public List<ResultadoBusqueda> getResultadosBusquedas() {
@@ -149,12 +138,9 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 
 		this.eliminarBusquedasDeBD();
 
-		busquedasNuevas.stream().forEach(busq -> datastore.save(busq));
+		busquedasNuevas.stream().forEach(busq -> persistidor.guardar(busq));
 	}
 
-	public Datastore getDatastore() {
-		return datastore;
-	}
 
 	public void setMaxBusquedasPendientesPersist(Integer maxBusquedasPendientesPersist) {
 		this.maxBusquedasPendientesPersist = maxBusquedasPendientesPersist;
