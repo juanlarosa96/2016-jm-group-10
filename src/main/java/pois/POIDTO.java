@@ -5,6 +5,7 @@ import java.util.List;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Transient;
 
+
 @Embedded
 public class POIDTO {
 
