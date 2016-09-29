@@ -25,12 +25,14 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	public static ManejadorDeReportes getInstance() {
 		if (singleton == null) {
 			singleton = new ManejadorDeReportes();
+			singleton.inicializarMongoDB("tpaPOIs");
 			singleton.inicializarListaBusquedas();
 		}
 		return singleton;
 	}
 
 	public void inicializarMongoDB(String nombreDB) {
+		persistidor = new PersistidorMongo();
 		persistidor.inicializarDB(nombreDB);
 		
 	}
