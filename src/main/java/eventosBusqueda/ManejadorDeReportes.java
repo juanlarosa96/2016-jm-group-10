@@ -13,7 +13,6 @@ import org.mongodb.morphia.query.Query;
 
 import com.mongodb.MongoClient;
 
-import herramientas.BigDecimalConverter;
 import herramientas.ManejadorDeFechas;
 
 public class ManejadorDeReportes extends InteresadoEnBusquedas {
