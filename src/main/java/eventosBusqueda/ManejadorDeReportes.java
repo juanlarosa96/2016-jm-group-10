@@ -42,7 +42,6 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	private void inicializarMongoDB() {
 		persistidor.mapPackage("eventosBusqueda");
 		persistidor.mapPackage("pois");
-		persistidor.getMapper().getConverters().addConverter(BigDecimalConverter.class);
 		datastore = persistidor.createDatastore(new MongoClient(), "tpaPOIs");
 		datastore.ensureIndexes();
 	}
