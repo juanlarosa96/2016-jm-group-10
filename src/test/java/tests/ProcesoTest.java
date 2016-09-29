@@ -31,29 +31,21 @@ public class ProcesoTest {
 	}
 
 	@Test
-	public void testElProcesoEjecutaUnaAccionSinExcepcionYSeGuardaSuResultadoSinLlamarAManejarError() {
-		try {
+	public void testElProcesoEjecutaUnaAccionSinExcepcionYSeGuardaSuResultadoSinLlamarAManejarError() throws ExceptionErrorEjecucionDeAccion {
 			when(accionExitosa.ejecutar()).thenReturn(new ResultadoEjecucion(0, DateTime.now(), "Resultado Valido"));
 			proceso = new Proceso(accionExitosa, 0.0, DateTime.now(), manejadorError);
 			proceso.ejecutar();
 			Assert.assertFalse(proceso.getResultadoEjecucion() == null);
 			verify(manejadorError, Mockito.times(0)).manejarError(proceso);
 
-		} catch (ExceptionErrorEjecucionDeAccion e) {
-		}
-
 	}
 
 	@Test
-	public void testElProcesoEjecutaUnaAccionConExcepcionEInvocaAlManejadorDeError() {
-		try {
+	public void testElProcesoEjecutaUnaAccionConExcepcionEInvocaAlManejadorDeError() throws ExceptionErrorEjecucionDeAccion {
 			when(accionConExcepcion.ejecutar()).thenThrow(new ExceptionErrorEjecucionDeAccion());
 			proceso = new Proceso(accionConExcepcion, 0.0, DateTime.now(), manejadorError);
 			proceso.ejecutar();
 			verify(manejadorError, Mockito.times(1)).manejarError(proceso);
-
-		} catch (ExceptionErrorEjecucionDeAccion e) {
-		}
 	}
 
 }
