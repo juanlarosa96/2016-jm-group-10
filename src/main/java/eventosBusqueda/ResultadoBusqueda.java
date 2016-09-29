@@ -2,25 +2,28 @@ package eventosBusqueda;
 
 import java.util.List;
 
-import javax.persistence.*;
-
+import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Transient;
 
-import pois.POI;
 import pois.POIDTO;
 
 @Entity
 public class ResultadoBusqueda {
 	
-	@Id @GeneratedValue
-	private Integer id;
+	@Id
+	private ObjectId id;
 
 	private String nombreTerminal;
 	
-	@ManyToMany(cascade = CascadeType.PERSIST)
+	@Embedded
 	private List<POIDTO> poisEncontrados;
 	
 	private DateTime fecha;	
+	
 	private Double demoraEnSegundos;
 	private String descripcionBuscada;	
 
@@ -36,7 +39,7 @@ public class ResultadoBusqueda {
 		this.descripcionBuscada = descripcionBuscada;
 	}
 	
-	public Integer getId() {
+	public ObjectId getId() {
 		return id;
 	}
 

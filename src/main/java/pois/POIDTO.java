@@ -2,43 +2,21 @@ package pois;
 
 import java.util.List;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Transient;
 
-@Entity
-@Table(name = "poisBusqueda")
+
+@Embedded
 public class POIDTO {
 
-	@Id @GeneratedValue
-	private Integer id;	
-
-	@Embedded
 	private Posicion posicion;
-	
 	private String nombre;
-	
-	@Embedded
 	private DireccionDTO direccion;
-	
-	@ElementCollection
 	private List<String> etiquetas;
-	
-	@ElementCollection
 	private List<FranjaHoraria> horarios;
-	
-	@ElementCollection
 	private List<Servicio> servicios;
-	
-	@Embedded
 	private Comuna comuna;
-	
-	@Embedded
 	private RubroDTO rubro;
-	
 	private Integer linea;
 	
 	@SuppressWarnings("unused")
@@ -91,9 +69,7 @@ public class POIDTO {
 	public void setLinea(Integer linea) {
 		this.linea = linea;
 	}
-	public Integer getId() {
-		return id;
-	}
+
 	public Posicion getPosicion() {
 		return posicion;
 	}
