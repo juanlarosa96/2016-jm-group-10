@@ -13,6 +13,7 @@ import org.mongodb.morphia.query.Query;
 
 import com.mongodb.MongoClient;
 
+import herramientas.BigDecimalConverter;
 import herramientas.ManejadorDeFechas;
 
 public class ManejadorDeReportes extends InteresadoEnBusquedas {
@@ -20,7 +21,7 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	private Integer cantBusquedasPorPersistir = 0;
 	private Integer maxBusquedasPendientesPersist = 10;
 	private static ManejadorDeReportes singleton;
-	private Morphia morphia = new Morphia();
+	private Morphia persistidor = new Morphia();
 	private Datastore datastore;
 
 	private List<ResultadoBusqueda> resultadosBusquedas;
@@ -39,9 +40,10 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	}
 
 	private void inicializarMongoDB() {
-		morphia.mapPackage("eventosBusqueda");
-		morphia.mapPackage("pois");
-		datastore = morphia.createDatastore(new MongoClient(), "tpaPOIs");
+		persistidor.mapPackage("eventosBusqueda");
+		persistidor.mapPackage("pois");
+		persistidor.getMapper().getConverters().addConverter(BigDecimalConverter.class);
+		datastore = persistidor.createDatastore(new MongoClient(), "tpaPOIs");
 		datastore.ensureIndexes();
 	}
 
