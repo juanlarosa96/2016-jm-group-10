@@ -7,23 +7,22 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.persistence.*;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.query.Query;
 
-import herramientas.EntityManagerHelper;
+import com.mongodb.MongoClient;
+
 import herramientas.ManejadorDeFechas;
 
-@Entity
 public class ManejadorDeReportes extends InteresadoEnBusquedas {
 
-	@Transient
 	private Integer cantBusquedasPorPersistir = 0;
-	@Transient
 	private Integer maxBusquedasPendientesPersist = 10;
-	@Transient
 	private static ManejadorDeReportes singleton;
+	private Morphia morphia = new Morphia();
+	private Datastore datastore;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn
 	private List<ResultadoBusqueda> resultadosBusquedas;
 
 	private ManejadorDeReportes() {
@@ -32,9 +31,18 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	public static ManejadorDeReportes getInstance() {
 		if (singleton == null) {
 			singleton = new ManejadorDeReportes();
+			singleton.inicializarMongoDB();
 			singleton.inicializarListaBusquedas();
+
 		}
 		return singleton;
+	}
+
+	private void inicializarMongoDB() {
+		morphia.mapPackage("eventosBusqueda");
+		morphia.mapPackage("pois");
+		datastore = morphia.createDatastore(new MongoClient(), "tpaPOIs");
+		datastore.ensureIndexes();
 	}
 
 	private void inicializarListaBusquedas() {
@@ -42,28 +50,22 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 		resultadosBusquedas.addAll(this.busquedasPersistidas());
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<ResultadoBusqueda> busquedasPersistidas() {
-		return EntityManagerHelper.getEntityManager().createQuery("from ResultadoBusqueda").getResultList();
+		return datastore.createQuery(ResultadoBusqueda.class).asList();
 	}
 
 	@Override
 	public void notificarBusqueda(ResultadoBusqueda unaBusqueda) {
-
 		resultadosBusquedas.add(unaBusqueda);
 		cantBusquedasPorPersistir++;
 
 		if (cantBusquedasPorPersistir >= maxBusquedasPendientesPersist) {
 
-			EntityManagerHelper.beginTransaction();
-
 			Integer cantBusquedas = resultadosBusquedas.size();
 
-			List<ResultadoBusqueda> busquedasPorPersistir = resultadosBusquedas.stream().skip(cantBusquedas - 10)
+			List<ResultadoBusqueda> busquedasPorPersistir = resultadosBusquedas.stream().skip(cantBusquedas - maxBusquedasPendientesPersist)
 					.collect(Collectors.toList());
-			busquedasPorPersistir.stream().forEach(busq -> EntityManagerHelper.persist(busq));
-
-			EntityManagerHelper.commit();
+			busquedasPorPersistir.stream().forEach(busq -> datastore.save(busq));
 
 			cantBusquedasPorPersistir = 0;
 		}
@@ -134,9 +136,8 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	}
 
 	private void eliminarBusquedasDeBD() {
-		EntityManagerHelper.beginTransaction();
-		EntityManagerHelper.getEntityManager().createQuery("DELETE FROM ResultadoBusqueda").executeUpdate();
-		EntityManagerHelper.commit();
+		Query<ResultadoBusqueda> resultadosABorrar = datastore.createQuery(ResultadoBusqueda.class);
+		datastore.delete(resultadosABorrar);
 	}
 
 	public List<ResultadoBusqueda> getResultadosBusquedas() {
@@ -146,13 +147,17 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	public void setResultadosBusquedas(List<ResultadoBusqueda> busquedasNuevas) {
 		this.resultadosBusquedas = busquedasNuevas;
 
-		EntityManagerHelper.beginTransaction();
+		this.eliminarBusquedasDeBD();
 
-		EntityManagerHelper.createQuery("DELETE FROM ResultadoBusqueda").executeUpdate();
-		
-		busquedasNuevas.stream().forEach(busq -> EntityManagerHelper.persist(busq));
+		busquedasNuevas.stream().forEach(busq -> datastore.save(busq));
+	}
 
-		EntityManagerHelper.commit();
+	public Datastore getDatastore() {
+		return datastore;
+	}
+
+	public void setMaxBusquedasPendientesPersist(Integer maxBusquedasPendientesPersist) {
+		this.maxBusquedasPendientesPersist = maxBusquedasPendientesPersist;
 	}
 
 }
