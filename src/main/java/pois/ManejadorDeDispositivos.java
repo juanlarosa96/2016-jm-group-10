@@ -43,9 +43,9 @@ public class ManejadorDeDispositivos {
 
 		@SuppressWarnings("unchecked")
 		List<Dispositivo> dispViejos = EntityManagerHelper.createQuery("from Dispositivo").getResultList();
-		dispViejos.stream().forEach(disp -> EntityManagerHelper.remove(disp));
+		dispViejos.stream().forEach(disp -> EntityManagerHelper.remover(disp));
 
-		nuevaListaDispositivos.stream().forEach(poi -> EntityManagerHelper.persist(poi));
+		nuevaListaDispositivos.stream().forEach(poi -> EntityManagerHelper.persistir(poi));
 
 		EntityManagerHelper.commit();
 	}
@@ -54,7 +54,7 @@ public class ManejadorDeDispositivos {
 		listaDispositivos.add(dispositivo);
 
 		EntityManagerHelper.beginTransaction();
-		EntityManagerHelper.persist(dispositivo);
+		EntityManagerHelper.persistir(dispositivo);
 		EntityManagerHelper.commit();
 	}
 
@@ -76,7 +76,7 @@ public class ManejadorDeDispositivos {
 		
 		EntityManagerHelper.beginTransaction();
 		EntityManagerHelper.find(Dispositivo.class, disp.getId());
-		EntityManagerHelper.remove(disp);
+		EntityManagerHelper.remover(disp);
 		EntityManagerHelper.commit();
 				
 	}
