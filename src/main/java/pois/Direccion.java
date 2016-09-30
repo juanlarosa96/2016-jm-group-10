@@ -5,9 +5,10 @@ import javax.persistence.*;
 @Table(name = "direcciones")
 @Entity
 public class Direccion {
-	
-	@Id @GeneratedValue
-	private Integer id;	
+
+	@Id
+	@GeneratedValue
+	private Integer id;
 
 	private String calle;
 	private Integer altura;
@@ -15,19 +16,20 @@ public class Direccion {
 	private String entreCalle2;
 	private Integer piso;
 	private Character departamento;
-	private Integer codigoPostal;	
+	private Integer codigoPostal;
 	private String localidad;
 	private String barrio;
 	private String provincia;
 	private String pais;
-	
+
 	@SuppressWarnings("unused")
-	private Direccion(){}
-	
+	private Direccion() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public String getEntreCalle1() {
 		return entreCalle1;
 	}
@@ -169,8 +171,14 @@ public class Direccion {
 
 	}
 
-	public Boolean esLaMismaDireccionQue(Direccion otraDireccion) {		
-		return (otraDireccion.getCalle().equalsIgnoreCase(this.calle)) && (otraDireccion.getAltura().equals(this.altura));
-		
+	public Boolean esLaMismaDireccionQue(Direccion otraDireccion) {
+		return (otraDireccion.getCalle().equalsIgnoreCase(this.calle))
+				&& (otraDireccion.getAltura().equals(this.altura));
+
+	}
+
+	public DireccionDTO dameTuDTO() {
+		return new DireccionDTO(calle, altura, entreCalle1, entreCalle2, piso, departamento, codigoPostal, localidad,
+				barrio, provincia, pais);
 	}
 }
