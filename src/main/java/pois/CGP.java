@@ -10,16 +10,17 @@ import org.joda.time.DateTime;
 @Table(name = "cgps")
 @Entity
 public class CGP extends POI {
-	
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Servicio> servicios;
-	
+
 	@Embedded
 	private Comuna comuna;
-	
+
 	@SuppressWarnings("unused")
-	private CGP(){}
-	
+	private CGP() {
+	}
+
 	public CGP(List<Servicio> servicios, Comuna comuna, Posicion posicion, String nombre, Direccion direccion,
 			List<String> etiquetas) {
 		this.servicios = servicios;
@@ -73,7 +74,7 @@ public class CGP extends POI {
 	}
 
 	@Override
-	public Boolean estaDisponible(DateTime fecha) { 
+	public Boolean estaDisponible(DateTime fecha) {
 
 		return servicios.stream().anyMatch(servicio -> servicio.estaDisponible(fecha));
 	}
@@ -82,36 +83,37 @@ public class CGP extends POI {
 	public Boolean estasCerca(Posicion unaPosicion) {
 		return comuna.incluyeA(unaPosicion);
 	}
+
 	@Override
 	public Boolean condicionDeBusqueda(String descripcion) {
 		return servicios.stream().anyMatch(servicio -> servicio.nombreSimilarA(descripcion));
 	}
-	
+
 	@Override
 	public Boolean esIgualA(POI otroPoi) {
-		return this.getDireccion().esLaMismaDireccionQue(otroPoi.getDireccion());		
-		
+		return this.getDireccion().esLaMismaDireccionQue(otroPoi.getDireccion());
+
 	}
 
 	public Integer dameNumeroComuna() {
-		
+
 		return this.comuna.getNumero();
 	}
-	
+
 	@Override
-	public List<FranjaHoraria> getHorarios(){
+	public List<FranjaHoraria> getHorarios() {
 		return this.servicios.stream().map(servicio -> servicio.getHorarios())
 				.flatMap(listaHorarios -> listaHorarios.stream()).collect(Collectors.toList());
 	}
-	
-	public List<String> getNombreServicios(){
+
+	public List<String> getNombreServicios() {
 		return this.servicios.stream().map(servicio -> servicio.getNombre()).collect(Collectors.toList());
 	}
 
-	private POIDTO agregarDatosEspecificosDelPOI(POIDTO poiDto) {
-		poiDto.setComuna(this.getComuna());
-		poiDto.setServicios(this.getServicios());
-		return poiDto;
+	@Override
+	protected void agregarDatosEspecificosDelPOI(POIDTO poiDto) {
+		poiDto.setComuna(comuna);
+		poiDto.setServicios(servicios);
 	}
-	
+
 }
