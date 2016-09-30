@@ -1,8 +1,6 @@
 package pois;
 
-import javax.persistence.Embeddable;
 
-@Embeddable
 public class DireccionDTO {
 	private String calle;
 	private Integer altura;
@@ -35,5 +33,51 @@ public class DireccionDTO {
 		this.provincia = provincia;
 		this.pais = pais;
 	}
+
+	public String getCalle() {
+		return calle;
+	}
+
+	public Integer getAltura() {
+		return altura;
+	}
+
+	public String getEntreCalle1() {
+		return entreCalle1;
+	}
+
+	public String getEntreCalle2() {
+		return entreCalle2;
+	}
+
+	public Integer getPiso() {
+		return piso;
+	}
+
+	public Character getDepartamento() {
+		return departamento;
+	}
+
+	public Integer getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public String getLocalidad() {
+		return localidad;
+	}
+
+	public String getBarrio() {
+		return barrio;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+	
+	
 
 }
