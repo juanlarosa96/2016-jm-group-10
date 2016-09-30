@@ -29,7 +29,7 @@ public class NotificadorEmailTest {
 			
 			notificadorEmail = new NotificadorEmail(5.0, "admin@gmail.com", adapterMailMockeado);
 			
-			EntityManagerHelper.persist(notificadorEmail);
+			EntityManagerHelper.persistir(notificadorEmail);
 
 		}
 		
