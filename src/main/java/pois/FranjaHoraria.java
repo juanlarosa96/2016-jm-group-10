@@ -1,5 +1,8 @@
 package pois;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.persistence.*;
 import org.joda.time.LocalTime;
 
@@ -21,6 +24,10 @@ public class FranjaHoraria {
 		this.diaDeLaSemana = dia;
 		this.horarioApertura = horarioApertura;
 		this.horarioCierre = horarioCierre;
+	}
+	
+	public FranjaHoraria clone(){
+		return new FranjaHoraria(diaDeLaSemana, horarioApertura, horarioCierre);
 	}
 
 	public Integer getDiaDeLaSemana() {
@@ -45,6 +52,10 @@ public class FranjaHoraria {
 
 	public void setHorarioCierre(LocalTime horarioCierre) {
 		this.horarioCierre = horarioCierre;
+	}
+	
+	public static List<FranjaHoraria> clonarListaHorarios(List<FranjaHoraria> horarios) {
+		return horarios.stream().map(franja -> franja.clone()).collect(Collectors.toList());
 	}
 	
 
