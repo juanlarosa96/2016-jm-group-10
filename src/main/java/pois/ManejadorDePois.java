@@ -12,12 +12,12 @@ import herramientas.EntityManagerHelper;
 public class ManejadorDePois {
 
 	private static ManejadorDePois singleton = null;
-	
+
 	private List<POI> listaPoisInternos;
 	private List<POI> listaPoisExternos;
 
 	private List<ComponenteExternoAdapter> adaptersComponentesExternos;
-	
+
 	private Integer cantBusquedasSinExternos = 100;
 
 	private ManejadorDePois() {
@@ -26,7 +26,7 @@ public class ManejadorDePois {
 
 	@SuppressWarnings("unchecked")
 	private void inicializarListaPois() {
-		listaPoisInternos = EntityManagerHelper.createQuery("from POI").getResultList();
+		listaPoisInternos = EntityManagerHelper.traerTodosLosPOIs();
 		listaPoisExternos = new ArrayList<POI>(); // traer los externos
 													// persistidos en BD
 	}
@@ -41,18 +41,8 @@ public class ManejadorDePois {
 
 	@SuppressWarnings("unchecked")
 	public void setListaPoisInternos(List<POI> listaPoisNueva) {
-
 		listaPoisInternos = listaPoisNueva;
-
-		EntityManagerHelper.beginTransaction();
-
-		List<POI> poisViejos = EntityManagerHelper.createQuery("from POI").getResultList();
-		poisViejos.stream().forEach(poi -> EntityManagerHelper.remove(poi));
-
-		listaPoisNueva.stream().forEach(poi -> EntityManagerHelper.persist(poi));
-
-		EntityManagerHelper.commit();
-
+		EntityManagerHelper.actualizarPOIs(listaPoisNueva);
 	}
 
 	public void setListaAdapters(List<ComponenteExternoAdapter> listaAdapters) {
@@ -89,9 +79,7 @@ public class ManejadorDePois {
 	}
 
 	private void persistirPOIInterno(POI poi) {
-		EntityManagerHelper.beginTransaction();
-		EntityManagerHelper.persist(poi);
-		EntityManagerHelper.commit();
+		EntityManagerHelper.persistir(poi);
 	}
 
 	private void actualizarPoiInterno(POI poiNuevo) {
@@ -101,11 +89,7 @@ public class ManejadorDePois {
 		listaPoisInternos.remove(poiViejoLista);
 		listaPoisInternos.add(poiNuevo);
 
-		EntityManagerHelper.beginTransaction();
-		POI poiViejo = EntityManagerHelper.find(POI.class, poiViejoLista.getId());
-		poiViejo.copiarEstado(poiNuevo);
-		EntityManagerHelper.flush();
-		EntityManagerHelper.commit();
+		EntityManagerHelper.actualizarPoi(poiNuevo, poiViejoLista.getId());
 
 	}
 
@@ -145,10 +129,7 @@ public class ManejadorDePois {
 	}
 
 	private void eliminarPoiInternoDeBD(POI poi) {
-		EntityManagerHelper.beginTransaction();
-		POI poiEncontrado = EntityManagerHelper.find(POI.class, poi.getId());
-		EntityManagerHelper.remove(poiEncontrado);
-		EntityManagerHelper.commit();
+		EntityManagerHelper.eliminarPoi(poi);
 	}
 
 	public List<POI> buscarPOIs(String descripcion) {
@@ -196,20 +177,10 @@ public class ManejadorDePois {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer actualizarEtiquetasLocalesComercialesYRetornarCantidadModificados(String nombre, List<String> etiquetas) {
+	public Integer actualizarEtiquetasLocalesComercialesYRetornarCantidadModificados(String nombre,
+			List<String> etiquetas) {
 
-		EntityManagerHelper.beginTransaction();
-
-		List<Comercio> comercios = EntityManagerHelper.createQuery("from Comercio where nombre = :nombre")
-				.setParameter("nombre", nombre).getResultList();
-
-		comercios.stream().forEach(comercio -> comercio.setEtiquetas(etiquetas));
-
-		EntityManagerHelper.flush();
-		EntityManagerHelper.commit();
-
-		return comercios.size();
-
+		return EntityManagerHelper.actualizarEtiquetasComerciosYRetornarCantidadModificados(nombre, etiquetas);
 	}
 
 	public POI buscarPOI(String nombrePOI, Direccion direccionPOI) {

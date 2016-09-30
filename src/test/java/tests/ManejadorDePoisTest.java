@@ -136,7 +136,7 @@ public class ManejadorDePoisTest {
 
 		EntityManagerHelper.beginTransaction();
 
-		EntityManagerHelper.persist(cgpValido);
+		EntityManagerHelper.persistir(cgpValido);
 
 		EntityManagerHelper.commit();
 
