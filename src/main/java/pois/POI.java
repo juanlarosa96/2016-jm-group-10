@@ -147,7 +147,6 @@ public abstract class POI {
 		return poiDTO;
 	}
 
-	protected void agregarDatosEspecificosDelPOI(POIDTO poiDto) {
-	}
+	abstract protected void agregarDatosEspecificosDelPOI(POIDTO poiDto);
 
 }
