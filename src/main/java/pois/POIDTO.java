@@ -18,6 +18,8 @@ public class POIDTO {
 	private Comuna comuna;
 	private RubroDTO rubroDTO;
 	private Integer lineaColectivo;
+	
+	private String tipoPOI;
 
 	@SuppressWarnings("unused")
 	private POIDTO() {
@@ -66,7 +68,7 @@ public class POIDTO {
 		this.rubroDTO = rubro.dameTuDTO();
 	}
 
-	public void setLinea(Integer linea) {
+	public void setLineaColectivo(Integer linea) {
 		this.lineaColectivo = linea;
 	}
 
@@ -102,12 +104,20 @@ public class POIDTO {
 		return rubroDTO;
 	}
 
-	public Integer getLinea() {
+	public Integer getLineaColectivo() {
 		return lineaColectivo;
 	}
 
 	private List<ServicioDTO> convertirAServiciosDTO(List<Servicio> listaServicios) {
 		return listaServicios.stream().map(servicio -> servicio.dameTuDTO()).collect(Collectors.toList());
+	}
+
+	public String getTipoPOI() {
+		return tipoPOI;
+	}
+
+	public void setTipoPOI(String tipoPOI) {
+		this.tipoPOI = tipoPOI;
 	}
 
 }
