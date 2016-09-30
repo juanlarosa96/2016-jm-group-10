@@ -75,7 +75,7 @@ public class Dispositivo {
 
 	private ResultadoBusqueda crearResultadoBusqueda(List<POI> listaPoisEncontrados, Double demoraEnSegundos,
 			String descripcion) {
-		List<POIDTO> listaPoisParaResultadoBusqueda = listaPoisEncontrados.stream().map(poi -> poi.convertiteAPoiDto())
+		List<POIDTO> listaPoisParaResultadoBusqueda = listaPoisEncontrados.stream().map(poi -> poi.dameTuDTO())
 				.collect(Collectors.toList());
 
 		return new ResultadoBusqueda(this.nombre, listaPoisParaResultadoBusqueda, DateTime.now(), demoraEnSegundos,
