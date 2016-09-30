@@ -9,36 +9,36 @@ import org.joda.time.DateTime;
 import herramientas.ManejadorDeFechas;
 import herramientas.ManejadorDeStrings;
 
-
 @Entity
 @Table(name = "pois")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class POI {
-	
-	@Id @GeneratedValue
-	private Integer id;	
+
+	@Id
+	@GeneratedValue
+	private Integer id;
 
 	@Embedded
 	private Posicion posicion;
-	
+
 	private String nombre;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Direccion direccion;
-	
+
 	@ElementCollection
 	private List<String> etiquetas;
-	
-	@CollectionTable(name= "franjas_horarias_pois")
+
+	@CollectionTable(name = "franjas_horarias_pois")
 	@ElementCollection
-	private List<FranjaHoraria> horarios;	
-	
-	//-------------------------------------------
-	
+	private List<FranjaHoraria> horarios;
+
+	// -------------------------------------------
+
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public Boolean distanciaAPoiMenorA(Double distancia, POI poi) {
 
 		return distanciaAPoi(poi) < distancia;
@@ -47,25 +47,25 @@ public abstract class POI {
 	public Double distanciaAPoi(POI poi) {
 		return this.distanciaAPosicion(poi.getPosicion());
 	}
-	
+
 	public Boolean esValido() {
 
 		return (posicion != null && nombre != null && direccion != null);
-		
+
 	}
 
 	public Boolean estaDisponible(DateTime fecha) {
-		return horarios.stream().anyMatch(franjaHoraria -> ManejadorDeFechas.estaEnFranjaHoraria(fecha,franjaHoraria));
+		return horarios.stream().anyMatch(franjaHoraria -> ManejadorDeFechas.estaEnFranjaHoraria(fecha, franjaHoraria));
 	}
 
 	public Boolean estasCerca(Posicion unaPosicion) {
-		
+
 		return this.distanciaAPosicion(unaPosicion) <= this.condicionDeCercania();
-		
+
 	}
 
 	private Double distanciaAPosicion(Posicion unaPosicion) {
-		
+
 		return posicion.distance(unaPosicion);
 	}
 
@@ -75,12 +75,12 @@ public abstract class POI {
 	}
 
 	public Boolean contiene(String descripcion) {
-		return ManejadorDeStrings.estaIncluido(nombre,descripcion)|| 
-				etiquetas.stream().anyMatch(etiqueta -> ManejadorDeStrings.estaIncluido(etiqueta,descripcion))||
-				this.condicionDeBusqueda(descripcion);
+		return ManejadorDeStrings.estaIncluido(nombre, descripcion)
+				|| etiquetas.stream().anyMatch(etiqueta -> ManejadorDeStrings.estaIncluido(etiqueta, descripcion))
+				|| this.condicionDeBusqueda(descripcion);
 	}
 
-	public Boolean condicionDeBusqueda(String descripcion) {		
+	public Boolean condicionDeBusqueda(String descripcion) {
 		return false;
 	}
 
@@ -99,7 +99,7 @@ public abstract class POI {
 	public void setHorarios(List<FranjaHoraria> horarios) {
 		this.horarios = horarios;
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -129,28 +129,25 @@ public abstract class POI {
 	}
 
 	public Boolean esIgualA(POI poi) {
-		
+
 		return this.getPosicion().equals(poi.getPosicion());
 	}
-	
-	public void copiarEstado(POI poiNuevo){
-		this.setDireccion(poiNuevo.getDireccion());	
+
+	public void copiarEstado(POI poiNuevo) {
+		this.setDireccion(poiNuevo.getDireccion());
 		this.setEtiquetas(poiNuevo.getEtiquetas());
 		this.setHorarios(poiNuevo.getHorarios());
 		this.setNombre(poiNuevo.getNombre());
-		this.setPosicion(poiNuevo.getPosicion());		
+		this.setPosicion(poiNuevo.getPosicion());
 	}
 
-	public POIDTO convertiteAPoiDto() {
-		POIDTO poiDto = new POIDTO(this.getNombre(),this.getPosicion(),this.getDireccion(),this.getEtiquetas(),this.getHorarios());
-		return this.agregarDatosEspecificosDelPOI(poiDto);
+	public POIDTO dameTuDTO() {
+		POIDTO poiDTO = new POIDTO(nombre, posicion, direccion, etiquetas, horarios);
+		this.agregarDatosEspecificosDelPOI(poiDTO);
+		return poiDTO;
 	}
 
-	private POIDTO agregarDatosEspecificosDelPOI(POIDTO poiDto) {
-		return poiDto;
+	protected void agregarDatosEspecificosDelPOI(POIDTO poiDto) {
 	}
-
-	
-	
 
 }
