@@ -1,5 +1,6 @@
 package herramientas;
 
+import java.util.List;
 import java.util.function.*;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+
+import pois.Comercio;
+import pois.POI;
 
 
 public class EntityManagerHelper {
@@ -44,7 +48,7 @@ public class EntityManagerHelper {
     }
 
     public static void beginTransaction() {
-    	EntityManager em = EntityManagerHelper.getEntityManager();
+    	EntityManager em = getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		
 		if(!tx.isActive()){
@@ -53,7 +57,7 @@ public class EntityManagerHelper {
     }
 
     public static void commit() {
-    	EntityManager em = EntityManagerHelper.getEntityManager();
+    	EntityManager em = getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		if(tx.isActive()){
 			tx.commit();
@@ -62,7 +66,7 @@ public class EntityManagerHelper {
     }
 
     public static void rollback(){
-    	EntityManager em = EntityManagerHelper.getEntityManager();
+    	EntityManager em = getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		if(tx.isActive()){
 			tx.rollback();
@@ -91,7 +95,7 @@ public class EntityManagerHelper {
     	}
     }
 
-	public static void persist(Object object) {
+	public static void persistir(Object object) {
 		entityManager().persist(object);
 	}
 
@@ -103,7 +107,7 @@ public class EntityManagerHelper {
 		entityManager().flush();
 	}
 
-	public static void remove(Object object) {
+	public static void remover(Object object) {
 		entityManager().remove(object);
 	}
 
@@ -113,6 +117,53 @@ public class EntityManagerHelper {
 
 	public static void clear() {
 		entityManager().clear();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<POI> traerTodosLosPOIs() {
+		return entityManager().createQuery("from POI").getResultList();
+	}
+
+	public static void actualizarPoi(POI poiNuevo, Integer poiViejoID) {
+		beginTransaction();
+		POI poiViejo = find(POI.class, poiViejoID);
+		poiViejo.copiarEstado(poiNuevo);
+		flush();
+		commit();
+		
+	}
+
+	public static void eliminarPoi(POI poi) {
+		beginTransaction();
+		POI poiEncontrado = find(POI.class, poi.getId());
+		remover(poiEncontrado);
+		commit();		
+	}
+
+	public static Integer actualizarEtiquetasComerciosYRetornarCantidadModificados(String nombre, List<String> etiquetas) {
+		beginTransaction();
+		List<Comercio> comercios = buscarComercios(nombre);
+		comercios.stream().forEach(comercio -> comercio.setEtiquetas(etiquetas));
+
+		flush();
+		commit();
+		
+		return comercios.size();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<Comercio> buscarComercios(String nombre) {
+		return createQuery("from Comercio where nombre = :nombre")
+				.setParameter("nombre", nombre).getResultList();
+
+	}
+
+	public static void actualizarPOIs(List<POI> listaPoisNueva) {
+		beginTransaction();
+		List<POI> poisViejos = traerTodosLosPOIs();
+		poisViejos.stream().forEach(poi -> remover(poi));
+		listaPoisNueva.stream().forEach(poi -> persistir(poi));
+		commit();
 	}
     
     
