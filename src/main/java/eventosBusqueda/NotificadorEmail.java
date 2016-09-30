@@ -8,7 +8,6 @@ import javax.persistence.*;
 import org.joda.time.LocalDateTime;
 
 import adapters.AdapterMail;
-import herramientas.EntityManagerHelper;
 
 @Entity
 public class NotificadorEmail extends InteresadoEnBusquedas {
