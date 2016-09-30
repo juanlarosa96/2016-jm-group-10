@@ -13,11 +13,7 @@ public class ManejadorDeDispositivos {
 
 	@SuppressWarnings("unchecked")
 	private ManejadorDeDispositivos() {
-		EntityManagerHelper.beginTransaction();
-
-		listaDispositivos = EntityManagerHelper.createQuery("from Dispositivo").getResultList();
-
-		EntityManagerHelper.commit();
+		listaDispositivos = EntityManagerHelper.traerTodosLosDispositivos();
 	}
 
 	public static ManejadorDeDispositivos getInstance() {
@@ -39,23 +35,12 @@ public class ManejadorDeDispositivos {
 	public void setListaDispositivos(List<Dispositivo> nuevaListaDispositivos) {
 		listaDispositivos = nuevaListaDispositivos;
 
-		EntityManagerHelper.beginTransaction();
-
-		@SuppressWarnings("unchecked")
-		List<Dispositivo> dispViejos = EntityManagerHelper.createQuery("from Dispositivo").getResultList();
-		dispViejos.stream().forEach(disp -> EntityManagerHelper.remover(disp));
-
-		nuevaListaDispositivos.stream().forEach(poi -> EntityManagerHelper.persistir(poi));
-
-		EntityManagerHelper.commit();
+		EntityManagerHelper.actualizarDispositivos(nuevaListaDispositivos);
 	}
 
 	public void agregarDispositivo(Dispositivo dispositivo) {
 		listaDispositivos.add(dispositivo);
-
-		EntityManagerHelper.beginTransaction();
 		EntityManagerHelper.persistir(dispositivo);
-		EntityManagerHelper.commit();
 	}
 
 	public List<Dispositivo> filtrarPorComuna(Integer numComuna) throws ExceptionComunaInvalida{
@@ -74,18 +59,12 @@ public class ManejadorDeDispositivos {
 	public void eliminarDispositivo(Dispositivo disp) {
 		listaDispositivos.remove(disp);
 		
-		EntityManagerHelper.beginTransaction();
-		EntityManagerHelper.find(Dispositivo.class, disp.getId());
-		EntityManagerHelper.remover(disp);
-		EntityManagerHelper.commit();
-				
+		EntityManagerHelper.removerDispositivo(disp.getId());
 	}
 
 	public void clearDispositivos() {
 		listaDispositivos.clear();
 		
-		EntityManagerHelper.beginTransaction();
-		EntityManagerHelper.getEntityManager().createQuery("DELETE FROM Dispositivo").executeUpdate();
-		EntityManagerHelper.commit();
+		EntityManagerHelper.removerTodosLosDispositivos();
 	}
 }
