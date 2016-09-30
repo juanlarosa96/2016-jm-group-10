@@ -114,6 +114,7 @@ public class CGP extends POI {
 	protected void agregarDatosEspecificosDelPOI(POIDTO poiDto) {
 		poiDto.setComuna(comuna);
 		poiDto.setServicios(servicios);
+		poiDto.setTipoPOI("CGP");
 	}
 
 }

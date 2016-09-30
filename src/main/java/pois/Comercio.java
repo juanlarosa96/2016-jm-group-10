@@ -49,5 +49,6 @@ public class Comercio extends POI {
 	@Override
 	protected void agregarDatosEspecificosDelPOI(POIDTO poiDto) {
 		poiDto.setRubro(rubro);
+		poiDto.setTipoPOI("COMERCIO");
 	}
 }

@@ -31,5 +31,10 @@ public class Banco extends POI {
 	
 	@SuppressWarnings("unused")
 	private Banco(){}
+	
+	@Override
+	protected void agregarDatosEspecificosDelPOI(POIDTO poiDto) {
+		poiDto.setTipoPOI("BANCO");
+	}
 		
 }

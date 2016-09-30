@@ -58,6 +58,7 @@ public class ParadaColectivo extends POI {
 	
 	@Override
 	protected void agregarDatosEspecificosDelPOI(POIDTO poiDto) {
-		poiDto.setLinea(linea);
+		poiDto.setLineaColectivo(linea);
+		poiDto.setTipoPOI("PARADACOLECTIVO");
 	}
 }
