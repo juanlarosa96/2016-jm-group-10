@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import pois.Comercio;
+import pois.Dispositivo;
 import pois.POI;
 
 
@@ -96,7 +97,9 @@ public class EntityManagerHelper {
     }
 
 	public static void persistir(Object object) {
+		beginTransaction();
 		entityManager().persist(object);
+		commit();
 	}
 
 	 public static <T> T find(Class<T> entityClass, Object primaryKey){
@@ -162,8 +165,38 @@ public class EntityManagerHelper {
 		beginTransaction();
 		List<POI> poisViejos = traerTodosLosPOIs();
 		poisViejos.stream().forEach(poi -> remover(poi));
-		listaPoisNueva.stream().forEach(poi -> persistir(poi));
+		listaPoisNueva.stream().forEach(poi -> entityManager().persist(poi));
 		commit();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<Dispositivo> traerTodosLosDispositivos() {
+		return createQuery("from Dispositivo").getResultList();
+
+	}
+
+	public static void actualizarDispositivos(List<Dispositivo> nuevaListaDispositivos) {
+		beginTransaction();
+
+		List<Dispositivo> dispViejos = EntityManagerHelper.traerTodosLosDispositivos();
+		dispViejos.stream().forEach(disp -> remover(disp));
+
+		nuevaListaDispositivos.stream().forEach(poi -> getEntityManager().persist(poi));
+
+		commit();
+	}
+
+	public static void removerDispositivo(Integer dispositivoID) {
+		EntityManagerHelper.beginTransaction();
+		Dispositivo disp = EntityManagerHelper.find(Dispositivo.class, dispositivoID);
+		EntityManagerHelper.remover(disp);
+		EntityManagerHelper.commit();
+	}
+
+	public static void removerTodosLosDispositivos() {
+		EntityManagerHelper.beginTransaction();
+		EntityManagerHelper.getEntityManager().createQuery("DELETE FROM Dispositivo").executeUpdate();
+		EntityManagerHelper.commit();
 	}
     
     
