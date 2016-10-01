@@ -1,101 +1,113 @@
 package pois;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Transient;
-
 
 @Embedded
 public class POIDTO {
 
 	private Posicion posicion;
 	private String nombre;
-	private DireccionDTO direccion;
+	private DireccionDTO direccionDTO;
 	private List<String> etiquetas;
 	private List<FranjaHoraria> horarios;
-	private List<Servicio> servicios;
+	private List<ServicioDTO> serviciosDTO;
 	private Comuna comuna;
-	private RubroDTO rubro;
-	private Integer linea;
-	
+	private RubroDTO rubroDTO;
+	private Integer lineaColectivo;
+
 	@SuppressWarnings("unused")
-	private POIDTO(){}
-	
-	public POIDTO(String nombre, Posicion posicion, Direccion direccion, List<String> etiquetas, List<FranjaHoraria> horarios){
-		this.nombre = nombre;
-		this.posicion = posicion;
-		this.direccion = this.convertirADireccionDTO(direccion);
-		this.etiquetas = etiquetas;
-		this.horarios = horarios;
-	}
-	
-	private DireccionDTO convertirADireccionDTO(Direccion direccion) {
-		return new DireccionDTO(direccion.getCalle(), direccion.getAltura(), direccion.getEntreCalle1(),
-				direccion.getEntreCalle2(), direccion.getPiso(), direccion.getDepartamento(),
-				direccion.getCodigoPostal(), direccion.getLocalidad(), direccion.getBarrio(), direccion.getProvincia(),
-				direccion.getPais());
+	private POIDTO() {
 	}
 
-	private RubroDTO convertirARubroDTO(Rubro rubro) {
-		return new RubroDTO(rubro.getNombreRubro(),rubro.getCondicionDeCercania());
+	public POIDTO(String nombre, Posicion posicion, Direccion direccion, List<String> etiquetas,
+			List<FranjaHoraria> horarios) {
+
+		this.nombre = nombre;
+		this.setPosicion(posicion);
+		this.setDireccion(direccion);
+		this.setEtiquetas(etiquetas);
+		this.setHorarios(horarios);
+	}
+
+	private void setEtiquetas(List<String> listaEtiquetas) {
+		this.etiquetas = new ArrayList<String>();
+		this.etiquetas.addAll(listaEtiquetas);
 	}
 
 	public void setPosicion(Posicion posicion) {
-		this.posicion = posicion;
+		this.posicion = posicion.clone();
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public void setDireccion(Direccion direccion) {
-		this.direccion = this.convertirADireccionDTO(direccion);
+		this.direccionDTO = direccion.dameTuDTO();
 	}
-	public void setEtiquetas(List<String> etiquetas) {
-		this.etiquetas = etiquetas;
-	}
+
 	public void setHorarios(List<FranjaHoraria> horarios) {
-		this.horarios = horarios;
+		this.horarios = FranjaHoraria.clonarListaHorarios(horarios);
 	}
+
 	public void setServicios(List<Servicio> servicios) {
-		this.servicios = servicios;
+		this.serviciosDTO = this.convertirAServiciosDTO(servicios);
 	}
+
 	public void setComuna(Comuna comuna) {
-		this.comuna = comuna;
+		this.comuna = comuna.clone();
 	}
+
 	public void setRubro(Rubro rubro) {
-		this.rubro = this.convertirARubroDTO(rubro);
+		this.rubroDTO = rubro.dameTuDTO();
 	}
 
 	public void setLinea(Integer linea) {
-		this.linea = linea;
+		this.lineaColectivo = linea;
 	}
 
 	public Posicion getPosicion() {
 		return posicion;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
-	public DireccionDTO getDireccion() {
-		return direccion;
+
+	public DireccionDTO getDireccionDTO() {
+		return direccionDTO;
 	}
+
 	public List<String> getEtiquetas() {
 		return etiquetas;
 	}
+
 	public List<FranjaHoraria> getHorarios() {
 		return horarios;
 	}
-	public List<Servicio> getServicios() {
-		return servicios;
+
+	public List<ServicioDTO> getServiciosDTO() {
+		return serviciosDTO;
 	}
+
 	public Comuna getComuna() {
 		return comuna;
 	}
-	public RubroDTO getRubro() {
-		return rubro;
+
+	public RubroDTO getRubroDTO() {
+		return rubroDTO;
 	}
+
 	public Integer getLinea() {
-		return linea;
+		return lineaColectivo;
+	}
+
+	private List<ServicioDTO> convertirAServiciosDTO(List<Servicio> listaServicios) {
+		return listaServicios.stream().map(servicio -> servicio.dameTuDTO()).collect(Collectors.toList());
 	}
 
 }

@@ -3,7 +3,6 @@ package tests;
 import adapters.AdapterMail;
 import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.NotificadorEmail;
-import pois.POI;
 import pois.POIDTO;
 
 import static org.mockito.Mockito.mock;

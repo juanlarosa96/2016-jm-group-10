@@ -18,7 +18,6 @@ import fixtures.FixtureBanco;
 import fixtures.FixtureComercio;
 import eventosBusqueda.ManejadorDeReportes;
 import herramientas.ManejadorDeFechas;
-import pois.POI;
 import pois.POIDTO;
 
 public class ManejadorDeReportesTest {
@@ -54,8 +53,8 @@ public class ManejadorDeReportesTest {
 		listaSize5 = Mockito.mock(ArrayList.class);
 		listaSize8 = Mockito.mock(ArrayList.class);
 
-		bancoDTO = FixtureBanco.dameUnBancoValido().convertiteAPoiDto();
-		comercioDTO = FixtureComercio.dameComercioValido().convertiteAPoiDto();
+		bancoDTO = FixtureBanco.dameUnBancoValido().dameTuDTO();
+		comercioDTO = FixtureComercio.dameComercioValido().dameTuDTO();
 
 		List<POIDTO> poisDto3 = new ArrayList<POIDTO>() {
 			{

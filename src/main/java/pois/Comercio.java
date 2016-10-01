@@ -46,8 +46,8 @@ public class Comercio extends POI {
 		return ManejadorDeStrings.estaIncluido(rubro.getNombreRubro(), descripcion);
 		}
 	
-	private POIDTO agregarDatosEspecificosDelPOI(POIDTO poiDto) {
-		poiDto.setRubro(this.getRubro());
-		return poiDto;
+	@Override
+	protected void agregarDatosEspecificosDelPOI(POIDTO poiDto) {
+		poiDto.setRubro(rubro);
 	}
 }

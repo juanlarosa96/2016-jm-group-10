@@ -35,5 +35,9 @@ public class Rubro {
 	public void setCondicionDeCercania(Double condicionDeCercania) {
 		this.condicionDeCercania = condicionDeCercania;
 	}
+
+	public RubroDTO dameTuDTO() {
+		return new RubroDTO(nombreRubro, condicionDeCercania);
+	}
 	
 }

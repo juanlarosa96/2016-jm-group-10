@@ -59,4 +59,8 @@ public class Servicio {
 		return horarios;
 	}
 
+	public ServicioDTO dameTuDTO() {
+		return new ServicioDTO(nombre, FranjaHoraria.clonarListaHorarios(horarios));
+	}
+
 }

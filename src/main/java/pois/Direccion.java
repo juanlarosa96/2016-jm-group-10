@@ -4,22 +4,22 @@ import javax.persistence.*;
 
 @Embeddable
 public class Direccion {
-	
 	private String calle;
 	private Integer altura;
 	private String entreCalle1;
 	private String entreCalle2;
 	private Integer piso;
 	private Character departamento;
-	private Integer codigoPostal;	
+	private Integer codigoPostal;
 	private String localidad;
 	private String barrio;
 	private String provincia;
 	private String pais;
-	
+
 	@SuppressWarnings("unused")
-	private Direccion(){}
-	
+
+	private Direccion() {}
+
 	public String getEntreCalle1() {
 		return entreCalle1;
 	}
@@ -161,8 +161,14 @@ public class Direccion {
 
 	}
 
-	public Boolean esLaMismaDireccionQue(Direccion otraDireccion) {		
-		return (otraDireccion.getCalle().equalsIgnoreCase(this.calle)) && (otraDireccion.getAltura().equals(this.altura));
-		
+	public Boolean esLaMismaDireccionQue(Direccion otraDireccion) {
+		return (otraDireccion.getCalle().equalsIgnoreCase(this.calle))
+				&& (otraDireccion.getAltura().equals(this.altura));
+
+	}
+
+	public DireccionDTO dameTuDTO() {
+		return new DireccionDTO(calle, altura, entreCalle1, entreCalle2, piso, departamento, codigoPostal, localidad,
+				barrio, provincia, pais);
 	}
 }

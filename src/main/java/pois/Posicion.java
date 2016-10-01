@@ -19,6 +19,11 @@ public class Posicion {
 
 	private BigDecimal y;
 
+	public Posicion clone(){
+		return new Posicion(x.doubleValue(),y.doubleValue());
+		
+	}
+	
 	/**
 	 * Constructor para valores enteros
 	 */
