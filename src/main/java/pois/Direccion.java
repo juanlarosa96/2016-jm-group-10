@@ -2,14 +2,8 @@ package pois;
 
 import javax.persistence.*;
 
-@Table(name = "direcciones")
-@Entity
+@Embeddable
 public class Direccion {
-
-	@Id
-	@GeneratedValue
-	private Integer id;
-
 	private String calle;
 	private Integer altura;
 	private String entreCalle1;
@@ -23,12 +17,8 @@ public class Direccion {
 	private String pais;
 
 	@SuppressWarnings("unused")
-	private Direccion() {
-	}
 
-	public Integer getId() {
-		return id;
-	}
+	private Direccion() {}
 
 	public String getEntreCalle1() {
 		return entreCalle1;
