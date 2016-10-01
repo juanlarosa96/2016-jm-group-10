@@ -22,8 +22,8 @@ public abstract class POI {
 	private Posicion posicion;
 	
 	private String nombre;
-	
-	@OneToOne(cascade = CascadeType.ALL)
+
+	@Embedded
 	private Direccion direccion;
 	
 	@ElementCollection
