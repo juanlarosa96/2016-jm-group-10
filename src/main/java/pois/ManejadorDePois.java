@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 
 import org.joda.time.DateTime;
 
+import com.google.gson.*;
+
 import adapters.ComponenteExternoAdapter;
 import herramientas.EntityManagerHelper;
+import redis.clients.jedis.Jedis;
 
 public class ManejadorDePois {
 
@@ -19,6 +22,8 @@ public class ManejadorDePois {
 	private List<ComponenteExternoAdapter> adaptersComponentesExternos;
 
 	private Integer cantBusquedasSinExternos = 100;
+
+	private int cantidadPersistida;
 
 	private ManejadorDePois() {
 		this.inicializarListaPois();
@@ -110,9 +115,8 @@ public class ManejadorDePois {
 
 	private ArrayList<POI> damePoisExternos(String descripcion) {
 
-		return (ArrayList<POI>) adaptersComponentesExternos.stream()
-				.map(adapter -> adapter.buscarPoisExternos(descripcion)).flatMap(listaPois -> listaPois.stream())
-				.collect(Collectors.toList());
+		return (ArrayList<POI>) adaptersComponentesExternos.stream().map(adapter -> adapter.buscarPoisExternos(descripcion))
+				.flatMap(listaPois -> listaPois.stream()).collect(Collectors.toList());
 	}
 
 	public void agregarPoisInternos(List<POI> poisNuevos) {
@@ -164,21 +168,18 @@ public class ManejadorDePois {
 
 	public List<POI> buscarPoisDisponibles(String descripcion, DateTime momento) {
 		// no sirve para buscar si esta disponible un servicio en un cgp
-		return this.buscarPOIs(descripcion).stream().filter(poi -> poi.estaDisponible(momento))
-				.collect(Collectors.toList());
+		return this.buscarPOIs(descripcion).stream().filter(poi -> poi.estaDisponible(momento)).collect(Collectors.toList());
 	}
 
 	public List<POI> buscarServicioDisponible(String servicio, DateTime momento) {
 		// todos los pois que no sean cgps responden false a
 		// estaDisponibleServicio
-		return this.buscarPOIs(servicio).stream().filter(poi -> poi.estaDisponibleServicio(servicio, momento))
-				.collect(Collectors.toList());
+		return this.buscarPOIs(servicio).stream().filter(poi -> poi.estaDisponibleServicio(servicio, momento)).collect(Collectors.toList());
 
 	}
 
 	@SuppressWarnings("unchecked")
-	public Integer actualizarEtiquetasLocalesComercialesYRetornarCantidadModificados(String nombre,
-			List<String> etiquetas) {
+	public Integer actualizarEtiquetasLocalesComercialesYRetornarCantidadModificados(String nombre, List<String> etiquetas) {
 
 		return EntityManagerHelper.actualizarEtiquetasComerciosYRetornarCantidadModificados(nombre, etiquetas);
 	}
@@ -186,8 +187,8 @@ public class ManejadorDePois {
 	public POI buscarPOI(String nombrePOI, Direccion direccionPOI) {
 		// Si no encuentra ninguno tira IndexOutOfBoundsException
 
-		return listaPoisInternos.stream().filter(poi -> poi.getNombre().equalsIgnoreCase(nombrePOI)
-				&& poi.getDireccion().esLaMismaDireccionQue(direccionPOI)).collect(Collectors.toList()).get(0);
+		return listaPoisInternos.stream().filter(poi -> poi.getNombre().equalsIgnoreCase(nombrePOI) && poi.getDireccion().esLaMismaDireccionQue(direccionPOI))
+				.collect(Collectors.toList()).get(0);
 	}
 
 	public List<POI> getListaPoisInternos() {
@@ -204,6 +205,39 @@ public class ManejadorDePois {
 
 	public void clearListaPoisExternos() {
 		listaPoisExternos.clear();
+	}
+
+	public void persistirPoiExterno(Banco unPoi, Jedis jedis) {
+
+		Gson gson = new Gson();
+		JsonElement jsonElement = gson.toJsonTree(unPoi);
+		jsonElement.getAsJsonObject().remove("horarios");
+		String gsonAPersistir = gson.toJson(jsonElement);
+		jedis.rpush("IdPoiExterno", gsonAPersistir);
+		cantidadPersistida++;
+
+	}
+
+	public List<Banco> obtenerPoisExternosDeRedis(Jedis jedis) {
+
+		List<Banco> listaBancos = new ArrayList<Banco>();
+		List<String> bancosObtenidos = jedis.lrange("IdPoiExterno", 0, cantidadPersistida);
+
+		for (int i = 0; i < bancosObtenidos.size(); i++) {
+
+			listaBancos.add(this.convertirDeJsonABanco(bancosObtenidos.get(i)));
+		}
+
+		return listaBancos;
+	}
+
+	public Banco convertirDeJsonABanco(String unPoi) {
+
+		Gson gson = new Gson();
+		Banco unBanco = gson.fromJson(unPoi, Banco.class);
+		unBanco.setHorarios(unBanco.horariosBancos());
+		return unBanco;
+
 	}
 
 }
