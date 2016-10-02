@@ -78,8 +78,8 @@ public class DispositivoTest {
 		manejadorDePois.setListaAdapters(new ArrayList<ComponenteExternoAdapter>());
 		
 		
-		manejadorDeReportes = ManejadorDeReportes.getInstance();	
-		manejadorDeReportes.limpiarBusquedas();
+		manejadorDeReportes = new ManejadorDeReportes();	
+		manejadorDeReportes.limpiarTodasLasBusquedas();
 		
 	}
 	
