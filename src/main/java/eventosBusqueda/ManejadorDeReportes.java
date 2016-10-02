@@ -7,39 +7,39 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
 import herramientas.ManejadorDeFechas;
 import herramientas.PersistidorMongo;
 
+@Entity
 public class ManejadorDeReportes extends InteresadoEnBusquedas {
 
-	private Integer cantBusquedasPorPersistir = 0;
+	@Transient
+	private static Boolean baseInicializada = false;
+
+	@Transient
+	private List<ResultadoBusqueda> busquedasPorPersistir;
+
+	@Transient
+	private static PersistidorMongo persistidor;
+
 	private Integer maxBusquedasPendientesPersist = 10;
-	private static ManejadorDeReportes singleton;
-	private PersistidorMongo persistidor;
 
-	private List<ResultadoBusqueda> resultadosBusquedas;
+	public ManejadorDeReportes() {
 
-	private ManejadorDeReportes() {
-	}
+		this.inicializarListaBusquedas();
 
-	public static ManejadorDeReportes getInstance() {
-		if (singleton == null) {
-			singleton = new ManejadorDeReportes();
-			singleton.inicializarMongoDB("tpaPOIs");
-			singleton.inicializarListaBusquedas();
+		if (!baseInicializada) {
+			persistidor = new PersistidorMongo();
+			persistidor.inicializarDB("tpaPOIs");
+			baseInicializada = true;
 		}
-		return singleton;
-	}
-
-	public void inicializarMongoDB(String nombreDB) {
-		persistidor = new PersistidorMongo();
-		persistidor.inicializarDB(nombreDB);
-		
 	}
 
 	private void inicializarListaBusquedas() {
-		resultadosBusquedas = new ArrayList<ResultadoBusqueda>();
-		resultadosBusquedas.addAll(this.busquedasPersistidas());
+		busquedasPorPersistir = new ArrayList<ResultadoBusqueda>();
 	}
 
 	private List<ResultadoBusqueda> busquedasPersistidas() {
@@ -48,35 +48,33 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 
 	@Override
 	public void notificarBusqueda(ResultadoBusqueda unaBusqueda) {
-		resultadosBusquedas.add(unaBusqueda);
-		cantBusquedasPorPersistir++;
+		busquedasPorPersistir.add(unaBusqueda);
+		Integer cantBusquedas = busquedasPorPersistir.size();
 
-		if (cantBusquedasPorPersistir >= maxBusquedasPendientesPersist) {
+		if (cantBusquedas >= maxBusquedasPendientesPersist) {
 
-			Integer cantBusquedas = resultadosBusquedas.size();
-
-			List<ResultadoBusqueda> busquedasPorPersistir = resultadosBusquedas.stream().skip(cantBusquedas - maxBusquedasPendientesPersist)
-					.collect(Collectors.toList());
 			busquedasPorPersistir.stream().forEach(busq -> persistidor.guardar(busq));
-
-			cantBusquedasPorPersistir = 0;
+			busquedasPorPersistir.clear();
 		}
 	}
 
-	private Integer contarBusquedasPorFecha(String fecha) {
-
-		return resultadosBusquedas.stream()
+	private Integer contarBusquedasPorFecha(List<ResultadoBusqueda> busquedas, String fecha) {
+		return busquedas.stream()
 				.filter(busqueda -> fecha.equals(ManejadorDeFechas.convertirFechaAString(busqueda.getFecha())))
 				.collect(Collectors.toList()).size();
 	}
 
 	public HashMap<String, Integer> generarReporteBusquedasPorFecha() {
 
+		this.persistirBusquedasNoPersistidas();
+
+		List<ResultadoBusqueda> busquedas = this.busquedasPersistidas();
+
 		HashMap<String, Integer> reporte = new HashMap<String, Integer>();
 
-		Set<String> fechas = this.obtenerSetDeFechas();
+		Set<String> fechas = this.obtenerSetDeFechas(busquedas);
 
-		fechas.stream().forEach(fecha -> reporte.put(fecha, this.contarBusquedasPorFecha(fecha)));
+		fechas.stream().forEach(fecha -> reporte.put(fecha, this.contarBusquedasPorFecha(busquedas, fecha)));
 
 		return reporte;
 
@@ -84,68 +82,76 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 
 	public HashMap<String, List<Integer>> generarReporteDeResultadosParcialesPorBusquedaPorTerminal() {
 
+		this.persistirBusquedasNoPersistidas();
+
+		List<ResultadoBusqueda> busquedas = this.busquedasPersistidas();
+
 		HashMap<String, List<Integer>> reporte = new HashMap<String, List<Integer>>();
 
-		Set<String> terminales = this.obtenerSetDeTerminales();
+		Set<String> terminales = this.obtenerSetDeTerminales(busquedas);
 
 		terminales.stream().forEach(terminal -> reporte.put(terminal,
-				this.obtenerCantidadResultadosDeTerminal(terminal).collect(Collectors.toList())));
+				this.obtenerCantidadResultadosDeTerminal(busquedas, terminal).collect(Collectors.toList())));
 
 		return reporte;
 	}
 
 	public HashMap<String, Integer> generarReporteDeResultadoTotalesPorTerminales() {
 
+		this.persistirBusquedasNoPersistidas();
+
+		List<ResultadoBusqueda> busquedas = this.busquedasPersistidas();
+
 		HashMap<String, Integer> reporte = new HashMap<String, Integer>();
 
-		Set<String> terminales = this.obtenerSetDeTerminales();
+		Set<String> terminales = this.obtenerSetDeTerminales(busquedas);
 
 		terminales.stream().forEach(terminal -> reporte.put(terminal,
-				this.obtenerCantidadResultadosDeTerminal(terminal).mapToInt(i -> i).sum()));
+				this.obtenerCantidadResultadosDeTerminal(busquedas, terminal).mapToInt(i -> i).sum()));
 
 		return reporte;
 	}
 
-	private Stream<Integer> obtenerCantidadResultadosDeTerminal(String terminal) {
-		return resultadosBusquedas.stream().filter(busqueda -> terminal.equals(busqueda.getNombreTerminal()))
+	private Stream<Integer> obtenerCantidadResultadosDeTerminal(List<ResultadoBusqueda> busquedas, String terminal) {
+		return busquedas.stream().filter(busqueda -> terminal.equals(busqueda.getNombreTerminal()))
 				.map(busqueda -> busqueda.getCantResultados());
 	}
 
-	private Set<String> obtenerSetDeTerminales() {
-		return resultadosBusquedas.stream().map(busqueda -> busqueda.getNombreTerminal()).collect(Collectors.toSet());
+	private Set<String> obtenerSetDeTerminales(List<ResultadoBusqueda> busquedas) {
+		return busquedas.stream().map(busqueda -> busqueda.getNombreTerminal()).collect(Collectors.toSet());
 	}
 
-	private Set<String> obtenerSetDeFechas() {
-		return resultadosBusquedas.stream()
-				.map(busqueda -> ManejadorDeFechas.convertirFechaAString(busqueda.getFecha()))
+	private Set<String> obtenerSetDeFechas(List<ResultadoBusqueda> busquedas) {
+		return busquedas.stream().map(busqueda -> ManejadorDeFechas.convertirFechaAString(busqueda.getFecha()))
 				.collect(Collectors.toSet());
 	}
 
-	public void limpiarBusquedas() {
-		resultadosBusquedas.clear();
-		cantBusquedasPorPersistir = 0;
+	public void limpiarTodasLasBusquedas() {
+		busquedasPorPersistir.clear();
 		this.eliminarBusquedasDeBD();
-		}
+	}
 
 	private void eliminarBusquedasDeBD() {
 		persistidor.borrarTodosLosResultadosBusquedaDeBD();
 	}
 
-	public List<ResultadoBusqueda> getResultadosBusquedas() {
-		return resultadosBusquedas;
+	public List<ResultadoBusqueda> getBusquedasPorPersistir() {
+		return busquedasPorPersistir;
 	}
 
-	public void setResultadosBusquedas(List<ResultadoBusqueda> busquedasNuevas) {
-		this.resultadosBusquedas = busquedasNuevas;
-
-		this.eliminarBusquedasDeBD();
-
-		busquedasNuevas.stream().forEach(busq -> persistidor.guardar(busq));
+	public void setBusquedasPorPersistir(List<ResultadoBusqueda> busquedasNuevas) {
+		this.busquedasPorPersistir = busquedasNuevas;
 	}
-
 
 	public void setMaxBusquedasPendientesPersist(Integer maxBusquedasPendientesPersist) {
 		this.maxBusquedasPendientesPersist = maxBusquedasPendientesPersist;
+	}
+
+	private void persistirBusquedasNoPersistidas() {
+		if (!busquedasPorPersistir.isEmpty()) {
+			busquedasPorPersistir.stream().forEach(busq -> persistidor.guardar(busq));
+			busquedasPorPersistir.clear();
+		}
 	}
 
 }
