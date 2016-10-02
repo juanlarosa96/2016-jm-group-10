@@ -15,7 +15,17 @@ public class Banco extends POI {
 	public Banco(Posicion posicion, String nombre, Direccion direccion, List<String> etiquetas) {
 		this.setPosicion(posicion);
 		this.setNombre(nombre);
-		this.setHorarios(new ArrayList<FranjaHoraria>() {
+		this.setHorarios(horariosBancos());
+		this.setDireccion(direccion);
+		this.setEtiquetas(etiquetas);
+	}
+	
+	@SuppressWarnings("unused")
+	private Banco(){}
+	
+	@SuppressWarnings("serial")
+	public ArrayList<FranjaHoraria> horariosBancos(){
+		return new ArrayList<FranjaHoraria>() {
 			{
 				add(new FranjaHoraria(DateTimeConstants.MONDAY, new LocalTime(9, 00), new LocalTime(15, 00)));
 				add(new FranjaHoraria(DateTimeConstants.TUESDAY, new LocalTime(9, 00), new LocalTime(15, 00)));
@@ -24,12 +34,7 @@ public class Banco extends POI {
 				add(new FranjaHoraria(DateTimeConstants.FRIDAY, new LocalTime(9, 00), new LocalTime(15, 00)));
 				
 			}
-		});
-		this.setDireccion(direccion);
-		this.setEtiquetas(etiquetas);
+		};
 	}
-	
-	@SuppressWarnings("unused")
-	private Banco(){}
 		
 }
