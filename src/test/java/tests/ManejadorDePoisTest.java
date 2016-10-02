@@ -308,12 +308,22 @@ public class ManejadorDePoisTest {
 	
 	
 	@Test
-	public void testSiPersistoUnPoiYLuegoLoBuscoLoObtengo(){
+	public void testSiPersistoUnBancoYLuegoLoBuscoLoObtengo(){
 	manejadorDePois.persistirPoiExterno(bancoValido, jedis);
 	
 	Assert.assertTrue( manejadorDePois.obtenerPoisExternosDeRedis(jedis).get(0).getNombre().equals(bancoValido.getNombre()));	
 	jedis.del("IdPoiExterno");
 	jedis.disconnect();
 	}
-
+	
+	@Test
+	public void testSiPersisto3BancosYLuegoLosBuscoObtengoUnaListaCon3Elementos(){
+	manejadorDePois.persistirPoiExterno(bancoValido, jedis);
+	manejadorDePois.persistirPoiExterno(bancoValido, jedis);
+	manejadorDePois.persistirPoiExterno(bancoValido, jedis);
+	
+	Assert.assertTrue( manejadorDePois.obtenerPoisExternosDeRedis(jedis).size()==3);	
+	jedis.del("IdPoiExterno");
+	jedis.disconnect();
+	}
 }
