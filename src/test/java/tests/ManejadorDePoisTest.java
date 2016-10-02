@@ -29,6 +29,7 @@ import pois.Comercio;
 import pois.ManejadorDePois;
 import pois.POI;
 import pois.ParadaColectivo;
+import redis.clients.jedis.Jedis;
 
 public class ManejadorDePoisTest {
 
@@ -64,6 +65,8 @@ public class ManejadorDePoisTest {
 
 	private int tamanioListaPoisInternos;
 	private ManejadorDePois manejadorDePois;
+	
+	private Jedis jedis;
 
 	@Before
 	public void init() {
@@ -128,6 +131,10 @@ public class ManejadorDePoisTest {
 
 		listaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonNoVacia();
 		listaVaciaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonVacia();
+		
+		jedis = new Jedis("127.0.0.1", 6379);
+		jedis.connect();
+		
 
 	}
 	
@@ -297,6 +304,16 @@ public class ManejadorDePoisTest {
 
 		Assert.assertEquals(parada114ValidaConMasEtiquetas.getEtiquetas(), paradaEncontrada.getEtiquetas());
 
+	}
+	
+	
+	@Test
+	public void testSiPersistoUnPoiYLuegoLoBuscoLoObtengo(){
+	manejadorDePois.persistirPoiExterno(bancoValido, jedis);
+	
+	Assert.assertTrue( manejadorDePois.obtenerPoisExternosDeRedis(jedis).get(0).getNombre().equals(bancoValido.getNombre()));	
+	jedis.del("IdPoiExterno");
+	jedis.disconnect();
 	}
 
 }
