@@ -3,9 +3,6 @@ package procesos;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Arrays;
-
-import org.joda.time.DateTime;
-
 import pois.ManejadorDePois;
 
 public class AccionActualizarLocalesComerciales implements Accion {
