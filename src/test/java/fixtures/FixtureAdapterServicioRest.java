@@ -2,10 +2,6 @@ package fixtures;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.joda.time.DateTime;
-
-import adapters.BancoJson;
 import procesos.POIJson;
 
 import com.google.gson.Gson;
@@ -13,10 +9,8 @@ import com.google.gson.Gson;
 public class FixtureAdapterServicioRest {
 	
 	private static POIJson unPOIJson;
-	private static DateTime unHorarioCualquiera = new DateTime(2016, 4, 5, 2, 30);
-
-	private static void inicializarPOIJson() {
 	
+	private static void inicializarPOIJson() {	
 
 		unPOIJson = new POIJson("114", "Av. Segurola", 230 /*, unHorarioCualquiera */);
 		
@@ -35,8 +29,8 @@ public class FixtureAdapterServicioRest {
 
 	}
 
-	public static String dameStringPoisValidos() {
-		return null;
+	public static String dameURLPoisValidos() {
+		return "URL";
 	}
 
 }

@@ -24,9 +24,8 @@ public class AdapterServicioRestTest {
 	private ParadaColectivo parada114Segurola; 
 	private String listaPOISJson;
 	private ArrayList<POI> listaPois;
-	private POI unPOI;
 	private ServicioRest servicioRest;
-	private String stringPoisValidos;
+	private String urlPoisValidos;
 	List<POI> ListaPOIsManejador;
 	
 	@Before
@@ -50,7 +49,7 @@ public class AdapterServicioRestTest {
 	
 	servicioRest = mock(ServicioRest.class);
 	
-	stringPoisValidos = FixtureAdapterServicioRest.dameStringPoisValidos();
+	urlPoisValidos = FixtureAdapterServicioRest.dameURLPoisValidos();
 	
 	when(servicioRest.buscarPOISDadosDeBaja(anyString())).thenReturn(listaPOISJson);
 	
@@ -62,7 +61,7 @@ public class AdapterServicioRestTest {
 	
 	@Test
 	public void siAdapterRecibeUnaUrlConPoisValidosEnJsonDevuelveLaListaDePoisValidosCorrespondientes(){
-		listaPois = adapterServicioRest.parsearPOISJson("URL");
+		listaPois = adapterServicioRest.parsearPOISJson(urlPoisValidos);
 		Assert.assertEquals(listaPois.size(), 1);
 	}
 	
