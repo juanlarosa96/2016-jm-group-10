@@ -34,15 +34,22 @@ public class NotificadorEmailTest {
 		}
 		
 		@Test
-		public void siNotificoUnaBusquedaEncuentroElMailEnLaLista(){
+		public void siNotificoUnaBusquedaYHagoFlushYDetachDelNotificadorEncuentroElMailEnLaListaDelNotificadorPersistido(){
+			
 			notificadorEmail.notificarBusqueda(busqueda1);
 			Assert.assertEquals(notificadorEmail.getMailsEnviados().size(),1,0);
+			
 			EntityManagerHelper.beginTransaction();
+			
 			EntityManagerHelper.flush();
-			EntityManagerHelper.getEntityManager().detach(notificadorEmail);
-			NotificadorEmail notificadorEmailEncontrado = EntityManagerHelper.getEntityManager().find(NotificadorEmail.class, notificadorEmail.getId());
+			EntityManagerHelper.detach(notificadorEmail);
+			
+			NotificadorEmail notificadorEmailEncontrado = EntityManagerHelper.find(NotificadorEmail.class, notificadorEmail.getId());
+			
 			EntityManagerHelper.commit();
+			
 			Assert.assertEquals(notificadorEmailEncontrado.getMailsEnviados().size(),1,0);
+			Assert.assertFalse(notificadorEmailEncontrado==notificadorEmail);
 		}
 		
 	}
