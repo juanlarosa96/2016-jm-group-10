@@ -19,6 +19,7 @@ public Object encode(Object value, MappedField optionalExtraInfo) {
     return val.toPlainString();
 }
 
+@SuppressWarnings("rawtypes")
 @Override
 public Object decode(Class targetClass, Object fromDBObject,
         MappedField optionalExtraInfo) {
