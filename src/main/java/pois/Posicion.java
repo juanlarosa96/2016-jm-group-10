@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.*;
 
+import org.mongodb.morphia.annotations.Property;
 import org.uqbar.geodds.NumberUtils;
 
 /**
@@ -14,9 +15,11 @@ import org.uqbar.geodds.NumberUtils;
 @SuppressWarnings("all")
 @Embeddable
 public class Posicion {
-
+	
+	@Property(value = "latitud")
 	private BigDecimal x;
 
+	@Property(value = "longitud")
 	private BigDecimal y;
 
 	public Posicion clone(){
