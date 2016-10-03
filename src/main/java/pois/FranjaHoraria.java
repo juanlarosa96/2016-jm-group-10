@@ -26,8 +26,8 @@ public class FranjaHoraria {
 		this.horarioCierre = horarioCierre;
 	}
 	
-	public FranjaHoraria clone(){
-		return new FranjaHoraria(diaDeLaSemana, horarioApertura, horarioCierre);
+	public FranjaHorariaDTO dameTuDTO(){
+		return new FranjaHorariaDTO(diaDeLaSemana, horarioApertura, horarioCierre);
 	}
 
 	public Integer getDiaDeLaSemana() {
@@ -54,8 +54,8 @@ public class FranjaHoraria {
 		this.horarioCierre = horarioCierre;
 	}
 	
-	public static List<FranjaHoraria> clonarListaHorarios(List<FranjaHoraria> horarios) {
-		return horarios.stream().map(franja -> franja.clone()).collect(Collectors.toList());
+	public static List<FranjaHorariaDTO> obtenerFranjasHorariasDTO(List<FranjaHoraria> horarios) {
+		return horarios.stream().map(franja -> franja.dameTuDTO()).collect(Collectors.toList());
 	}
 	
 
