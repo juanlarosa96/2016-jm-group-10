@@ -23,6 +23,7 @@ import fixtures.FixtureCentroDTO;
 import fixtures.FixtureComercio;
 import fixtures.FixtureParadaColectivo;
 import herramientas.EntityManagerHelper;
+import herramientas.JedisHelper;
 import pois.Banco;
 import pois.CGP;
 import pois.Comercio;
@@ -314,27 +315,5 @@ public class ManejadorDePoisTest {
 		Assert.assertEquals(parada114ValidaConMasEtiquetas.getEtiquetas(), paradaEncontrada.getEtiquetas());
 
 	}
-
-	@Test
-	public void SiPersistoUnBancoYLuegoLoBuscoLoObtengo() {
-		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-
-		Assert.assertTrue(
-				manejadorDePois.obtenerPoisExternosDeRedis(jedis).get(0).getNombre().equals(bancoValido.getNombre()));
-		jedis.del("IdPoiExterno");
-		jedis.disconnect();
-	}
-
-	@Test
-	public void SiPersisto3BancosYLuegoLosBuscoObtengoUnaListaCon3Elementos() {
-		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-
-		Assert.assertTrue(manejadorDePois.obtenerPoisExternosDeRedis(jedis).size() == 3);
-		jedis.del("IdPoiExterno");
-		jedis.disconnect();
-	}
-	
-	
+  	
 }
