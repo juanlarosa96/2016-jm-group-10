@@ -65,7 +65,7 @@ public class ManejadorDePoisTest {
 
 	private int tamanioListaPoisInternos;
 	private ManejadorDePois manejadorDePois;
-	
+
 	private Jedis jedis;
 
 	@Before
@@ -99,7 +99,7 @@ public class ManejadorDePoisTest {
 		manejadorDePois.setListaPoisInternos(listaPoisInternos);
 
 		tamanioListaPoisInternos = listaPoisInternos.size();
-		
+
 		manejadorDePois.clearListaPoisExternos();
 
 		CGPsConRentas = new ArrayList<POI>();
@@ -131,13 +131,13 @@ public class ManejadorDePoisTest {
 
 		listaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonNoVacia();
 		listaVaciaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonVacia();
-		
+
 		jedis = new Jedis("127.0.0.1", 6379);
 		jedis.connect();
 		
 
 	}
-	
+
 	@Test
 	public void SiPersistoUnPOILuegoLoEncuentro() {
 
@@ -184,6 +184,24 @@ public class ManejadorDePoisTest {
 	}
 
 	@Test
+	public void SiBuscoPOIsPorUnaEtiquetaDevuelveLosPOIsQueTienenEsaEtiqueta(){
+		EntityManagerHelper.beginTransaction();
+
+		EntityManagerHelper.persistir(cgpValido);
+		EntityManagerHelper.persistir(bancoValido);
+		EntityManagerHelper.persistir(comercioValido);
+		EntityManagerHelper.persistir(parada114Valida);
+
+		EntityManagerHelper.commit();
+		EntityManagerHelper.clear();
+		
+		@SuppressWarnings("unchecked")
+		List<POI> poisEncontrados = (List<POI>) EntityManagerHelper.createQuery("FROM POI WHERE :etiqueta in elements(etiquetas)").setParameter("etiqueta", "tarjeta").getResultList();
+		
+		Assert.assertEquals(2, poisEncontrados.size(),0);
+	}
+
+	@Test
 	public void SiBuscoPOIsPorEtiquetaQueNingunoTieneNoEncuentraNinguno() {
 		Assert.assertTrue(manejadorDePois.buscarPOIs("negra").isEmpty());
 	}
@@ -201,10 +219,11 @@ public class ManejadorDePoisTest {
 		CGPsConRentas = manejadorDePois.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 	}
+	
 
 	// Servicios
 	// Externos------------------------------------------------------------------
-	
+
 	@Test
 	public void SiBuscoEnElServicioExternoConZonaValidaSeAgreganLosCGPsCorrespondientesEnLaListaDePOIs() {
 		listaAdapters.clear();
@@ -213,7 +232,7 @@ public class ManejadorDePoisTest {
 		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);
 
 		manejadorDePois.activarBusquedaPoisExternos();
-		
+
 		manejadorDePois.buscarPOIs("balvanera");
 
 		verify(servicioExternoCgpMockeado).buscar("balvanera");
@@ -232,46 +251,45 @@ public class ManejadorDePoisTest {
 		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(centrosDTO);
 
 		manejadorDePois.activarBusquedaPoisExternos();
-		
+
 		manejadorDePois.buscarPOIs("manchester");
 
 		verify(servicioExternoCgpMockeado).buscar("manchester");
 
 		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
-		Assert.assertEquals(0,manejadorDePois.getListaPoisExternos().size(),0);
+		Assert.assertEquals(0, manejadorDePois.getListaPoisExternos().size(), 0);
 	}
-	
+
 	@Test
 	public void SiBuscoEnElServicioExternoConServicioDeBancoDisponibleSeAgreganLosBancosCorrespondientesEnLaListaDePOIs() {
 		listaAdapters.clear();
 		listaAdapters.add(bancoAdapter);
 		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoBancoMockeado.buscar("Banco de la Plaza", "extracciones")).thenReturn(listaBancoJson);
-	
+
 		manejadorDePois.activarBusquedaPoisExternos();
 		manejadorDePois.buscarPOIs("Banco de la Plaza,extracciones");
 
 		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza", "extracciones");
-		
 
-		Assert.assertEquals(1, manejadorDePois.getListaPoisExternos().size(), 0);		
+		Assert.assertEquals(1, manejadorDePois.getListaPoisExternos().size(), 0);
 		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
 
 	}
-	
+
 	@Test
 	public void SiBuscoEnElServicioExternoConServicioDeBancoNoDisponibleNoSeAgregaNingunBancoEnLaListaDePOIs() {
 		listaAdapters.clear();
 		listaAdapters.add(bancoAdapter);
 		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoBancoMockeado.buscar("", "")).thenReturn(listaVaciaBancoJson);
-		
+
 		manejadorDePois.activarBusquedaPoisExternos();
 		manejadorDePois.buscarPOIs(",");
 
 		verify(servicioExternoBancoMockeado).buscar("", "");
 		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
-		Assert.assertEquals(0, manejadorDePois.getListaPoisExternos().size(), 0);	
+		Assert.assertEquals(0, manejadorDePois.getListaPoisExternos().size(), 0);
 	}
 
 	// ------------------------------------------------------------------------
@@ -299,31 +317,32 @@ public class ManejadorDePoisTest {
 
 		Assert.assertTrue(EntityManagerHelper.contains(parada114Valida));
 
-		ParadaColectivo paradaEncontrada = EntityManagerHelper.find(ParadaColectivo.class,
-				parada114Valida.getId());
+		ParadaColectivo paradaEncontrada = EntityManagerHelper.find(ParadaColectivo.class, parada114Valida.getId());
 
 		Assert.assertEquals(parada114ValidaConMasEtiquetas.getEtiquetas(), paradaEncontrada.getEtiquetas());
 
 	}
-	
-	
+
 	@Test
-	public void testSiPersistoUnBancoYLuegoLoBuscoLoObtengo(){
-	manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-	
-	Assert.assertTrue( manejadorDePois.obtenerPoisExternosDeRedis(jedis).get(0).getNombre().equals(bancoValido.getNombre()));	
-	jedis.del("IdPoiExterno");
-	jedis.disconnect();
+	public void testSiPersistoUnBancoYLuegoLoBuscoLoObtengo() {
+		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
+
+		Assert.assertTrue(
+				manejadorDePois.obtenerPoisExternosDeRedis(jedis).get(0).getNombre().equals(bancoValido.getNombre()));
+		jedis.del("IdPoiExterno");
+		jedis.disconnect();
+	}
+
+	@Test
+	public void testSiPersisto3BancosYLuegoLosBuscoObtengoUnaListaCon3Elementos() {
+		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
+		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
+		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
+
+		Assert.assertTrue(manejadorDePois.obtenerPoisExternosDeRedis(jedis).size() == 3);
+		jedis.del("IdPoiExterno");
+		jedis.disconnect();
 	}
 	
-	@Test
-	public void testSiPersisto3BancosYLuegoLosBuscoObtengoUnaListaCon3Elementos(){
-	manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-	manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-	manejadorDePois.persistirPoiExterno(bancoValido, jedis);
 	
-	Assert.assertTrue( manejadorDePois.obtenerPoisExternosDeRedis(jedis).size()==3);	
-	jedis.del("IdPoiExterno");
-	jedis.disconnect();
-	}
 }
