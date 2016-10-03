@@ -141,11 +141,7 @@ public class ManejadorDePoisTest {
 	@Test
 	public void SiPersistoUnPOILuegoLoEncuentro() {
 
-		EntityManagerHelper.beginTransaction();
-
 		EntityManagerHelper.persistir(cgpValido);
-
-		EntityManagerHelper.commit();
 
 		Assert.assertTrue(EntityManagerHelper.contains(cgpValido));
 
@@ -185,16 +181,12 @@ public class ManejadorDePoisTest {
 
 	@Test
 	public void SiBuscoPOIsPorUnaEtiquetaDevuelveLosPOIsQueTienenEsaEtiqueta(){
-		EntityManagerHelper.beginTransaction();
 
 		EntityManagerHelper.persistir(cgpValido);
 		EntityManagerHelper.persistir(bancoValido);
 		EntityManagerHelper.persistir(comercioValido);
 		EntityManagerHelper.persistir(parada114Valida);
 
-		EntityManagerHelper.commit();
-		EntityManagerHelper.clear();
-		
 		@SuppressWarnings("unchecked")
 		List<POI> poisEncontrados = (List<POI>) EntityManagerHelper.createQuery("FROM POI WHERE :etiqueta in elements(etiquetas)").setParameter("etiqueta", "tarjeta").getResultList();
 		
