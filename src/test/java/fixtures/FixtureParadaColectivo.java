@@ -26,9 +26,6 @@ public class FixtureParadaColectivo {
 	private static Direccion direccionParada114Segurola = new Direccion("Av. Segurola", 230, "Bacacay", "Bogota", null, null, 1407, "CABA",
 			"Floresta", "CABA", "Argentina");
 	
-	private static ParadaColectivo parada114Segurola = new ParadaColectivo(114, posicionParada114Segurola, "114", direccionParada114Segurola,
-			etiquetasParada114);
-
 	private static Posicion posicionLejanaParada114Segurola = new Posicion(-32.631997, -60.484737);
 
 	private static Posicion posicionCercanaParada114Segurola = new Posicion(-34.631998, -58.484736);
