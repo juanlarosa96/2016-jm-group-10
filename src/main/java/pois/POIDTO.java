@@ -3,7 +3,6 @@ package pois;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.mongodb.morphia.annotations.Embedded;
 
 @Embedded
@@ -13,12 +12,12 @@ public class POIDTO {
 	private String nombre;
 	private DireccionDTO direccionDTO;
 	private List<String> etiquetas;
-	private List<FranjaHoraria> horarios;
+	private List<FranjaHorariaDTO> horarios;
 	private List<ServicioDTO> serviciosDTO;
 	private Comuna comuna;
 	private RubroDTO rubroDTO;
 	private Integer lineaColectivo;
-	
+
 	private String tipoPOI;
 
 	@SuppressWarnings("unused")
@@ -53,7 +52,7 @@ public class POIDTO {
 	}
 
 	public void setHorarios(List<FranjaHoraria> horarios) {
-		this.horarios = FranjaHoraria.clonarListaHorarios(horarios);
+		this.horarios = FranjaHoraria.obtenerFranjasHorariasDTO(horarios);
 	}
 
 	public void setServicios(List<Servicio> servicios) {
@@ -88,7 +87,7 @@ public class POIDTO {
 		return etiquetas;
 	}
 
-	public List<FranjaHoraria> getHorarios() {
+	public List<FranjaHorariaDTO> getHorarios() {
 		return horarios;
 	}
 
