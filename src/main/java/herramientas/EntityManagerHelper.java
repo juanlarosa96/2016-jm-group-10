@@ -198,6 +198,10 @@ public class EntityManagerHelper {
 		EntityManagerHelper.getEntityManager().createQuery("DELETE FROM Dispositivo").executeUpdate();
 		EntityManagerHelper.commit();
 	}
+
+	public static void detach(Object entity) {
+		entityManager().detach(entity);
+	}
     
     
 
