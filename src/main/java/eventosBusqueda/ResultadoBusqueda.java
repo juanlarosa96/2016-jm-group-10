@@ -12,32 +12,36 @@ import pois.POIDTO;
 
 @Entity
 public class ResultadoBusqueda {
-	
+
 	@Id
 	private ObjectId id;
 
 	private String nombreTerminal;
-	
+
 	@Embedded
 	private List<POIDTO> poisEncontrados;
-	
-	private DateTime fecha;	
-	
+
+	private String stringFecha;
+
 	private Double demoraEnSegundos;
-	private String descripcionBuscada;	
+	private String descripcionBuscada;
 
 	@SuppressWarnings("unused")
-	private ResultadoBusqueda(){}
-	
-	public ResultadoBusqueda(String nombreTerminal, List<POIDTO> listaPoisEncontrados, DateTime fecha, Double demoraEnSegundos,
-			String descripcionBuscada) {
+	private ResultadoBusqueda() {
+	}
+
+	/**
+	 * La fecha de la busqueda debe ser distinto de null
+	 */
+	public ResultadoBusqueda(String nombreTerminal, List<POIDTO> listaPoisEncontrados, DateTime fecha,
+			Double demoraEnSegundos, String descripcionBuscada) {
 		this.nombreTerminal = nombreTerminal;
 		this.poisEncontrados = listaPoisEncontrados;
-		this.fecha = fecha;
+		this.stringFecha = fecha.toString();
 		this.demoraEnSegundos = demoraEnSegundos;
 		this.descripcionBuscada = descripcionBuscada;
 	}
-	
+
 	public ObjectId getId() {
 		return id;
 	}
@@ -55,7 +59,7 @@ public class ResultadoBusqueda {
 	}
 
 	public void setFecha(DateTime fecha) {
-		this.fecha = fecha;
+		this.stringFecha = fecha.toString();
 	}
 
 	public void setDemoraEnSegundos(Double demoraEnSegundos) {
@@ -65,17 +69,20 @@ public class ResultadoBusqueda {
 	public void setDescripcionBuscada(String descripcionBuscada) {
 		this.descripcionBuscada = descripcionBuscada;
 	}
-	
+
 	public String getNombreTerminal() {
 		return nombreTerminal;
 	}
 
 	public Integer getCantResultados() {
-		return poisEncontrados.size();
+		if (poisEncontrados != null)
+			return poisEncontrados.size();
+		else
+			return 0;
 	}
 
 	public DateTime getFecha() {
-		return fecha;
+		return DateTime.parse(stringFecha);
 	}
 
 	public Double getDemoraEnSegundos() {
@@ -85,5 +92,5 @@ public class ResultadoBusqueda {
 	public String getDescripcionBuscada() {
 		return descripcionBuscada;
 	}
-		
+
 }
