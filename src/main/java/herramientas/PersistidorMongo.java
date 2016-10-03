@@ -8,6 +8,7 @@ import org.mongodb.morphia.query.Query;
 
 import com.mongodb.MongoClient;
 
+import converters.BigDecimalConverter;
 import eventosBusqueda.ResultadoBusqueda;
 
 public class PersistidorMongo {
@@ -20,6 +21,7 @@ public class PersistidorMongo {
 		persistidor.mapPackage("pois");
 		datastore = persistidor.createDatastore(new MongoClient(), nombreDB);
 		datastore.ensureIndexes();
+		persistidor.getMapper().getConverters().addConverter(BigDecimalConverter.class);
 	}
 
 	public List<ResultadoBusqueda> buscarTodosLosResultadosBusqueda() {
