@@ -28,8 +28,7 @@ public class ManejadorDePois {
 	private ManejadorDePois() {
 		this.inicializarListaPois();
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void inicializarListaPois() {
 		listaPoisInternos = EntityManagerHelper.traerTodosLosPOIs();
 		listaPoisExternos = new ArrayList<POI>(); // traer los externos
@@ -44,7 +43,6 @@ public class ManejadorDePois {
 		return singleton;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void setListaPoisInternos(List<POI> listaPoisNueva) {
 		listaPoisInternos = listaPoisNueva;
 		EntityManagerHelper.actualizarPOIs(listaPoisNueva);
@@ -178,7 +176,6 @@ public class ManejadorDePois {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	public Integer actualizarEtiquetasLocalesComercialesYRetornarCantidadModificados(String nombre, List<String> etiquetas) {
 
 		return EntityManagerHelper.actualizarEtiquetasComerciosYRetornarCantidadModificados(nombre, etiquetas);
