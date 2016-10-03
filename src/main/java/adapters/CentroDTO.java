@@ -3,12 +3,17 @@ package adapters;
 import java.util.List;
 
 public class CentroDTO {
+	
 	private Integer numeroComunaCentroDTO;
-	private String zonas;
-	private String nombreDirector;
 	private String domicilioCentroDTO;
-	private String telefono;
 	private List<ServicioDTO> serviciosDTO;
+	
+	@SuppressWarnings("unused")
+	private String zonas;
+	@SuppressWarnings("unused")
+	private String nombreDirector;
+	@SuppressWarnings("unused")
+	private String telefono;
 	
 	public CentroDTO(Integer numeroComunaCentroDTO, String zonas, String nombreDirector, String domicilioCentroDTO,
 			String telefono, List<ServicioDTO> serviciosDTO) {
