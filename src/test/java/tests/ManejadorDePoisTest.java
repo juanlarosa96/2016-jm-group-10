@@ -324,7 +324,7 @@ public class ManejadorDePoisTest {
 	}
 
 	@Test
-	public void testSiPersistoUnBancoYLuegoLoBuscoLoObtengo() {
+	public void SiPersistoUnBancoYLuegoLoBuscoLoObtengo() {
 		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
 
 		Assert.assertTrue(
@@ -334,7 +334,7 @@ public class ManejadorDePoisTest {
 	}
 
 	@Test
-	public void testSiPersisto3BancosYLuegoLosBuscoObtengoUnaListaCon3Elementos() {
+	public void SiPersisto3BancosYLuegoLosBuscoObtengoUnaListaCon3Elementos() {
 		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
 		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
 		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
