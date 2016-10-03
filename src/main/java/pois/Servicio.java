@@ -60,7 +60,7 @@ public class Servicio {
 	}
 
 	public ServicioDTO dameTuDTO() {
-		return new ServicioDTO(nombre, FranjaHoraria.clonarListaHorarios(horarios));
+		return new ServicioDTO(nombre, FranjaHoraria.obtenerFranjasHorariasDTO(horarios));
 	}
 
 }

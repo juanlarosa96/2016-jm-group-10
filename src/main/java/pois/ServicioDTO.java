@@ -5,7 +5,7 @@ import java.util.List;
 public class ServicioDTO {
 	private String nombre;
 
-	private List<FranjaHoraria> horarios;
+	private List<FranjaHorariaDTO> horarios;
 	
 	//-------------------------
 
@@ -13,7 +13,7 @@ public class ServicioDTO {
 	private ServicioDTO() {
 	}
 
-	public ServicioDTO(String nombre, List<FranjaHoraria> horarios) {
+	public ServicioDTO(String nombre, List<FranjaHorariaDTO> horarios) {
 		this.nombre = nombre;
 		this.horarios = horarios;
 	}
@@ -22,7 +22,7 @@ public class ServicioDTO {
 		this.nombre = nombre;
 	}
 
-	public void setHorarios(List<FranjaHoraria> horarios) {
+	public void setHorarios(List<FranjaHorariaDTO> horarios) {
 		this.horarios = horarios;
 	}
 
@@ -30,7 +30,7 @@ public class ServicioDTO {
 		return nombre;
 	}
 
-	public List<FranjaHoraria> getHorarios() {
+	public List<FranjaHorariaDTO> getHorarios() {
 		return horarios;
 	}
 	
