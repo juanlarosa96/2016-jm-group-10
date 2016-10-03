@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -26,9 +27,9 @@ public class AdapterMailTest {
 	public void init() {
 		adapterMailMockeado = mock(AdapterMail.class);	
 		
-		busquedaConMayorTiempo = new ResultadoBusqueda("terminalAbasto", new ArrayList<POIDTO>() , null, 10.0, "hospital");
-		busquedaConMenorTiempo = new ResultadoBusqueda("terminalCaballito", new ArrayList<POIDTO>()  , null, 3.0, "cine");
-		busquedaConIgualTiempo = new ResultadoBusqueda("terminalRecoleta", new ArrayList<POIDTO>() , null, 5.0, "ropa");
+		busquedaConMayorTiempo = new ResultadoBusqueda("terminalAbasto", new ArrayList<POIDTO>() , DateTime.now(), 10.0, "hospital");
+		busquedaConMenorTiempo = new ResultadoBusqueda("terminalCaballito", new ArrayList<POIDTO>()  , DateTime.now(), 3.0, "cine");
+		busquedaConIgualTiempo = new ResultadoBusqueda("terminalRecoleta", new ArrayList<POIDTO>() , DateTime.now(), 5.0, "ropa");
 
 		notificadorEmail = new NotificadorEmail(5.0, "admin@gmail.com", adapterMailMockeado);
 

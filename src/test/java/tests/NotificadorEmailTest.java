@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class NotificadorEmailTest {
 		public void init() {
 			adapterMailMockeado = mock(AdapterMail.class);	
 			
-			busqueda1 = new ResultadoBusqueda("terminalAbasto", new ArrayList<POIDTO>() , null, 10.0, "hospital");
+			busqueda1 = new ResultadoBusqueda("terminalAbasto", new ArrayList<POIDTO>() , DateTime.now(), 10.0, "hospital");
 			
 			notificadorEmail = new NotificadorEmail(5.0, "admin@gmail.com", adapterMailMockeado);
 			
