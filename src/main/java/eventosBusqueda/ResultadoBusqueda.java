@@ -1,5 +1,6 @@
 package eventosBusqueda;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -47,7 +48,10 @@ public class ResultadoBusqueda {
 	}
 
 	public List<POIDTO> getPoisEncontrados() {
-		return poisEncontrados;
+		if (poisEncontrados != null)
+			return poisEncontrados;
+		else
+			return new ArrayList<POIDTO>();
 	}
 
 	public void setPoisEncontrados(List<POIDTO> poisEncontrados) {
@@ -75,10 +79,7 @@ public class ResultadoBusqueda {
 	}
 
 	public Integer getCantResultados() {
-		if (poisEncontrados != null)
-			return poisEncontrados.size();
-		else
-			return 0;
+			return this.getPoisEncontrados().size();
 	}
 
 	public DateTime getFecha() {
