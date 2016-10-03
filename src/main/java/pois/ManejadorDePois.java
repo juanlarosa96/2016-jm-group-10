@@ -6,11 +6,9 @@ import java.util.stream.Collectors;
 
 import org.joda.time.DateTime;
 
-import com.google.gson.*;
-
 import adapters.ComponenteExternoAdapter;
 import herramientas.EntityManagerHelper;
-import redis.clients.jedis.Jedis;
+import herramientas.JedisHelper;
 
 public class ManejadorDePois {
 
@@ -23,16 +21,13 @@ public class ManejadorDePois {
 
 	private Integer cantBusquedasSinExternos = 100;
 
-	private int cantidadPersistida;
-
 	private ManejadorDePois() {
 		this.inicializarListaPois();
 	}
 	
 	private void inicializarListaPois() {
 		listaPoisInternos = EntityManagerHelper.traerTodosLosPOIs();
-		listaPoisExternos = new ArrayList<POI>(); // traer los externos
-													// persistidos en BD
+		listaPoisExternos = JedisHelper.obtenerPoisExternosDeRedis(); 
 	}
 
 	public static ManejadorDePois getInstance() {
@@ -73,12 +68,20 @@ public class ManejadorDePois {
 	}
 
 	private void persistirPOIExterno(POI poiExterno) {
-		// Persistir en BD
+		JedisHelper.persistirPoiExterno(poiExterno);
+
 
 	}
 
-	private void actualizarPoiExterno(POI poiExterno) {
-		// Actualizarlo en la Lista de Externos y en BD
+	private void actualizarPoiExterno(POI poiExternoNuevo) {
+
+		POI poiViejoLista = listaPoisExternos.stream().filter(unPoi -> unPoi.esIgualA(poiExternoNuevo)).findFirst()
+				.get();
+
+		listaPoisExternos.remove(poiViejoLista);
+		listaPoisExternos.add(poiExternoNuevo);
+
+		JedisHelper.actualizarPoiExterno(poiExternoNuevo, poiViejoLista);
 	}
 
 	private void persistirPOIInterno(POI poi) {
@@ -202,39 +205,6 @@ public class ManejadorDePois {
 
 	public void clearListaPoisExternos() {
 		listaPoisExternos.clear();
-	}
-
-	public void persistirPoiExterno(Banco unPoi, Jedis jedis) {
-
-		Gson gson = new Gson();
-		JsonElement jsonElement = gson.toJsonTree(unPoi);
-		jsonElement.getAsJsonObject().remove("horarios");
-		String gsonAPersistir = gson.toJson(jsonElement);
-		jedis.rpush("IdPoiExterno", gsonAPersistir);
-		cantidadPersistida++;
-
-	}
-
-	public List<Banco> obtenerPoisExternosDeRedis(Jedis jedis) {
-
-		List<Banco> listaBancos = new ArrayList<Banco>();
-		List<String> bancosObtenidos = jedis.lrange("IdPoiExterno", 0, cantidadPersistida);
-
-		for (int i = 0; i < bancosObtenidos.size(); i++) {
-
-			listaBancos.add(this.convertirDeJsonABanco(bancosObtenidos.get(i)));
-		}
-
-		return listaBancos;
-	}
-
-	public Banco convertirDeJsonABanco(String unPoi) {
-
-		Gson gson = new Gson();
-		Banco unBanco = gson.fromJson(unPoi, Banco.class);
-		unBanco.setHorarios(unBanco.horariosBancos());
-		return unBanco;
-
 	}
 
 }
