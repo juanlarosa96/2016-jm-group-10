@@ -8,7 +8,7 @@ import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-import pois.POIDTO;
+import poisBusqueda.POIDTO;
 
 @Entity
 public class ResultadoBusqueda {

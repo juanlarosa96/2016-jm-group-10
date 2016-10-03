@@ -8,6 +8,7 @@ import javax.persistence.*;
 import org.joda.time.LocalTime;
 
 import herramientas.ManejadorDeStrings;
+import poisBusqueda.POIDTO;
 
 @Entity
 @Table(name = "paradas_colectivo")

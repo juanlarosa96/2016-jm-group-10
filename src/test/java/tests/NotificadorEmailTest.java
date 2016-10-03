@@ -13,7 +13,7 @@ import adapters.AdapterMail;
 import eventosBusqueda.NotificadorEmail;
 import eventosBusqueda.ResultadoBusqueda;
 import herramientas.EntityManagerHelper;
-import pois.POIDTO;
+import poisBusqueda.POIDTO;
 
 public class NotificadorEmailTest {
 	

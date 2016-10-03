@@ -2,6 +2,8 @@ package pois;
 
 import javax.persistence.*;
 
+import poisBusqueda.DireccionDTO;
+
 @Embeddable
 public class Direccion {
 	private String calle;

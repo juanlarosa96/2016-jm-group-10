@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 
 import herramientas.ManejadorDeStrings;
+import poisBusqueda.POIDTO;
 
 
 @Table(name="comercios")

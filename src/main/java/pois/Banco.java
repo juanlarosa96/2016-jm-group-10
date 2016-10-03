@@ -6,6 +6,9 @@ import java.util.List;
 import javax.persistence.*;
 
 import org.joda.time.LocalTime;
+
+import poisBusqueda.POIDTO;
+
 import org.joda.time.DateTimeConstants;
 
 @Table(name = "bancos")

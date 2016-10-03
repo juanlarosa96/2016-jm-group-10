@@ -1,9 +1,16 @@
-package pois;
+package poisBusqueda;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.mongodb.morphia.annotations.Embedded;
+
+import pois.Comuna;
+import pois.Direccion;
+import pois.FranjaHoraria;
+import pois.Posicion;
+import pois.Rubro;
+import pois.Servicio;
 
 @Embedded
 public class POIDTO {

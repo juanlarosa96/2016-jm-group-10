@@ -2,8 +2,8 @@ package tests;
 
 import adapters.AdapterMail;
 import eventosBusqueda.ResultadoBusqueda;
+import poisBusqueda.POIDTO;
 import eventosBusqueda.NotificadorEmail;
-import pois.POIDTO;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

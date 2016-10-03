@@ -1,4 +1,4 @@
-package pois;
+package poisBusqueda;
 
 import javax.persistence.*;
 import org.joda.time.LocalTime;

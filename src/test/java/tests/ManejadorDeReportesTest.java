@@ -15,7 +15,7 @@ import fixtures.FixtureBanco;
 import fixtures.FixtureComercio;
 import eventosBusqueda.ManejadorDeReportes;
 import herramientas.ManejadorDeFechas;
-import pois.POIDTO;
+import poisBusqueda.POIDTO;
 
 public class ManejadorDeReportesTest {
 

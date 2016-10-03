@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 import org.joda.time.DateTime;
 
+import poisBusqueda.POIDTO;
+
 @Table(name = "cgps")
 @Entity
 public class CGP extends POI {

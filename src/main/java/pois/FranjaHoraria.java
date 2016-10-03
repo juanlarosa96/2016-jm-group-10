@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 import org.joda.time.LocalTime;
 
+import poisBusqueda.FranjaHorariaDTO;
+
 @Embeddable
 public class FranjaHoraria {
 	

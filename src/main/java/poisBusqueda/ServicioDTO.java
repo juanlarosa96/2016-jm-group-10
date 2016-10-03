@@ -1,4 +1,4 @@
-package pois;
+package poisBusqueda;
 
 import java.util.List;
 

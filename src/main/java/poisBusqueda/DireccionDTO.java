@@ -1,4 +1,4 @@
-package pois;
+package poisBusqueda;
 
 
 public class DireccionDTO {

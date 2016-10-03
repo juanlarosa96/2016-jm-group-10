@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.InteresadoEnBusquedas;
 import herramientas.ManejadorDeFechas;
+import poisBusqueda.POIDTO;
 
 @Table(name = "dispositivos")
 @Entity

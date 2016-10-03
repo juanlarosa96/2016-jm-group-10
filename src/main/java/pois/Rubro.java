@@ -2,6 +2,8 @@ package pois;
 
 import javax.persistence.*;
 
+import poisBusqueda.RubroDTO;
+
 @Table(name = "rubros")
 @Entity
 public class Rubro {

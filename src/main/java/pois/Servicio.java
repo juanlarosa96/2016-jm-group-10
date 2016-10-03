@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 
 import herramientas.ManejadorDeFechas;
 import herramientas.ManejadorDeStrings;
+import poisBusqueda.ServicioDTO;
 
 @Entity
 @Table(name = "servicios")
