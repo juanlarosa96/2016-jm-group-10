@@ -11,7 +11,6 @@ public class ManejadorDeDispositivos {
 	public List<Dispositivo> listaDispositivos;
 	private CgpAdapter cgpAdapter;
 
-	@SuppressWarnings("unchecked")
 	private ManejadorDeDispositivos() {
 		listaDispositivos = EntityManagerHelper.traerTodosLosDispositivos();
 	}
