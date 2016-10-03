@@ -1,17 +1,14 @@
 package tests;
 
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import eventosBusqueda.ResultadoBusqueda;
 import fixtures.FixtureBanco;
@@ -26,35 +23,29 @@ public class ManejadorDeReportesTest {
 	private ResultadoBusqueda busquedaRecoleta1;
 	private DateTime fecha1;
 
-	private ManejadorDeReportes manejadorDeReportes;
+	private static ManejadorDeReportes manejadorDeReportes;
 	private ResultadoBusqueda busquedaCaballito1;
 	private DateTime fecha2;
 	private ResultadoBusqueda busquedaAbasto2;
 	private ResultadoBusqueda busquedaAbastoCon0Resultados;
 
-	private ArrayList<POIDTO> listaSize0;
-	private ArrayList<POIDTO> listaSize3;
-	private ArrayList<POIDTO> listaSize4;
-	private ArrayList<POIDTO> listaSize5;
-	private ArrayList<POIDTO> listaSize8;
-
 	private POIDTO bancoDTO;
 	private POIDTO comercioDTO;
 
-	@SuppressWarnings("unchecked")
+	@BeforeClass
+	public static void beforeClass() {
+		manejadorDeReportes = new ManejadorDeReportes();
+		manejadorDeReportes.setMaxBusquedasPendientesPersist(100);
+	}
+
 	@Before
 	public void init() {
-		fecha1 = new DateTime(2016, 06, 07, 20, 51);
-		fecha2 = new DateTime(2014, 03, 05, 10, 20);
-
-		listaSize0 = Mockito.mock(ArrayList.class);
-		listaSize3 = Mockito.mock(ArrayList.class);
-		listaSize4 = Mockito.mock(ArrayList.class);
-		listaSize5 = Mockito.mock(ArrayList.class);
-		listaSize8 = Mockito.mock(ArrayList.class);
-
+		
 		bancoDTO = FixtureBanco.dameUnBancoValido().dameTuDTO();
 		comercioDTO = FixtureComercio.dameComercioValido().dameTuDTO();
+
+		fecha1 = new DateTime(2016, 06, 07, 20, 51);
+		fecha2 = new DateTime(2014, 03, 05, 10, 20);
 
 		List<POIDTO> poisDto3 = new ArrayList<POIDTO>() {
 			{
@@ -93,34 +84,16 @@ public class ManejadorDeReportesTest {
 			}
 		};
 
-		when(listaSize0.size()).thenReturn(0);
-		when(listaSize3.size()).thenReturn(3);
-		when(listaSize4.size()).thenReturn(4);
-		when(listaSize5.size()).thenReturn(5);
-		when(listaSize8.size()).thenReturn(8);
-
-		busquedaAbasto1 = new ResultadoBusqueda("terminalAbasto", listaSize3, fecha1, 10.0, "hospital");
-		busquedaRecoleta1 = new ResultadoBusqueda("terminalRecoleta", listaSize5, fecha1, 12.5, "libreria");
-		busquedaCaballito1 = new ResultadoBusqueda("terminalCaballito", listaSize4, fecha2, 3.4, "restaurant");
-		busquedaAbasto2 = new ResultadoBusqueda("terminalAbasto", listaSize8, fecha2, 2.5, "burguer");
-		busquedaAbastoCon0Resultados = new ResultadoBusqueda("terminalAbasto", listaSize0, fecha2, 1.5,
+		busquedaAbasto1 = new ResultadoBusqueda("terminalAbasto", poisDto3, fecha1, 10.0, "hospital");
+		busquedaRecoleta1 = new ResultadoBusqueda("terminalRecoleta", poisDto5, fecha1, 12.5, "libreria");
+		busquedaCaballito1 = new ResultadoBusqueda("terminalCaballito", poisDto4, fecha2, 3.4, "restaurant");
+		busquedaAbasto2 = new ResultadoBusqueda("terminalAbasto", poisDto8, fecha2, 2.5, "burguer");
+		busquedaAbastoCon0Resultados = new ResultadoBusqueda("terminalAbasto", new ArrayList<>(), fecha2, 1.5,
 				"fabrica de pizza");
 
-		busquedaAbasto1.setPoisEncontrados(poisDto3);
-		busquedaAbasto2.setPoisEncontrados(poisDto8);
-		busquedaCaballito1.setPoisEncontrados(poisDto4);
-		busquedaRecoleta1.setPoisEncontrados(poisDto5);
-		busquedaAbastoCon0Resultados.setPoisEncontrados(new ArrayList<POIDTO>());
-
-		manejadorDeReportes = ManejadorDeReportes.getInstance();
-		manejadorDeReportes.setMaxBusquedasPendientesPersist(1);
+		manejadorDeReportes.limpiarTodasLasBusquedas();
 	}
 
-	@After
-	public void after(){
-		manejadorDeReportes.limpiarBusquedas();
-	}
-	
 	@Test
 	public void SiNotificoDosBusquedasConIgualFechayGeneroReporteDeBusquedasPorFechaDevuelveDosBusquedasParaEsaFecha() {
 		manejadorDeReportes.notificarBusqueda(busquedaAbasto1);
