@@ -41,7 +41,37 @@ public class ManejadorDeFechas {
 		return Integer.toString(unaFecha.getDayOfMonth())+ "/" + Integer.toString(unaFecha.getMonthOfYear()) + "/" + Integer.toString(unaFecha.getYear());
 		
 	}
-
+	
+	public static String convertirFranajHorariaAString(FranjaHoraria franja){
+		String cadena = "";
+		
+		cadena = cadena.concat(new Integer(franja.getDiaDeLaSemana()).toString());
+		cadena = cadena.concat("-");
+		cadena = cadena.concat(franja.getHorarioApertura().hourOfDay().getAsString());
+		cadena = cadena.concat("-");
+		cadena = cadena.concat(franja.getHorarioApertura().minuteOfHour().getAsString());
+		cadena = cadena.concat("-");
+		cadena = cadena.concat(franja.getHorarioCierre().hourOfDay().getAsString());
+		cadena = cadena.concat("-");
+		cadena = cadena.concat(franja.getHorarioCierre().minuteOfHour().getAsString());
+		
+		return cadena;
+		
+	}
+	
+	public static FranjaHoraria convertirStringAFranajHoraria(String string){
+		String[] cadena = string.split("-");
+		Integer dia = Integer.valueOf(cadena[0]);
+		Integer hora = Integer.valueOf(cadena[1]);
+		Integer minuto = Integer.valueOf(cadena[2]);
+		LocalTime apertura = new LocalTime(hora,minuto);
+		hora = Integer.valueOf(cadena[3]);
+		minuto = Integer.valueOf(cadena[4]);
+		LocalTime cierre = new LocalTime(hora,minuto);
+		
+		return new FranjaHoraria(dia, apertura, cierre);
+		
+	}
 	
 }
 
