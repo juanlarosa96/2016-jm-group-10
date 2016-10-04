@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.converters.Converters;
 import org.mongodb.morphia.query.Query;
 
 import com.mongodb.MongoClient;
 
 import converters.BigDecimalConverter;
+import converters.DateTimeConverter;
+import converters.LocalTimeConverter;
 import eventosBusqueda.ResultadoBusqueda;
 
 public class PersistidorMongo {
@@ -21,7 +24,12 @@ public class PersistidorMongo {
 		persistidor.mapPackage("pois");
 		datastore = persistidor.createDatastore(new MongoClient(), nombreDB);
 		datastore.ensureIndexes();
-		persistidor.getMapper().getConverters().addConverter(BigDecimalConverter.class);
+		
+		Converters converters = persistidor.getMapper().getConverters();
+		converters.addConverter(BigDecimalConverter.class);
+		converters.addConverter(DateTimeConverter.class);
+		converters.addConverter(LocalTimeConverter.class);
+		
 	}
 
 	public List<ResultadoBusqueda> buscarTodosLosResultadosBusqueda() {
