@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Property;
 
 import poisBusqueda.POIDTO;
 
@@ -22,7 +23,8 @@ public class ResultadoBusqueda {
 	@Embedded
 	private List<POIDTO> poisEncontrados;
 
-	private String stringFecha;
+	@Property(value = "fechaBusqueda")
+	private DateTime fecha;
 
 	private Double demoraEnSegundos;
 	private String descripcionBuscada;
@@ -38,7 +40,7 @@ public class ResultadoBusqueda {
 			Double demoraEnSegundos, String descripcionBuscada) {
 		this.nombreTerminal = nombreTerminal;
 		this.poisEncontrados = listaPoisEncontrados;
-		this.stringFecha = fecha.toString();
+		this.fecha = fecha;
 		this.demoraEnSegundos = demoraEnSegundos;
 		this.descripcionBuscada = descripcionBuscada;
 	}
@@ -63,7 +65,7 @@ public class ResultadoBusqueda {
 	}
 
 	public void setFecha(DateTime fecha) {
-		this.stringFecha = fecha.toString();
+		this.fecha = fecha;
 	}
 
 	public void setDemoraEnSegundos(Double demoraEnSegundos) {
@@ -83,7 +85,7 @@ public class ResultadoBusqueda {
 	}
 
 	public DateTime getFecha() {
-		return DateTime.parse(stringFecha);
+		return fecha;
 	}
 
 	public Double getDemoraEnSegundos() {
