@@ -1,9 +1,13 @@
 package herramientas;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
 import pois.FranjaHoraria;
+import pois.Servicio;
 
 public class ManejadorDeFechas {
 	public static Boolean estaEnFranjaHoraria(DateTime fecha, FranjaHoraria franjaHoraria) {
@@ -42,7 +46,7 @@ public class ManejadorDeFechas {
 		
 	}
 	
-	public static String convertirFranajHorariaAString(FranjaHoraria franja){
+	public static String convertirFranjaHorariaAString(FranjaHoraria franja){
 		String cadena = "";
 		
 		cadena = cadena.concat(new Integer(franja.getDiaDeLaSemana()).toString());
@@ -57,6 +61,11 @@ public class ManejadorDeFechas {
 		
 		return cadena;
 		
+	}
+	
+	public static List<String> convertirListaFranjaHorariaAListaString(List<FranjaHoraria> lista){
+		
+		return lista.stream().map(franja->convertirFranjaHorariaAString(franja)).collect(Collectors.toList());
 	}
 	
 	public static FranjaHoraria convertirStringAFranajHoraria(String string){
