@@ -4,8 +4,8 @@ import java.util.List;
 import pois.FranjaHoraria;
 
 public class ServicioDTO {
+	
 	private String nombre;
-
 	private List<FranjaHoraria> horarios;
 	
 	//-------------------------
