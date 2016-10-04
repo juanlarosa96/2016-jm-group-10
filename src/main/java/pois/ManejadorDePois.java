@@ -27,7 +27,8 @@ public class ManejadorDePois {
 	
 	private void inicializarListaPois() {
 		listaPoisInternos = EntityManagerHelper.traerTodosLosPOIs();
-		listaPoisExternos = JedisHelper.obtenerPoisExternosDeRedis(); 
+		listaPoisExternos = new ArrayList<POI>();
+		//listaPoisExternos = JedisHelper.obtenerPoisExternosDeRedis(); 
 	}
 
 	public static ManejadorDePois getInstance() {
@@ -62,16 +63,16 @@ public class ManejadorDePois {
 			actualizarPoiExterno(poiExterno);
 		else {
 			listaPoisExternos.add(poiExterno);
-			this.persistirPOIExterno(poiExterno);
+			//this.persistirPOIExterno(poiExterno);
 		}
 
 	}
 
-	private void persistirPOIExterno(POI poiExterno) {
+	/*private void persistirPOIExterno(POI poiExterno) {
 		JedisHelper.persistirPoiExterno(poiExterno);
 
 
-	}
+	}*/
 
 	private void actualizarPoiExterno(POI poiExternoNuevo) {
 
@@ -81,7 +82,7 @@ public class ManejadorDePois {
 		listaPoisExternos.remove(poiViejoLista);
 		listaPoisExternos.add(poiExternoNuevo);
 
-		JedisHelper.actualizarPoiExterno(poiExternoNuevo, poiViejoLista);
+		//JedisHelper.actualizarPoiExterno(poiExternoNuevo, poiViejoLista);
 	}
 
 	private void persistirPOIInterno(POI poi) {

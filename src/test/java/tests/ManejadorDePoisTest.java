@@ -323,7 +323,7 @@ public class ManejadorDePoisTest {
 	}
 	
 	
-	@Test
+	/*@Test
 	public void SiPersistoUnPoiExternoSePersisteCorrectamente(){		
 		cgpValido.setServicios(null);
 		bancoValido.setHorarios(null);
@@ -336,7 +336,7 @@ public class ManejadorDePoisTest {
 		
 				
 		
-	}
+	}*/
   	
 }
 
