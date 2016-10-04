@@ -12,10 +12,10 @@ public class FranjaHoraria {
 	
 	private Integer diaDeLaSemana;
 	
-	@Property(value = "hora_apertura")
+	@Property(value = "horario_apertura")
 	private LocalTime horarioApertura;	
 	
-	@Property(value = "hora_cierre")
+	@Property(value = "horario_cierre")
 	private LocalTime horarioCierre;
 	
 	//---------------------
