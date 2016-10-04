@@ -17,7 +17,7 @@ public class POIDTO {
 
 	private Posicion posicion;
 	private String nombre;
-	private DireccionDTO direccionDTO;
+	private Direccion direccion;
 	private List<String> etiquetas;	
 	private List<FranjaHoraria> horarios;	
 	private List<ServicioDTO> serviciosDTO;
@@ -55,7 +55,7 @@ public class POIDTO {
 	}
 
 	public void setDireccion(Direccion direccion) {
-		this.direccionDTO = direccion.dameTuDTO();
+		this.direccion = direccion.clone();
 	}
 
 	public void setHorarios(List<FranjaHoraria> horarios) {
@@ -86,8 +86,8 @@ public class POIDTO {
 		return nombre;
 	}
 
-	public DireccionDTO getDireccionDTO() {
-		return direccionDTO;
+	public Direccion getDireccion() {
+		return direccion;
 	}
 
 	public List<String> getEtiquetas() {
