@@ -5,15 +5,17 @@ import java.util.stream.Collectors;
 
 import javax.persistence.*;
 import org.joda.time.LocalTime;
-
-import poisBusqueda.FranjaHorariaDTO;
+import org.mongodb.morphia.annotations.Property;
 
 @Embeddable
 public class FranjaHoraria {
 	
 	private Integer diaDeLaSemana;
 	
+	@Property(value = "hora_apertura")
 	private LocalTime horarioApertura;	
+	
+	@Property(value = "hora_cierre")
 	private LocalTime horarioCierre;
 	
 	//---------------------
@@ -28,8 +30,8 @@ public class FranjaHoraria {
 		this.horarioCierre = horarioCierre;
 	}
 	
-	public FranjaHorariaDTO dameTuDTO(){
-		return new FranjaHorariaDTO(diaDeLaSemana, horarioApertura, horarioCierre);
+	public FranjaHoraria clone(){
+		return new FranjaHoraria(diaDeLaSemana, horarioApertura, horarioCierre);
 	}
 
 	public Integer getDiaDeLaSemana() {
@@ -56,8 +58,8 @@ public class FranjaHoraria {
 		this.horarioCierre = horarioCierre;
 	}
 	
-	public static List<FranjaHorariaDTO> obtenerFranjasHorariasDTO(List<FranjaHoraria> horarios) {
-		return horarios.stream().map(franja -> franja.dameTuDTO()).collect(Collectors.toList());
+	public static List<FranjaHoraria> clonarHorarios(List<FranjaHoraria> horarios) {
+		return horarios.stream().map(franja -> franja.clone()).collect(Collectors.toList());
 	}
 	
 
