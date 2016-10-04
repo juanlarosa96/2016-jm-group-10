@@ -18,8 +18,8 @@ public class POIDTO {
 	private Posicion posicion;
 	private String nombre;
 	private DireccionDTO direccionDTO;
-	private List<String> etiquetas;
-	private List<FranjaHorariaDTO> horarios;
+	private List<String> etiquetas;	
+	private List<FranjaHoraria> horarios;	
 	private List<ServicioDTO> serviciosDTO;
 	private Comuna comuna;
 	private RubroDTO rubroDTO;
@@ -59,7 +59,7 @@ public class POIDTO {
 	}
 
 	public void setHorarios(List<FranjaHoraria> horarios) {
-		this.horarios = FranjaHoraria.obtenerFranjasHorariasDTO(horarios);
+		this.horarios = horarios;
 	}
 
 	public void setServicios(List<Servicio> servicios) {
@@ -94,7 +94,7 @@ public class POIDTO {
 		return etiquetas;
 	}
 
-	public List<FranjaHorariaDTO> getHorarios() {
+	public List<FranjaHoraria> getHorarios() {
 		return horarios;
 	}
 
