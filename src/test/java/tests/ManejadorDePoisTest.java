@@ -9,6 +9,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
 import adapters.BancoAdapter;
 import adapters.CentroDTO;
 import adapters.CgpAdapter;
@@ -23,9 +26,12 @@ import fixtures.FixtureCentroDTO;
 import fixtures.FixtureComercio;
 import fixtures.FixtureParadaColectivo;
 import herramientas.EntityManagerHelper;
+import herramientas.JedisHelper;
+import herramientas.ManejadorDeFechas;
 import pois.Banco;
 import pois.CGP;
 import pois.Comercio;
+import pois.FranjaHoraria;
 import pois.ManejadorDePois;
 import pois.POI;
 import pois.ParadaColectivo;
@@ -171,7 +177,8 @@ public class ManejadorDePoisTest {
 
 	@Test
 	public void SiBuscoPOIsPorPalabraClaveDevuelveTodosLosQueLaTienen() {
-		Assert.assertEquals(2, manejadorDePois.buscarPOIs("tarjeta de credito").size(), 0);
+		Assert.assertEquals(2, manejadorDePois.buscarPOIs("tarjeta de credito").size(), 0);	
+		
 	}
 
 	@Test
@@ -314,27 +321,22 @@ public class ManejadorDePoisTest {
 		Assert.assertEquals(parada114ValidaConMasEtiquetas.getEtiquetas(), paradaEncontrada.getEtiquetas());
 
 	}
-
-	@Test
-	public void SiPersistoUnBancoYLuegoLoBuscoLoObtengo() {
-		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-
-		Assert.assertTrue(
-				manejadorDePois.obtenerPoisExternosDeRedis(jedis).get(0).getNombre().equals(bancoValido.getNombre()));
-		jedis.del("IdPoiExterno");
-		jedis.disconnect();
-	}
-
-	@Test
-	public void SiPersisto3BancosYLuegoLosBuscoObtengoUnaListaCon3Elementos() {
-		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-		manejadorDePois.persistirPoiExterno(bancoValido, jedis);
-
-		Assert.assertTrue(manejadorDePois.obtenerPoisExternosDeRedis(jedis).size() == 3);
-		jedis.del("IdPoiExterno");
-		jedis.disconnect();
-	}
 	
 	
+	@Test
+	public void SiPersistoUnPoiExternoSePersisteCorrectamente(){		
+		cgpValido.setServicios(null);
+		bancoValido.setHorarios(null);
+		JedisHelper.conectarARedis();
+		JedisHelper.persistirPoiExterno(cgpValido);
+		JedisHelper.persistirPoiExterno(bancoValido);		
+		List<POI> lista = JedisHelper.obtenerPoisExternosDeRedis();
+		Assert.assertTrue(lista.get(1).getNombre().equals(cgpValido.getNombre()));
+		Assert.assertTrue(lista.get(0).getNombre().equals(bancoValido.getNombre()));
+		
+				
+		
+	}
+  	
 }
+
