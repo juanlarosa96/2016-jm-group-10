@@ -2,8 +2,6 @@ package pois;
 
 import javax.persistence.*;
 
-import poisBusqueda.DireccionDTO;
-
 @Embeddable
 public class Direccion {
 	private String calle;
@@ -169,8 +167,8 @@ public class Direccion {
 
 	}
 
-	public DireccionDTO dameTuDTO() {
-		return new DireccionDTO(calle, altura, entreCalle1, entreCalle2, piso, departamento, codigoPostal, localidad,
+	public Direccion clone() {
+		return new Direccion(calle, altura, entreCalle1, entreCalle2, piso, departamento, codigoPostal, localidad,
 				barrio, provincia, pais);
 	}
 }
