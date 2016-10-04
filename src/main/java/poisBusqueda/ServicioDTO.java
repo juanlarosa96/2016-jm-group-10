@@ -1,11 +1,12 @@
 package poisBusqueda;
 
 import java.util.List;
+import pois.FranjaHoraria;
 
 public class ServicioDTO {
 	private String nombre;
 
-	private List<FranjaHorariaDTO> horarios;
+	private List<FranjaHoraria> horarios;
 	
 	//-------------------------
 
@@ -13,7 +14,7 @@ public class ServicioDTO {
 	private ServicioDTO() {
 	}
 
-	public ServicioDTO(String nombre, List<FranjaHorariaDTO> horarios) {
+	public ServicioDTO(String nombre, List<FranjaHoraria> horarios) {
 		this.nombre = nombre;
 		this.horarios = horarios;
 	}
@@ -22,7 +23,7 @@ public class ServicioDTO {
 		this.nombre = nombre;
 	}
 
-	public void setHorarios(List<FranjaHorariaDTO> horarios) {
+	public void setHorarios(List<FranjaHoraria> horarios) {
 		this.horarios = horarios;
 	}
 
@@ -30,7 +31,7 @@ public class ServicioDTO {
 		return nombre;
 	}
 
-	public List<FranjaHorariaDTO> getHorarios() {
+	public List<FranjaHoraria> getHorarios() {
 		return horarios;
 	}
 	
