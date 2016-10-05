@@ -34,7 +34,6 @@ public class JsonPoiConverter {
 
 		CGP cgpAConvertir = (CGP) unPoi;
 		List<Servicio> listaServicios = cgpAConvertir.getServicios();
-		cgpAConvertir.setServicios(null);
 		List<JsonObject> serviciosConvertidos = listaServicios.stream().map(s -> convertirServiciosAJson(s))
 				.collect(Collectors.toList());
 		JsonObject cgpJson = gson.toJsonTree(cgpAConvertir).getAsJsonObject();
