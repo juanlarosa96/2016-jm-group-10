@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -138,12 +139,12 @@ public class ManejadorDePoisTest {
 		listaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonNoVacia();
 		listaVaciaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonVacia();
 
-		jedis = new Jedis("127.0.0.1", 6379);
-		jedis.connect();
-		
-
 	}
-
+	@After
+	public void after(){
+		JedisHelper.limpiarBaseDeDatosRedis();
+	}
+	
 	@Test
 	public void SiPersistoUnPOILuegoLoEncuentro() {
 
@@ -322,21 +323,18 @@ public class ManejadorDePoisTest {
 
 	}
 	
-	
-	/*@Test
+	@Test
 	public void SiPersistoUnPoiExternoSePersisteCorrectamente(){		
-		cgpValido.setServicios(null);
-		bancoValido.setHorarios(null);
+		
 		JedisHelper.conectarARedis();
 		JedisHelper.persistirPoiExterno(cgpValido);
 		JedisHelper.persistirPoiExterno(bancoValido);		
 		List<POI> lista = JedisHelper.obtenerPoisExternosDeRedis();
-		Assert.assertTrue(lista.get(1).getNombre().equals(cgpValido.getNombre()));
-		Assert.assertTrue(lista.get(0).getNombre().equals(bancoValido.getNombre()));
+		Assert.assertTrue(lista.get(0).getNombre().equals(cgpValido.getNombre()));
+		Assert.assertTrue(lista.get(1).getNombre().equals(bancoValido.getNombre()));
 		
 				
 		
-	}*/
-  	
+	}
 }
 
