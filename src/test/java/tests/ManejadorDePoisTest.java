@@ -331,7 +331,7 @@ public class ManejadorDePoisTest {
 		
 		manejadorDePois.agregarPoiExterno(cgpValido);	
 		List<POI> lista = JedisHelper.obtenerPoisExternosDeRedis();
-		Assert.assertTrue(lista.get(0).getNombre().equals(cgpValido.getNombre()));
+		Assert.assertTrue(lista.stream().anyMatch(poi-> poi.getNombre().equals(cgpValido.getNombre())));
 		
 	}
 	@Test
@@ -340,7 +340,7 @@ public class ManejadorDePoisTest {
 		manejadorDePois.agregarPoiExterno(bancoValido);
 		manejadorDePois.agregarPoiExterno(bancoValidoConMismaPosicion);
 		List<POI> lista = JedisHelper.obtenerPoisExternosDeRedis();
-		Assert.assertTrue(lista.get(0).getNombre().equals(bancoValidoConMismaPosicion.getNombre()));
+		Assert.assertTrue(lista.stream().anyMatch(poi-> poi.getNombre().equals(bancoValidoConMismaPosicion.getNombre())));
 		
 	}
 	
