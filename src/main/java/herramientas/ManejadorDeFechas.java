@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import pois.FranjaHoraria;
 import pois.Servicio;
 
@@ -37,18 +42,24 @@ public class ManejadorDeFechas {
 	}
 
 	public static Double obtenerDuracionIntervaloEnSegundos(DateTime inicio, DateTime fin) {
-		return (double) (fin.getMillis()-inicio.getMillis())/1000;
+		return (double) (fin.getMillis() - inicio.getMillis()) / 1000;
 	}
 
 	public static String convertirFechaAString(DateTime unaFecha) {
-		
-		return Integer.toString(unaFecha.getDayOfMonth())+ "/" + Integer.toString(unaFecha.getMonthOfYear()) + "/" + Integer.toString(unaFecha.getYear());
-		
+
+		return Integer.toString(unaFecha.getDayOfMonth()) + "/" + Integer.toString(unaFecha.getMonthOfYear()) + "/"
+				+ Integer.toString(unaFecha.getYear());
+
 	}
-	
-	public static String convertirFranjaHorariaAString(FranjaHoraria franja){
+
+	public static List<String> convertirListaFranjaHorariaAListaString(List<FranjaHoraria> lista) {
+		List<String> horarios = lista.stream().map(h->convertirFranjaHorariaAString(h)).collect(Collectors.toList());
+		return horarios;
+	}
+
+	public static String convertirFranjaHorariaAString(FranjaHoraria franja) {
 		String cadena = "";
-		
+
 		cadena = cadena.concat(new Integer(franja.getDiaDeLaSemana()).toString());
 		cadena = cadena.concat("-");
 		cadena = cadena.concat(franja.getHorarioApertura().hourOfDay().getAsString());
@@ -58,30 +69,24 @@ public class ManejadorDeFechas {
 		cadena = cadena.concat(franja.getHorarioCierre().hourOfDay().getAsString());
 		cadena = cadena.concat("-");
 		cadena = cadena.concat(franja.getHorarioCierre().minuteOfHour().getAsString());
-		
+
 		return cadena;
-		
+
 	}
-	
-	public static List<String> convertirListaFranjaHorariaAListaString(List<FranjaHoraria> lista){
-		
-		return lista.stream().map(franja->convertirFranjaHorariaAString(franja)).collect(Collectors.toList());
-	}
-	
-	public static FranjaHoraria convertirStringAFranajHoraria(String string){
+
+	public static FranjaHoraria convertirStringAFranjaHoraria(String string) {
+
 		String[] cadena = string.split("-");
 		Integer dia = Integer.valueOf(cadena[0]);
 		Integer hora = Integer.valueOf(cadena[1]);
 		Integer minuto = Integer.valueOf(cadena[2]);
-		LocalTime apertura = new LocalTime(hora,minuto);
+		LocalTime apertura = new LocalTime(hora, minuto);
 		hora = Integer.valueOf(cadena[3]);
 		minuto = Integer.valueOf(cadena[4]);
-		LocalTime cierre = new LocalTime(hora,minuto);
-		
+		LocalTime cierre = new LocalTime(hora, minuto);
+
 		return new FranjaHoraria(dia, apertura, cierre);
-		
+
 	}
-	
+
 }
-
-
