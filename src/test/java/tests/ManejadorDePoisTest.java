@@ -343,6 +343,11 @@ public class ManejadorDePoisTest {
 		Assert.assertTrue(lista.stream().anyMatch(poi-> poi.getNombre().equals(bancoValidoConMismaPosicion.getNombre())));
 		
 	}
-	
+	@Test
+	public void SiPersistoUnBancoYLuegoLoBuscoLoObtengo(){
+		manejadorDePois.agregarPoiExterno(bancoValido);
+		manejadorDePois.agregarPoiExterno(cgpValido);
+		Assert.assertTrue(JedisHelper.buscarUnPoiEnRedis("Banco").getNombre().equals(bancoValido.getNombre()));
+	}
 }
 
