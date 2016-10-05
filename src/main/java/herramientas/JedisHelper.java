@@ -62,22 +62,36 @@ public class JedisHelper {
 	}
 
 	public static void actualizarPoiExterno(POI poiExternoNuevo, POI poiViejoLista) {
+
 		conectarARedis();
 		String poiViejo = JsonPoiConverter.convertirDePOIAJson(poiViejoLista).toString();
 		String poiNuevo = JsonPoiConverter.convertirDePOIAJson(poiExternoNuevo).toString();
-		jedis.lrem("IdPoiExterno", 1 ,poiViejo );
+		jedis.lrem("IdPoiExterno", 1, poiViejo);
 		jedis.rpush("IdPoiExterno", poiNuevo);
+
+	}
+
+	public static POI buscarUnPoiEnRedis(String descripcion) {
+		conectarARedis();
+		POI poiBuscado;
+		for (int i = 0; i < jedis.llen("IdPoiExterno"); i++) {
+			poiBuscado = JsonPoiConverter.convertirDeJsonAPOI(jedis.lpop("IdPoiExterno"));
+			if (poiBuscado.contiene(descripcion)) {
+				persistirPoiExterno(poiBuscado);
+				return poiBuscado;
+			}
+		}
+		return null;
 
 	}
 
 	public static void limpiarBaseDeDatosRedis() {
 		jedis.flushAll();
-	
+
 	}
 
 	public static Long obtenerCantidadPersistida() {
 		return jedis.llen("IdPoiExterno");
 	}
-	
 
 }
