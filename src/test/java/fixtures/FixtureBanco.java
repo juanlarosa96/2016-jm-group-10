@@ -42,6 +42,11 @@ public class FixtureBanco {
 	public static Banco dameUnBancoValido() {
 		return bancoProvincia;
 	}
+	public static Banco dameOtroBancoValidoConLaMismaPosicion(){
+		Banco bancoValido = bancoProvincia;
+		bancoValido.setNombre("Banco Santander");
+		return bancoValido;
+	}
 	
 	public static Posicion getPosicionCercanaABancoValido() {
 		return posicionCercanaBancoProvincia;

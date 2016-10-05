@@ -38,6 +38,7 @@ import pois.POI;
 import pois.ParadaColectivo;
 import redis.clients.jedis.Jedis;
 
+@SuppressWarnings("all")
 public class ManejadorDePoisTest {
 
 	private CGP cgpValido;
@@ -74,6 +75,7 @@ public class ManejadorDePoisTest {
 	private ManejadorDePois manejadorDePois;
 
 	private Jedis jedis;
+	private Banco bancoValidoConMismaPosicion;
 
 	@Before
 	public void init() {
@@ -84,6 +86,7 @@ public class ManejadorDePoisTest {
 		otraParada114Valida = FixtureParadaColectivo.dameOtraParada114Valida();
 
 		bancoValido = FixtureBanco.dameUnBancoValido();
+		bancoValidoConMismaPosicion = FixtureBanco.dameOtroBancoValidoConLaMismaPosicion();
 
 		cgpValido = FixtureCGP.dameCGPValido();
 		otroCgpValido = FixtureCGP.dameOtroCgpValido();
@@ -324,17 +327,22 @@ public class ManejadorDePoisTest {
 	}
 	
 	@Test
-	public void SiPersistoUnPoiExternoSePersisteCorrectamente(){		
+	public void SiPersistoUnCgpExternoSePersisteCorrectamenteYAlTraerloDeLaBdSeObtieneUnCgpConElMismoNombre(){		
 		
-		JedisHelper.conectarARedis();
-		JedisHelper.persistirPoiExterno(cgpValido);
-		JedisHelper.persistirPoiExterno(bancoValido);		
+		manejadorDePois.agregarPoiExterno(cgpValido);	
 		List<POI> lista = JedisHelper.obtenerPoisExternosDeRedis();
 		Assert.assertTrue(lista.get(0).getNombre().equals(cgpValido.getNombre()));
-		Assert.assertTrue(lista.get(1).getNombre().equals(bancoValido.getNombre()));
-		
-				
 		
 	}
+	@Test
+	public void SiPersistoUnBancoYLuegoOtroBancoConLaMismaDireccionObtengoElBancoActualizadoAlConsultarLaBase () {
+		
+		manejadorDePois.agregarPoiExterno(bancoValido);
+		manejadorDePois.agregarPoiExterno(bancoValidoConMismaPosicion);
+		List<POI> lista = JedisHelper.obtenerPoisExternosDeRedis();
+		Assert.assertTrue(lista.get(0).getNombre().equals(bancoValidoConMismaPosicion.getNombre()));
+		
+	}
+	
 }
 
