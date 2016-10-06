@@ -2,20 +2,11 @@ package herramientas;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import converters.JsonPoiConverter;
-import pois.Banco;
-import pois.CGP;
-import pois.FranjaHoraria;
 import pois.POI;
-import pois.Servicio;
 import redis.clients.jedis.Jedis;
 
 public class JedisHelper {
@@ -71,17 +62,20 @@ public class JedisHelper {
 
 	}
 
-	public static POI buscarUnPoiEnRedis(String descripcion) {
+	public static List<POI> buscarPoisEnRedis(String descripcion) {
+
 		conectarARedis();
 		POI poiBuscado;
+		List<POI> listaPoisEncontrados = new ArrayList<POI>();
+		
 		for (int i = 0; i < jedis.llen("IdPoiExterno"); i++) {
 			poiBuscado = JsonPoiConverter.convertirDeJsonAPOI(jedis.lpop("IdPoiExterno"));
 			if (poiBuscado.contiene(descripcion)) {
 				persistirPoiExterno(poiBuscado);
-				return poiBuscado;
+				listaPoisEncontrados.add(poiBuscado);
 			}
 		}
-		return null;
+		return listaPoisEncontrados;
 
 	}
 

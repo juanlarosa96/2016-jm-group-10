@@ -24,11 +24,10 @@ public class ManejadorDePois {
 	private ManejadorDePois() {
 		this.inicializarListaPois();
 	}
-	
+
 	private void inicializarListaPois() {
 		listaPoisInternos = EntityManagerHelper.traerTodosLosPOIs();
 		listaPoisExternos = new ArrayList<POI>();
-		listaPoisExternos = JedisHelper.obtenerPoisExternosDeRedis(); 
 	}
 
 	public static ManejadorDePois getInstance() {
@@ -70,7 +69,6 @@ public class ManejadorDePois {
 
 	private void persistirPOIExterno(POI poiExterno) {
 		JedisHelper.persistirPoiExterno(poiExterno);
-
 
 	}
 
@@ -117,8 +115,9 @@ public class ManejadorDePois {
 
 	private ArrayList<POI> damePoisExternos(String descripcion) {
 
-		return (ArrayList<POI>) adaptersComponentesExternos.stream().map(adapter -> adapter.buscarPoisExternos(descripcion))
-				.flatMap(listaPois -> listaPois.stream()).collect(Collectors.toList());
+		return (ArrayList<POI>) adaptersComponentesExternos.stream()
+				.map(adapter -> adapter.buscarPoisExternos(descripcion)).flatMap(listaPois -> listaPois.stream())
+				.collect(Collectors.toList());
 	}
 
 	public void agregarPoisInternos(List<POI> poisNuevos) {
@@ -170,17 +169,20 @@ public class ManejadorDePois {
 
 	public List<POI> buscarPoisDisponibles(String descripcion, DateTime momento) {
 		// no sirve para buscar si esta disponible un servicio en un cgp
-		return this.buscarPOIs(descripcion).stream().filter(poi -> poi.estaDisponible(momento)).collect(Collectors.toList());
+		return this.buscarPOIs(descripcion).stream().filter(poi -> poi.estaDisponible(momento))
+				.collect(Collectors.toList());
 	}
 
 	public List<POI> buscarServicioDisponible(String servicio, DateTime momento) {
 		// todos los pois que no sean cgps responden false a
 		// estaDisponibleServicio
-		return this.buscarPOIs(servicio).stream().filter(poi -> poi.estaDisponibleServicio(servicio, momento)).collect(Collectors.toList());
+		return this.buscarPOIs(servicio).stream().filter(poi -> poi.estaDisponibleServicio(servicio, momento))
+				.collect(Collectors.toList());
 
 	}
 
-	public Integer actualizarEtiquetasLocalesComercialesYRetornarCantidadModificados(String nombre, List<String> etiquetas) {
+	public Integer actualizarEtiquetasLocalesComercialesYRetornarCantidadModificados(String nombre,
+			List<String> etiquetas) {
 
 		return EntityManagerHelper.actualizarEtiquetasComerciosYRetornarCantidadModificados(nombre, etiquetas);
 	}
@@ -188,8 +190,8 @@ public class ManejadorDePois {
 	public POI buscarPOI(String nombrePOI, Direccion direccionPOI) {
 		// Si no encuentra ninguno tira IndexOutOfBoundsException
 
-		return listaPoisInternos.stream().filter(poi -> poi.getNombre().equalsIgnoreCase(nombrePOI) && poi.getDireccion().esLaMismaDireccionQue(direccionPOI))
-				.collect(Collectors.toList()).get(0);
+		return listaPoisInternos.stream().filter(poi -> poi.getNombre().equalsIgnoreCase(nombrePOI)
+				&& poi.getDireccion().esLaMismaDireccionQue(direccionPOI)).collect(Collectors.toList()).get(0);
 	}
 
 	public List<POI> getListaPoisInternos() {

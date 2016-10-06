@@ -349,7 +349,7 @@ public class ManejadorDePoisTest {
 	public void SiPersistoUnBancoYLuegoLoBuscoLoObtengo(){
 		manejadorDePois.agregarPoiExterno(bancoValido);
 		manejadorDePois.agregarPoiExterno(cgpValido);
-		Assert.assertTrue(JedisHelper.buscarUnPoiEnRedis("Banco").getNombre().equals(bancoValido.getNombre()));
+		Assert.assertTrue(JedisHelper.buscarPoisEnRedis("Banco").get(0).getNombre().equals(bancoValido.getNombre()));
 	}
 }
 
