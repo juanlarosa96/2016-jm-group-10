@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -76,6 +77,7 @@ public class ManejadorDePoisTest {
 
 	private Jedis jedis;
 	private Banco bancoValidoConMismaPosicion;
+	private ComponenteExternoAdapter componenteExternoAdapter;
 
 	@Before
 	public void init() {
@@ -342,5 +344,11 @@ public class ManejadorDePoisTest {
 		Assert.assertTrue(poisEncontrados.get(0).getNombre().equals(bancoValido.getNombre()));
 		Assert.assertEquals(1, poisEncontrados.size());
 
+	}
+
+	@Test
+	public void SiBuscoUnPoiEnLaBaseDeDatosPorDescripcionBancoYNoEncuentraNingunoEntoncesDevuelveUnaListaVacia() {
+		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("Banco");
+		Assert.assertTrue(poisEncontrados.size()==0);
 	}
 }
