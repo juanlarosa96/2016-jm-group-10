@@ -52,16 +52,6 @@ public class JedisHelper {
 		}
 	}
 
-	public static void actualizarPoiExterno(POI poiExternoNuevo, POI poiViejoLista) {
-
-		conectarARedis();
-		String poiViejo = JsonPoiConverter.convertirDePOIAJson(poiViejoLista).toString();
-		String poiNuevo = JsonPoiConverter.convertirDePOIAJson(poiExternoNuevo).toString();
-		jedis.lrem("IdPoiExterno", 1, poiViejo);
-		jedis.rpush("IdPoiExterno", poiNuevo);
-
-	}
-
 	public static List<POI> buscarPoisEnRedis(String descripcion) {
 
 		conectarARedis();
