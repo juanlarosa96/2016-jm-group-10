@@ -349,6 +349,6 @@ public class ManejadorDePoisTest {
 	@Test
 	public void SiBuscoUnPoiEnLaBaseDeDatosPorDescripcionBancoYNoEncuentraNingunoEntoncesDevuelveUnaListaVacia() {
 		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("Banco");
-		Assert.assertTrue(poisEncontrados.size()==0);
+		Assert.assertEquals(0,poisEncontrados.size());
 	}
 }
