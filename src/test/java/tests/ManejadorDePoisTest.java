@@ -110,8 +110,6 @@ public class ManejadorDePoisTest {
 
 		tamanioListaPoisInternos = listaPoisInternos.size();
 
-		manejadorDePois.clearListaPoisExternos();
-
 		CGPsConRentas = new ArrayList<POI>();
 
 		servicioExternoCgpMockeado = mock(ServicioExternoCGP.class);
@@ -144,12 +142,13 @@ public class ManejadorDePoisTest {
 		JedisHelper.conectarARedis();
 
 	}
+
 	@After
-	public void after(){
+	public void after() {
 		JedisHelper.limpiarBaseDeDatosRedis();
 		JedisHelper.desconectarRedis();
 	}
-	
+
 	@Test
 	public void SiPersistoUnPOILuegoLoEncuentro() {
 
@@ -183,8 +182,8 @@ public class ManejadorDePoisTest {
 
 	@Test
 	public void SiBuscoPOIsPorPalabraClaveDevuelveTodosLosQueLaTienen() {
-		Assert.assertEquals(2, manejadorDePois.buscarPOIs("tarjeta de credito").size(), 0);	
-		
+		Assert.assertEquals(2, manejadorDePois.buscarPOIs("tarjeta de credito").size(), 0);
+
 	}
 
 	@Test
@@ -193,7 +192,7 @@ public class ManejadorDePoisTest {
 	}
 
 	@Test
-	public void SiBuscoPOIsPorUnaEtiquetaDevuelveLosPOIsQueTienenEsaEtiqueta(){
+	public void SiBuscoPOIsPorUnaEtiquetaDevuelveLosPOIsQueTienenEsaEtiqueta() {
 
 		EntityManagerHelper.persistir(cgpValido);
 		EntityManagerHelper.persistir(bancoValido);
@@ -201,9 +200,11 @@ public class ManejadorDePoisTest {
 		EntityManagerHelper.persistir(parada114Valida);
 
 		@SuppressWarnings("unchecked")
-		List<POI> poisEncontrados = (List<POI>) EntityManagerHelper.createQuery("FROM POI WHERE :etiqueta in elements(etiquetas)").setParameter("etiqueta", "tarjeta").getResultList();
-		
-		Assert.assertEquals(2, poisEncontrados.size(),0);
+		List<POI> poisEncontrados = (List<POI>) EntityManagerHelper
+				.createQuery("FROM POI WHERE :etiqueta in elements(etiquetas)").setParameter("etiqueta", "tarjeta")
+				.getResultList();
+
+		Assert.assertEquals(2, poisEncontrados.size(), 0);
 	}
 
 	@Test
@@ -224,7 +225,6 @@ public class ManejadorDePoisTest {
 		CGPsConRentas = manejadorDePois.buscarServicioDisponible("Rentas", horarioNoValidoParaNingunServicio);
 		Assert.assertEquals(0, CGPsConRentas.size(), 0);
 	}
-	
 
 	// Servicios
 	// Externos------------------------------------------------------------------
@@ -236,14 +236,12 @@ public class ManejadorDePoisTest {
 		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoCgpMockeado.buscar("balvanera")).thenReturn(centrosDTO);
 
-		manejadorDePois.activarBusquedaPoisExternos();
-
 		manejadorDePois.buscarPOIs("balvanera");
 
 		verify(servicioExternoCgpMockeado).buscar("balvanera");
 
 		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
-		Assert.assertEquals(1, manejadorDePois.getListaPoisExternos().size(), 0);
+		Assert.assertEquals(1, JedisHelper.obtenerCantidadPersistida(), 0);
 
 	}
 
@@ -255,14 +253,12 @@ public class ManejadorDePoisTest {
 		centrosDTO.clear();
 		when(servicioExternoCgpMockeado.buscar("manchester")).thenReturn(centrosDTO);
 
-		manejadorDePois.activarBusquedaPoisExternos();
-
 		manejadorDePois.buscarPOIs("manchester");
 
 		verify(servicioExternoCgpMockeado).buscar("manchester");
 
 		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
-		Assert.assertEquals(0, manejadorDePois.getListaPoisExternos().size(), 0);
+		Assert.assertEquals(0, JedisHelper.obtenerCantidadPersistida(), 0);
 	}
 
 	@Test
@@ -272,12 +268,11 @@ public class ManejadorDePoisTest {
 		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoBancoMockeado.buscar("Banco de la Plaza", "extracciones")).thenReturn(listaBancoJson);
 
-		manejadorDePois.activarBusquedaPoisExternos();
 		manejadorDePois.buscarPOIs("Banco de la Plaza,extracciones");
 
 		verify(servicioExternoBancoMockeado).buscar("Banco de la Plaza", "extracciones");
 
-		Assert.assertEquals(1, manejadorDePois.getListaPoisExternos().size(), 0);
+		Assert.assertEquals(1, JedisHelper.obtenerCantidadPersistida(), 0);
 		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
 
 	}
@@ -289,15 +284,15 @@ public class ManejadorDePoisTest {
 		manejadorDePois.setListaAdapters(listaAdapters);
 		when(servicioExternoBancoMockeado.buscar("", "")).thenReturn(listaVaciaBancoJson);
 
-		manejadorDePois.activarBusquedaPoisExternos();
 		manejadorDePois.buscarPOIs(",");
 
 		verify(servicioExternoBancoMockeado).buscar("", "");
 		Assert.assertEquals(tamanioListaPoisInternos, listaPoisInternos.size(), 0);
-		Assert.assertEquals(0, manejadorDePois.getListaPoisExternos().size(), 0);
+		Assert.assertEquals(0, JedisHelper.obtenerCantidadPersistida(), 0);
 	}
 
 	// ------------------------------------------------------------------------
+
 	@Test
 	public void SiEliminoUnaParadaDeLaListaDePoisEntoncesLaElimina() {
 		manejadorDePois.eliminarPOIInterno(parada114Valida);
@@ -327,29 +322,25 @@ public class ManejadorDePoisTest {
 		Assert.assertEquals(parada114ValidaConMasEtiquetas.getEtiquetas(), paradaEncontrada.getEtiquetas());
 
 	}
-	
+
 	@Test
-	public void SiPersistoUnCgpExternoSePersisteCorrectamenteYAlTraerloDeLaBdSeObtieneUnCgpConElMismoNombre(){		
-		
-		manejadorDePois.agregarPoiExterno(cgpValido);	
+	public void SiPersistoUnPoiExternoSePersisteCorrectamenteYAlTraerloDeLaBDSeObtieneUnPoiConElMismoNombre() {
+
+		JedisHelper.persistirPoiExterno(cgpValido);
 		List<POI> lista = JedisHelper.obtenerPoisExternosDeRedis();
 		Assert.assertTrue(lista.get(0).getNombre().equals(cgpValido.getNombre()));
-		
+
 	}
+
 	@Test
-	public void SiPersistoUnBancoYLuegoOtroBancoConLaMismaDireccionObtengoElBancoActualizadoAlConsultarLaBase () {
-		
-		manejadorDePois.agregarPoiExterno(bancoValido);
-		manejadorDePois.agregarPoiExterno(bancoValidoConMismaPosicion);
-		List<POI> lista = JedisHelper.obtenerPoisExternosDeRedis();
-		Assert.assertTrue(lista.get(0).getNombre().equals(bancoValidoConMismaPosicion.getNombre()));
-		
-	}
-	@Test
-	public void SiPersistoUnBancoYLuegoLoBuscoLoObtengo(){
-		manejadorDePois.agregarPoiExterno(bancoValido);
-		manejadorDePois.agregarPoiExterno(cgpValido);
-		Assert.assertTrue(JedisHelper.buscarPoisEnRedis("Banco").get(0).getNombre().equals(bancoValido.getNombre()));
+	public void SiPersistoUnBancoYUnCgpYLuegoBuscoConDescripcionBancoObtengoElBanco() {
+		JedisHelper.persistirPoiExterno(bancoValido);
+		JedisHelper.persistirPoiExterno(cgpValido);
+
+		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("Banco");
+
+		Assert.assertTrue(poisEncontrados.get(0).getNombre().equals(bancoValido.getNombre()));
+		Assert.assertEquals(1, poisEncontrados.size());
+
 	}
 }
-
