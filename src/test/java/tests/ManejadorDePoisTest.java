@@ -141,11 +141,13 @@ public class ManejadorDePoisTest {
 
 		listaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonNoVacia();
 		listaVaciaBancoJson = FixtureBancoAdapter.devolverListaBancoJsonVacia();
+		JedisHelper.conectarARedis();
 
 	}
 	@After
 	public void after(){
 		JedisHelper.limpiarBaseDeDatosRedis();
+		JedisHelper.desconectarRedis();
 	}
 	
 	@Test
@@ -331,7 +333,7 @@ public class ManejadorDePoisTest {
 		
 		manejadorDePois.agregarPoiExterno(cgpValido);	
 		List<POI> lista = JedisHelper.obtenerPoisExternosDeRedis();
-		Assert.assertTrue(lista.stream().anyMatch(poi-> poi.getNombre().equals(cgpValido.getNombre())));
+		Assert.assertTrue(lista.get(0).getNombre().equals(cgpValido.getNombre()));
 		
 	}
 	@Test
@@ -340,7 +342,7 @@ public class ManejadorDePoisTest {
 		manejadorDePois.agregarPoiExterno(bancoValido);
 		manejadorDePois.agregarPoiExterno(bancoValidoConMismaPosicion);
 		List<POI> lista = JedisHelper.obtenerPoisExternosDeRedis();
-		Assert.assertTrue(lista.stream().anyMatch(poi-> poi.getNombre().equals(bancoValidoConMismaPosicion.getNombre())));
+		Assert.assertTrue(lista.get(0).getNombre().equals(bancoValidoConMismaPosicion.getNombre()));
 		
 	}
 	@Test
