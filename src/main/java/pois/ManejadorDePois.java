@@ -33,7 +33,7 @@ public class ManejadorDePois {
 
 		return singleton;
 	}
-	
+
 	public List<POI> buscarPOIs(String descripcion) {
 
 		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis(descripcion);
@@ -94,7 +94,7 @@ public class ManejadorDePois {
 
 		List<POI> poisExternos = this.damePoisServiciosExternos(descripcion);
 		this.persistirPoisExternos(poisExternos);
-		
+
 		return poisExternos;
 
 	}
@@ -161,6 +161,10 @@ public class ManejadorDePois {
 
 	public List<POI> getListaPoisInternos() {
 		return listaPoisInternos;
+	}
+
+	public void clearListaPoisInternos() {
+		listaPoisInternos.clear();
 	}
 
 }
