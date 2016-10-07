@@ -57,8 +57,9 @@ public class JedisHelper {
 		conectarARedis();
 		POI poiBuscado;
 		List<POI> listaPoisEncontrados = new ArrayList<POI>();
+		Long largo = jedis.llen("IdPoiExterno");
 		
-		for (int i = 0; i < jedis.llen("IdPoiExterno"); i++) {
+		for (int i = 0; i < largo; i++) {
 			poiBuscado = JsonPoiConverter.convertirDeJsonAPOI(jedis.lpop("IdPoiExterno"));
 			if (poiBuscado.contiene(descripcion)) {
 				persistirPoiExterno(poiBuscado);
