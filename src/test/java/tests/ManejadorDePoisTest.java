@@ -347,29 +347,77 @@ public class ManejadorDePoisTest {
 	}
 
 	@Test
-	public void SiBuscoUnPoiEnLaBaseDeDatosPorDescripcionBancoYNoEncuentraNingunoEntoncesDevuelveUnaListaVacia() {
+	public void SiBuscoPoisExternosEnBDPorDescripcionQueNingunoCumpleDevuelveUnaListaVacia() {
 		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("Banco");
-		Assert.assertEquals(0,poisEncontrados.size());
+		Assert.assertTrue(poisEncontrados.isEmpty());
 	}
-	
+
 	@Test
-	public void SiPersistoSoloCGPLoEncuentra(){
+	public void SiPersistoUnCGPExternoYBuscoBancoDevuelveVacio() {
+		JedisHelper.persistirPoiExterno(cgpValido);
+		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("Banco");
+
+		Assert.assertTrue(poisEncontrados.isEmpty());
+	}
+
+	@Test
+	public void SiPersistoSoloCGPLoEncuentra() {
 		JedisHelper.persistirPoiExterno(cgpValido);
 		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("CGP");
-		Assert.assertFalse(poisEncontrados.isEmpty());
+
+		Assert.assertEquals(1, poisEncontrados.size());
+		Assert.assertTrue(poisEncontrados.get(0).esIgualA(cgpValido));
 	}
+
 	@Test
-	public void SiPersistoPrimeroCGPYDespuesBancoLoEncuentra(){
+	public void SiPersistoPrimeroCGPYDespuesBancoLoEncuentra() {
 		JedisHelper.persistirPoiExterno(cgpValido);
 		JedisHelper.persistirPoiExterno(bancoValido);
-		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("CGP");		
-		Assert.assertFalse(poisEncontrados.isEmpty());
+		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("CGP");
+
+		Assert.assertEquals(1, poisEncontrados.size());
+		Assert.assertTrue(poisEncontrados.get(0).esIgualA(cgpValido));
 	}
+
 	@Test
-	public void SiPersistoPrimeroBancoYDespuesCGPDevuelveVacio(){
+	public void SiPersistoPrimeroBancoYDespuesCGPTambienLoEncuentra() {
 		JedisHelper.persistirPoiExterno(bancoValido);
 		JedisHelper.persistirPoiExterno(cgpValido);
-		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("CGP");		
-		Assert.assertFalse(poisEncontrados.isEmpty());
+		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("CGP");
+
+		Assert.assertEquals(1, poisEncontrados.size());
+		Assert.assertTrue(poisEncontrados.get(0).esIgualA(cgpValido));
+	}
+
+	@Test
+	public void SiBuscoPoisExternosYHayUnPoiEnBDQueCumpleConLaDescripcionMeDevuelveSoloPoisDeBD() {
+		JedisHelper.persistirPoiExterno(bancoValido);
+		JedisHelper.persistirPoiExterno(cgpValido);
+
+		when(servicioExternoCgpMockeado.buscar("CGP")).thenReturn(centrosDTO);
+		listaAdapters.clear();
+		listaAdapters.add(cgpAdapter);
+		manejadorDePois.clearListaPoisInternos();
+
+		List<POI> poisEncontrados = manejadorDePois.buscarPOIs("CGP");
+
+		Assert.assertEquals(1, poisEncontrados.size());
+		Assert.assertTrue(poisEncontrados.get(0).esIgualA(cgpValido));
+	}
+
+	@Test
+	public void SiBuscoPoisExternosYEnBDNingunoCumpleConLaDescripcionDevuelvePoisDelServicioExterno() {
+		JedisHelper.persistirPoiExterno(bancoValido);
+
+		when(servicioExternoCgpMockeado.buscar("CGP")).thenReturn(centrosDTO);
+		listaAdapters.clear();
+		listaAdapters.add(cgpAdapter);
+		manejadorDePois.clearListaPoisInternos();
+
+		List<POI> poisEncontrados = manejadorDePois.buscarPOIs("CGP");
+
+		Assert.assertEquals(1, poisEncontrados.size());
+		CGP cgpEncontrado = (CGP) poisEncontrados.get(0);
+		Assert.assertTrue(cgpEncontrado.dameNumeroComuna().equals(centroDTO1.getNumeroComunaCentroDTO()));
 	}
 }
