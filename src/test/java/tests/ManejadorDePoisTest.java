@@ -351,4 +351,25 @@ public class ManejadorDePoisTest {
 		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("Banco");
 		Assert.assertEquals(0,poisEncontrados.size());
 	}
+	
+	@Test
+	public void SiPersistoSoloCGPLoEncuentra(){
+		JedisHelper.persistirPoiExterno(cgpValido);
+		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("CGP");
+		Assert.assertFalse(poisEncontrados.isEmpty());
+	}
+	@Test
+	public void SiPersistoPrimeroCGPYDespuesBancoLoEncuentra(){
+		JedisHelper.persistirPoiExterno(cgpValido);
+		JedisHelper.persistirPoiExterno(bancoValido);
+		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("CGP");		
+		Assert.assertFalse(poisEncontrados.isEmpty());
+	}
+	@Test
+	public void SiPersistoPrimeroBancoYDespuesCGPDevuelveVacio(){
+		JedisHelper.persistirPoiExterno(bancoValido);
+		JedisHelper.persistirPoiExterno(cgpValido);
+		List<POI> poisEncontrados = JedisHelper.buscarPoisEnRedis("CGP");		
+		Assert.assertFalse(poisEncontrados.isEmpty());
+	}
 }
