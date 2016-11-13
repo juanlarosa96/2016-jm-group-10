@@ -1,0 +1,29 @@
+{{#partial "contenido"}}
+
+<form name="administrarPois" action="/pois" method="GET">
+
+<div class="jumbotron">
+  <h2>Administrar POIs</h2>
+  <br>
+  <label> Descripcion </label>
+  &nbsp&nbsp 
+  <input type="text" name="descripcion" >
+  &nbsp&nbsp </input>  
+  <label> Tipo </label>&nbsp&nbsp
+  <select> 
+  {{#each tipos}}
+		<option> {{this}}</option>
+  {{/each}}
+  </select>
+  <br>
+  <br>
+  <input class="btn btn-primary btn-lg" type="submit" value="Buscar">
+  <span style="display:inline-block;width:50;"> </span> 
+  <input class="btn btn-primary btn-lg" type="reset" value="Limpiar">  
+</div>	
+
+</form>
+
+{{/partial}}
+
+{{>layout.hbs}}
