@@ -19,7 +19,8 @@ public class ManejadorDePois {
 	private List<ComponenteExternoAdapter> adaptersComponentesExternos;
 
 	private ManejadorDePois() {
-		this.inicializarListaPois();
+		this.adaptersComponentesExternos = new ArrayList<ComponenteExternoAdapter>();
+		this.inicializarListaPois();		
 	}
 
 	private void inicializarListaPois() {
@@ -165,6 +166,10 @@ public class ManejadorDePois {
 
 	public void clearListaPoisInternos() {
 		listaPoisInternos.clear();
+	}
+
+	public POI getPOI(long id) {
+		return EntityManagerHelper.find(POI.class, id);
 	}
 
 }
