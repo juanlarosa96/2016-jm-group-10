@@ -17,7 +17,7 @@ public abstract class POI {
 
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private long id;
 
 	@Embedded
 	private Posicion posicion;
@@ -33,10 +33,11 @@ public abstract class POI {
 	@CollectionTable(name = "franjas_horarias_pois")
 	@ElementCollection
 	private List<FranjaHoraria> horarios;
+	
 
 	// -------------------------------------------
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -149,5 +150,9 @@ public abstract class POI {
 	}
 
 	abstract protected void agregarDatosEspecificosDelPOI(POIDTO poiDto);
+	
+	public String getDireccionString(){
+		return this.direccion.mostrarDireccion();
+	}
 
 }
