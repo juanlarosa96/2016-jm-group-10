@@ -25,7 +25,7 @@ public class RepoUsuarios {
 	public Usuario loginOK(String username, String password) throws Exception {
 
 		List<Usuario> usuariosQueMatchean = this.usuarios.stream()
-				.filter(usuario -> usuario.getUsername() == username)
+				.filter(usuario -> usuario.getUsername().equals(username))
 				.collect(Collectors.toList());
 
 		if (usuariosQueMatchean.size() > 1) {
@@ -39,7 +39,7 @@ public class RepoUsuarios {
 		else {
 			Usuario usuario = usuariosQueMatchean.get(0);
 
-			if(usuario.getPassword() != password)
+			if(!usuario.getPassword().equals(password))
 				throw new ExceptionContraseniaIncorrecta();
 			else
 				return usuario;
@@ -56,6 +56,7 @@ public class RepoUsuarios {
 	private RepoUsuarios(){
 		this.usuarios = new ArrayList<Usuario>();
 		this.usuarios.add(Usuario.nuevoUsuarioTerminal("pepe","argento"));
+		this.usuarios.add(Usuario.nuevoUsuarioAdministrador("admin", "w23e"));
 	}
 
 }
