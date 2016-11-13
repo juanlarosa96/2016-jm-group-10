@@ -18,7 +18,8 @@ public class Direccion {
 
 	@SuppressWarnings("unused")
 
-	private Direccion() {}
+	private Direccion() {
+	}
 
 	public String getEntreCalle1() {
 		return entreCalle1;
@@ -124,10 +125,9 @@ public class Direccion {
 		return altura;
 	}
 
-	public void mostrarDireccion() {
-		String direccion;
+	public String mostrarDireccion() {
 
-		direccion = this.calle + " " + this.altura;
+		String direccion = this.calle + " " + this.altura;
 
 		if (this.piso != null) {
 			direccion += "\n" + "Piso " + this.piso.toString();
@@ -142,7 +142,7 @@ public class Direccion {
 
 		direccion += "\n" + this.provincia + " " + this.pais + "\n";
 
-		System.out.println(direccion);
+		return direccion;
 	}
 
 	public static void main(String args[]) {
