@@ -1,6 +1,7 @@
 package server;
 
 import controllers.LoginController;
+import controllers.PoisController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.HandlebarsTemplateEngineBuilder;
@@ -17,9 +18,12 @@ public class Router {
 		
 		//controllers
 		
+		PoisController poisController = new PoisController();
+		
 		//rutas		
 		
 		Spark.get("/", LoginController::login, engine);
+		Spark.get("/buscarPois", poisController::buscarPois, engine);
 		
 		
 	}
