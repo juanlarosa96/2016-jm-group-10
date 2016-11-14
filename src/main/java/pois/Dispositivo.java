@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import org.joda.time.DateTime;
 
+import adapters.CgpAdapter;
 import eventosBusqueda.ResultadoBusqueda;
 import eventosBusqueda.InteresadoEnBusquedas;
 import herramientas.ManejadorDeFechas;
@@ -110,6 +111,11 @@ public class Dispositivo {
 
 	public void setPosicion(Posicion posicion) {
 		this.posicion = posicion;
+	}
+	
+	public Comuna getComuna(){
+		CgpAdapter cgpAdapter = new CgpAdapter(null);
+		return cgpAdapter.dameComunaSegunPosicion(this.posicion);
 	}
 
 }
