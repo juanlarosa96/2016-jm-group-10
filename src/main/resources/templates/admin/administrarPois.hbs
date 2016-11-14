@@ -1,6 +1,6 @@
 {{#partial "contenido"}}
 
-<form name="administrarPois" action="/pois" method="GET">
+<form name="administrarPois" action="/admin/administrarPois/" method="GET">
 
 <div class="jumbotron">
   <h2>Administrar POIs</h2>
@@ -9,17 +9,48 @@
   &nbsp&nbsp 
   <input type="text" name="descripcion" >
   &nbsp&nbsp </input>  
+  
   <label> Tipo </label>&nbsp&nbsp
-  <select> 
-  {{#each tipos}}
-		<option> {{this}}</option>
-  {{/each}}
+
+  <select name="tipo"> 
+  		<option> Todos </option>
+		<option> Banco </option>
+		<option> CGP </option>
+		<option> Comercio </option>
+		<option> Parada Colectivo </option>		
   </select>
+
   <br>
   <br>
   <input class="btn btn-primary btn-lg" type="submit" value="Buscar">
   <span style="display:inline-block;width:50;"> </span> 
-  <input class="btn btn-primary btn-lg" type="reset" value="Limpiar">  
+  <input class="btn btn-primary btn-lg" type="reset" value="Limpiar"> 
+  <br>
+  <br>
+  <h3> Resultados </h3>
+  <br>
+  
+  <table class="table table-stripped">
+	<tr>
+		<th>Tipo</th>
+		<th>Nombre</th>
+		<th>Direccion</th>
+		<th></th>
+		<th></th>
+	</tr>
+	
+	{{#each pois}}
+		<tr>
+			<td>{{this.tipo}}</td>
+			<td>{{this.nombre}}</td>
+			<td>{{this.direccionString}}</td>
+			<td><a href="editarPOI/{{this.id}}">Editar</a></td>
+			<td><a href="borrarPOI/{{this.id}}">Borrar</a></td>
+		</tr>
+	{{/each}}
+	</table>
+  
+   
 </div>	
 
 </form>
