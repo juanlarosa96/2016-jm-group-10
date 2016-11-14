@@ -127,7 +127,7 @@ public class EntityManagerHelper {
 		return entityManager().createQuery("from POI").getResultList();
 	}
 
-	public static void actualizarPoi(POI poiNuevo, Integer poiViejoID) {
+	public static void actualizarPoi(POI poiNuevo, Long poiViejoID) {
 		beginTransaction();
 		POI poiViejo = find(POI.class, poiViejoID);
 		poiViejo.copiarEstado(poiNuevo);
