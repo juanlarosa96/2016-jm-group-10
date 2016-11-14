@@ -30,11 +30,12 @@ public class Router {
 		Spark.get("/login/", LoginController::loginUsuario, engine);
 		Spark.get("/buscarPois/", poisController::buscarPois, engine);
 		
-		Spark.get("/pois/:id", poisController::mostrarPOI, engine);
+		Spark.get("buscarPois/pois/:id", poisController::mostrarPOI, engine);
 		
-		Spark.get("/admin/administrarPois", poisController::administrarPois, engine);
-		Spark.get("/admin/administrarTerminales", terminalesController::administrarTerminales, engine);
-		Spark.get("/admin/historicoConsultas", consultasController::historicoConsultas, engine);
+		Spark.get("/admin/administrarPois/", poisController::administrarPois, engine);
+		Spark.get("/admin/administrarTerminales/", terminalesController::administrarTerminales, engine);
+		Spark.get("/admin/historicoConsultas/", consultasController::historicoConsultas, engine);
+		
 		
 		
 		
