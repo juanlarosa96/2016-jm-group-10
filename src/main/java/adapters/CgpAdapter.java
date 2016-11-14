@@ -250,7 +250,6 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 			add(new Posicion(-34.620399, -58.516870));
 		}
 	};
-
 	private static Comuna comuna10 = new Comuna(10, limitesComuna10);
 
 	private static List<Posicion> limitesComuna11 = new ArrayList<Posicion>() {
@@ -461,9 +460,12 @@ public class CgpAdapter implements ComponenteExternoAdapter {
 		return new Direccion(calle, altura, null, null, null, null, null, "CABA", null, null, "Argentina");
 	}
 
+	public Comuna dameComunaSegunPosicion(Posicion posicion){
+		return comunas.stream().filter(comuna -> comuna.incluyeA(posicion)).collect(Collectors.toList()).get(0);
+	}
 	
 	public Comuna dameComuna(Integer numComuna) {
 		return comunas.stream().filter(comuna -> comuna.getNumero().equals(numComuna)).collect(Collectors.toList()).get(0);
 	}
-
+	
 }
