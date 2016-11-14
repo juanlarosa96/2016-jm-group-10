@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
-import freemarker.core.StringArraySequence;
 import pois.Direccion;
 import pois.ManejadorDePois;
 import pois.POI;
@@ -200,13 +199,19 @@ public class PoisController implements WithGlobalEntityManager, TransactionalOps
 		
 		ManejadorDePois.getInstance().agregarPoiInterno(poi);
 		
-		return new ModelAndView(null, "admin/seleccionarPantallaAdmin.hbs");
+		return this.administrarPois(req, res);
 		
 	}
 
 	public ModelAndView borrarPOI(Request req, Response res) {
 
-		return null;
+		Long id = Long.parseLong(req.params("id"));
+		
+		POI poi = ManejadorDePois.getInstance().getPOI(id);
+		
+		ManejadorDePois.getInstance().eliminarPOIInterno(poi);
+		
+		return this.administrarPois(req, res);
 	}
 
 }
