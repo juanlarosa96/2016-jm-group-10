@@ -21,9 +21,11 @@ public class LoginController {
 
 	public static ModelAndView loginUsuario(Request req, Response res) throws ExceptionErrorLogin {
 		RepoUsuarios repoUsuarios = RepoUsuarios.getInstance();
-		String username = req.queryParams("user");
-		String password = req.queryParams("password");
-
+		String body = req.body();
+		String[] params = body.split("&");
+		String username = params[0].split("=")[1];
+		String password = params[1].split("=")[1];
+		
 		try {
 			Usuario usuario = repoUsuarios.loginOK(username, password);
 

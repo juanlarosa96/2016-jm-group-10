@@ -27,7 +27,7 @@ public class Router {
 		//rutas		
 		
 		Spark.get("/", LoginController::login, engine);
-		Spark.get("/login/", LoginController::loginUsuario, engine);
+		Spark.post("/login/",LoginController::loginUsuario,engine);
 		Spark.get("/buscarPois/", poisController::buscarPois, engine);
 		
 		Spark.get("/buscarPois/pois/:id", poisController::mostrarPOI, engine);
