@@ -1,0 +1,78 @@
+{{#partial "contenido"}}
+
+<form name="detallePOI" action="/pois/" method="GET">
+
+<div class="jumbotron">
+
+	<h1> Editar POI: {{this.nombre}} </h1>
+	<br>
+	
+	<p>
+	<strong>Nombre:</strong> 
+	<input type="text" name="nombre" value="{{nombre}}"> </input>
+	</p>
+	
+	<br>
+	
+	<p>
+	<strong>Direccion:</strong> <br>
+	
+	<br><label> Calle </label> 
+	<input type="text" name="calle" value="{{calle}}"> </input>
+	
+	<br><label> Altura </label> 
+	<input type="text" name="altura" value="{{altura}}"> </input>
+	
+	<br><label> Piso </label> 
+	<input type="text" name="piso" value="{{piso}}"> </input>
+	
+	<br><label> Departamento </label> 
+	<input type="text" name="departamento" value="{{departamento}}"> </input>	
+	
+	<br><label> Entre Calle 1 </label> 
+	<input type="text" name="entreCalle1" value="{{entreCalle1}}"> </input>
+	
+	<br><label> Entre Calle 2 </label> 
+	<input type="text" name="entreCalle2" value="{{entreCalle2}}"> </input>
+	
+	<br><label> Codigo Postal </label> 
+	<input type="text" name="codigoPostal" value="{{codigoPostal}}"> </input>
+	
+	<br><label> Localidad </label> 
+	<input type="text" name="localidad" value="{{localidad}}"> </input>
+	
+	<br><label> Barrio </label> 
+	<input type="text" name="barrio" value="{{barrio}}"> </input>
+	
+	<br><label> Provincia </label> 
+	<input type="text" name="provincia" value="{{provincia}}"> </input>
+	
+	<br><label> Pais </label> 
+	<input type="text" name="pais" value="{{pais}}"> </input>
+	</p>
+		 
+	<br><br>
+	
+	<p>
+	<strong>Coordenadas:</strong> <br><br> 
+	<label> Coordenada X: </label> <input type="text" name="coordX" value="{{coordX}}"> </input> <br>
+	<label> Coordenada Y: </label> <input type="text" name="coordY" value="{{coordY}}"> </input> <br>
+	</p>
+	
+	<br>
+	
+	<a href="/admin/guardarPoi/"> 
+  	<input class="btn btn-primary btn-lg" value="Guardar">
+  	</a>
+  	
+  	<a href="/admin/administrarPois/"> 
+  	<input class="btn btn-primary btn-lg" value="Cancelar">
+  	</a>
+  
+</div>	
+
+</form>
+
+{{/partial}}
+
+{{>layout.hbs}}

@@ -130,35 +130,19 @@ public class Direccion {
 		String direccion = this.calle + " " + this.altura;
 
 		if (this.piso != null) {
-			direccion += "\n" + "Piso " + this.piso.toString();
+			direccion += " Piso " + this.piso.toString();
 
 			if (this.departamento != null)
 				direccion += " Departamento " + this.departamento.toString();
 		}
 
-		direccion += "\n" + "Entre " + entreCalle1 + " y " + entreCalle2;
+		direccion += " Entre " + entreCalle1 + " y " + entreCalle2;
 
-		direccion += "\n" + "CP: " + this.codigoPostal.toString() + " " + this.localidad + " " + this.barrio;
+		direccion += " CP: " + this.codigoPostal.toString() + " " + this.localidad + " " + this.barrio;
 
-		direccion += "\n" + this.provincia + " " + this.pais + "\n";
+		direccion += " " + this.provincia + " " + this.pais;
 
 		return direccion;
-	}
-
-	public static void main(String args[]) {
-
-		// direccion sin piso ni depto
-		Direccion dir1 = new Direccion("Guayaquil", 25, "Av La Plata", "Senillosa", null, null, 1424, "CABA",
-				"Caballito", "Buenos Aires", "Argentina");
-
-		// direccion con piso y depto
-		Direccion dir2 = new Direccion("Guayaquil", 25, "Av La Plata", "Senillosa", 1, 'A', 1424, "CABA", "Caballito",
-				"Buenos Aires", "Argentina");
-
-		dir1.mostrarDireccion();
-
-		dir2.mostrarDireccion();
-
 	}
 
 	public Boolean esLaMismaDireccionQue(Direccion otraDireccion) {
