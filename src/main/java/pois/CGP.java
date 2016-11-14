@@ -119,4 +119,9 @@ public class CGP extends POI {
 		poiDto.setTipoPOI("CGP");
 	}
 
+	@Override
+	public String getTipo() {
+		return "CGP";
+	}
+
 }

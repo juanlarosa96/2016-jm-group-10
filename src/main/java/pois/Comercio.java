@@ -52,4 +52,9 @@ public class Comercio extends POI {
 		poiDto.setRubro(rubro);
 		poiDto.setTipoPOI("COMERCIO");
 	}
+
+	@Override
+	public String getTipo() {
+		return "Comercio";
+	}
 }

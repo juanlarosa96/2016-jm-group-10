@@ -62,4 +62,9 @@ public class ParadaColectivo extends POI {
 		poiDto.setLineaColectivo(linea);
 		poiDto.setTipoPOI("PARADACOLECTIVO");
 	}
+
+	@Override
+	public String getTipo() {
+		return "Parada Colectivo";
+	}
 }

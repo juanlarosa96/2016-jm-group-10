@@ -46,4 +46,9 @@ public class Banco extends POI {
 		poiDto.setTipoPOI("BANCO");
 	}
 
+	@Override
+	public String getTipo() {
+		return "Banco";
+	}
+
 }

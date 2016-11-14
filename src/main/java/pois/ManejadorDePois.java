@@ -172,4 +172,8 @@ public class ManejadorDePois {
 		return EntityManagerHelper.find(POI.class, id);
 	}
 
+	public List<POI> traerTodosLosPois() {
+		return EntityManagerHelper.traerTodosLosPOIs();
+	}
+
 }

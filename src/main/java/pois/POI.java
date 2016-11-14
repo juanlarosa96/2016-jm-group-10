@@ -151,6 +151,8 @@ public abstract class POI {
 
 	abstract protected void agregarDatosEspecificosDelPOI(POIDTO poiDto);
 	
+	abstract public String getTipo();
+	
 	public String getDireccionString(){
 		return this.direccion.mostrarDireccion();
 	}
