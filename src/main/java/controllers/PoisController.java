@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import freemarker.core.StringArraySequence;
 import pois.Direccion;
 import pois.ManejadorDePois;
 import pois.POI;
@@ -73,6 +74,8 @@ public class PoisController implements WithGlobalEntityManager, TransactionalOps
 		String id = req.params("id");
 
 		POI poi = ManejadorDePois.getInstance().getPOI(Long.parseLong(id));
+		
+		model.put("id", id);
 
 		model.put("nombre", poi.getNombre());
 
@@ -116,6 +119,89 @@ public class PoisController implements WithGlobalEntityManager, TransactionalOps
 		model.put("coordY", String.valueOf(posicion.longitude()));
 
 		return new ModelAndView(model, "pois/editarPOI.hbs");
+	}
+
+	public ModelAndView guardarPOI(Request req, Response res){
+		String idString = req.params("id");
+		Long id = Long.parseLong(idString);
+		POI poi = ManejadorDePois.getInstance().getPOI(id);
+		
+		String body = req.body();
+		String[] atributos = body.split("&");
+		Integer cantAtributos = atributos.length;
+		
+		List<String> valores = new ArrayList<String>();
+		String valor;
+		
+		for(int i=0; i < cantAtributos; i++){
+			if(atributos[i].split("=").length > 1)
+				valor = atributos[i].split("=")[1];
+			else
+				valor = " ";
+			
+			valores.add(valor);
+		}
+		
+		valores = valores.stream().map(unValor -> unValor.replace("+", " ")).collect(Collectors.toList());
+		
+		String nombre = valores.get(0);
+		String calle = valores.get(1);
+		String altura = valores.get(2);
+		String piso = valores.get(3);
+		String depto = valores.get(4);
+		String entreCalle1 = valores.get(5);
+		String entreCalle2 = valores.get(6);
+		String codPostal = valores.get(7);
+		String localidad = valores.get(8);
+		String barrio = valores.get(9);
+		String provincia = valores.get(10);
+		String pais = valores.get(11);
+		
+		
+		if(!nombre.equals(" "))
+			poi.setNombre(nombre);
+		
+		Direccion direccion = poi.getDireccion();
+		
+		if(!calle.equals(" "))
+			direccion.setCalle(calle);
+		
+		if(!altura.equals(" "))
+			direccion.setAltura(Integer.parseInt(altura));
+		
+		if(!piso.equals(" "))
+			direccion.setPiso(Integer.parseInt(piso));
+		
+		if(!depto.equals(" "))
+			direccion.setDepartamento(depto.charAt(0));
+		
+		if(!entreCalle1.equals(" "))
+			direccion.setEntreCalle1(entreCalle1);
+		
+		if(!entreCalle2.equals(" "))
+			direccion.setEntreCalle2(entreCalle2);
+		
+		if(!codPostal.equals(" "))
+			direccion.setCodigoPostal(Integer.parseInt(codPostal));
+		
+		if(!localidad.equals(" "))
+			direccion.setLocalidad(localidad);
+		
+		if(!barrio.equals(" "))
+			direccion.setBarrio(barrio);
+		
+		if(!provincia.equals(" "))
+			direccion.setProvincia(provincia);
+		
+		if(!pais.equals(" "))
+			direccion.setPais(pais);
+		
+		poi.setDireccion(direccion);
+		
+		ManejadorDePois.getInstance().agregarPoiInterno(poi);
+		
+		return new ModelAndView(null, "admin/seleccionarPantallaAdmin.hbs");
+		
 	}
 
 	public ModelAndView borrarPOI(Request req, Response res) {
