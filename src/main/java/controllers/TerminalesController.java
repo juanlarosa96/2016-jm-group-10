@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import adapters.CgpAdapter;
 import herramientas.EntityManagerHelper;
 import pois.Dispositivo;
 import pois.ExceptionComunaInvalida;
@@ -22,6 +23,9 @@ public class TerminalesController {
 		
 		String comuna = req.queryParams("comuna");
 		List<Dispositivo> terminales;
+		
+		CgpAdapter cgpAdapter = new CgpAdapter(null);
+		ManejadorDeDispositivos.getInstance().setCgpAdapter(cgpAdapter);
 
 		if (comuna == null || comuna.equals("Todas")) {
 			terminales = ManejadorDeDispositivos.getInstance().getListaDispositivos();
