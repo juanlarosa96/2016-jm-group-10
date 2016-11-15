@@ -113,7 +113,7 @@ public class Dispositivo {
 		this.posicion = posicion;
 	}
 	
-	public Comuna getComuna(){
+	public Integer getComuna(){
 		CgpAdapter cgpAdapter = new CgpAdapter(null);
 		return cgpAdapter.dameComunaSegunPosicion(this.posicion);
 	}
