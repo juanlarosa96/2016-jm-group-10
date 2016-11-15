@@ -66,4 +66,8 @@ public class ManejadorDeDispositivos {
 		
 		EntityManagerHelper.removerTodosLosDispositivos();
 	}
+
+	public Dispositivo getDispositivo(Integer id) {
+		return listaDispositivos.stream().filter(d -> d.getId().equals(id)).collect(Collectors.toList()).get(0);
+	}
 }

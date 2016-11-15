@@ -1,13 +1,17 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import adapters.CgpAdapter;
 import herramientas.EntityManagerHelper;
 import pois.Dispositivo;
 import pois.ExceptionComunaInvalida;
 import pois.ManejadorDeDispositivos;
+import pois.Posicion;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -19,6 +23,9 @@ public class TerminalesController {
 		
 		String comuna = req.queryParams("comuna");
 		List<Dispositivo> terminales;
+		
+		CgpAdapter cgpAdapter = new CgpAdapter(null);
+		ManejadorDeDispositivos.getInstance().setCgpAdapter(cgpAdapter);
 
 		if (comuna == null || comuna.equals("Todas")) {
 			terminales = ManejadorDeDispositivos.getInstance().getListaDispositivos();
@@ -33,7 +40,7 @@ public class TerminalesController {
 
 	public ModelAndView eliminarTerminal(Request req, Response res) throws ExceptionComunaInvalida, Exception {
 		Integer id = Integer.parseInt(req.params("id"));
-		Dispositivo dispositivo = EntityManagerHelper.find(Dispositivo.class, id);
+		Dispositivo dispositivo = ManejadorDeDispositivos.getInstance().getDispositivo(id);
 
 		ManejadorDeDispositivos.getInstance().eliminarDispositivo(dispositivo);
 
@@ -44,6 +51,37 @@ public class TerminalesController {
 		Map<String, String> model = new HashMap<>();
 
 		return new ModelAndView(model, "terminal/agregarTerminal.hbs");
+	}
+	
+	public ModelAndView agregarNuevaTerminal(Request req, Response res) throws ExceptionComunaInvalida, Exception {
+		String body = req.body();
+		String[] atributos = body.split("&");
+		Integer cantAtributos = atributos.length;
+		
+		List<String> valores = new ArrayList<String>();
+		String valor;
+		
+		for(int i=0; i < cantAtributos; i++){
+			if(atributos[i].split("=").length > 1)
+				valor = atributos[i].split("=")[1];
+			else
+				valor = " ";
+			
+			valores.add(valor);
+		}
+		
+		valores = valores.stream().map(unValor -> unValor.replace("+", " ")).collect(Collectors.toList());
+		
+		String nombre = valores.get(0);
+		String latitud = valores.get(1);
+		String longitud = valores.get(2);
+		
+		Posicion posicion = new Posicion(Double.parseDouble(latitud), Double.parseDouble(longitud));
+		Dispositivo nuevoDispositivo = new Dispositivo(nombre, posicion);
+		
+		ManejadorDeDispositivos.getInstance().agregarDispositivo(nuevoDispositivo);
+
+		return this.administrarTerminales(req, res);
 	}
 
 }

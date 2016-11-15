@@ -32,7 +32,7 @@ public class PersistidorMongo {
 		
 	}
 
-	public List<ResultadoBusqueda> buscarTodosLosResultadosBusqueda() {
+	public List<ResultadoBusqueda> obtenerTodosLosResultadosBusqueda() {
 		return datastore.createQuery(ResultadoBusqueda.class).asList();
 	}
 
