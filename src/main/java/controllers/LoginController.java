@@ -19,7 +19,7 @@ public class LoginController {
 		return new ModelAndView(null, "login/login.hbs");
 	}
 
-	public static ModelAndView loginUsuario(Request req, Response res) throws ExceptionErrorLogin {
+	public static ModelAndView loginUsuario(Request req, Response res){
 		RepoUsuarios repoUsuarios = RepoUsuarios.getInstance();
 		String body = req.body();
 		String[] params = body.split("&");
@@ -48,7 +48,9 @@ public class LoginController {
 				}
 
 		} catch (Exception e) {
-			throw new ExceptionErrorLogin();
+			Map<String, String> model = new HashMap<>();
+			model.put("excepcion", e.getMessage());
+			return new ModelAndView(model, "login/loginerror.hbs");
 		}
 	}
 }
