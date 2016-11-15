@@ -1,6 +1,7 @@
 package herramientas;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -15,7 +16,7 @@ import converters.LocalTimeConverter;
 import eventosBusqueda.ResultadoBusqueda;
 
 public class PersistidorMongo {
-	
+
 	private Morphia persistidor = new Morphia();
 	private Datastore datastore;
 
@@ -24,12 +25,12 @@ public class PersistidorMongo {
 		persistidor.mapPackage("pois");
 		datastore = persistidor.createDatastore(new MongoClient(), nombreDB);
 		datastore.ensureIndexes();
-		
+
 		Converters converters = persistidor.getMapper().getConverters();
 		converters.addConverter(BigDecimalConverter.class);
 		converters.addConverter(DateTimeConverter.class);
 		converters.addConverter(LocalTimeConverter.class);
-		
+
 	}
 
 	public List<ResultadoBusqueda> obtenerTodosLosResultadosBusqueda() {
@@ -43,6 +44,14 @@ public class PersistidorMongo {
 	public void borrarTodosLosResultadosBusquedaDeBD() {
 		Query<ResultadoBusqueda> resultadosABorrar = datastore.createQuery(ResultadoBusqueda.class);
 		datastore.delete(resultadosABorrar);
+	}
+
+	public ResultadoBusqueda obtenerResultadoBusqueda(String id) {
+		List<ResultadoBusqueda> busquedas = this.obtenerTodosLosResultadosBusqueda();
+
+		return busquedas.stream().filter(busq -> busq.getId().toString().equals(id)).collect(Collectors.toList())
+				.get(0);
+
 	}
 
 }

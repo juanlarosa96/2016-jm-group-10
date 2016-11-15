@@ -6,13 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.bson.types.ObjectId;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import eventosBusqueda.ResultadoBusqueda;
+import herramientas.PersistidorMongo;
 import pois.Direccion;
 import pois.ManejadorDePois;
 import pois.POI;
 import pois.Posicion;
+import poisBusqueda.POIDTO;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -212,6 +216,25 @@ public class PoisController implements WithGlobalEntityManager, TransactionalOps
 		ManejadorDePois.getInstance().eliminarPOIInterno(poi);
 		
 		return this.administrarPois(req, res);
+	}
+	
+	public ModelAndView verPoisDeConsulta(Request req, Response res){
+		
+		String idConsulta = req.params("id");	
+		
+		PersistidorMongo persistidorMongo = new PersistidorMongo();
+		persistidorMongo.inicializarDB("tpaPOIs");
+		
+		ResultadoBusqueda consulta = persistidorMongo.obtenerResultadoBusqueda(idConsulta);
+		
+		List<POIDTO> poisDTO = consulta.getPoisEncontrados();
+		
+		HashMap<String,List<POIDTO>> model = new HashMap<>();
+		
+		model.put("pois", poisDTO);
+		
+		return new ModelAndView(model, "pois/verPoisDeConsulta.hbs");
+		
 	}
 
 }

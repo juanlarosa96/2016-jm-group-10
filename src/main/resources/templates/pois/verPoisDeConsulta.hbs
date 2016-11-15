@@ -1,0 +1,21 @@
+{{#partial "contenido"}}
+
+<form name="verPoisDeConsulta">
+
+<div class="jumbotron">
+
+  {{#each pois}}
+	<h2> POI: {{this.nombre}} </h2>
+	<br>
+	<p><strong>Direccion:</strong> {{this.direccionString}}</p>
+	<br>
+	<br>
+{{/each}}
+  
+</div>	
+
+</form>
+
+{{/partial}}
+
+{{>layout.hbs}}

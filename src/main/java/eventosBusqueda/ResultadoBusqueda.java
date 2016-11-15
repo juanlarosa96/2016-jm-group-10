@@ -95,5 +95,9 @@ public class ResultadoBusqueda {
 	public String getDescripcionBuscada() {
 		return descripcionBuscada;
 	}
+	
+	public String getFechaString(){
+		return fecha.toString();
+	}
 
 }

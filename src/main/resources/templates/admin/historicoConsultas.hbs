@@ -1,0 +1,87 @@
+{{#partial "contenido"}}
+
+<form name="historicoConsultas" action="/admin/historicoConsultas/" method="GET">
+
+<div class="jumbotron">
+  <h2>Histórico de Consultas</h2>
+  <br>
+  <label> Fecha desde </label>
+  &nbsp&nbsp 
+  <input type="text" name="fechaDesde" size="8" >
+  &nbsp&nbsp </input>  
+  
+  <span style="display:inline-block;width:40;"> </span> 
+  
+  <label> Fecha hasta </label>
+  &nbsp&nbsp
+  <input type="text" name="fechaHasta" size="8" >
+  &nbsp&nbsp </input>  
+  
+   <span style="display:inline-block;width:40;"> </span> 
+
+	<label> Terminal </label>
+  &nbsp&nbsp
+  <select name="terminal"> 
+  	<option> Todas </option>
+  	
+    {{#each consultas}}
+  		<option> {{this.nombreTerminal}} </option>
+	{{/each}}	
+  </select>
+  
+  <br><br>
+  
+  <label> Cant POIs Encontrados </label>
+  &nbsp&nbsp
+  <select name="condicionCantPois"> 
+  	<option> Cualquiera </option>
+  	<option> Menor a </option>
+  	<option> Menor o igual a </option>
+  	<option> Igual a</option>
+  	<option> Mayor o igual a </option>
+  	<option> Mayor a </option>  	
+  </select>
+  &nbsp&nbsp
+  
+  <input type="number" name="cantPois">
+  &nbsp&nbsp </input>  
+  
+
+  <br>
+  <br>
+  <input class="btn btn-primary btn-lg" type="submit" value="Buscar">
+  <span style="display:inline-block;width:50;"> </span> 
+  <input class="btn btn-primary btn-lg" type="reset" value="Limpiar"> 
+  <br>
+  <br>
+  <h3> Consultas </h3>
+  <br>
+  
+  <table class="table table-stripped">
+	<tr>
+		<th>Fecha</th>
+		<th>Terminal</th>
+		<th>Descripción buscada</th>
+		<th>Demora (en segs.)</th>
+		<th>Pois encontrados</th>
+	</tr>
+	
+	{{#each consultas}}
+		<tr>
+			<td>{{this.fechaString}}</td>
+			<td>{{this.nombreTerminal}}</td>
+			<td>{{this.descripcionBuscada}}</td>
+			<td>{{this.demoraEnSegundos}}</td>
+			<td><a href="/admin/historicoConsultas/poisDeConsulta/{{this.id}}"> Ver POIs </a></td>
+		</tr>
+	{{/each}}
+	</table>
+  
+   
+</div>	
+
+</form>
+
+{{/partial}}
+
+{{>layout.hbs}}
