@@ -3,6 +3,7 @@ package herramientas;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.converters.Converters;
@@ -46,11 +47,9 @@ public class PersistidorMongo {
 		datastore.delete(resultadosABorrar);
 	}
 
-	public ResultadoBusqueda obtenerResultadoBusqueda(String id) {
-		List<ResultadoBusqueda> busquedas = this.obtenerTodosLosResultadosBusqueda();
-
-		return busquedas.stream().filter(busq -> busq.getId().toString().equals(id)).collect(Collectors.toList())
-				.get(0);
+	public ResultadoBusqueda obtenerResultadoBusqueda(ObjectId id) {
+		
+		return datastore.get(ResultadoBusqueda.class, id);
 
 	}
 

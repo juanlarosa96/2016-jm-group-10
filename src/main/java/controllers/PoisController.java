@@ -220,12 +220,14 @@ public class PoisController implements WithGlobalEntityManager, TransactionalOps
 	
 	public ModelAndView verPoisDeConsulta(Request req, Response res){
 		
-		String idConsulta = req.params("id");	
+		String idConsulta = req.params("id");
+		
+		ObjectId id = new ObjectId(idConsulta);
 		
 		PersistidorMongo persistidorMongo = new PersistidorMongo();
 		persistidorMongo.inicializarDB("tpaPOIs");
 		
-		ResultadoBusqueda consulta = persistidorMongo.obtenerResultadoBusqueda(idConsulta);
+		ResultadoBusqueda consulta = persistidorMongo.obtenerResultadoBusqueda(id);
 		
 		List<POIDTO> poisDTO = consulta.getPoisEncontrados();
 		

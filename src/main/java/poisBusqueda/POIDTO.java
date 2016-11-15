@@ -125,5 +125,9 @@ public class POIDTO {
 	public void setTipoPOI(String tipoPOI) {
 		this.tipoPOI = tipoPOI;
 	}
+	
+	public String getDireccionString(){
+		return this.direccion.mostrarDireccion();
+	}
 
 }
