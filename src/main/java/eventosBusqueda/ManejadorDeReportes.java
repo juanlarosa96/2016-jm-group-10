@@ -43,7 +43,7 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	}
 
 	private List<ResultadoBusqueda> busquedasPersistidas() {
-		return persistidor.buscarTodosLosResultadosBusqueda();
+		return persistidor.obtenerTodosLosResultadosBusqueda();
 	}
 
 	@Override
