@@ -235,7 +235,7 @@ public class PoisController implements WithGlobalEntityManager, TransactionalOps
 		
 		model.put("pois", poisDTO);
 		
-		return new ModelAndView(model, "pois/verPoisDeConsulta.hbs");
+		return new ModelAndView(model, "admin/poisDeConsulta.hbs");
 		
 	}
 

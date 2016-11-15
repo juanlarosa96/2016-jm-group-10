@@ -44,7 +44,7 @@ public class Router {
 		Spark.get("/admin/administrarPois/editarPOI/:id", poisController::editarPOI, engine);
 		Spark.post("/admin/administrarPois/guardarPOI/:id",poisController::guardarPOI,engine);
 		Spark.get("/admin/administrarPois/borrarPOI/:id", poisController::borrarPOI, engine);
-		Spark.get("/admin/historicoConsultas/poisDeConsulta/:id", poisController::verPoisDeConsulta);
+		Spark.get("/admin/historicoConsultas/poisDeConsulta/:id", poisController::verPoisDeConsulta,engine);
 		
 		
 		
