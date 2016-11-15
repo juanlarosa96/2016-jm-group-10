@@ -70,4 +70,13 @@ public class ManejadorDeDispositivos {
 	public Dispositivo getDispositivo(Integer id) {
 		return listaDispositivos.stream().filter(d -> d.getId().equals(id)).collect(Collectors.toList()).get(0);
 	}
+
+	public void actualizarDispositivo(Dispositivo dispositivo) {
+		Dispositivo dispositivoViejo = listaDispositivos.stream().filter(disp -> disp.getId().equals(dispositivo.getId())).findFirst().get();
+
+		listaDispositivos.remove(dispositivoViejo);
+		listaDispositivos.add(dispositivo);
+
+		EntityManagerHelper.actualizarDispositivo(dispositivo);
+	}
 }

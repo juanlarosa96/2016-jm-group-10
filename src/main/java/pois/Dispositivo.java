@@ -118,4 +118,9 @@ public class Dispositivo {
 		return cgpAdapter.dameComunaSegunPosicion(this.posicion);
 	}
 
+	public void copiarEstado(Dispositivo dispositivo) {
+		this.setNombre(dispositivo.getNombre());
+		this.setPosicion(dispositivo.getPosicion());
+	}
+
 }
