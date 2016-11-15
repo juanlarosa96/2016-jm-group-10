@@ -29,18 +29,18 @@ public class RepoUsuarios {
 				.collect(Collectors.toList());
 
 		if (usuariosQueMatchean.size() > 1) {
-			throw new Exception("Hay mas de un usuario con ese username");
+			throw new Exception("Hay más de un usuario con ese username.");
 		}
 
 		else if (usuariosQueMatchean.isEmpty()) {
-			throw new ExceptionUsuarioInexistente();
+			throw new Exception("Usuario inexistente.");
 		}
 
 		else {
 			Usuario usuario = usuariosQueMatchean.get(0);
 
 			if(!usuario.getPassword().equals(password))
-				throw new ExceptionContraseniaIncorrecta();
+				throw new Exception("Contraseña incorrecta.");
 			else
 				return usuario;
 		}
