@@ -39,8 +39,8 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		
 		//Dispositivos
 		
-		Dispositivo terminalAbasto = new Dispositivo("Terminal Abasto", new Posicion(25.55, 12.2));
-		Dispositivo terminalRecoleta = new Dispositivo("Terminal Recoleta", new Posicion(30.55, 22.2));
+		Dispositivo terminalAbasto = new Dispositivo("Terminal Abasto", new Posicion(-34.603329,-58.410789));
+		Dispositivo terminalRecoleta = new Dispositivo("Terminal Recoleta", new Posicion(-34.5862397, -58.4072864));
 		
 		ManejadorDeDispositivos.getInstance().agregarDispositivo(terminalAbasto);
 		ManejadorDeDispositivos.getInstance().agregarDispositivo(terminalRecoleta);

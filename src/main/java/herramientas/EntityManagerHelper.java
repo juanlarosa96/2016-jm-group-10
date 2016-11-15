@@ -209,4 +209,13 @@ public class EntityManagerHelper {
 		entityManager().detach(entity);
 	}
 
+	public static void actualizarDispositivo(Dispositivo dispositivo) {
+		beginTransaction();
+		Dispositivo dispViejo = find(Dispositivo.class, dispositivo.getId());
+		dispViejo.copiarEstado(dispositivo);
+		flush();
+		commit();
+		
+	}
+
 }
