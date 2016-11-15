@@ -40,7 +40,7 @@ public class TerminalesController {
 
 	public ModelAndView eliminarTerminal(Request req, Response res) throws ExceptionComunaInvalida, Exception {
 		Integer id = Integer.parseInt(req.params("id"));
-		Dispositivo dispositivo = EntityManagerHelper.find(Dispositivo.class, id);
+		Dispositivo dispositivo = ManejadorDeDispositivos.getInstance().getDispositivo(id);
 
 		ManejadorDeDispositivos.getInstance().eliminarDispositivo(dispositivo);
 
