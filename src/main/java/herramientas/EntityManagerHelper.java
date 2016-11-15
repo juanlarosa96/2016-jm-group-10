@@ -128,20 +128,7 @@ public class EntityManagerHelper {
 
 	@SuppressWarnings("unchecked")
 	public static List<POI> traerTodosLosPOIs() {
-		
-		/*List<String> etiquetas = new ArrayList<String>(){{
-			add("banco");
-			add("comafi");
-			add("tarjeta");
-		}};
-		
-		Direccion direccion = new Direccion("Rosario", 72, "Av La Plata", "Senillosa", null, null, 1424, "CABA",
-				"Caballito", "CABA", "Argentina");
-		
-		POI poi = new Banco(new Posicion(12.50,25.55), "Banco Comafi Caballito", direccion, etiquetas);
-		persistir(poi);*/
-		
-		
+			
 		return entityManager().createQuery("from POI").getResultList();
 	}
 
