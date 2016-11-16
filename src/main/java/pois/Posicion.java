@@ -206,4 +206,8 @@ public class Posicion {
 	public String toString() {
 		return ((("x: " + this.x) + ", y: ") + this.y);
 	}
+	
+	public Boolean esIgualA(Posicion otraPosicion){		
+ 		return this.latitude()==otraPosicion.latitude() && this.longitude()==otraPosicion.longitude();
+	}
 }

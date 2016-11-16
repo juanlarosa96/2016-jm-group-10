@@ -132,7 +132,7 @@ public abstract class POI {
 
 	public Boolean esIgualA(POI poi) {
 
-		return this.getPosicion().equals(poi.getPosicion());
+		return (this.getId()==poi.getId()) || (this.getPosicion().esIgualA(poi.getPosicion()));
 	}
 
 	public void copiarEstado(POI poiNuevo) {

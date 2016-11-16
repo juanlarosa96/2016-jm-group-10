@@ -170,6 +170,8 @@ public class PoisController implements WithGlobalEntityManager, TransactionalOps
 		String barrio = valores.get(9);
 		String provincia = valores.get(10);
 		String pais = valores.get(11);
+		String coordX = valores.get(12);
+		String coordY = valores.get(13);
 		
 		
 		if(!nombre.equals(" "))
@@ -211,6 +213,9 @@ public class PoisController implements WithGlobalEntityManager, TransactionalOps
 			direccion.setPais(pais);
 		
 		poi.setDireccion(direccion);
+		
+		if(!coordX.equals(" ") && !coordY.equals(" "))
+			poi.setPosicion(new Posicion(Double.parseDouble(coordX),Double.parseDouble(coordY)));
 		
 		ManejadorDePois.getInstance().agregarPoiInterno(poi);
 		
