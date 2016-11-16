@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import eventosBusqueda.ManejadorDeReportes;
+import pois.Dispositivo;
+import pois.Posicion;
+
 public class RepoUsuarios {
 
 	private static RepoUsuarios singleton = null;
@@ -24,6 +28,10 @@ public class RepoUsuarios {
 
 	public Usuario loginOK(String username, String password) throws Exception {
 
+		if(username.isEmpty() || username==null || password.isEmpty() || password==null){
+			throw new Exception("Ingrese usuario y contraseña");
+		}
+		
 		List<Usuario> usuariosQueMatchean = this.usuarios.stream()
 				.filter(usuario -> usuario.getUsername().equals(username))
 				.collect(Collectors.toList());
@@ -54,9 +62,13 @@ public class RepoUsuarios {
 	}
 	
 	private RepoUsuarios(){
+		
+		Dispositivo disp = new Dispositivo("Terminal Prueba", new Posicion(-34.608365, -58.434501));
+		disp.agregarInteresadoEnBusquedas(new ManejadorDeReportes());
+		
 		this.usuarios = new ArrayList<Usuario>();
-		this.usuarios.add(Usuario.nuevoUsuarioTerminal("pepe","argento"));
-		this.usuarios.add(Usuario.nuevoUsuarioAdministrador("admin", "w23e"));
+		this.usuarios.add(new UsuarioTerminal("pepe","argento",disp));
+		this.usuarios.add(new UsuarioAdmin("admin", "w23e"));
 	}
 
 }
