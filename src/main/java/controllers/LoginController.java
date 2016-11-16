@@ -9,9 +9,9 @@ import pois.POI;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import usuarios.ExceptionErrorLogin;
 import usuarios.RepoUsuarios;
 import usuarios.Usuario;
+import usuarios.UsuarioTerminal;
 
 public class LoginController {
 
@@ -23,8 +23,19 @@ public class LoginController {
 		RepoUsuarios repoUsuarios = RepoUsuarios.getInstance();
 		String body = req.body();
 		String[] params = body.split("&");
-		String username = params[0].split("=")[1];
-		String password = params[1].split("=")[1];
+		
+		String username; 
+		String password;
+		
+		if(params[0].split("=").length < 2)
+			username="";
+		else
+			username= params[0].split("=")[1];
+		
+		if(params[1].split("=").length < 2)
+			password="";
+		else
+			password = params[1].split("=")[1];
 		
 		try {
 			Usuario usuario = repoUsuarios.loginOK(username, password);
@@ -38,6 +49,7 @@ public class LoginController {
 			}
 
 			else{
+				
 				Map<String, List<POI>> model = new HashMap<>();
 				
 				List<POI> pois = new ArrayList<POI>();
