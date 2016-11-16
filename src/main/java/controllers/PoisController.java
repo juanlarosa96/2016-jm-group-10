@@ -12,7 +12,10 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import eventosBusqueda.ResultadoBusqueda;
 import herramientas.PersistidorMongo;
+import pois.Banco;
 import pois.Direccion;
+import pois.Dispositivo;
+import pois.ManejadorDeDispositivos;
 import pois.ManejadorDePois;
 import pois.POI;
 import pois.Posicion;
@@ -26,12 +29,20 @@ public class PoisController implements WithGlobalEntityManager, TransactionalOps
 	public ModelAndView buscarPois(Request req, Response res) {
 
 		String descripcion = req.queryParams("descripcion");
+		String idTerminal = req.params("idTerminal");
+		Integer idDispositivo = Integer.parseInt(idTerminal);
+		
+		Dispositivo dispositivo = ManejadorDeDispositivos.getInstance().getDispositivo(idDispositivo);
 
-		List<POI> pois = ManejadorDePois.getInstance().buscarPOIs(descripcion);
+		List<POI> pois = dispositivo.buscarPOIs(descripcion);
 
 		Map<String, List<POI>> model = new HashMap<>();
 
 		model.put("pois", pois);
+		
+		List<POI> poiConIDTerminalComoNombre = new ArrayList<POI>();
+		poiConIDTerminalComoNombre.add(new Banco(null,idTerminal,null,null));
+		model.put("terminales", poiConIDTerminalComoNombre);
 
 		return new ModelAndView(model, "terminal/buscarPois.hbs");
 	}
@@ -61,7 +72,7 @@ public class PoisController implements WithGlobalEntityManager, TransactionalOps
 
 	public ModelAndView mostrarPOI(Request req, Response res) {
 		Map<String, POI> model = new HashMap<>();
-		String id = req.params("id");
+		String id = req.params("idPOI");
 
 		POI poi = ManejadorDePois.getInstance().getPOI(Long.parseLong(id));
 

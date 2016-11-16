@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pois.Banco;
 import pois.POI;
 import spark.ModelAndView;
 import spark.Request;
@@ -50,11 +51,17 @@ public class LoginController {
 
 			else{
 				
+				UsuarioTerminal usuarioTerminal = (UsuarioTerminal) usuario;
+				String idTerminal = usuarioTerminal.getDispositivo().getId().toString();
+				
 				Map<String, List<POI>> model = new HashMap<>();
 				
-				List<POI> pois = new ArrayList<POI>();
-				
+				List<POI> pois = new ArrayList<POI>();				
 				model.put("pois", pois);
+				
+				List<POI> poiConIDTerminalComoNombre = new ArrayList<POI>();
+				poiConIDTerminalComoNombre.add(new Banco(null,idTerminal,null,null));
+				model.put("terminales", poiConIDTerminalComoNombre);				
 				
 				return new ModelAndView(model, "terminal/buscarPois.hbs");
 				}

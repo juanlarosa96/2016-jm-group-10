@@ -25,7 +25,7 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	@Transient
 	private static PersistidorMongo persistidor;
 
-	private Integer maxBusquedasPendientesPersist = 10;
+	private Integer maxBusquedasPendientesPersist = 1;
 
 	public ManejadorDeReportes() {
 

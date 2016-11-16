@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import eventosBusqueda.ManejadorDeReportes;
 import pois.Dispositivo;
+import pois.ManejadorDeDispositivos;
 import pois.Posicion;
 
 public class RepoUsuarios {
@@ -65,6 +66,8 @@ public class RepoUsuarios {
 		
 		Dispositivo disp = new Dispositivo("Terminal Prueba", new Posicion(-34.608365, -58.434501));
 		disp.agregarInteresadoEnBusquedas(new ManejadorDeReportes());
+		
+		ManejadorDeDispositivos.getInstance().agregarDispositivo(disp);		
 		
 		this.usuarios = new ArrayList<Usuario>();
 		this.usuarios.add(new UsuarioTerminal("pepe","argento",disp));
