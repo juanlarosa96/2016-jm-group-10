@@ -1,0 +1,50 @@
+{{#partial "contenido"}}
+
+
+<form name="accionesTerminal" >
+
+
+<div class="jumbotron">
+  <h2>Acciones de la Terminal</h2>
+  <br>
+  
+  <table class="table table-stripped">
+	<tr>
+		<th>Accion</th>
+		<th></th>
+	</tr>
+	
+	{{#each accionesTerminal}}
+		<tr>
+			<td>{{this.nombre}}</td>
+			<td><a href=""> Eliminar </a></td>
+		</tr>
+	{{/each}}
+	</table>
+	
+	<br><br>
+	
+	 <h2>Acciones que no tiene la Terminal</h2>
+  <br>
+  
+  <table class="table table-stripped">
+	<tr>
+		<th>Accion</th>
+		<th></th>
+	</tr>
+	
+	{{#each accionesQueNoTiene}}
+		<tr>
+			<td>{{this.nombre}}</td>
+			<td><a href=""> Agregar </a></td>
+		</tr>
+	{{/each}}
+	</table>
+  
+</div>	
+
+</form>
+
+{{/partial}}
+
+{{>layout.hbs}}

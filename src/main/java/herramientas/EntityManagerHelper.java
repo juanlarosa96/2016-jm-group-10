@@ -9,6 +9,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import eventosBusqueda.InteresadoEnBusquedas;
 import pois.Comercio;
 import pois.Dispositivo;
 import pois.POI;
@@ -225,6 +226,15 @@ public class EntityManagerHelper {
 	public static Usuario obtenerUsuario(String username) {
 		return (Usuario) entityManager().createQuery("from Usuario where username = :user").setParameter("user", username)
 				.getSingleResult();
+	}
+
+	public static Dispositivo obtenerDispositivo(Integer id) {
+		return find(Dispositivo.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<InteresadoEnBusquedas> obtenerTodosLosInteresadoEnBusquedas() {
+		return createQuery("from InteresadoEnBusquedas").getResultList();
 	}
 
 }

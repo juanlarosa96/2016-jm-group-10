@@ -62,8 +62,7 @@ public class ManejadorDeDispositivos {
 	}
 
 	public Dispositivo getDispositivo(Integer id) {
-		return this.getListaDispositivos().stream().filter(d -> d.getId().equals(id)).collect(Collectors.toList())
-				.get(0);
+		return EntityManagerHelper.obtenerDispositivo(id);
 	}
 
 	public void actualizarDispositivo(Dispositivo dispositivo) {
