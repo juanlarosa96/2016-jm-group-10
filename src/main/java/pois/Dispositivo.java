@@ -27,9 +27,6 @@ public class Dispositivo {
 	@Embedded
 	private Posicion posicion;
 
-	@Transient
-	private ManejadorDePois manejadorDePois;
-
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private List<InteresadoEnBusquedas> observers;
 
@@ -46,7 +43,6 @@ public class Dispositivo {
 	public Dispositivo(String unNombre, Posicion unaPosicion) {
 		this.nombre = unNombre;
 		this.posicion = unaPosicion;
-		this.manejadorDePois = ManejadorDePois.getInstance();
 		this.observers = new ArrayList<InteresadoEnBusquedas>();
 	}
 
@@ -61,7 +57,7 @@ public class Dispositivo {
 	public List<POI> buscarPOIs(String descripcion) {
 		DateTime inicio = DateTime.now();
 
-		List<POI> listaPoisEncontrados = manejadorDePois.buscarPOIs(descripcion);
+		List<POI> listaPoisEncontrados = ManejadorDePois.getInstance().buscarPOIs(descripcion);
 
 		DateTime fin = DateTime.now();
 
