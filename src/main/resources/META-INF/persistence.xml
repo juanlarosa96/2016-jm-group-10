@@ -23,6 +23,10 @@
 		<class> eventosBusqueda.NotificadorEmail </class>
 		<class> eventosBusqueda.ManejadorDeReportes </class>
 		<class> eventosBusqueda.ResultadoBusqueda </class>
+		
+		<class> usuarios.Usuario </class>
+		<class> usuarios.UsuarioAdmin </class>
+		<class> usuarios.UsuarioTerminal </class>
 
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class" />
