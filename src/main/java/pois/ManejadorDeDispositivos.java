@@ -8,11 +8,9 @@ import herramientas.EntityManagerHelper;
 
 public class ManejadorDeDispositivos {
 	private static ManejadorDeDispositivos singleton = null;
-	public List<Dispositivo> listaDispositivos;
 	private CgpAdapter cgpAdapter;
 
 	private ManejadorDeDispositivos() {
-		listaDispositivos = EntityManagerHelper.traerTodosLosDispositivos();
 	}
 
 	public static ManejadorDeDispositivos getInstance() {
@@ -28,21 +26,18 @@ public class ManejadorDeDispositivos {
 	}
 
 	public List<Dispositivo> getListaDispositivos() {
-		return listaDispositivos;
+		return EntityManagerHelper.traerTodosLosDispositivos();
 	}
 
 	public void setListaDispositivos(List<Dispositivo> nuevaListaDispositivos) {
-		listaDispositivos = nuevaListaDispositivos;
-
 		EntityManagerHelper.actualizarDispositivos(nuevaListaDispositivos);
 	}
 
 	public void agregarDispositivo(Dispositivo dispositivo) {
-		listaDispositivos.add(dispositivo);
 		EntityManagerHelper.persistir(dispositivo);
 	}
 
-	public List<Dispositivo> filtrarPorComuna(Integer numComuna) throws ExceptionComunaInvalida{
+	public List<Dispositivo> filtrarPorComuna(Integer numComuna) throws ExceptionComunaInvalida {
 		Comuna comuna;
 		try {
 			comuna = cgpAdapter.dameComuna(numComuna);
@@ -50,32 +45,28 @@ public class ManejadorDeDispositivos {
 			throw new ExceptionComunaInvalida();
 		}
 
-		List<Dispositivo> dispositivos = this.listaDispositivos.stream()
+		List<Dispositivo> todosLosDispositivos = this.getListaDispositivos();
+
+		List<Dispositivo> dispositivosFiltrados = todosLosDispositivos.stream()
 				.filter(dispositivo -> comuna.incluyeA(dispositivo.getPosicion())).collect(Collectors.toList());
-		return dispositivos;
+
+		return dispositivosFiltrados;
 	}
 
 	public void eliminarDispositivo(Dispositivo disp) {
-		listaDispositivos.remove(disp);
-		
 		EntityManagerHelper.removerDispositivo(disp.getId());
 	}
 
 	public void clearDispositivos() {
-		listaDispositivos.clear();
-		
 		EntityManagerHelper.removerTodosLosDispositivos();
 	}
 
 	public Dispositivo getDispositivo(Integer id) {
-		return listaDispositivos.stream().filter(d -> d.getId().equals(id)).collect(Collectors.toList()).get(0);
+		return this.getListaDispositivos().stream().filter(d -> d.getId().equals(id)).collect(Collectors.toList())
+				.get(0);
 	}
 
 	public void actualizarDispositivo(Dispositivo dispositivo) {
-		Dispositivo dispositivoViejo = listaDispositivos.stream().filter(disp -> disp.getId().equals(dispositivo.getId())).findFirst().get();
-
-		listaDispositivos.remove(dispositivoViejo);
-		listaDispositivos.add(dispositivo);
 
 		EntityManagerHelper.actualizarDispositivo(dispositivo);
 	}
