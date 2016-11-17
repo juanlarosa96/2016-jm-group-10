@@ -1,6 +1,5 @@
 package herramientas;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.*;
 
@@ -10,12 +9,10 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import pois.Banco;
 import pois.Comercio;
-import pois.Direccion;
 import pois.Dispositivo;
 import pois.POI;
-import pois.Posicion;
+import usuarios.Usuario;
 
 public class EntityManagerHelper {
 
@@ -128,7 +125,7 @@ public class EntityManagerHelper {
 
 	@SuppressWarnings("unchecked")
 	public static List<POI> traerTodosLosPOIs() {
-			
+
 		return entityManager().createQuery("from POI").getResultList();
 	}
 
@@ -215,7 +212,19 @@ public class EntityManagerHelper {
 		dispViejo.copiarEstado(dispositivo);
 		flush();
 		commit();
-		
+
+	}
+
+	public static boolean existeUsuario(String username) {
+
+		return !entityManager().createQuery("from Usuario where username = :user").setParameter("user", username)
+				.getResultList().isEmpty();
+
+	}
+
+	public static Usuario obtenerUsuario(String username) {
+		return (Usuario) entityManager().createQuery("from Usuario where username = :user").setParameter("user", username)
+				.getSingleResult();
 	}
 
 }
