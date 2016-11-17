@@ -10,7 +10,7 @@ import pois.POI;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import usuarios.RepoUsuarios;
+import usuarios.ManejadorDeUsuarios;
 import usuarios.Usuario;
 import usuarios.UsuarioTerminal;
 
@@ -21,7 +21,7 @@ public class LoginController {
 	}
 
 	public static ModelAndView loginUsuario(Request req, Response res){
-		RepoUsuarios repoUsuarios = RepoUsuarios.getInstance();
+		ManejadorDeUsuarios repoUsuarios = ManejadorDeUsuarios.getInstance();
 		String body = req.body();
 		String[] params = body.split("&");
 		
