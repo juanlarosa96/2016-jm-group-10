@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import adapters.CgpAdapter;
 import eventosBusqueda.InteresadoEnBusquedas;
+import eventosBusqueda.NotificadorEmail;
 import herramientas.EntityManagerHelper;
 import pois.Dispositivo;
 import pois.ExceptionComunaInvalida;
@@ -150,16 +151,54 @@ public class TerminalesController {
 
 		HashMap<String, List<InteresadoEnBusquedas>> model = new HashMap<>();
 
-		model.put("accionesTerminal", accionesTerminal);
-
-		List<InteresadoEnBusquedas> accionesQueNoTiene = EntityManagerHelper.obtenerTodosLosInteresadoEnBusquedas();
+		model.put("accionesTerminal", accionesTerminal);		
 		
-		accionesQueNoTiene.removeAll(accionesTerminal);
+		InteresadoEnBusquedas interesadoConIdTerminalComoMail  = new NotificadorEmail(null, idTerminal, null);
 		
-		model.put("accionesQueNoTiene", accionesQueNoTiene);
+		List<InteresadoEnBusquedas> terminal =	new ArrayList<InteresadoEnBusquedas>(){{ add(interesadoConIdTerminalComoMail);}};
+		
+		model.put("terminal", terminal);
 
 		return new ModelAndView(model, "terminal/acciones.hbs");
-		//falta terminar el hbs
 	}
+
+	public ModelAndView mostrarAgregarAccionATerminal(Request req, Response res) {
+
+		String idTerminal = req.params("id");
+		Integer idDispositivo = Integer.parseInt(idTerminal);
+
+		Dispositivo dispositivo = ManejadorDeDispositivos.getInstance().getDispositivo(idDispositivo);
+
+		List<InteresadoEnBusquedas> accionesTerminal = dispositivo.getObservers();
+
+		HashMap<String, List<String>> model = new HashMap<>();
+
+		List<String> acciones = new ArrayList<String>() {
+			{
+				add("Notificar por email");
+			}
+		};
+		
+		List<String> terminal =	new ArrayList<String>(){{ add(idTerminal);}};
+
+		if (!accionesTerminal.stream().anyMatch(accion -> accion.getNombreAccion().equals("Reportar búsquedas")))
+			acciones.add("Reportar búsquedas");
+
+		model.put("acciones", acciones);
+		model.put("idTerminal", terminal);
+
+		return new ModelAndView(model, "terminal/agregarAcciones.hbs");
+
+	}
+
+	public ModelAndView agregarAccionATerminal(Request req, Response res) {
+		return null;
+	}
+	
+	public ModelAndView borrarAccionDeTerminal(Request req, Response res) {
+		return null;
+	}
+	
+	
 
 }
