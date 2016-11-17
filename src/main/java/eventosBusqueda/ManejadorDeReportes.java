@@ -153,5 +153,9 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 			busquedasPorPersistir.clear();
 		}
 	}
+	
+	public String getNombreAccion(){
+		return "Reportar búsquedas";
+	}
 
 }

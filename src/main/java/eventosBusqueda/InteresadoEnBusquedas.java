@@ -17,6 +17,8 @@ public abstract class InteresadoEnBusquedas {
 
 	public abstract void notificarBusqueda(ResultadoBusqueda unaBusqueda);
 	
+	public abstract String getNombreAccion();
+	
 	public Integer getId() {
 		return id;
 	}

@@ -80,4 +80,12 @@ public class NotificadorEmail extends InteresadoEnBusquedas {
 	public List<MailEnviado> getMailsEnviados() {
 		return mailsEnviados;
 	}
+	
+	public String getNombreAccion(){
+		return "Notificar por email las búsquedas con demora";
+	}
+	
+	public String getDetalle(){
+		return "Email admin: " + this.emailAdmin +"; Demora: " + this.demoraMaximaEnSegundos +" segs";
+	}
 }
