@@ -1,7 +1,6 @@
 package herramientas;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;

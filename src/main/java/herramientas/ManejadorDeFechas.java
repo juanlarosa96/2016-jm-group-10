@@ -6,13 +6,7 @@ import java.util.stream.Collectors;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import pois.FranjaHoraria;
-import pois.Servicio;
 
 public class ManejadorDeFechas {
 	public static Boolean estaEnFranjaHoraria(DateTime fecha, FranjaHoraria franjaHoraria) {

@@ -7,13 +7,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import adapters.CgpAdapter;
-import herramientas.EntityManagerHelper;
-import pois.Direccion;
 import pois.Dispositivo;
 import pois.ExceptionComunaInvalida;
 import pois.ManejadorDeDispositivos;
-import pois.ManejadorDePois;
-import pois.POI;
 import pois.Posicion;
 import spark.ModelAndView;
 import spark.Request;
