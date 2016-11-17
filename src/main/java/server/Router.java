@@ -33,17 +33,24 @@ public class Router {
 		Spark.get("/terminal/:idTerminal/buscarPois/pois/:idPOI", poisController::mostrarPOI, engine);
 		
 		Spark.get("/admin/administrarPois/", poisController::administrarPois, engine);
-		Spark.get("/admin/administrarTerminales/", terminalesController::administrarTerminales, engine);
-//		Spark.get("/admin/administrarTerminales/acciones/:id", terminalesController::mostrarAcciones, engine);
+		Spark.get("/admin/administrarPois/editarPOI/:id", poisController::editarPOI, engine);
+		Spark.post("/admin/administrarPois/guardarPOI/:id",poisController::guardarPOI,engine);
+		Spark.get("/admin/administrarPois/borrarPOI/:id", poisController::borrarPOI, engine);
+		
+		Spark.get("/admin/administrarTerminales/", terminalesController::administrarTerminales, engine);		
 		Spark.get("/admin/administrarTerminales/editar/:id", terminalesController::mostrarTerminal, engine);
 		Spark.get("/admin/administrarTerminales/agregar/", terminalesController::agregarTerminal, engine);
 		Spark.get("/admin/administrarTerminales/eliminar/:id", terminalesController::eliminarTerminal, engine);
 		Spark.post("/admin/administrarTerminales/guardarTerminalEditada/:id", terminalesController::editarTerminal, engine);
 		Spark.post("/admin/administrarTerminales/guardarNuevaTerminal/", terminalesController::agregarNuevaTerminal, engine);
-		Spark.get("/admin/historicoConsultas/", consultasController::historicoConsultas, engine);
-		Spark.get("/admin/administrarPois/editarPOI/:id", poisController::editarPOI, engine);
-		Spark.post("/admin/administrarPois/guardarPOI/:id",poisController::guardarPOI,engine);
-		Spark.get("/admin/administrarPois/borrarPOI/:id", poisController::borrarPOI, engine);
+		
+		Spark.get("/admin/administrarTerminales/:id/acciones/", terminalesController::mostrarAcciones, engine);
+		Spark.post("/admin/administrarTerminales/:id/acciones/agregar",terminalesController::mostrarAgregarAccionATerminal ,engine);
+		Spark.get("/admin/administrarTerminales/:id/acciones/borrar/:idAccion",terminalesController::borrarAccionDeTerminal ,engine);
+		Spark.post("/admin/administrarTerminales/:id/acciones/",terminalesController::agregarAccionATerminal ,engine);
+		
+		
+		Spark.get("/admin/historicoConsultas/", consultasController::historicoConsultas, engine);		
 		Spark.get("/admin/historicoConsultas/poisDeConsulta/:id", poisController::verPoisDeConsulta,engine);
 		
 		
