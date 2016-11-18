@@ -27,7 +27,7 @@ public class Dispositivo {
 	@Embedded
 	private Posicion posicion;
 
-	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<InteresadoEnBusquedas> observers;
 
 	// ---------------------

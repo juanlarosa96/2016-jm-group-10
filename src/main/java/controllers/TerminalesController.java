@@ -1,5 +1,6 @@
 package controllers;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -226,7 +227,10 @@ public class TerminalesController {
 			Dispositivo dispositivo = ManejadorDeDispositivos.getInstance().getDispositivo(Integer.parseInt(idTerminal));
 			ManejadorDeReportes manejadorDeReportes = new ManejadorDeReportes();
 			
+			EntityManagerHelper.beginTransaction();
 			dispositivo.agregarInteresadoEnBusquedas(manejadorDeReportes);
+			EntityManagerHelper.commit();
+			
 			return this.mostrarAcciones(req, res);
 		}
 	}
@@ -251,7 +255,7 @@ public class TerminalesController {
 
 		valores = valores.stream().map(unValor -> unValor.replace("+", " ")).collect(Collectors.toList());
 
-		String mail = valores.get(0);
+		String mail = valores.get(0).replace("%40", "@");
 		String demora = valores.get(1);
 		
 		Dispositivo dispositivo = ManejadorDeDispositivos.getInstance().getDispositivo(Integer.parseInt(idTerminal));

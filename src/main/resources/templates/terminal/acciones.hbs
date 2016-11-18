@@ -13,15 +13,16 @@
 		<th></th>
 	</tr>
 	
-	{{#each acciones}}
+	{{#each accionesTerminal}}
 		<tr>
-			<td>{{this}}</td>
-			<td> <a href="/admin/administrarTerminales/:id/acciones/borrar/{{this.id}}">Eliminar</a></td>
+			<td>{{this.nombreAccion}}</td>
+			<td>{{this.detalle}}</td>
+			<td> <a href="/admin/administrarTerminales/{{#each terminal}}{{this.emailAdmin}}{{/each}}/acciones/borrar/{{this.id}}">Eliminar</a></td>
 		</tr>
 	{{/each}}
 	</table>
 	
-	<input class="btn btn-primary btn-lg" type="submit" name={{this}} value="Agregar">
+	<input class="btn btn-primary btn-lg" type="submit" value="Agregar">
 	  
 </div>	
 
