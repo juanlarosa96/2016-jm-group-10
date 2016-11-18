@@ -14,8 +14,8 @@
 	
 	{{#each acciones}}
 		<tr>
-			<td name="accion">{{this}}</td>
-			<td><input class="btn btn-primary btn-lg" type="submit" value="Agregar"></td>
+			<td> {{this}} </td>
+			<td><input class="btn btn-primary btn-lg" type="submit" name="{{this}}" value="Agregar"></td>
 		</tr>
 	{{/each}}
 	</table>

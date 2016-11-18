@@ -48,7 +48,7 @@ public class Router {
 		Spark.post("/admin/administrarTerminales/:id/acciones/agregar",terminalesController::mostrarAgregarAccionATerminal ,engine);
 		Spark.get("/admin/administrarTerminales/:id/acciones/borrar/:idAccion",terminalesController::borrarAccionDeTerminal ,engine);
 		Spark.post("/admin/administrarTerminales/:id/acciones/",terminalesController::agregarAccionATerminal ,engine);
-		
+		Spark.post("/admin/administrarTerminales/:id/acciones/notificadorMail/",terminalesController::agregarNotificadorMailATerminal ,engine);
 		
 		Spark.get("/admin/historicoConsultas/", consultasController::historicoConsultas, engine);		
 		Spark.get("/admin/historicoConsultas/poisDeConsulta/:id", poisController::verPoisDeConsulta,engine);

@@ -1,0 +1,31 @@
+{{#partial "contenido"}}
+
+<form name="crearNotificadorMail" action="/admin/administrarTerminales/{{idTerminal}}/acciones/notificadorMail/" method="POST">
+
+<div class="jumbotron">
+
+	<h2> Notificador mail </h2>
+	<br>
+
+	Mail:
+	<input type="text" name="mail" value="{{nombre}}"> </input>
+	<br>
+	<br>
+
+	Demora maxima en segundos de la busqueda:
+	</label> <input type="text" name="demora" > </input> <br>	
+	<br>
+		
+  	<input class="btn btn-primary btn-lg" type="submit" value="Crear">
+  	
+  	<a href="/admin/administrarTerminales/{{idTerminal}}/acciones/"> 
+  	<input class="btn btn-primary btn-lg" value="Cancelar">
+  	</a>
+  
+</div>	
+
+</form>
+
+{{/partial}}
+
+{{>layout.hbs}}

@@ -155,7 +155,7 @@ public class ManejadorDeReportes extends InteresadoEnBusquedas {
 	}
 	
 	public String getNombreAccion(){
-		return "Reportar búsquedas";
+		return "Reportar busquedas";
 	}
 
 }

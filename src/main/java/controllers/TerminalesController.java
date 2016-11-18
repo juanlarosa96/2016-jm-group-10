@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import adapters.CgpAdapter;
 import eventosBusqueda.InteresadoEnBusquedas;
+import eventosBusqueda.ManejadorDeReportes;
 import eventosBusqueda.NotificadorEmail;
 import herramientas.EntityManagerHelper;
 import pois.Dispositivo;
@@ -181,8 +182,8 @@ public class TerminalesController {
 		
 		List<String> terminal =	new ArrayList<String>(){{ add(idTerminal);}};
 
-		if (!accionesTerminal.stream().anyMatch(accion -> accion.getNombreAccion().equals("Reportar búsquedas")))
-			acciones.add("Reportar búsquedas");
+		if (!accionesTerminal.stream().anyMatch(accion -> accion.getNombreAccion().equals("Reportar busquedas")))
+			acciones.add("Reportar busquedas");
 
 		model.put("acciones", acciones);
 		model.put("idTerminal", terminal);
@@ -192,7 +193,73 @@ public class TerminalesController {
 	}
 
 	public ModelAndView agregarAccionATerminal(Request req, Response res) {
-		return null;
+		String idTerminal = req.params("id");
+		String body = req.body();
+		String[] atributos = body.split("&");
+		Integer cantAtributos = atributos.length;
+
+		List<String> valores = new ArrayList<String>();
+		String valor;
+
+		for (int i = 0; i < cantAtributos; i++) {
+			if (atributos[i].split("=").length > 1)
+				valor = atributos[i].split("=")[0];
+			else
+				valor = " ";
+
+			valores.add(valor);
+		}
+
+		valores = valores.stream().map(unValor -> unValor.replace("+", " ")).collect(Collectors.toList());
+
+		String accion = valores.get(0);
+		
+		if (accion.equals("Notificar por email")){
+			HashMap<String, String> model = new HashMap<>();
+			model.put("idTerminal", idTerminal);
+			model.put("accion", accion);
+			
+			return new ModelAndView(model, "terminal/crearNotificadorMail.hbs");
+		}
+		
+		else {
+			Dispositivo dispositivo = ManejadorDeDispositivos.getInstance().getDispositivo(Integer.parseInt(idTerminal));
+			ManejadorDeReportes manejadorDeReportes = new ManejadorDeReportes();
+			
+			dispositivo.agregarInteresadoEnBusquedas(manejadorDeReportes);
+			return this.mostrarAcciones(req, res);
+		}
+	}
+	
+	public ModelAndView agregarNotificadorMailATerminal(Request req, Response res) {
+		String idTerminal = req.params("id");
+		String body = req.body();
+		String[] atributos = body.split("&");
+		Integer cantAtributos = atributos.length;
+
+		List<String> valores = new ArrayList<String>();
+		String valor;
+
+		for (int i = 0; i < cantAtributos; i++) {
+			if (atributos[i].split("=").length > 1)
+				valor = atributos[i].split("=")[1];
+			else
+				valor = " ";
+
+			valores.add(valor);
+		}
+
+		valores = valores.stream().map(unValor -> unValor.replace("+", " ")).collect(Collectors.toList());
+
+		String mail = valores.get(0);
+		String demora = valores.get(1);
+		
+		Dispositivo dispositivo = ManejadorDeDispositivos.getInstance().getDispositivo(Integer.parseInt(idTerminal));
+		NotificadorEmail notificador = new NotificadorEmail(Double.parseDouble(demora), mail, null);
+		
+		dispositivo.agregarInteresadoEnBusquedas(notificador);
+		
+		return this.mostrarAcciones(req, res);
 	}
 	
 	public ModelAndView borrarAccionDeTerminal(Request req, Response res) {
