@@ -237,4 +237,8 @@ public class EntityManagerHelper {
 		return createQuery("from InteresadoEnBusquedas").getResultList();
 	}
 
+	public static InteresadoEnBusquedas obtenerInteresadoEnBusqueda(Integer id) {
+		return find(InteresadoEnBusquedas.class, id);
+	}
+
 }

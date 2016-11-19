@@ -260,13 +260,26 @@ public class TerminalesController {
 		Dispositivo dispositivo = ManejadorDeDispositivos.getInstance().getDispositivo(Integer.parseInt(idTerminal));
 		NotificadorEmail notificador = new NotificadorEmail(Double.parseDouble(demora), mail, null);
 		
+		EntityManagerHelper.beginTransaction();
 		dispositivo.agregarInteresadoEnBusquedas(notificador);
+		EntityManagerHelper.commit();
 		
 		return this.mostrarAcciones(req, res);
 	}
 	
 	public ModelAndView borrarAccionDeTerminal(Request req, Response res) {
-		return null;
+		String idTerminal = req.params("id");
+		String idAccion = req.params("idAccion");
+		
+		Dispositivo disp = ManejadorDeDispositivos.getInstance().getDispositivo(Integer.parseInt(idTerminal));
+		InteresadoEnBusquedas accion = EntityManagerHelper.obtenerInteresadoEnBusqueda(Integer.parseInt(idAccion));
+		
+		EntityManagerHelper.beginTransaction();
+		disp.eliminarInteresadoEnBusquedas(accion);
+		EntityManagerHelper.commit();
+		
+		return this.mostrarAcciones(req, res);
+		
 	}
 	
 	
