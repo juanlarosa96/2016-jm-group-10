@@ -7,21 +7,24 @@ import javax.persistence.*;
 import org.joda.time.LocalTime;
 import org.mongodb.morphia.annotations.Property;
 
+import herramientas.ManejadorDeFechas;
+
 @Embeddable
 public class FranjaHoraria {
-	
+
 	private Integer diaDeLaSemana;
-	
+
 	@Property(value = "horario_apertura")
-	private LocalTime horarioApertura;	
-	
+	private LocalTime horarioApertura;
+
 	@Property(value = "horario_cierre")
 	private LocalTime horarioCierre;
-	
-	//---------------------
-	
+
+	// ---------------------
+
 	@SuppressWarnings("unused")
-	private FranjaHoraria(){}
+	private FranjaHoraria() {
+	}
 
 	public FranjaHoraria(Integer dia, LocalTime horarioApertura, LocalTime horarioCierre) {
 
@@ -29,8 +32,8 @@ public class FranjaHoraria {
 		this.horarioApertura = horarioApertura;
 		this.horarioCierre = horarioCierre;
 	}
-	
-	public FranjaHoraria clone(){
+
+	public FranjaHoraria clone() {
 		return new FranjaHoraria(diaDeLaSemana, horarioApertura, horarioCierre);
 	}
 
@@ -57,13 +60,15 @@ public class FranjaHoraria {
 	public void setHorarioCierre(LocalTime horarioCierre) {
 		this.horarioCierre = horarioCierre;
 	}
-	
+
 	public static List<FranjaHoraria> clonarHorarios(List<FranjaHoraria> horarios) {
 		return horarios.stream().map(franja -> franja.clone()).collect(Collectors.toList());
 	}
-	
 
-	
+	@Override
+	public String toString() {
+		return "Dia semana: " + ManejadorDeFechas.getNombreDia(this.diaDeLaSemana) + ", Hora desde: "
+				+ this.horarioApertura + ", Hora hasta: " + this.horarioCierre;
+	}
 
-	
 }
