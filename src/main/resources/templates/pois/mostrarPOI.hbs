@@ -9,7 +9,32 @@
 	<br>
 	<p><strong>Direccion:</strong> {{this.direccionString}}</p>
 	<br>
-	<p><strong>Coordenadas:</strong> {{this.posicion}}</p>
+	
+	<h3>Ubicacion</h3>
+	<style>
+	   #map {
+	        height: 400px;
+	        width: 100%;
+	       }
+	</style>
+	<div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: {{this.latitud}}, lng: {{this.longitud}} };
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMsV0UaRboqdTWSR13EV0d_xgsi8Qjbsg&callback=initMap">
+    </script>
+	
 	<br>
 	<p><strong>Etiquetas:</strong> {{this.etiquetas}} </p>
 	<br>
