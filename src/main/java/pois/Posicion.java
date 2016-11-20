@@ -17,34 +17,22 @@ import org.uqbar.geodds.NumberUtils;
 public class Posicion {
 	
 	@Property(value = "latitud")
-	private BigDecimal x;
+	private Double x;
 
 	@Property(value = "longitud")
-	private BigDecimal y;
+	private Double y;
 
 	public Posicion clone(){
-		return new Posicion(x.doubleValue(),y.doubleValue());
+		return new Posicion(x,y);
 		
 	}
 	
 	/**
-	 * Constructor para valores enteros
-	 */
-	public Posicion(final int aX, final int aY) {
-		BigDecimal _bigDecimal = new BigDecimal(aX);
-		this.x = _bigDecimal;
-		BigDecimal _bigDecimal_1 = new BigDecimal(aY);
-		this.y = _bigDecimal_1;
-	}
-
-	/**
 	 * Constructor para valores double
 	 */
 	public Posicion(final double aX, final double aY) {
-		BigDecimal _bigDecimal = new BigDecimal(aX);
-		this.x = _bigDecimal;
-		BigDecimal _bigDecimal_1 = new BigDecimal(aY);
-		this.y = _bigDecimal_1;
+		this.x = aX;
+		this.y = aY;
 	}
 	
 	/**
@@ -70,14 +58,14 @@ public class Posicion {
 	 * Indica la latitud del punto (su abscisa)
 	 */
 	public double latitude() {
-		return this.x.doubleValue();
+		return this.x;
 	}
 
 	/**
 	 * Indica la longitud del punto (su ordenada)
 	 */
 	public double longitude() {
-		return this.y.doubleValue();
+		return this.y;
 	}
 
 	/**
