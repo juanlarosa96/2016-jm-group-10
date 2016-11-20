@@ -156,5 +156,15 @@ public abstract class POI {
 	public String getDireccionString(){
 		return this.direccion.mostrarDireccion();
 	}
+	
+	public Double getLatitud(){
+		return this.getPosicion().latitude();
+	}
+	
+	public Double getLongitud(){
+		return this.getPosicion().longitude();
+	}
+	
+	
 
 }
