@@ -32,7 +32,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 		Direccion direccion = new Direccion("Rosario", 72, "Av La Plata", "Senillosa", null, null, 1424, "CABA",
 				"Caballito", "CABA", "Argentina");
 		
-		POI poi = new Banco(new Posicion(12.50,25.55), "Banco Comafi Caballito", direccion, etiquetas);
+		POI poi = new Banco(new Posicion(-34.618500, -58.429600), "Banco Comafi Caballito", direccion, etiquetas);
 		
 		EntityManagerHelper.persistir(poi);
 		
