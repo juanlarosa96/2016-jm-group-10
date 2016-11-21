@@ -67,7 +67,7 @@ public class FranjaHoraria {
 
 	@Override
 	public String toString() {
-		return "Dia semana: " + ManejadorDeFechas.getNombreDia(this.diaDeLaSemana) + ", Hora desde: "
+		return "Dia: " + ManejadorDeFechas.getNombreDia(this.diaDeLaSemana) + ", Hora desde: "
 				+ this.horarioApertura + ", Hora hasta: " + this.horarioCierre;
 	}
 
