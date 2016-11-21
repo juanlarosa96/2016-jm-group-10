@@ -34,14 +34,25 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMsV0UaRboqdTWSR13EV0d_xgsi8Qjbsg&callback=initMap">
     </script>
+    
+	<br>
+	<p>
+	<strong>Etiquetas:</strong>
+	<li style="list-style: none">{{#each etiquetas}}</li>
+	<li><p>{{this}}</p></li>
+	<li style="list-style: none">{{/each}}</li>
+	</p>
 	
 	<br>
-	<p><strong>Etiquetas:</strong> {{this.etiquetas}} </p>
-	<br>
-	<p><strong>Horarios:</strong> {{this.horarios}} </p>
+	<p>
+	<strong>Horarios:</strong>
+	<li style="list-style: none">{{#each horarios}}</li>
+	<li><p>{{this}}</p></li>
+	<li style="list-style: none">{{/each}}</li>
+	</p>
+
 	
-	
-{{/with}}
+	{{/with}}
   
 </div>	
 
