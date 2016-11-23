@@ -20,7 +20,7 @@ public class ManejadorDeUsuarios {
 	public Usuario loginOK(String username, String password) throws Exception {
 
 		if(username.isEmpty() || username==null || password.isEmpty() || password==null){
-			throw new Exception("Ingrese usuario y contraseña");
+			throw new Exception("Ingrese usuario y contrasenia");
 		}
 		
 
@@ -32,7 +32,7 @@ public class ManejadorDeUsuarios {
 			Usuario usuario =  EntityManagerHelper.obtenerUsuario(username);
 
 			if(!usuario.getPassword().equals(password))
-				throw new Exception("Contraseña incorrecta.");
+				throw new Exception("Contrasenia incorrecta.");
 			else
 				return usuario;
 		}
@@ -52,6 +52,10 @@ public class ManejadorDeUsuarios {
 		
 		EntityManagerHelper.persistir(new UsuarioTerminal("pepe","argento",disp));
 		EntityManagerHelper.persistir(new UsuarioAdmin("admin", "w23e"));
+	}
+
+	public Usuario getUsuario(String username) {
+		return EntityManagerHelper.obtenerUsuario(username);
 	}
 
 }

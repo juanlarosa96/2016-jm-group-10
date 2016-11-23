@@ -7,6 +7,7 @@ import java.util.Map;
 
 import pois.Banco;
 import pois.POI;
+import server.Router;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -20,56 +21,107 @@ public class LoginController {
 		return new ModelAndView(null, "login/login.hbs");
 	}
 
-	public static ModelAndView loginUsuario(Request req, Response res){
+	public static Void loginUsuario(Request req, Response res) {
+
 		ManejadorDeUsuarios repoUsuarios = ManejadorDeUsuarios.getInstance();
 		String body = req.body();
 		String[] params = body.split("&");
-		
-		String username; 
+
+		String username;
 		String password;
-		
-		if(params[0].split("=").length < 2)
-			username="";
+
+		if (params[0].split("=").length < 2)
+			username = "";
 		else
-			username= params[0].split("=")[1];
-		
-		if(params[1].split("=").length < 2)
-			password="";
+			username = params[0].split("=")[1];
+
+		if (params[1].split("=").length < 2)
+			password = "";
 		else
 			password = params[1].split("=")[1];
-		
+
 		try {
 			Usuario usuario = repoUsuarios.loginOK(username, password);
+			
+			Router.iniciarSesion(req.session().id(), usuario);
 
 			if (usuario.esAdmin()) {
 				Map<String, Usuario> model = new HashMap<>();
 
 				model.put("usuario", usuario);
-				
-				return new ModelAndView(model, "admin/seleccionarPantallaAdmin.hbs");
+
+				res.redirect("/admin/");
+
 			}
 
-			else{
-				
+			else {
+
 				UsuarioTerminal usuarioTerminal = (UsuarioTerminal) usuario;
 				String idTerminal = usuarioTerminal.getDispositivo().getId().toString();
-				
+
 				Map<String, List<POI>> model = new HashMap<>();
-				
-				List<POI> pois = new ArrayList<POI>();				
+
+				List<POI> pois = new ArrayList<POI>();
 				model.put("pois", pois);
-				
+
 				List<POI> poiConIDTerminalComoNombre = new ArrayList<POI>();
-				poiConIDTerminalComoNombre.add(new Banco(null,idTerminal,null,null));
-				model.put("terminales", poiConIDTerminalComoNombre);				
-				
-				return new ModelAndView(model, "terminal/buscarPois.hbs");
-				}
+				poiConIDTerminalComoNombre.add(new Banco(null, idTerminal, null, null));
+				model.put("terminales", poiConIDTerminalComoNombre);
+
+				res.redirect("/terminal/");
+			}
 
 		} catch (Exception e) {
-			Map<String, String> model = new HashMap<>();
-			model.put("excepcion", e.getMessage());
-			return new ModelAndView(model, "login/loginerror.hbs");
+
+			res.redirect("/loginerror/"+e.getMessage());
 		}
+		
+		return null;
 	}
+
+	public static ModelAndView homeAdmin(Request req, Response res) {
+
+		Map<String, Usuario> model = new HashMap<>();
+
+		Usuario usuario = Router.getUsuarioDeSesion(req.session().id());
+		
+		model.put("usuario", usuario);
+
+		return new ModelAndView(model, "admin/seleccionarPantallaAdmin.hbs");
+	}
+
+	public static ModelAndView homeTerminal(Request req, Response res) {
+
+		Usuario usuario = Router.getUsuarioDeSesion(req.session().id());
+
+		UsuarioTerminal usuarioTerminal = (UsuarioTerminal) usuario;
+		
+		String idTerminal = usuarioTerminal.getDispositivo().getId().toString();
+
+		Map<String, List<POI>> model = new HashMap<>();
+
+		List<POI> pois = new ArrayList<POI>();
+		model.put("pois", pois);
+
+		List<POI> poiConIDTerminalComoNombre = new ArrayList<POI>();
+		poiConIDTerminalComoNombre.add(new Banco(null, idTerminal, null, null));
+		model.put("terminales", poiConIDTerminalComoNombre);
+		
+		return new ModelAndView(model, "terminal/buscarPois.hbs");
+
+	}
+
+	public static ModelAndView loginError(Request req, Response res) {
+		
+		String mensajeEnCodigo = req.params("mensaje");
+		
+		String mensaje = mensajeEnCodigo.replace("%20", " ");
+		
+		Map<String, String> model = new HashMap<>();
+		
+		model.put("excepcion",mensaje);
+
+		return new ModelAndView(model, "login/loginerror.hbs");
+	}
+
 }
