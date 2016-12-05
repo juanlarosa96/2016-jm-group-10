@@ -25,14 +25,14 @@ public class ManejadorDeUsuarios {
 		
 
 		else if (!EntityManagerHelper.existeUsuario(username)) {
-			throw new Exception("Usuario inexistente.");
+			throw new Exception("El usuario y contrasenia ingresados son incorrectos");
 		}
 
 		else {
 			Usuario usuario =  EntityManagerHelper.obtenerUsuario(username);
 
 			if(!usuario.getPassword().equals(password))
-				throw new Exception("Contrasenia incorrecta.");
+				throw new Exception("El usuario y contrasenia ingresados son incorrectos");
 			else
 				return usuario;
 		}
